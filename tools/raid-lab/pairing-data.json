@@ -1,0 +1,8913 @@
+{
+  "version": 2,
+  "checked_at": "2026-09-11",
+  "weight_origin": "Local proposal preferences; not damage multipliers.",
+  "units": {
+    "2b": {
+      "name": "2B",
+      "unit_id": "2B",
+      "favorite_min": 0
+    },
+    "a2": {
+      "name": "A2",
+      "unit_id": "A2",
+      "favorite_min": 0
+    },
+    "ada-wong": {
+      "name": "Ada Wong",
+      "unit_id": "에이다",
+      "favorite_min": 0
+    },
+    "ade": {
+      "name": "Ade",
+      "unit_id": "에이드",
+      "favorite_min": 0
+    },
+    "ade-agent-bunny": {
+      "name": "Ade: Agent Bunny",
+      "unit_id": "에이드 : 에이전트 바니",
+      "favorite_min": 0
+    },
+    "admi": {
+      "name": "Admi",
+      "unit_id": "애드미",
+      "favorite_min": 0
+    },
+    "aigis": {
+      "name": "Aigis",
+      "unit_id": "아이기스",
+      "favorite_min": 0
+    },
+    "alice": {
+      "name": "Alice",
+      "unit_id": "앨리스",
+      "favorite_min": 0
+    },
+    "alice-wonderland-bunny": {
+      "name": "Alice: Wonderland Bunny",
+      "unit_id": "앨리스 : 원더랜드 바니",
+      "favorite_min": 0
+    },
+    "anchor": {
+      "name": "Anchor",
+      "unit_id": "앵커",
+      "favorite_min": 0
+    },
+    "anchor-innocent-maid": {
+      "name": "Anchor: Innocent Maid",
+      "unit_id": "앵커 : 이노센트 메이드",
+      "favorite_min": 0
+    },
+    "anis": {
+      "name": "Anis",
+      "unit_id": "아니스",
+      "favorite_min": 0
+    },
+    "sparkling-summer-anis": {
+      "name": "Anis: Sparkling Summer",
+      "unit_id": "아니스 : 스파클링 서머",
+      "favorite_min": 0
+    },
+    "anis-star": {
+      "name": "Anis: Star",
+      "unit_id": "아니스 : 스타",
+      "favorite_min": 0
+    },
+    "miracle-fairy-anne": {
+      "name": "Anne: Miracle Fairy",
+      "unit_id": "앤 : 미라클 페어리",
+      "favorite_min": 0
+    },
+    "arcana": {
+      "name": "Arcana",
+      "unit_id": "아르카나",
+      "favorite_min": 0
+    },
+    "arcana-fortune-mate": {
+      "name": "Arcana: Fortune Mate",
+      "unit_id": "아르카나 : 포츈 메이트",
+      "favorite_min": 0
+    },
+    "aria": {
+      "name": "Aria",
+      "unit_id": "아리아",
+      "favorite_min": 0
+    },
+    "ark-ranger-black": {
+      "name": "Ark Ranger Black",
+      "unit_id": "아크레인저 블랙",
+      "favorite_min": 0
+    },
+    "asuka-shikinami-langley": {
+      "name": "Asuka Shikinami Langley",
+      "unit_id": "아스카",
+      "favorite_min": 0
+    },
+    "asuka-shikinami-langley-wille": {
+      "name": "Asuka Shikinami Langley: Wille",
+      "unit_id": "아스카 : WILLE",
+      "favorite_min": 0
+    },
+    "avistar": {
+      "name": "Avistar",
+      "unit_id": "아비스타",
+      "favorite_min": 0
+    },
+    "bay": {
+      "name": "Bay",
+      "unit_id": "베이",
+      "favorite_min": 0
+    },
+    "bay-treasure": {
+      "name": "Bay (Treasure)",
+      "unit_id": "베이",
+      "favorite_min": 1
+    },
+    "belorta": {
+      "name": "Belorta",
+      "unit_id": "벨로타",
+      "favorite_min": 0
+    },
+    "biscuit": {
+      "name": "Biscuit",
+      "unit_id": "비스킷",
+      "favorite_min": 0
+    },
+    "blanc": {
+      "name": "Blanc",
+      "unit_id": "블랑",
+      "favorite_min": 0
+    },
+    "bready": {
+      "name": "Bready",
+      "unit_id": "브래디",
+      "favorite_min": 0
+    },
+    "brid": {
+      "name": "Brid",
+      "unit_id": "브리드",
+      "favorite_min": 0
+    },
+    "brid-silent-track": {
+      "name": "Brid: Silent Track",
+      "unit_id": "브리드 : 사일런트 트랙",
+      "favorite_min": 0
+    },
+    "centi": {
+      "name": "Centi",
+      "unit_id": "센티",
+      "favorite_min": 0
+    },
+    "centi-treasure": {
+      "name": "Centi (Treasure)",
+      "unit_id": "센티",
+      "favorite_min": 1
+    },
+    "chime": {
+      "name": "Chime",
+      "unit_id": "차임",
+      "favorite_min": 0
+    },
+    "chisato-nishikigi": {
+      "name": "Chisato Nishikigi",
+      "unit_id": "치사토",
+      "favorite_min": 0
+    },
+    "cinderella": {
+      "name": "Cinderella",
+      "unit_id": "신데렐라",
+      "favorite_min": 0
+    },
+    "cinderella-crystal-wave": {
+      "name": "Cinderella: Crystal Wave",
+      "unit_id": "신데렐라 : 크리스탈 웨이브",
+      "favorite_min": 0
+    },
+    "claire-redfield": {
+      "name": "Claire Redfield",
+      "unit_id": "클레어",
+      "favorite_min": 0
+    },
+    "clay": {
+      "name": "Clay",
+      "unit_id": "클레이",
+      "favorite_min": 0
+    },
+    "cocoa": {
+      "name": "Cocoa",
+      "unit_id": "코코아",
+      "favorite_min": 0
+    },
+    "crow": {
+      "name": "Crow",
+      "unit_id": "크로우",
+      "favorite_min": 0
+    },
+    "crown": {
+      "name": "Crown",
+      "unit_id": "크라운",
+      "favorite_min": 0
+    },
+    "crust": {
+      "name": "Crust",
+      "unit_id": "크러스트",
+      "favorite_min": 0
+    },
+    "d": {
+      "name": "D",
+      "unit_id": "D",
+      "favorite_min": 0
+    },
+    "d-killer-wife": {
+      "name": "D: Killer Wife",
+      "unit_id": "D : 킬러 와이프",
+      "favorite_min": 0
+    },
+    "delta": {
+      "name": "Delta",
+      "unit_id": "델타",
+      "favorite_min": 0
+    },
+    "delta-ninja-thief": {
+      "name": "Delta: Ninja Thief",
+      "unit_id": "델타 : 닌자 시프",
+      "favorite_min": 0
+    },
+    "diesel": {
+      "name": "Diesel",
+      "unit_id": "디젤",
+      "favorite_min": 0
+    },
+    "diesel-treasure": {
+      "name": "Diesel (Treasure)",
+      "unit_id": "디젤",
+      "favorite_min": 1
+    },
+    "diesel-winter-sweets": {
+      "name": "Diesel: Winter Sweets",
+      "unit_id": "디젤 : 윈터 스위츠",
+      "favorite_min": 0
+    },
+    "dolla": {
+      "name": "Dolla",
+      "unit_id": "도라",
+      "favorite_min": 0
+    },
+    "dorothy": {
+      "name": "Dorothy",
+      "unit_id": "도로시",
+      "favorite_min": 0
+    },
+    "dorothy-serendipity": {
+      "name": "Dorothy: Serendipity",
+      "unit_id": "도로시 : 세렌디피티",
+      "favorite_min": 0
+    },
+    "drake": {
+      "name": "Drake",
+      "unit_id": "드레이크",
+      "favorite_min": 0
+    },
+    "drake-treasure": {
+      "name": "Drake (Treasure)",
+      "unit_id": "드레이크",
+      "favorite_min": 1
+    },
+    "drake-great-villain": {
+      "name": "Drake: Great Villain",
+      "unit_id": "드레이크 : 그레이트 빌런",
+      "favorite_min": 0
+    },
+    "e-h": {
+      "name": "E.H.",
+      "unit_id": "E.H.",
+      "favorite_min": 0
+    },
+    "ein": {
+      "name": "Ein",
+      "unit_id": "아인",
+      "favorite_min": 0
+    },
+    "elegg": {
+      "name": "Elegg",
+      "unit_id": "일레그",
+      "favorite_min": 0
+    },
+    "elegg-boom-and-shock": {
+      "name": "Elegg: Boom and Shock",
+      "unit_id": "일레그 : 붐 앤 쇼크",
+      "favorite_min": 0
+    },
+    "emilia": {
+      "name": "Emilia",
+      "unit_id": "에밀리아",
+      "favorite_min": 0
+    },
+    "emma": {
+      "name": "Emma",
+      "unit_id": "엠마",
+      "favorite_min": 0
+    },
+    "emma-tactical-upgrade": {
+      "name": "Emma: Tactical Upgrade",
+      "unit_id": "엠마 : 택티컬 업",
+      "favorite_min": 0
+    },
+    "epinel": {
+      "name": "Epinel",
+      "unit_id": "에피넬",
+      "favorite_min": 0
+    },
+    "ether": {
+      "name": "Ether",
+      "unit_id": "에테르",
+      "favorite_min": 0
+    },
+    "eunhwa": {
+      "name": "Eunhwa",
+      "unit_id": "은화",
+      "favorite_min": 0
+    },
+    "eunhwa-tactical-upgrade": {
+      "name": "Eunhwa: Tactical Upgrade",
+      "unit_id": "은화 : 택티컬 업",
+      "favorite_min": 0
+    },
+    "eve": {
+      "name": "Eve",
+      "unit_id": "이브",
+      "favorite_min": 0
+    },
+    "exia": {
+      "name": "Exia",
+      "unit_id": "엑시아",
+      "favorite_min": 0
+    },
+    "exia-treasure": {
+      "name": "Exia (Treasure)",
+      "unit_id": "엑시아",
+      "favorite_min": 1
+    },
+    "flora": {
+      "name": "Flora",
+      "unit_id": "플로라",
+      "favorite_min": 0
+    },
+    "flora-treasure": {
+      "name": "Flora (Treasure)",
+      "unit_id": "플로라",
+      "favorite_min": 1
+    },
+    "folkwang": {
+      "name": "Folkwang",
+      "unit_id": "폴크방",
+      "favorite_min": 0
+    },
+    "frima-treasure": {
+      "name": "Frima (Treasure)",
+      "unit_id": "프림",
+      "favorite_min": 1
+    },
+    "grave": {
+      "name": "Grave",
+      "unit_id": "그레이브",
+      "favorite_min": 0
+    },
+    "guillotine": {
+      "name": "Guillotine",
+      "unit_id": "길로틴",
+      "favorite_min": 0
+    },
+    "guillotine-winter-slayer": {
+      "name": "Guillotine: Winter Slayer",
+      "unit_id": "길로틴 : 윈터 슬레이어",
+      "favorite_min": 0
+    },
+    "guilty": {
+      "name": "Guilty",
+      "unit_id": "길티",
+      "favorite_min": 0
+    },
+    "harran": {
+      "name": "Harran",
+      "unit_id": "하란",
+      "favorite_min": 0
+    },
+    "helm": {
+      "name": "Helm",
+      "unit_id": "헬름",
+      "favorite_min": 0
+    },
+    "helm-treasure": {
+      "name": "Helm (Treasure)",
+      "unit_id": "헬름",
+      "favorite_min": 1
+    },
+    "aqua-marine-helm": {
+      "name": "Helm: Aquamarine",
+      "unit_id": "헬름 : 아쿠아마린",
+      "favorite_min": 0
+    },
+    "himeno": {
+      "name": "Himeno",
+      "unit_id": "히메노",
+      "favorite_min": 0
+    },
+    "isabel": {
+      "name": "Isabel",
+      "unit_id": "이사벨",
+      "favorite_min": 0
+    },
+    "jackal": {
+      "name": "Jackal",
+      "unit_id": "자칼",
+      "favorite_min": 0
+    },
+    "jill-valentine": {
+      "name": "Jill Valentine",
+      "unit_id": "질",
+      "favorite_min": 0
+    },
+    "julia": {
+      "name": "Julia",
+      "unit_id": "율리아",
+      "favorite_min": 0
+    },
+    "julia-treasure": {
+      "name": "Julia (Treasure)",
+      "unit_id": "율리아",
+      "favorite_min": 1
+    },
+    "k": {
+      "name": "K",
+      "unit_id": "K",
+      "favorite_min": 0
+    },
+    "kilo": {
+      "name": "Kilo",
+      "unit_id": "킬로",
+      "favorite_min": 0
+    },
+    "kurumi": {
+      "name": "Kurumi",
+      "unit_id": "쿠루미",
+      "favorite_min": 0
+    },
+    "label": {
+      "name": "Label",
+      "unit_id": "레이블",
+      "favorite_min": 0
+    },
+    "laplace": {
+      "name": "Laplace",
+      "unit_id": "라플라스",
+      "favorite_min": 0
+    },
+    "laplace-treasure": {
+      "name": "Laplace (Treasure)",
+      "unit_id": "라플라스",
+      "favorite_min": 1
+    },
+    "laplace-ultimate-hero": {
+      "name": "Laplace: Ultimate Hero",
+      "unit_id": "라플라스 : 얼티밋 히어로",
+      "favorite_min": 0
+    },
+    "leona": {
+      "name": "Leona",
+      "unit_id": "레오나",
+      "favorite_min": 0
+    },
+    "liberalio": {
+      "name": "Liberalio",
+      "unit_id": "리버렐리오",
+      "favorite_min": 0
+    },
+    "lily": {
+      "name": "Lily",
+      "unit_id": "릴리",
+      "favorite_min": 0
+    },
+    "liter": {
+      "name": "Liter",
+      "unit_id": "리타",
+      "favorite_min": 0
+    },
+    "ludmilla": {
+      "name": "Ludmilla",
+      "unit_id": "루드밀라",
+      "favorite_min": 0
+    },
+    "ludmilla-winter-owner": {
+      "name": "Ludmilla: Winter Owner",
+      "unit_id": "루드밀라 : 윈터 오너",
+      "favorite_min": 0
+    },
+    "maiden": {
+      "name": "Maiden",
+      "unit_id": "메이든",
+      "favorite_min": 0
+    },
+    "maiden-ice-rose": {
+      "name": "Maiden: Ice Rose",
+      "unit_id": "메이든 : 아이스 로즈",
+      "favorite_min": 0
+    },
+    "makima": {
+      "name": "Makima",
+      "unit_id": "마키마",
+      "favorite_min": 0
+    },
+    "mana": {
+      "name": "Mana",
+      "unit_id": "마나",
+      "favorite_min": 0
+    },
+    "marciana": {
+      "name": "Marciana",
+      "unit_id": "마르차나",
+      "favorite_min": 0
+    },
+    "marciana-marine-study": {
+      "name": "Marciana: Marine Study",
+      "unit_id": "마르차나 : 마린 스터디",
+      "favorite_min": 0
+    },
+    "mari-makinami-illustrious": {
+      "name": "Mari Makinami Illustrious",
+      "unit_id": "마리",
+      "favorite_min": 0
+    },
+    "mary": {
+      "name": "Mary",
+      "unit_id": "메어리",
+      "favorite_min": 0
+    },
+    "bay-goddess-mary": {
+      "name": "Mary: Bay Goddess",
+      "unit_id": "메어리 : 베이 갓데스",
+      "favorite_min": 0
+    },
+    "mast": {
+      "name": "Mast",
+      "unit_id": "마스트",
+      "favorite_min": 0
+    },
+    "mast-romantic-maid": {
+      "name": "Mast: Romantic Maid",
+      "unit_id": "마스트 : 로망틱 메이드",
+      "favorite_min": 0
+    },
+    "maxwell": {
+      "name": "Maxwell",
+      "unit_id": "맥스웰",
+      "favorite_min": 0
+    },
+    "maxwell-ordinary-mechanic": {
+      "name": "Maxwell: Ordinary Mechanic",
+      "unit_id": "맥스웰 : 오디너리 미케닉",
+      "favorite_min": 0
+    },
+    "mica": {
+      "name": "Mica",
+      "unit_id": "미카",
+      "favorite_min": 0
+    },
+    "mica-snow-buddy": {
+      "name": "Mica: Snow Buddy",
+      "unit_id": "미카 : 스노우 버디",
+      "favorite_min": 0
+    },
+    "mihara": {
+      "name": "Mihara",
+      "unit_id": "미하라",
+      "favorite_min": 0
+    },
+    "mihara-bonding-chain": {
+      "name": "Mihara: Bonding Chain",
+      "unit_id": "미하라 : 본딩 체인",
+      "favorite_min": 0
+    },
+    "milk": {
+      "name": "Milk",
+      "unit_id": "밀크",
+      "favorite_min": 0
+    },
+    "milk-treasure": {
+      "name": "Milk (Treasure)",
+      "unit_id": "밀크",
+      "favorite_min": 1
+    },
+    "milk-blooming-bunny": {
+      "name": "Milk: Blooming Bunny",
+      "unit_id": "밀크 : 블루밍 바니",
+      "favorite_min": 0
+    },
+    "mint": {
+      "name": "Mint",
+      "unit_id": "민트",
+      "favorite_min": 0
+    },
+    "miranda": {
+      "name": "Miranda",
+      "unit_id": "미란다",
+      "favorite_min": 0
+    },
+    "miranda-treasure": {
+      "name": "Miranda (Treasure)",
+      "unit_id": "미란다",
+      "favorite_min": 1
+    },
+    "misato-katsuragi": {
+      "name": "Misato Katsuragi",
+      "unit_id": "미사토",
+      "favorite_min": 0
+    },
+    "modernia": {
+      "name": "Modernia",
+      "unit_id": "모더니아",
+      "favorite_min": 0
+    },
+    "moran": {
+      "name": "Moran",
+      "unit_id": "목단",
+      "favorite_min": 0
+    },
+    "moran-treasure": {
+      "name": "Moran (Treasure)",
+      "unit_id": "목단",
+      "favorite_min": 1
+    },
+    "mori": {
+      "name": "Mori",
+      "unit_id": "모리",
+      "favorite_min": 0
+    },
+    "n102": {
+      "name": "N102",
+      "unit_id": "N102",
+      "favorite_min": 0
+    },
+    "naga": {
+      "name": "Naga",
+      "unit_id": "나가",
+      "favorite_min": 0
+    },
+    "nayuta": {
+      "name": "Nayuta",
+      "unit_id": "나유타",
+      "favorite_min": 0
+    },
+    "neon": {
+      "name": "Neon",
+      "unit_id": "네온",
+      "favorite_min": 0
+    },
+    "blue-ocean-neon": {
+      "name": "Neon: Blue Ocean",
+      "unit_id": "네온 : 블루 오션",
+      "favorite_min": 0
+    },
+    "neon-vision-eye": {
+      "name": "Neon: Vision Eye",
+      "unit_id": "네온 : 비전 아이",
+      "favorite_min": 0
+    },
+    "nero": {
+      "name": "Nero",
+      "unit_id": "네로",
+      "favorite_min": 0
+    },
+    "neve": {
+      "name": "Neve",
+      "unit_id": "네베",
+      "favorite_min": 0
+    },
+    "nihilister": {
+      "name": "Nihilister",
+      "unit_id": "니힐리스타",
+      "favorite_min": 0
+    },
+    "noah": {
+      "name": "Noah",
+      "unit_id": "노아",
+      "favorite_min": 0
+    },
+    "noir": {
+      "name": "Noir",
+      "unit_id": "누아르",
+      "favorite_min": 0
+    },
+    "noise": {
+      "name": "Noise",
+      "unit_id": "노이즈",
+      "favorite_min": 0
+    },
+    "novel": {
+      "name": "Novel",
+      "unit_id": "노벨",
+      "favorite_min": 0
+    },
+    "pascal": {
+      "name": "Pascal",
+      "unit_id": "파스칼",
+      "favorite_min": 0
+    },
+    "pepper": {
+      "name": "Pepper",
+      "unit_id": "페퍼",
+      "favorite_min": 0
+    },
+    "phantom": {
+      "name": "Phantom",
+      "unit_id": "팬텀",
+      "favorite_min": 0
+    },
+    "phantom-treasure": {
+      "name": "Phantom (Treasure)",
+      "unit_id": "팬텀",
+      "favorite_min": 1
+    },
+    "poli": {
+      "name": "Poli",
+      "unit_id": "폴리",
+      "favorite_min": 0
+    },
+    "poli-treasure": {
+      "name": "Poli (Treasure)",
+      "unit_id": "폴리",
+      "favorite_min": 1
+    },
+    "power": {
+      "name": "Power",
+      "unit_id": "파워",
+      "favorite_min": 0
+    },
+    "prika": {
+      "name": "Prika",
+      "unit_id": "프리카",
+      "favorite_min": 0
+    },
+    "privaty": {
+      "name": "Privaty",
+      "unit_id": "프리바티",
+      "favorite_min": 0
+    },
+    "privaty-treasure": {
+      "name": "Privaty (Treasure)",
+      "unit_id": "프리바티",
+      "favorite_min": 1
+    },
+    "privaty-unkind-maid": {
+      "name": "Privaty: Unkind Maid",
+      "unit_id": "프리바티 : 언카인드 메이드",
+      "favorite_min": 0
+    },
+    "product-08": {
+      "name": "Product-08",
+      "unit_id": "프로덕트 08",
+      "favorite_min": 0
+    },
+    "product-12": {
+      "name": "Product-12",
+      "unit_id": "프로덕트 12",
+      "favorite_min": 0
+    },
+    "product-23": {
+      "name": "Product-23",
+      "unit_id": "프로덕트 23",
+      "favorite_min": 0
+    },
+    "queen-makoto": {
+      "name": "Queen (Makoto Niijima)",
+      "unit_id": "퀸(마코토)",
+      "favorite_min": 0
+    },
+    "quency": {
+      "name": "Quency",
+      "unit_id": "퀀시",
+      "favorite_min": 0
+    },
+    "quency-escape-queen": {
+      "name": "Quency: Escape Queen",
+      "unit_id": "퀀시 : 이스케이프 퀸",
+      "favorite_min": 0
+    },
+    "quiry": {
+      "name": "Quiry",
+      "unit_id": "키리",
+      "favorite_min": 0
+    },
+    "ram": {
+      "name": "Ram",
+      "unit_id": "람",
+      "favorite_min": 0
+    },
+    "rapi": {
+      "name": "Rapi",
+      "unit_id": "라피",
+      "favorite_min": 0
+    },
+    "rapi-red-hood": {
+      "name": "Rapi: Red Hood",
+      "unit_id": "라피 : 레드 후드",
+      "favorite_min": 0
+    },
+    "rapunzel": {
+      "name": "Rapunzel",
+      "unit_id": "라푼젤",
+      "favorite_min": 0
+    },
+    "rapunzel-pure-grace": {
+      "name": "Rapunzel: Pure Grace",
+      "unit_id": "라푼젤 : 퓨어 그레이스",
+      "favorite_min": 0
+    },
+    "raven": {
+      "name": "Raven",
+      "unit_id": "레이븐",
+      "favorite_min": 0
+    },
+    "red-hood": {
+      "name": "Red Hood B3",
+      "unit_id": "레드 후드",
+      "favorite_min": 0
+    },
+    "rei": {
+      "name": "Rei",
+      "unit_id": "라이",
+      "favorite_min": 0
+    },
+    "rei-ayanami": {
+      "name": "Rei Ayanami",
+      "unit_id": "레이",
+      "favorite_min": 0
+    },
+    "rei-ayanami-tentative-name": {
+      "name": "Rei Ayanami (Tentative Name)",
+      "unit_id": "레이 (가칭)",
+      "favorite_min": 0
+    },
+    "rem": {
+      "name": "Rem",
+      "unit_id": "렘",
+      "favorite_min": 0
+    },
+    "rosanna": {
+      "name": "Rosanna",
+      "unit_id": "로산나",
+      "favorite_min": 0
+    },
+    "rosanna-treasure": {
+      "name": "Rosanna (Treasure)",
+      "unit_id": "로산나",
+      "favorite_min": 1
+    },
+    "rosanna-chic-ocean": {
+      "name": "Rosanna: Chic Ocean",
+      "unit_id": "로산나 : 시크 오션",
+      "favorite_min": 0
+    },
+    "rouge": {
+      "name": "Rouge",
+      "unit_id": "루주",
+      "favorite_min": 0
+    },
+    "rumani": {
+      "name": "Rumani",
+      "unit_id": "루마니",
+      "favorite_min": 0
+    },
+    "rupee": {
+      "name": "Rupee",
+      "unit_id": "루피",
+      "favorite_min": 0
+    },
+    "winter-shopper-rupee": {
+      "name": "Rupee: Winter Shopper",
+      "unit_id": "루피 : 윈터 쇼퍼",
+      "favorite_min": 0
+    },
+    "sakura": {
+      "name": "Sakura",
+      "unit_id": "사쿠라",
+      "favorite_min": 0
+    },
+    "sakura-suzuhara": {
+      "name": "Sakura Suzuhara",
+      "unit_id": "사쿠라 (SR)",
+      "favorite_min": 0
+    },
+    "sakura-bloom-in-summer": {
+      "name": "Sakura: Bloom in Summer",
+      "unit_id": "사쿠라 : 블룸 인 서머",
+      "favorite_min": 0
+    },
+    "scarlet": {
+      "name": "Scarlet",
+      "unit_id": "홍련",
+      "favorite_min": 0
+    },
+    "scarlet-black-shadow": {
+      "name": "Scarlet: Black Shadow",
+      "unit_id": "홍련 : 흑영",
+      "favorite_min": 0
+    },
+    "signal": {
+      "name": "Signal",
+      "unit_id": "시그널",
+      "favorite_min": 0
+    },
+    "sin": {
+      "name": "Sin",
+      "unit_id": "신",
+      "favorite_min": 0
+    },
+    "siren": {
+      "name": "Siren",
+      "unit_id": "리틀 머메이드",
+      "favorite_min": 0
+    },
+    "snow-crane": {
+      "name": "Snow Crane",
+      "unit_id": "백학",
+      "favorite_min": 0
+    },
+    "snow-white": {
+      "name": "Snow White",
+      "unit_id": "스노우 화이트",
+      "favorite_min": 0
+    },
+    "snow-white-heavy-arms": {
+      "name": "Snow White: Heavy Arms",
+      "unit_id": "스노우 화이트 : 헤비암즈",
+      "favorite_min": 0
+    },
+    "innocent-dayss-snow-white": {
+      "name": "Snow White: Innocent Days",
+      "unit_id": "스노우 화이트 : 이노센트 데이즈",
+      "favorite_min": 0
+    },
+    "soda": {
+      "name": "Soda",
+      "unit_id": "소다",
+      "favorite_min": 0
+    },
+    "soda-twinkling-bunny": {
+      "name": "Soda: Twinkling Bunny",
+      "unit_id": "소다 : 트윙클링 바니",
+      "favorite_min": 0
+    },
+    "soldier-eg": {
+      "name": "Soldier EG",
+      "unit_id": "솔져 E.G.",
+      "favorite_min": 0
+    },
+    "soldier-fa": {
+      "name": "Soldier FA",
+      "unit_id": "솔져 F.A.",
+      "favorite_min": 0
+    },
+    "soldier-ow": {
+      "name": "Soldier OW",
+      "unit_id": "솔져 O.W.",
+      "favorite_min": 0
+    },
+    "soline": {
+      "name": "Soline",
+      "unit_id": "솔린",
+      "favorite_min": 0
+    },
+    "soline-frost-ticket": {
+      "name": "Soline: Frost Ticket",
+      "unit_id": "솔린 : 프로스트 티켓",
+      "favorite_min": 0
+    },
+    "sora": {
+      "name": "Sora",
+      "unit_id": "소라",
+      "favorite_min": 0
+    },
+    "sugar": {
+      "name": "Sugar",
+      "unit_id": "슈가",
+      "favorite_min": 0
+    },
+    "sugar-treasure": {
+      "name": "Sugar (Treasure)",
+      "unit_id": "슈가",
+      "favorite_min": 1
+    },
+    "takina-inoue": {
+      "name": "Takina Inoue",
+      "unit_id": "타키나",
+      "favorite_min": 0
+    },
+    "tia": {
+      "name": "Tia",
+      "unit_id": "티아",
+      "favorite_min": 0
+    },
+    "tove": {
+      "name": "Tove",
+      "unit_id": "토브",
+      "favorite_min": 0
+    },
+    "tove-treasure": {
+      "name": "Tove (Treasure)",
+      "unit_id": "토브",
+      "favorite_min": 1
+    },
+    "trina": {
+      "name": "Trina",
+      "unit_id": "트리나",
+      "favorite_min": 0
+    },
+    "trony": {
+      "name": "Trony",
+      "unit_id": "트로니",
+      "favorite_min": 0
+    },
+    "velvet": {
+      "name": "Velvet",
+      "unit_id": "벨벳",
+      "favorite_min": 0
+    },
+    "vesti": {
+      "name": "Vesti",
+      "unit_id": "베스티",
+      "favorite_min": 0
+    },
+    "vesti-tactical-upgrade": {
+      "name": "Vesti: Tactical Upgrade",
+      "unit_id": "베스티 : 택티컬 업",
+      "favorite_min": 0
+    },
+    "viper": {
+      "name": "Viper",
+      "unit_id": "바이퍼",
+      "favorite_min": 0
+    },
+    "viper-treasure": {
+      "name": "Viper (Treasure)",
+      "unit_id": "바이퍼",
+      "favorite_min": 1
+    },
+    "volume": {
+      "name": "Volume",
+      "unit_id": "볼륨",
+      "favorite_min": 0
+    },
+    "yan": {
+      "name": "Yan",
+      "unit_id": "얀",
+      "favorite_min": 0
+    },
+    "yukiko": {
+      "name": "Yukiko Amagi",
+      "unit_id": "유키코",
+      "favorite_min": 0
+    },
+    "yulha": {
+      "name": "Yulha",
+      "unit_id": "율하",
+      "favorite_min": 0
+    },
+    "yuni": {
+      "name": "Yuni",
+      "unit_id": "유니",
+      "favorite_min": 0
+    },
+    "zwei": {
+      "name": "Zwei",
+      "unit_id": "츠바이",
+      "favorite_min": 0
+    },
+    "zwei-treasure": {
+      "name": "Zwei (Treasure)",
+      "unit_id": "츠바이",
+      "favorite_min": 1
+    },
+    "frima": {
+      "name": "frima",
+      "unit_id": "프림",
+      "favorite_min": 0
+    },
+    "idoll-flower": {
+      "name": "iDoll Flower",
+      "unit_id": "iDoll 플라워",
+      "favorite_min": 0
+    },
+    "idoll-ocean": {
+      "name": "iDoll Ocean",
+      "unit_id": "iDoll 오션",
+      "favorite_min": 0
+    },
+    "idoll-sun": {
+      "name": "iDoll Sun",
+      "unit_id": "iDoll 썬",
+      "favorite_min": 0
+    }
+  },
+  "teams": [
+    {
+      "id": "Team 1",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "modernia",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 2",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 3",
+      "mode": "Campaign",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 4",
+      "mode": "Campaign",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "asuka-shikinami-langley",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 5",
+      "mode": "Campaign",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "asuka-shikinami-langley",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 6",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 7",
+      "mode": "Campaign",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 8",
+      "mode": "Campaign",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 9",
+      "mode": "Campaign",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 10",
+      "mode": "Campaign",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 11",
+      "mode": "Campaign",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 12",
+      "mode": "Campaign",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 13",
+      "mode": "Campaign",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 14",
+      "mode": "Campaign",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 15",
+      "mode": "Campaign",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 16",
+      "mode": "Campaign",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 17",
+      "mode": "Campaign",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 18",
+      "mode": "Campaign",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 19",
+      "mode": "Campaign",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 20",
+      "mode": "Campaign",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 21",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 22",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 23",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "modernia",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 24",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 25",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 26",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 27",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "tia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 28",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 29",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 30",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 31",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 32",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 33",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "modernia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapunzel",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 34",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 35",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 36",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 37",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "milk-blooming-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 38",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 39",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "takina-inoue",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 40",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 41",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 42",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "laplace-ultimate-hero",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "flora-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 43",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rouge",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 44",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rouge",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crust",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "bready",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 45",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 46",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "soldier-fa",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "brid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapunzel",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 47",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "scarlet",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "trina",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 62",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "soldier-eg",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "moran",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "eve",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 67",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "modernia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "soda",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rouge",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 68",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "guillotine",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "flora",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "dolla",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "yan",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 69",
+      "mode": "Surface",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "d",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "guilty",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "epinel",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 70",
+      "mode": "Surface",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "guillotine",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "k",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "isabel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sin",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 71",
+      "mode": "Surface",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "guillotine-winter-slayer",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "phantom",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "quency-escape-queen",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rei",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 72",
+      "mode": "Surface",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "guilty",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "noah",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "d",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "miracle-fairy-anne",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 73",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ludmilla",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "milk",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 74",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "pepper",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "clay",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "signal",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mary",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "soda-twinkling-bunny",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 75",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "dolla",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rouge",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "bready",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "exia",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 76",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "soda",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "elegg-boom-and-shock",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mana",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "elegg",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 77",
+      "mode": "Surface",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "maiden",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "isabel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "guillotine",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "k",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 78",
+      "mode": "Surface",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "quency-escape-queen",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "guillotine-winter-slayer",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rem",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 79",
+      "mode": "Surface",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "diesel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "blue-ocean-neon",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 86",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "d-killer-wife",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 89",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "milk-blooming-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 90",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 91",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B2",
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 92",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B2",
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 93",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 94",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1",
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 95",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 96",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 97",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 98",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 99",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 100",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "takina-inoue",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 101",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B2",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 301",
+      "mode": "Union / Solo Raids",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 302",
+      "mode": "Union / Solo Raids",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "isabel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "arcana",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "flora-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 303",
+      "mode": "Union / Solo Raids",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 304",
+      "mode": "Union / Solo Raids",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 305",
+      "mode": "Anomaly - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "laplace-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 306",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "asuka-shikinami-langley-wille",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 307",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "emilia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 308",
+      "mode": "Union / Solo Raids",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 309",
+      "mode": "Union / Solo Raids",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "miranda-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "rosanna-chic-ocean",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 310",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "miranda-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "grave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 311",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "brid-silent-track",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 312",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "brid-silent-track",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 313",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rei-ayanami",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 314",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "brid-silent-track",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 315",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 316",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "brid-silent-track",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rei-ayanami",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 317",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 318",
+      "mode": "Bossing",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 319",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 320",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rumani",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 321",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "rei-ayanami",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapunzel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "emilia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "laplace-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 322",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 323",
+      "mode": "Union / Solo Raids",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 324",
+      "mode": "Union / Solo Raids",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "volume",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 325",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 326",
+      "mode": "Campaign",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 327",
+      "mode": "Union / Solo Raids",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 328",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "rumani",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "bay",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 329",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "rumani",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "noah",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 330",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "emilia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "noise",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 331",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 332",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "zwei-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 333",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "grave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 334",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "milk-blooming-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 335",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "raven",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 336",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 337",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "brid-silent-track",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 338",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "queen-makoto",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "yukiko",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 339",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 340",
+      "mode": "Union / Solo Raids",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "drake-great-villain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rouge",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "laplace-ultimate-hero",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell-ordinary-mechanic",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "velvet",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 341",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 342",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 343",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "miranda-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "marciana-marine-study",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "raven",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "soline-frost-ticket",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 344",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "eve",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 345",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 501",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 502",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "asuka-shikinami-langley-wille",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 503",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 504",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 505",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "noir",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 506",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "velvet",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 511",
+      "mode": "Anomaly - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 512",
+      "mode": "Anomaly - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 513",
+      "mode": "Anomaly - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "zwei-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "snow-white",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maxwell",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "aqua-marine-helm",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 514",
+      "mode": "Anomaly - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "flora-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 515",
+      "mode": "Anomaly - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "tia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 521",
+      "mode": "Anomaly - Mirror Container",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 522",
+      "mode": "Anomaly - Mirror Container",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 523",
+      "mode": "Anomaly - Mirror Container",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "flora-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 524",
+      "mode": "Anomaly - Mirror Container",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "isabel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "arcana",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 525",
+      "mode": "Anomaly - Mirror Container",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "rosanna-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 526",
+      "mode": "Anomaly - Mirror Container",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 531",
+      "mode": "Anomaly - Harvester",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 532",
+      "mode": "Anomaly - Harvester",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "bready",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 533",
+      "mode": "Anomaly - Harvester",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 534",
+      "mode": "Anomaly - Harvester",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 541",
+      "mode": "Anomaly - Indivilla",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 542",
+      "mode": "Anomaly - Indivilla",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 543",
+      "mode": "Anomaly - Indivilla",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 544",
+      "mode": "Anomaly - Indivilla",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 701",
+      "mode": "Museum - Mother Whale",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "arcana",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "isabel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "flora-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 702",
+      "mode": "Museum - Mother Whale",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 703",
+      "mode": "Museum - Mother Whale",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "rosanna-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 704",
+      "mode": "Museum - Mother Whale",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "takina-inoue",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ein",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 705",
+      "mode": "Museum - Mother Whale",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 706",
+      "mode": "Museum - Black Smith",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "ludmilla-winter-owner",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "elegg-boom-and-shock",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 707",
+      "mode": "Museum - Black Smith",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "tove-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "grave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "dorothy-serendipity",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sugar-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "soline-frost-ticket",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 708",
+      "mode": "Museum - Black Smith",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 709",
+      "mode": "Museum - Black Smith",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "bready",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "phantom-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 710",
+      "mode": "Museum - Black Smith",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "quency-escape-queen",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 711",
+      "mode": "Museum - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "zwei-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "grave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "milk-blooming-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "aqua-marine-helm",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 712",
+      "mode": "Museum - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 713",
+      "mode": "Museum - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella-crystal-wave",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "eve",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 714",
+      "mode": "Museum - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "liter",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "prika",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mint",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 715",
+      "mode": "Museum - Ultra",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "laplace-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "flora-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "takina-inoue",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 405",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "vesti-tactical-upgrade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 406",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "milk-blooming-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "velvet",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 407",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "velvet",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 408",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 409",
+      "mode": "Bossing",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "velvet",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 410",
+      "mode": "Bossing",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 411",
+      "mode": "Bossing",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 412",
+      "mode": "Bossing",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 413",
+      "mode": "Bossing",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 414",
+      "mode": "Bossing",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 415",
+      "mode": "Bossing",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "elegg-boom-and-shock",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 416",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 417",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 418",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 419",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 420",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "soda-twinkling-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "noir",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "drake-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 421",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 422",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 423",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 424",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "nero",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "bay-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 425",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nero",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "biscuit",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 430",
+      "mode": "Bossing",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "anis-star",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "neon-vision-eye",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 351",
+      "mode": "Anomaly - Harvester",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 352",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 353",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B2",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 354",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "miranda-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": null,
+          "role": "B2",
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ada-wong",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 355",
+      "mode": "Union / Solo Raids",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "diesel-winter-sweets",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 356",
+      "mode": "Union / Solo Raids",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B2",
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 357",
+      "mode": "Bossing",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 380",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "moran-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "trina",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "emilia",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 381",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rumani",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "centi",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 382",
+      "mode": "Bossing",
+      "element": "Water",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "snow-white-heavy-arms",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "elegg-boom-and-shock",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 383",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B2",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        }
+      ]
+    },
+    {
+      "id": "Team 384",
+      "mode": "Bossing",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "nayuta",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "liberalio",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "velvet",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 223",
+      "mode": "Bossing",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "2b",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "volume",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 228",
+      "mode": "Campaign",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "blanc",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "a2",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "noir",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 155",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "moran",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sakura",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "guillotine",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 294",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 295",
+      "mode": "Union / Solo Raids",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "asuka-shikinami-langley-wille",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 296",
+      "mode": "Union / Solo Raids",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": "cinderella",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rouge",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "sparkling-summer-anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 297",
+      "mode": "Union / Solo Raids",
+      "element": "Iron",
+      "slots": [
+        {
+          "unit": "miranda-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "raven",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "aqua-marine-helm",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 298",
+      "mode": "Union / Solo Raids",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "siren",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "ade-agent-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rei-ayanami",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mihara-bonding-chain",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 192",
+      "mode": "Bossing",
+      "element": "Electric",
+      "slots": [
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "admi",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 182",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B1-CDR",
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 183",
+      "mode": "Anomaly - Indivilla",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "naga",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "asuka-shikinami-langley",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 184",
+      "mode": "Bossing",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "d-killer-wife",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 185",
+      "mode": "Bossing",
+      "element": "Fire",
+      "slots": [
+        {
+          "unit": "d-killer-wife",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 121",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "alice-wonderland-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "tove",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "leona",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "soda-twinkling-bunny",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "privaty-unkind-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 52",
+      "mode": "Bossing",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "alice",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 53",
+      "mode": "Anomaly - Kraken",
+      "element": "Wind",
+      "slots": [
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "scarlet-black-shadow",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "crown",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 54",
+      "mode": "Tribe Tower",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "d-killer-wife",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "mast-romantic-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi-red-hood",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 55",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "scarlet",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": "laplace-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 56",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "noise",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "rapunzel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 180",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "scarlet",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        },
+        {
+          "unit": "maiden-ice-rose",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 181",
+      "mode": "PVP",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "noise",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anchor-innocent-maid",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "helm-treasure",
+          "role": null,
+          "favorite_min": 3
+        },
+        {
+          "unit": "rapunzel",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "jackal",
+          "role": null,
+          "favorite_min": 0
+        }
+      ]
+    },
+    {
+      "id": "Team 200",
+      "mode": "Campaign",
+      "element": "All",
+      "slots": [
+        {
+          "unit": "n102",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "anis",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": "rapi",
+          "role": null,
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "B3",
+          "favorite_min": 0
+        },
+        {
+          "unit": null,
+          "role": "FLEX",
+          "favorite_min": 0
+        }
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "units": [
+        "crown",
+        "naga"
+      ],
+      "reason": "Shield and healing enable reciprocal buffs.",
+      "weight": 1.25
+    },
+    {
+      "units": [
+        "crown",
+        "rapunzel"
+      ],
+      "reason": "Recovery activates Crown’s healing-dependent buff.",
+      "weight": 0.8
+    },
+    {
+      "units": [
+        "crown",
+        "helm-treasure"
+      ],
+      "reason": "Favorite Item healing and burst generation support Crown.",
+      "weight": 1.1
+    },
+    {
+      "units": [
+        "crown",
+        "alice-wonderland-bunny"
+      ],
+      "reason": "Frequent healing sustains Crown’s recovery-triggered buff.",
+      "weight": 0.95
+    },
+    {
+      "units": [
+        "crown",
+        "mana"
+      ],
+      "reason": "Continuous team recovery enables Crown’s buff.",
+      "weight": 0.9
+    },
+    {
+      "units": [
+        "crown",
+        "anis-star"
+      ],
+      "reason": "Healing during re-entry can enable Crown’s buff.",
+      "weight": 0.7
+    },
+    {
+      "units": [
+        "crown",
+        "alice",
+        "modernia",
+        "ludmilla-winter-owner",
+        "scarlet"
+      ],
+      "reason": "Reload speed increases weapon uptime.",
+      "weight": 0.7
+    },
+    {
+      "units": [
+        "crown",
+        "snow-white",
+        "privaty-unkind-maid",
+        "emilia",
+        "sparkling-summer-anis"
+      ],
+      "reason": "Bursting damage dealers benefit from caster-based ATK.",
+      "weight": 0.6
+    },
+    {
+      "units": [
+        "crown",
+        "nayuta",
+        "mast-romantic-maid"
+      ],
+      "reason": "Additional support can improve a single-team allocation.",
+      "weight": 0.7
+    },
+    {
+      "units": [
+        "siren",
+        "crown",
+        "helm-treasure"
+      ],
+      "reason": "Guide’s general backbone combines damage support and burst generation.",
+      "weight": 0.85
+    },
+    {
+      "units": [
+        "blanc",
+        "noir"
+      ],
+      "reason": "Squad partner reduces Blanc’s burst cooldown.",
+      "weight": 1.35
+    },
+    {
+      "units": [
+        "blanc",
+        "rouge"
+      ],
+      "reason": "Rouge enables Blanc’s squad-dependent cooldown reduction.",
+      "weight": 1.35
+    },
+    {
+      "units": [
+        "tia",
+        "naga"
+      ],
+      "reason": "Cover recovery and shielding enable the duo’s buffs.",
+      "weight": 1.4
+    },
+    {
+      "units": [
+        "tia",
+        "liter",
+        "cocoa"
+      ],
+      "reason": "Cover recovery assists cooldown stacks.",
+      "weight": 0.5
+    },
+    {
+      "units": [
+        "anchor-innocent-maid",
+        "mast-romantic-maid"
+      ],
+      "reason": "Cleanse supports the maid duo’s buff cycle.",
+      "weight": 1.35
+    },
+    {
+      "units": [
+        "bready",
+        "mast-romantic-maid",
+        "anchor-innocent-maid"
+      ],
+      "reason": "Distributed-damage buffs enable Bready’s attack route.",
+      "weight": 1.25
+    },
+    {
+      "units": [
+        "bready",
+        "rosanna-chic-ocean"
+      ],
+      "reason": "Sustained-damage buff enables Bready’s alternate route.",
+      "weight": 0.8
+    },
+    {
+      "units": [
+        "bready",
+        "quency-escape-queen",
+        "ludmilla-winter-owner",
+        "helm-treasure"
+      ],
+      "reason": "Water team partners benefit from burst-generation support.",
+      "weight": 0.45,
+      "element": "Water"
+    },
+    {
+      "units": [
+        "scarlet-black-shadow",
+        "alice"
+      ],
+      "reason": "Charge-speed support increases Scarlet’s attack frequency.",
+      "weight": 1.1
+    },
+    {
+      "units": [
+        "scarlet-black-shadow",
+        "mana"
+      ],
+      "reason": "Charge-speed support provides an alternative to Alice.",
+      "weight": 1.05
+    },
+    {
+      "units": [
+        "scarlet-black-shadow",
+        "liberalio"
+      ],
+      "reason": "Wind damage support complements Scarlet.",
+      "weight": 1.2
+    },
+    {
+      "units": [
+        "nayuta",
+        "siren",
+        "mast-romantic-maid"
+      ],
+      "reason": "Wind-oriented support and damage combination.",
+      "weight": 0.85
+    },
+    {
+      "units": [
+        "velvet",
+        "siren",
+        "nayuta",
+        "scarlet-black-shadow",
+        "liberalio"
+      ],
+      "reason": "Wind team uses Velvet as a supporting B2.",
+      "weight": 0.9,
+      "element": "Wind"
+    },
+    {
+      "units": [
+        "velvet",
+        "alice",
+        "red-hood"
+      ],
+      "reason": "Charge-damage support benefits these damage dealers.",
+      "weight": 0.65
+    },
+    {
+      "units": [
+        "cinderella",
+        "rouge",
+        "sparkling-summer-anis"
+      ],
+      "reason": "HP and Electric support fit Cinderella’s damage scaling.",
+      "weight": 1.0
+    },
+    {
+      "units": [
+        "2b",
+        "mast",
+        "noise",
+        "quency",
+        "novel",
+        "frima",
+        "bay-goddess-mary"
+      ],
+      "reason": "HP, critical, or damage-taken support suits HP-scaled offense.",
+      "weight": 0.75
+    },
+    {
+      "units": [
+        "dorothy",
+        "privaty"
+      ],
+      "reason": "Reduced magazine size supports last-bullet triggers.",
+      "weight": 0.95
+    },
+    {
+      "units": [
+        "sparkling-summer-anis",
+        "privaty"
+      ],
+      "reason": "Magazine reduction and reload support accelerate last-bullet effects.",
+      "weight": 0.9
+    },
+    {
+      "units": [
+        "sparkling-summer-anis",
+        "noir",
+        "liter",
+        "alice-wonderland-bunny"
+      ],
+      "reason": "Extra maximum ammo can delay last-bullet effects.",
+      "weight": -0.8
+    },
+    {
+      "units": [
+        "trina",
+        "scarlet"
+      ],
+      "reason": "Support is particularly suited to Scarlet’s damage profile.",
+      "weight": 1.2
+    },
+    {
+      "units": [
+        "arcana",
+        "isabel"
+      ],
+      "reason": "Arcana’s primary support target is Isabel.",
+      "weight": 1.5
+    },
+    {
+      "units": [
+        "arcana",
+        "tove",
+        "cinderella",
+        "blanc",
+        "rouge"
+      ],
+      "reason": "Secondary options for the Isabel composition.",
+      "weight": 0.55,
+      "requires": [
+        "isabel"
+      ]
+    },
+    {
+      "units": [
+        "arcana",
+        "scarlet",
+        "trina"
+      ],
+      "reason": "Electric variant relies on the Scarlet–Trina pairing.",
+      "weight": 0.5,
+      "requires": [
+        "isabel",
+        "scarlet",
+        "trina"
+      ]
+    },
+    {
+      "units": [
+        "alice-wonderland-bunny",
+        "tove"
+      ],
+      "reason": "Stack support stabilizes Tove’s buffs.",
+      "weight": 1.1
+    },
+    {
+      "units": [
+        "alice-wonderland-bunny",
+        "alice",
+        "modernia",
+        "scarlet"
+      ],
+      "reason": "Ammunition support improves sustained firing.",
+      "weight": 0.55
+    },
+    {
+      "units": [
+        "soda-twinkling-bunny",
+        "tove",
+        "tove-treasure",
+        "alice-wonderland-bunny",
+        "leona",
+        "privaty-unkind-maid"
+      ],
+      "reason": "Shotgun team combines extended Full Burst and specialized buffs.",
+      "weight": 0.95
+    },
+    {
+      "units": [
+        "drake-treasure",
+        "noir",
+        "alice-wonderland-bunny",
+        "tove",
+        "tove-treasure"
+      ],
+      "reason": "Magazine size and ammunition refill support shotgun uptime.",
+      "weight": 0.8
+    },
+    {
+      "units": [
+        "arcana-fortune-mate",
+        "tove",
+        "tove-treasure"
+      ],
+      "reason": "Tove is the shotgun archetype’s core partner.",
+      "weight": 1.15
+    },
+    {
+      "units": [
+        "dorothy-serendipity",
+        "tove",
+        "tove-treasure",
+        "drake-treasure",
+        "noir",
+        "soda-twinkling-bunny",
+        "leona"
+      ],
+      "reason": "Shotgun buffs improve attack frequency and ammunition uptime.",
+      "weight": 0.9
+    },
+    {
+      "units": [
+        "dorothy-serendipity",
+        "grave",
+        "siren",
+        "blanc",
+        "ludmilla-winter-owner",
+        "helm-treasure"
+      ],
+      "reason": "Alternative supports supply pierce, damage taken, or burst generation.",
+      "weight": 0.65
+    },
+    {
+      "units": [
+        "dorothy-serendipity",
+        "mari-makinami-illustrious",
+        "naga"
+      ],
+      "reason": "Core-dependent support route.",
+      "weight": 0.7,
+      "core": true
+    },
+    {
+      "units": [
+        "dorothy-serendipity",
+        "elegg-boom-and-shock",
+        "guillotine-winter-slayer",
+        "bay-goddess-mary"
+      ],
+      "reason": "Water elemental support.",
+      "weight": 0.7,
+      "element": "Water"
+    },
+    {
+      "units": [
+        "sugar-treasure",
+        "dorothy-serendipity",
+        "tove-treasure",
+        "arcana-fortune-mate",
+        "soline-frost-ticket"
+      ],
+      "reason": "Water shotgun alternative with elemental amplification.",
+      "weight": 0.9,
+      "element": "Water"
+    },
+    {
+      "units": [
+        "soline-frost-ticket",
+        "tove",
+        "tove-treasure"
+      ],
+      "reason": "Off-burst cooldown support for the shotgun composition.",
+      "weight": 0.85
+    },
+    {
+      "units": [
+        "asuka-shikinami-langley",
+        "crown"
+      ],
+      "reason": "Shielding helps maintain Asuka’s elemental buff.",
+      "weight": 0.85
+    },
+    {
+      "units": [
+        "asuka-shikinami-langley",
+        "alice",
+        "modernia",
+        "rapi-red-hood"
+      ],
+      "reason": "Fire allies benefit from core-damage support.",
+      "weight": 0.85,
+      "core": true
+    },
+    {
+      "units": [
+        "rapi-red-hood",
+        "rei-ayanami"
+      ],
+      "reason": "Fire support can benefit Rapi’s damage.",
+      "weight": 0.6
+    },
+    {
+      "units": [
+        "rei-ayanami",
+        "alice"
+      ],
+      "reason": "Burst-only damage buff does not overlap Alice’s main damage window.",
+      "weight": -0.35
+    },
+    {
+      "units": [
+        "rei-ayanami-tentative-name",
+        "asuka-shikinami-langley-wille"
+      ],
+      "reason": "Rei enables additional damage and debuff interactions.",
+      "weight": 1.15
+    },
+    {
+      "units": [
+        "rem",
+        "emilia",
+        "scarlet-black-shadow"
+      ],
+      "reason": "Rocket-launcher ATK and ammo support.",
+      "weight": 0.85
+    },
+    {
+      "units": [
+        "ram",
+        "rem",
+        "emilia"
+      ],
+      "reason": "Squad member reduces Ram’s burst cooldown.",
+      "weight": 0.9
+    },
+    {
+      "units": [
+        "ram",
+        "naga"
+      ],
+      "reason": "Individual shield can enable Naga’s buff.",
+      "weight": 0.55,
+      "requires_any": [
+        "rem",
+        "emilia"
+      ]
+    },
+    {
+      "units": [
+        "rosanna-chic-ocean",
+        "sakura-bloom-in-summer"
+      ],
+      "reason": "Sustained-damage support strengthens Sakura’s damage.",
+      "weight": 1.1
+    },
+    {
+      "units": [
+        "rosanna-chic-ocean",
+        "helm"
+      ],
+      "reason": "Healing alternative for sustained-damage teams.",
+      "weight": 0.5
+    },
+    {
+      "units": [
+        "viper-treasure",
+        "leona",
+        "rosanna-chic-ocean"
+      ],
+      "reason": "Phase-three burst re-entry supports these B2 combinations.",
+      "weight": 0.8,
+      "favorite_min": {
+        "viper-treasure": 3
+      }
+    },
+    {
+      "units": [
+        "queen-makoto",
+        "yukiko"
+      ],
+      "reason": "Reciprocal ATK buffs and distributed damage enable the duo.",
+      "weight": 1.2
+    },
+    {
+      "units": [
+        "queen-makoto",
+        "drake-treasure"
+      ],
+      "reason": "Alternative Fire shotgun route.",
+      "weight": 0.75,
+      "element": "Fire"
+    },
+    {
+      "units": [
+        "yukiko",
+        "privaty",
+        "crown",
+        "mast-romantic-maid"
+      ],
+      "reason": "Reload support improves machine-gun uptime.",
+      "weight": 0.65
+    },
+    {
+      "units": [
+        "zwei",
+        "snow-white",
+        "maxwell"
+      ],
+      "reason": "Pierce and charge support suit these burst attacks.",
+      "weight": 0.95
+    },
+    {
+      "units": [
+        "zwei",
+        "red-hood",
+        "alice",
+        "laplace"
+      ],
+      "reason": "Additional pierce damage.",
+      "weight": 0.6
+    },
+    {
+      "units": [
+        "zwei-treasure",
+        "snow-white",
+        "milk-blooming-bunny",
+        "red-hood",
+        "alice",
+        "maxwell"
+      ],
+      "reason": "Favorite Item pierce and critical support.",
+      "weight": 0.95
+    },
+    {
+      "units": [
+        "mana",
+        "nero",
+        "rapunzel"
+      ],
+      "reason": "Recovery and charge-speed interactions.",
+      "weight": 0.6
+    },
+    {
+      "units": [
+        "eve",
+        "mast-romantic-maid",
+        "miranda-treasure",
+        "helm-treasure"
+      ],
+      "reason": "Critical support improves Eve’s damage.",
+      "weight": 0.85
+    },
+    {
+      "units": [
+        "ada-wong",
+        "miranda-treasure"
+      ],
+      "reason": "Guaranteed critical window can improve Ada’s damage.",
+      "weight": 0.8,
+      "assisted": true
+    },
+    {
+      "units": [
+        "ark-ranger-black",
+        "miranda-treasure"
+      ],
+      "reason": "Critical setup is an option with manual timing.",
+      "weight": 0.8,
+      "assisted": true
+    },
+    {
+      "units": [
+        "nayuta",
+        "miranda-treasure"
+      ],
+      "reason": "Critical setup requires appropriate buff targeting and control.",
+      "weight": 0.65,
+      "assisted": true
+    },
+    {
+      "units": [
+        "prika",
+        "mint"
+      ],
+      "reason": "Idol duo provides the intended sustained buff cycle.",
+      "weight": 1.3
+    },
+    {
+      "units": [
+        "vesti-tactical-upgrade",
+        "emma-tactical-upgrade",
+        "eunhwa-tactical-upgrade"
+      ],
+      "reason": "Tactical squad interaction.",
+      "weight": 0.9
+    },
+    {
+      "units": [
+        "flora-treasure",
+        "laplace-treasure",
+        "chisato-nishikigi"
+      ],
+      "reason": "True-damage support route.",
+      "weight": 0.85
+    },
+    {
+      "units": [
+        "takina-inoue",
+        "ein",
+        "ada-wong",
+        "vesti-tactical-upgrade"
+      ],
+      "reason": "True-damage support for the guide’s damage dealers.",
+      "weight": 1.0
+    },
+    {
+      "units": [
+        "diesel-winter-sweets",
+        "raven",
+        "mihara-bonding-chain"
+      ],
+      "reason": "Sustained-damage composition with shared damage-taken support.",
+      "weight": 0.7
+    },
+    {
+      "units": [
+        "diesel-winter-sweets",
+        "liter",
+        "mast-romantic-maid",
+        "anchor-innocent-maid",
+        "crown"
+      ],
+      "reason": "ATK support avoids further diluting sustained-damage buffs.",
+      "weight": 0.7
+    }
+  ],
+  "orders": [
+    {
+      "reason": "Crown bursts ahead of the off-burst Naga; keep Crown in the first position.",
+      "requires": [
+        "crown",
+        "naga"
+      ],
+      "before": [
+        "crown",
+        "naga"
+      ],
+      "position_first": "crown"
+    },
+    {
+      "reason": "Crown receives full-health healing priority from the first position.",
+      "requires": [
+        "crown"
+      ],
+      "position_first": "crown"
+    },
+    {
+      "reason": "Apply maximum-ammo increase before ammunition refill.",
+      "requires": [
+        "drake-treasure",
+        "noir"
+      ],
+      "position_before": [
+        "drake-treasure",
+        "noir"
+      ]
+    },
+    {
+      "reason": "Apply maximum-ammo increase before ammunition refill.",
+      "requires": [
+        "drake-treasure",
+        "alice-wonderland-bunny"
+      ],
+      "position_before": [
+        "drake-treasure",
+        "alice-wonderland-bunny"
+      ]
+    },
+    {
+      "reason": "Prefer Rapunzel as a reserve healer when another B1 can maintain the chain.",
+      "offburst": [
+        "rapunzel"
+      ]
+    },
+    {
+      "reason": "Use Soline as off-burst cooldown support beside the main B1.",
+      "offburst": [
+        "soline-frost-ticket"
+      ]
+    },
+    {
+      "reason": "Privaty can provide her support without taking a damage dealer’s burst.",
+      "offburst": [
+        "privaty"
+      ]
+    },
+    {
+      "reason": "Test the off-burst support role first; allow an invested damage role as an alternative.",
+      "offburst": [
+        "privaty-treasure"
+      ],
+      "flexible": true
+    },
+    {
+      "reason": "Prioritize the off-burst role for single-target bossing when two other B3s are available.",
+      "offburst": [
+        "modernia"
+      ],
+      "mode": "bossing",
+      "flexible": true
+    },
+    {
+      "reason": "Early Favorite phases primarily provide off-burst healing and gauge.",
+      "offburst": [
+        "helm-treasure"
+      ],
+      "favorite_max": {
+        "helm-treasure": 2
+      }
+    },
+    {
+      "reason": "Campaign recommendation uses Takina as an off-burst support.",
+      "offburst": [
+        "takina-inoue"
+      ],
+      "mode": "campaign"
+    },
+    {
+      "reason": "Single-team Wind composition uses Velvet as off-burst B2 support.",
+      "offburst": [
+        "velvet"
+      ],
+      "requires": [
+        "nayuta"
+      ],
+      "element": "Wind",
+      "flexible": true
+    },
+    {
+      "reason": "Prefer Diesel’s damage rotation second.",
+      "second": "diesel-winter-sweets"
+    },
+    {
+      "reason": "Burst Phantom first to apply damage taken early.",
+      "first": "phantom-treasure"
+    },
+    {
+      "reason": "With maids, test Yukiko’s first burst with Mast before Makoto.",
+      "requires": [
+        "queen-makoto",
+        "yukiko",
+        "mast-romantic-maid",
+        "anchor-innocent-maid"
+      ],
+      "before": [
+        "yukiko",
+        "queen-makoto"
+      ],
+      "b2_cycle": [
+        "mast-romantic-maid",
+        "anchor-innocent-maid"
+      ],
+      "flexible": true
+    },
+    {
+      "reason": "With Crown, test Makoto before Yukiko.",
+      "requires": [
+        "queen-makoto",
+        "yukiko",
+        "crown"
+      ],
+      "before": [
+        "queen-makoto",
+        "yukiko"
+      ],
+      "flexible": true
+    },
+    {
+      "reason": "Test alternating maid bursts; the companion B3 determines the better alignment.",
+      "requires": [
+        "mast-romantic-maid",
+        "anchor-innocent-maid"
+      ],
+      "before": [
+        "anchor-innocent-maid",
+        "mast-romantic-maid"
+      ],
+      "flexible": true
+    }
+  ],
+  "dependencies": [
+    {
+      "unit": "blanc",
+      "any_of": [
+        "noir",
+        "rouge"
+      ],
+      "reason": "Prefer a 777 partner for repeatable Blanc bursts."
+    },
+    {
+      "unit": "tia",
+      "any_of": [
+        "naga"
+      ],
+      "reason": "Naga is the guide’s preferred enabler for Tia."
+    },
+    {
+      "unit": "bready",
+      "any_of": [
+        "mast-romantic-maid",
+        "anchor-innocent-maid",
+        "rosanna-chic-ocean"
+      ],
+      "reason": "Bready needs the appropriate damage-type buff."
+    },
+    {
+      "unit": "arcana",
+      "any_of": [
+        "isabel"
+      ],
+      "reason": "Other Arcana recommendations assume Isabel is present."
+    },
+    {
+      "unit": "prika",
+      "any_of": [
+        "mint"
+      ],
+      "reason": "The strongest Prika support route depends on Mint."
+    }
+  ],
+  "coverage": {
+    "mapped_units": 200,
+    "catalog_units": 203,
+    "unmapped_catalog": [
+      "test_B1",
+      "test_B2",
+      "test_B3"
+    ],
+    "team_examples": 216
+  }
+}

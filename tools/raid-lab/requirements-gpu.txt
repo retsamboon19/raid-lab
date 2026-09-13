@@ -1,0 +1,2 @@
+# Optional, isolated installation: python -m pip install --target .gpu-runtime -r requirements-gpu.txt
+wgpu==0.31.1

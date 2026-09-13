@@ -1,0 +1,2245 @@
+{
+  "source_sha256": "D14690756E7E8D24CF13DF50A7DB62A6C932C28E7A759BA6E731FDFCF1E15A5B",
+  "source_tables": [
+    "MuseumStage",
+    "MuseumStageMode",
+    "Monster",
+    "MonsterStatEnhance",
+    "MonsterStageLvChange"
+  ],
+  "scope": "Table-derived base defence and damage-triggered level progression only. Enemy skill/passive modifiers, geometry, buffs and survival remain unverified.",
+  "profiles": {
+    "museum-mother-whale": {
+      "stage_id": 101,
+      "monster_id": 1510011125,
+      "ai": "bt_bba001_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6700103,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6700104,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 15319.0,
+              "monster_level": 250,
+              "record_id": 230250,
+              "level_change_id": 10010001
+            },
+            {
+              "after_damage": 1761707032,
+              "enemy_def": 19064.0,
+              "monster_level": 290,
+              "record_id": 230290,
+              "level_change_id": 10010002
+            },
+            {
+              "after_damage": 3517224957,
+              "enemy_def": 23240.0,
+              "monster_level": 330,
+              "record_id": 230330,
+              "level_change_id": 10010003
+            },
+            {
+              "after_damage": 5265841492,
+              "enemy_def": 28155.0,
+              "monster_level": 370,
+              "record_id": 230370,
+              "level_change_id": 10010004
+            },
+            {
+              "after_damage": 7006335342,
+              "enemy_def": 33897.0,
+              "monster_level": 410,
+              "record_id": 230410,
+              "level_change_id": 10010005
+            },
+            {
+              "after_damage": 8737339781,
+              "enemy_def": 40535.0,
+              "monster_level": 450,
+              "record_id": 230450,
+              "level_change_id": 10010006
+            },
+            {
+              "after_damage": 10457374051,
+              "enemy_def": 48190.0,
+              "monster_level": 490,
+              "record_id": 230490,
+              "level_change_id": 10010007
+            },
+            {
+              "after_damage": 12164757426,
+              "enemy_def": 56966.0,
+              "monster_level": 530,
+              "record_id": 230530,
+              "level_change_id": 10010008
+            },
+            {
+              "after_damage": 13857637304,
+              "enemy_def": 66966.0,
+              "monster_level": 570,
+              "record_id": 230570,
+              "level_change_id": 10010009
+            },
+            {
+              "after_damage": 15533990866,
+              "enemy_def": 88651.0,
+              "monster_level": 610,
+              "record_id": 230610,
+              "level_change_id": 10010010
+            },
+            {
+              "after_damage": 17174507110,
+              "enemy_def": 101511.0,
+              "monster_level": 650,
+              "record_id": 230650,
+              "level_change_id": 10010011
+            },
+            {
+              "after_damage": 18973688666,
+              "enemy_def": 116032.0,
+              "monster_level": 690,
+              "record_id": 230690,
+              "level_change_id": 10010012
+            },
+            {
+              "after_damage": 20746205928,
+              "enemy_def": 132380.0,
+              "monster_level": 730,
+              "record_id": 230730,
+              "level_change_id": 10010013
+            },
+            {
+              "after_damage": 22488704053,
+              "enemy_def": 150741.0,
+              "monster_level": 770,
+              "record_id": 230770,
+              "level_change_id": 10010014
+            },
+            {
+              "after_damage": 24197486656,
+              "enemy_def": 171308.0,
+              "monster_level": 810,
+              "record_id": 230810,
+              "level_change_id": 10010015
+            },
+            {
+              "after_damage": 25868502952,
+              "enemy_def": 194335.0,
+              "monster_level": 850,
+              "record_id": 230850,
+              "level_change_id": 10010016
+            },
+            {
+              "after_damage": 27497235748,
+              "enemy_def": 221993.0,
+              "monster_level": 900,
+              "record_id": 230900,
+              "level_change_id": 10010017
+            },
+            {
+              "after_damage": 29075181336,
+              "enemy_def": 264311.0,
+              "monster_level": 950,
+              "record_id": 230950,
+              "level_change_id": 10010018
+            },
+            {
+              "after_damage": 30575420183,
+              "enemy_def": 300158.0,
+              "monster_level": 1000,
+              "record_id": 231000,
+              "level_change_id": 10010019
+            },
+            {
+              "after_damage": 32009834709,
+              "enemy_def": 355872.0,
+              "monster_level": 1050,
+              "record_id": 231050,
+              "level_change_id": 10010020
+            },
+            {
+              "after_damage": 34801194562,
+              "enemy_def": 402205.0,
+              "monster_level": 1100,
+              "record_id": 231100,
+              "level_change_id": 10010021
+            },
+            {
+              "after_damage": 37414275509,
+              "enemy_def": 475031.0,
+              "monster_level": 1150,
+              "record_id": 231150,
+              "level_change_id": 10010022
+            },
+            {
+              "after_damage": 39747138476,
+              "enemy_def": 534595.0,
+              "monster_level": 1200,
+              "record_id": 231200,
+              "level_change_id": 10010023
+            },
+            {
+              "after_damage": 43907813309,
+              "enemy_def": 593958.0,
+              "monster_level": 1225,
+              "record_id": 231225,
+              "level_change_id": 10010024
+            },
+            {
+              "after_damage": 47849577485,
+              "enemy_def": 629381.0,
+              "monster_level": 1250,
+              "record_id": 231250,
+              "level_change_id": 10010025
+            },
+            {
+              "after_damage": 51791341660,
+              "enemy_def": 666651.0,
+              "monster_level": 1275,
+              "record_id": 231275,
+              "level_change_id": 10010026
+            },
+            {
+              "after_damage": 55733105835,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10010027
+            },
+            {
+              "after_damage": 59674870010,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10010028
+            }
+          ]
+        }
+      }
+    },
+    "museum-blacksmith": {
+      "stage_id": 102,
+      "monster_id": 1520031115,
+      "ai": "bt_bbg003_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6700203,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6700204,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 31784.0,
+              "monster_level": 400,
+              "record_id": 230400,
+              "level_change_id": 10020001
+            },
+            {
+              "after_damage": 1714279174,
+              "enemy_def": 37104.0,
+              "monster_level": 430,
+              "record_id": 230430,
+              "level_change_id": 10020002
+            },
+            {
+              "after_damage": 3422535862,
+              "enemy_def": 41564.0,
+              "monster_level": 460,
+              "record_id": 230460,
+              "level_change_id": 10020003
+            },
+            {
+              "after_damage": 5124076955,
+              "enemy_def": 48190.0,
+              "monster_level": 490,
+              "record_id": 230490,
+              "level_change_id": 10020004
+            },
+            {
+              "after_damage": 6817714039,
+              "enemy_def": 53552.0,
+              "monster_level": 520,
+              "record_id": 230520,
+              "level_change_id": 10020005
+            },
+            {
+              "after_damage": 8502117182,
+              "enemy_def": 61819.0,
+              "monster_level": 550,
+              "record_id": 230550,
+              "level_change_id": 10020006
+            },
+            {
+              "after_damage": 10175845489,
+              "enemy_def": 68248.0,
+              "monster_level": 580,
+              "record_id": 230580,
+              "level_change_id": 10020007
+            },
+            {
+              "after_damage": 11837263482,
+              "enemy_def": 88651.0,
+              "monster_level": 610,
+              "record_id": 230610,
+              "level_change_id": 10020008
+            },
+            {
+              "after_damage": 13484568435,
+              "enemy_def": 96251.0,
+              "monster_level": 640,
+              "record_id": 230640,
+              "level_change_id": 10020009
+            },
+            {
+              "after_damage": 15115791986,
+              "enemy_def": 108570.0,
+              "monster_level": 670,
+              "record_id": 230670,
+              "level_change_id": 10020010
+            },
+            {
+              "after_damage": 16712143014,
+              "enemy_def": 117558.0,
+              "monster_level": 700,
+              "record_id": 230700,
+              "level_change_id": 10020011
+            },
+            {
+              "after_damage": 18462887841,
+              "enemy_def": 132380.0,
+              "monster_level": 730,
+              "record_id": 230730,
+              "level_change_id": 10020012
+            },
+            {
+              "after_damage": 20187686217,
+              "enemy_def": 142909.0,
+              "monster_level": 760,
+              "record_id": 230760,
+              "level_change_id": 10020013
+            },
+            {
+              "after_damage": 21883273618,
+              "enemy_def": 162434.0,
+              "monster_level": 800,
+              "record_id": 230800,
+              "level_change_id": 10020014
+            },
+            {
+              "after_damage": 23546053169,
+              "enemy_def": 184292.0,
+              "monster_level": 840,
+              "record_id": 230840,
+              "level_change_id": 10020015
+            },
+            {
+              "after_damage": 25172083142,
+              "enemy_def": 208707.0,
+              "monster_level": 880,
+              "record_id": 230880,
+              "level_change_id": 10020016
+            },
+            {
+              "after_damage": 26756967951,
+              "enemy_def": 235955.0,
+              "monster_level": 920,
+              "record_id": 230920,
+              "level_change_id": 10020017
+            },
+            {
+              "after_damage": 28292432822,
+              "enemy_def": 266341.0,
+              "monster_level": 960,
+              "record_id": 230960,
+              "level_change_id": 10020018
+            },
+            {
+              "after_damage": 29752282935,
+              "enemy_def": 300158.0,
+              "monster_level": 1000,
+              "record_id": 231000,
+              "level_change_id": 10020019
+            },
+            {
+              "after_damage": 31148080820,
+              "enemy_def": 355872.0,
+              "monster_level": 1050,
+              "record_id": 231050,
+              "level_change_id": 10020020
+            },
+            {
+              "after_damage": 33864292981,
+              "enemy_def": 402205.0,
+              "monster_level": 1100,
+              "record_id": 231100,
+              "level_change_id": 10020021
+            },
+            {
+              "after_damage": 36407025778,
+              "enemy_def": 475031.0,
+              "monster_level": 1150,
+              "record_id": 231150,
+              "level_change_id": 10020022
+            },
+            {
+              "after_damage": 38677084493,
+              "enemy_def": 534595.0,
+              "monster_level": 1200,
+              "record_id": 231200,
+              "level_change_id": 10020023
+            },
+            {
+              "after_damage": 42725747573,
+              "enemy_def": 593958.0,
+              "monster_level": 1225,
+              "record_id": 231225,
+              "level_change_id": 10020024
+            },
+            {
+              "after_damage": 46561393405,
+              "enemy_def": 629381.0,
+              "monster_level": 1250,
+              "record_id": 231250,
+              "level_change_id": 10020025
+            },
+            {
+              "after_damage": 50397039238,
+              "enemy_def": 666651.0,
+              "monster_level": 1275,
+              "record_id": 231275,
+              "level_change_id": 10020026
+            },
+            {
+              "after_damage": 54232685070,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10020027
+            },
+            {
+              "after_damage": 58068330903,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10020028
+            }
+          ]
+        }
+      }
+    },
+    "museum-ultra": {
+      "stage_id": 103,
+      "monster_id": 1520461145,
+      "ai": "bt_bbg006_zeus_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6700703,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6700704,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 61819.0,
+              "monster_level": 550,
+              "record_id": 230550,
+              "level_change_id": 10030001
+            },
+            {
+              "after_damage": 1472584803,
+              "enemy_def": 66966.0,
+              "monster_level": 570,
+              "record_id": 230570,
+              "level_change_id": 10030002
+            },
+            {
+              "after_damage": 2939996223,
+              "enemy_def": 72483.0,
+              "monster_level": 590,
+              "record_id": 230590,
+              "level_change_id": 10030003
+            },
+            {
+              "after_damage": 4401638873,
+              "enemy_def": 88651.0,
+              "monster_level": 610,
+              "record_id": 230610,
+              "level_change_id": 10030004
+            },
+            {
+              "after_damage": 5856491892,
+              "enemy_def": 94897.0,
+              "monster_level": 630,
+              "record_id": 230630,
+              "level_change_id": 10030005
+            },
+            {
+              "after_damage": 7303412852,
+              "enemy_def": 101511.0,
+              "monster_level": 650,
+              "record_id": 230650,
+              "level_change_id": 10030006
+            },
+            {
+              "after_damage": 8741164011,
+              "enemy_def": 108570.0,
+              "monster_level": 670,
+              "record_id": 230670,
+              "level_change_id": 10030007
+            },
+            {
+              "after_damage": 10168340473,
+              "enemy_def": 116032.0,
+              "monster_level": 690,
+              "record_id": 230690,
+              "level_change_id": 10030008
+            },
+            {
+              "after_damage": 11583393678,
+              "enemy_def": 123981.0,
+              "monster_level": 710,
+              "record_id": 230710,
+              "level_change_id": 10030009
+            },
+            {
+              "after_damage": 12984632780,
+              "enemy_def": 132380.0,
+              "monster_level": 730,
+              "record_id": 230730,
+              "level_change_id": 10030010
+            },
+            {
+              "after_damage": 14355915999,
+              "enemy_def": 142909.0,
+              "monster_level": 760,
+              "record_id": 230760,
+              "level_change_id": 10030011
+            },
+            {
+              "after_damage": 15859825201,
+              "enemy_def": 160742.0,
+              "monster_level": 790,
+              "record_id": 230790,
+              "level_change_id": 10030012
+            },
+            {
+              "after_damage": 17341446115,
+              "enemy_def": 173085.0,
+              "monster_level": 820,
+              "record_id": 230820,
+              "level_change_id": 10030013
+            },
+            {
+              "after_damage": 18797974477,
+              "enemy_def": 194335.0,
+              "monster_level": 850,
+              "record_id": 230850,
+              "level_change_id": 10030014
+            },
+            {
+              "after_damage": 20226320534,
+              "enemy_def": 208707.0,
+              "monster_level": 880,
+              "record_id": 230880,
+              "level_change_id": 10030015
+            },
+            {
+              "after_damage": 21623098294,
+              "enemy_def": 234010.0,
+              "monster_level": 910,
+              "record_id": 230910,
+              "level_change_id": 10030016
+            },
+            {
+              "after_damage": 22984531904,
+              "enemy_def": 250779.0,
+              "monster_level": 940,
+              "record_id": 230940,
+              "level_change_id": 10030017
+            },
+            {
+              "after_damage": 24303513239,
+              "enemy_def": 280716.0,
+              "monster_level": 970,
+              "record_id": 230970,
+              "level_change_id": 10030018
+            },
+            {
+              "after_damage": 25557540660,
+              "enemy_def": 300158.0,
+              "monster_level": 1000,
+              "record_id": 231000,
+              "level_change_id": 10030019
+            },
+            {
+              "after_damage": 26756546507,
+              "enemy_def": 355872.0,
+              "monster_level": 1050,
+              "record_id": 231050,
+              "level_change_id": 10030020
+            },
+            {
+              "after_damage": 29089802845,
+              "enemy_def": 402205.0,
+              "monster_level": 1100,
+              "record_id": 231100,
+              "level_change_id": 10030021
+            },
+            {
+              "after_damage": 31274038487,
+              "enemy_def": 475031.0,
+              "monster_level": 1150,
+              "record_id": 231150,
+              "level_change_id": 10030022
+            },
+            {
+              "after_damage": 33224044073,
+              "enemy_def": 534595.0,
+              "monster_level": 1200,
+              "record_id": 231200,
+              "level_change_id": 10030023
+            },
+            {
+              "after_damage": 36701890513,
+              "enemy_def": 593958.0,
+              "monster_level": 1225,
+              "record_id": 231225,
+              "level_change_id": 10030024
+            },
+            {
+              "after_damage": 39996752777,
+              "enemy_def": 629381.0,
+              "monster_level": 1250,
+              "record_id": 231250,
+              "level_change_id": 10030025
+            },
+            {
+              "after_damage": 43291615042,
+              "enemy_def": 666651.0,
+              "monster_level": 1275,
+              "record_id": 231275,
+              "level_change_id": 10030026
+            },
+            {
+              "after_damage": 46586477306,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10030027
+            },
+            {
+              "after_damage": 49881339570,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10030028
+            }
+          ]
+        }
+      }
+    },
+    "museum-alteisen": {
+      "stage_id": 201,
+      "monster_id": 3520111125,
+      "ai": "bt_mbg001_psid_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6700403,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6700404,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 49303.0,
+              "monster_level": 500,
+              "record_id": 230500,
+              "level_change_id": 10040001
+            },
+            {
+              "after_damage": 5000182601,
+              "enemy_def": 56966.0,
+              "monster_level": 530,
+              "record_id": 230530,
+              "level_change_id": 10040002
+            },
+            {
+              "after_damage": 9979900548,
+              "enemy_def": 63003.0,
+              "monster_level": 560,
+              "record_id": 230560,
+              "level_change_id": 10040003
+            },
+            {
+              "after_damage": 14943496206,
+              "enemy_def": 73753.0,
+              "monster_level": 600,
+              "record_id": 230600,
+              "level_change_id": 10040004
+            },
+            {
+              "after_damage": 19878383130,
+              "enemy_def": 96251.0,
+              "monster_level": 640,
+              "record_id": 230640,
+              "level_change_id": 10040005
+            },
+            {
+              "after_damage": 24753187351,
+              "enemy_def": 110008.0,
+              "monster_level": 680,
+              "record_id": 230680,
+              "level_change_id": 10040006
+            },
+            {
+              "after_damage": 29591252406,
+              "enemy_def": 125504.0,
+              "monster_level": 720,
+              "record_id": 230720,
+              "level_change_id": 10040007
+            },
+            {
+              "after_damage": 34387934156,
+              "enemy_def": 142909.0,
+              "monster_level": 760,
+              "record_id": 230760,
+              "level_change_id": 10040008
+            },
+            {
+              "after_damage": 39138134466,
+              "enemy_def": 162434.0,
+              "monster_level": 800,
+              "record_id": 230800,
+              "level_change_id": 10040009
+            },
+            {
+              "after_damage": 43836191705,
+              "enemy_def": 184292.0,
+              "monster_level": 840,
+              "record_id": 230840,
+              "level_change_id": 10040010
+            },
+            {
+              "after_damage": 48475875411,
+              "enemy_def": 208707.0,
+              "monster_level": 880,
+              "record_id": 230880,
+              "level_change_id": 10040011
+            },
+            {
+              "after_damage": 53558632635,
+              "enemy_def": 235955.0,
+              "monster_level": 920,
+              "record_id": 230920,
+              "level_change_id": 10040012
+            },
+            {
+              "after_damage": 58560536572,
+              "enemy_def": 266341.0,
+              "monster_level": 960,
+              "record_id": 230960,
+              "level_change_id": 10040013
+            },
+            {
+              "after_damage": 63472275801,
+              "enemy_def": 300158.0,
+              "monster_level": 1000,
+              "record_id": 231000,
+              "level_change_id": 10040014
+            },
+            {
+              "after_damage": 68283669479,
+              "enemy_def": 337771.0,
+              "monster_level": 1040,
+              "record_id": 231040,
+              "level_change_id": 10040015
+            },
+            {
+              "after_damage": 72983453693,
+              "enemy_def": 379570.0,
+              "monster_level": 1080,
+              "record_id": 231080,
+              "level_change_id": 10040016
+            },
+            {
+              "after_damage": 77559207281,
+              "enemy_def": 425984.0,
+              "monster_level": 1120,
+              "record_id": 231120,
+              "level_change_id": 10040017
+            },
+            {
+              "after_damage": 81997236102,
+              "enemy_def": 477484.0,
+              "monster_level": 1160,
+              "record_id": 231160,
+              "level_change_id": 10040018
+            },
+            {
+              "after_damage": 86282448413,
+              "enemy_def": 534595.0,
+              "monster_level": 1200,
+              "record_id": 231200,
+              "level_change_id": 10040019
+            },
+            {
+              "after_damage": 90398194634,
+              "enemy_def": 593958.0,
+              "monster_level": 1225,
+              "record_id": 231225,
+              "level_change_id": 10040020
+            },
+            {
+              "after_damage": 95133165030,
+              "enemy_def": 629381.0,
+              "monster_level": 1250,
+              "record_id": 231250,
+              "level_change_id": 10040021
+            },
+            {
+              "after_damage": 99741803309,
+              "enemy_def": 666651.0,
+              "monster_level": 1275,
+              "record_id": 231275,
+              "level_change_id": 10040022
+            },
+            {
+              "after_damage": 104217522355,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10040023
+            },
+            {
+              "after_damage": 111070776677,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10040024
+            }
+          ]
+        }
+      }
+    },
+    "museum-modernia": {
+      "stage_id": 202,
+      "monster_id": 3520041155,
+      "ai": "bt_mbg004_dmtr_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6700603,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6700604,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 61819.0,
+              "monster_level": 550,
+              "record_id": 230550,
+              "level_change_id": 10050001
+            },
+            {
+              "after_damage": 5362340900,
+              "enemy_def": 68248.0,
+              "monster_level": 580,
+              "record_id": 230580,
+              "level_change_id": 10050002
+            },
+            {
+              "after_damage": 10702734911,
+              "enemy_def": 88651.0,
+              "monster_level": 610,
+              "record_id": 230610,
+              "level_change_id": 10050003
+            },
+            {
+              "after_damage": 16025838910,
+              "enemy_def": 96251.0,
+              "monster_level": 640,
+              "record_id": 230640,
+              "level_change_id": 10050004
+            },
+            {
+              "after_damage": 21318154832,
+              "enemy_def": 108570.0,
+              "monster_level": 670,
+              "record_id": 230670,
+              "level_change_id": 10050005
+            },
+            {
+              "after_damage": 26546036318,
+              "enemy_def": 117558.0,
+              "monster_level": 700,
+              "record_id": 230700,
+              "level_change_id": 10050006
+            },
+            {
+              "after_damage": 31734517657,
+              "enemy_def": 132380.0,
+              "monster_level": 730,
+              "record_id": 230730,
+              "level_change_id": 10050007
+            },
+            {
+              "after_damage": 36878618340,
+              "enemy_def": 142909.0,
+              "monster_level": 760,
+              "record_id": 230760,
+              "level_change_id": 10050008
+            },
+            {
+              "after_damage": 41972870977,
+              "enemy_def": 162434.0,
+              "monster_level": 800,
+              "record_id": 230800,
+              "level_change_id": 10050009
+            },
+            {
+              "after_damage": 47011203873,
+              "enemy_def": 184292.0,
+              "monster_level": 840,
+              "record_id": 230840,
+              "level_change_id": 10050010
+            },
+            {
+              "after_damage": 51986935298,
+              "enemy_def": 208707.0,
+              "monster_level": 880,
+              "record_id": 230880,
+              "level_change_id": 10050011
+            },
+            {
+              "after_damage": 57437831619,
+              "enemy_def": 235955.0,
+              "monster_level": 920,
+              "record_id": 230920,
+              "level_change_id": 10050012
+            },
+            {
+              "after_damage": 62802018529,
+              "enemy_def": 266341.0,
+              "monster_level": 960,
+              "record_id": 230960,
+              "level_change_id": 10050013
+            },
+            {
+              "after_damage": 68069510190,
+              "enemy_def": 300158.0,
+              "monster_level": 1000,
+              "record_id": 231000,
+              "level_change_id": 10050014
+            },
+            {
+              "after_damage": 73229388371,
+              "enemy_def": 337771.0,
+              "monster_level": 1040,
+              "record_id": 231040,
+              "level_change_id": 10050015
+            },
+            {
+              "after_damage": 78269573324,
+              "enemy_def": 379570.0,
+              "monster_level": 1080,
+              "record_id": 231080,
+              "level_change_id": 10050016
+            },
+            {
+              "after_damage": 83176744235,
+              "enemy_def": 425984.0,
+              "monster_level": 1120,
+              "record_id": 231120,
+              "level_change_id": 10050017
+            },
+            {
+              "after_damage": 87936215110,
+              "enemy_def": 477484.0,
+              "monster_level": 1160,
+              "record_id": 231160,
+              "level_change_id": 10050018
+            },
+            {
+              "after_damage": 92531801127,
+              "enemy_def": 534595.0,
+              "monster_level": 1200,
+              "record_id": 231200,
+              "level_change_id": 10050019
+            },
+            {
+              "after_damage": 96945646790,
+              "enemy_def": 593958.0,
+              "monster_level": 1225,
+              "record_id": 231225,
+              "level_change_id": 10050020
+            },
+            {
+              "after_damage": 102023566426,
+              "enemy_def": 629381.0,
+              "monster_level": 1250,
+              "record_id": 231250,
+              "level_change_id": 10050021
+            },
+            {
+              "after_damage": 106966003834,
+              "enemy_def": 666651.0,
+              "monster_level": 1275,
+              "record_id": 231275,
+              "level_change_id": 10050022
+            },
+            {
+              "after_damage": 111765894800,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10050023
+            },
+            {
+              "after_damage": 119115523579,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10050024
+            }
+          ]
+        }
+      }
+    },
+    "museum-storm-bringer": {
+      "stage_id": 203,
+      "monster_id": 2510111135,
+      "ai": "bt_eba001_anmi_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6701203,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6701204,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 101511.0,
+              "monster_level": 650,
+              "record_id": 230650,
+              "level_change_id": 10060001
+            },
+            {
+              "after_damage": 4382141059,
+              "enemy_def": 110008.0,
+              "monster_level": 680,
+              "record_id": 230680,
+              "level_change_id": 10060002
+            },
+            {
+              "after_damage": 8746346973,
+              "enemy_def": 123981.0,
+              "monster_level": 710,
+              "record_id": 230710,
+              "level_change_id": 10060003
+            },
+            {
+              "after_damage": 13096423373,
+              "enemy_def": 133987.0,
+              "monster_level": 740,
+              "record_id": 230740,
+              "level_change_id": 10060004
+            },
+            {
+              "after_damage": 17421339549,
+              "enemy_def": 150741.0,
+              "monster_level": 770,
+              "record_id": 230770,
+              "level_change_id": 10060005
+            },
+            {
+              "after_damage": 21693599471,
+              "enemy_def": 162434.0,
+              "monster_level": 800,
+              "record_id": 230800,
+              "level_change_id": 10060006
+            },
+            {
+              "after_damage": 25933661328,
+              "enemy_def": 182503.0,
+              "monster_level": 830,
+              "record_id": 230830,
+              "level_change_id": 10060007
+            },
+            {
+              "after_damage": 30137455014,
+              "enemy_def": 196197.0,
+              "monster_level": 860,
+              "record_id": 230860,
+              "level_change_id": 10060008
+            },
+            {
+              "after_damage": 34300512541,
+              "enemy_def": 220048.0,
+              "monster_level": 890,
+              "record_id": 230890,
+              "level_change_id": 10060009
+            },
+            {
+              "after_damage": 38417872079,
+              "enemy_def": 235955.0,
+              "monster_level": 920,
+              "record_id": 230920,
+              "level_change_id": 10060010
+            },
+            {
+              "after_damage": 42484073275,
+              "enemy_def": 264311.0,
+              "monster_level": 950,
+              "record_id": 230950,
+              "level_change_id": 10060011
+            },
+            {
+              "after_damage": 46938582419,
+              "enemy_def": 282831.0,
+              "monster_level": 980,
+              "record_id": 230980,
+              "level_change_id": 10060012
+            },
+            {
+              "after_damage": 51322232051,
+              "enemy_def": 316301.0,
+              "monster_level": 1010,
+              "record_id": 231010,
+              "level_change_id": 10060013
+            },
+            {
+              "after_damage": 55626861674,
+              "enemy_def": 337771.0,
+              "monster_level": 1040,
+              "record_id": 231040,
+              "level_change_id": 10060014
+            },
+            {
+              "after_damage": 59843548837,
+              "enemy_def": 377286.0,
+              "monster_level": 1070,
+              "record_id": 231070,
+              "level_change_id": 10060015
+            },
+            {
+              "after_damage": 63962421890,
+              "enemy_def": 402205.0,
+              "monster_level": 1100,
+              "record_id": 231100,
+              "level_change_id": 10060016
+            },
+            {
+              "after_damage": 67972594972,
+              "enemy_def": 448647.0,
+              "monster_level": 1130,
+              "record_id": 231130,
+              "level_change_id": 10060017
+            },
+            {
+              "after_damage": 71862066591,
+              "enemy_def": 477484.0,
+              "monster_level": 1160,
+              "record_id": 231160,
+              "level_change_id": 10060018
+            },
+            {
+              "after_damage": 75617610401,
+              "enemy_def": 534595.0,
+              "monster_level": 1200,
+              "record_id": 231200,
+              "level_change_id": 10060019
+            },
+            {
+              "after_damage": 79224634772,
+              "enemy_def": 593958.0,
+              "monster_level": 1225,
+              "record_id": 231225,
+              "level_change_id": 10060020
+            },
+            {
+              "after_damage": 83374344861,
+              "enemy_def": 629381.0,
+              "monster_level": 1250,
+              "record_id": 231250,
+              "level_change_id": 10060021
+            },
+            {
+              "after_damage": 87413337962,
+              "enemy_def": 666651.0,
+              "monster_level": 1275,
+              "record_id": 231275,
+              "level_change_id": 10060022
+            },
+            {
+              "after_damage": 91335841151,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10060023
+            },
+            {
+              "after_damage": 97342007235,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10060024
+            }
+          ]
+        }
+      }
+    },
+    "museum-harvester": {
+      "stage_id": 301,
+      "monster_id": 1520111115,
+      "ai": "bt_bbg001_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6700303,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6700304,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 41564.0,
+              "monster_level": 460,
+              "record_id": 230460,
+              "level_change_id": 10070001
+            },
+            {
+              "after_damage": 8822816950,
+              "enemy_def": 52440.0,
+              "monster_level": 510,
+              "record_id": 230510,
+              "level_change_id": 10070002
+            },
+            {
+              "after_damage": 17607147619,
+              "enemy_def": 63003.0,
+              "monster_level": 560,
+              "record_id": 230560,
+              "level_change_id": 10070003
+            },
+            {
+              "after_damage": 26354099602,
+              "enemy_def": 88651.0,
+              "monster_level": 610,
+              "record_id": 230610,
+              "level_change_id": 10070004
+            },
+            {
+              "after_damage": 35010292473,
+              "enemy_def": 102963.0,
+              "monster_level": 660,
+              "record_id": 230660,
+              "level_change_id": 10070005
+            },
+            {
+              "after_damage": 43615840287,
+              "enemy_def": 123981.0,
+              "monster_level": 710,
+              "record_id": 230710,
+              "level_change_id": 10070006
+            },
+            {
+              "after_damage": 52147012904,
+              "enemy_def": 142909.0,
+              "monster_level": 760,
+              "record_id": 230760,
+              "level_change_id": 10070007
+            },
+            {
+              "after_damage": 60611206088,
+              "enemy_def": 171308.0,
+              "monster_level": 810,
+              "record_id": 230810,
+              "level_change_id": 10070008
+            },
+            {
+              "after_damage": 68974905353,
+              "enemy_def": 196197.0,
+              "monster_level": 860,
+              "record_id": 230860,
+              "level_change_id": 10070009
+            },
+            {
+              "after_damage": 77250531334,
+              "enemy_def": 234010.0,
+              "monster_level": 910,
+              "record_id": 230910,
+              "level_change_id": 10070010
+            },
+            {
+              "after_damage": 85392350612,
+              "enemy_def": 266341.0,
+              "monster_level": 960,
+              "record_id": 230960,
+              "level_change_id": 10070011
+            },
+            {
+              "after_damage": 94311696628,
+              "enemy_def": 300158.0,
+              "monster_level": 1000,
+              "record_id": 231000,
+              "level_change_id": 10070012
+            },
+            {
+              "after_damage": 103098080103,
+              "enemy_def": 355872.0,
+              "monster_level": 1050,
+              "record_id": 231050,
+              "level_change_id": 10070013
+            },
+            {
+              "after_damage": 111665405855,
+              "enemy_def": 399836.0,
+              "monster_level": 1090,
+              "record_id": 231090,
+              "level_change_id": 10070014
+            },
+            {
+              "after_damage": 120059872833,
+              "enemy_def": 448647.0,
+              "monster_level": 1130,
+              "record_id": 231130,
+              "level_change_id": 10070015
+            },
+            {
+              "after_damage": 128262423480,
+              "enemy_def": 502800.0,
+              "monster_level": 1170,
+              "record_id": 231170,
+              "level_change_id": 10070016
+            },
+            {
+              "after_damage": 136252053983,
+              "enemy_def": 562843.0,
+              "monster_level": 1210,
+              "record_id": 231210,
+              "level_change_id": 10070017
+            },
+            {
+              "after_damage": 144005605892,
+              "enemy_def": 632087.0,
+              "monster_level": 1260,
+              "record_id": 231260,
+              "level_change_id": 10070018
+            },
+            {
+              "after_damage": 151486902479,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10070019
+            },
+            {
+              "after_damage": 158678105054,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10070020
+            }
+          ]
+        }
+      }
+    },
+    "museum-crystal-chamber": {
+      "stage_id": 302,
+      "monster_id": 4520011125,
+      "ai": "bt_xbg001_psid_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6701003,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6701004,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 101511.0,
+              "monster_level": 650,
+              "record_id": 230650,
+              "level_change_id": 10080001
+            },
+            {
+              "after_damage": 8606534098,
+              "enemy_def": 116032.0,
+              "monster_level": 690,
+              "record_id": 230690,
+              "level_change_id": 10080002
+            },
+            {
+              "after_damage": 17175525369,
+              "enemy_def": 132380.0,
+              "monster_level": 730,
+              "record_id": 230730,
+              "level_change_id": 10080003
+            },
+            {
+              "after_damage": 25708054258,
+              "enemy_def": 150741.0,
+              "monster_level": 770,
+              "record_id": 230770,
+              "level_change_id": 10080004
+            },
+            {
+              "after_damage": 34152048906,
+              "enemy_def": 171308.0,
+              "monster_level": 810,
+              "record_id": 230810,
+              "level_change_id": 10080005
+            },
+            {
+              "after_damage": 42546640011,
+              "enemy_def": 194335.0,
+              "monster_level": 850,
+              "record_id": 230850,
+              "level_change_id": 10080006
+            },
+            {
+              "after_damage": 50868679156,
+              "enemy_def": 220048.0,
+              "monster_level": 890,
+              "record_id": 230890,
+              "level_change_id": 10080007
+            },
+            {
+              "after_damage": 59125380805,
+              "enemy_def": 248749.0,
+              "monster_level": 930,
+              "record_id": 230930,
+              "level_change_id": 10080008
+            },
+            {
+              "after_damage": 67284052045,
+              "enemy_def": 280716.0,
+              "monster_level": 970,
+              "record_id": 230970,
+              "level_change_id": 10080009
+            },
+            {
+              "after_damage": 75356809034,
+              "enemy_def": 316301.0,
+              "monster_level": 1010,
+              "record_id": 231010,
+              "level_change_id": 10080010
+            },
+            {
+              "after_damage": 83299039462,
+              "enemy_def": 355872.0,
+              "monster_level": 1050,
+              "record_id": 231050,
+              "level_change_id": 10080011
+            },
+            {
+              "after_damage": 91999736309,
+              "enemy_def": 399836.0,
+              "monster_level": 1090,
+              "record_id": 231090,
+              "level_change_id": 10080012
+            },
+            {
+              "after_damage": 100570730063,
+              "enemy_def": 425984.0,
+              "monster_level": 1120,
+              "record_id": 231120,
+              "level_change_id": 10080013
+            },
+            {
+              "after_damage": 108928036084,
+              "enemy_def": 475031.0,
+              "monster_level": 1150,
+              "record_id": 231150,
+              "level_change_id": 10080014
+            },
+            {
+              "after_damage": 117116720797,
+              "enemy_def": 505338.0,
+              "monster_level": 1180,
+              "record_id": 231180,
+              "level_change_id": 10080015
+            },
+            {
+              "after_damage": 125118193823,
+              "enemy_def": 562843.0,
+              "monster_level": 1210,
+              "record_id": 231210,
+              "level_change_id": 10080016
+            },
+            {
+              "after_damage": 132911966237,
+              "enemy_def": 597891.0,
+              "monster_level": 1240,
+              "record_id": 231240,
+              "level_change_id": 10080017
+            },
+            {
+              "after_damage": 140475447296,
+              "enemy_def": 665298.0,
+              "monster_level": 1270,
+              "record_id": 231270,
+              "level_change_id": 10080018
+            },
+            {
+              "after_damage": 147773347110,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10080019
+            },
+            {
+              "after_damage": 154788264286,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10080020
+            }
+          ]
+        }
+      }
+    },
+    "museum-indivilia": {
+      "stage_id": 303,
+      "monster_id": 2520031145,
+      "ai": "bt_ebg003_singleRaid_Museum",
+      "modes": {
+        "challenge": {
+          "wave_id": 6701303,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90501
+            },
+            {
+              "after_damage": 400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90502
+            },
+            {
+              "after_damage": 600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90503
+            },
+            {
+              "after_damage": 800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90504
+            },
+            {
+              "after_damage": 1200000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90505
+            },
+            {
+              "after_damage": 1600000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90506
+            },
+            {
+              "after_damage": 2000000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90507
+            },
+            {
+              "after_damage": 2400000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90508
+            },
+            {
+              "after_damage": 2800000001,
+              "enemy_def": 30925.0,
+              "monster_level": 390,
+              "record_id": 230390,
+              "level_change_id": 90509
+            }
+          ]
+        },
+        "no-limit": {
+          "wave_id": 6701304,
+          "level_changes": [
+            {
+              "after_damage": 0,
+              "enemy_def": 125504.0,
+              "monster_level": 720,
+              "record_id": 230720,
+              "level_change_id": 10090001
+            },
+            {
+              "after_damage": 6802355808,
+              "enemy_def": 142909.0,
+              "monster_level": 760,
+              "record_id": 230760,
+              "level_change_id": 10090002
+            },
+            {
+              "after_damage": 13575038851,
+              "enemy_def": 162434.0,
+              "monster_level": 800,
+              "record_id": 230800,
+              "level_change_id": 10090003
+            },
+            {
+              "after_damage": 20318903081,
+              "enemy_def": 184292.0,
+              "monster_level": 840,
+              "record_id": 230840,
+              "level_change_id": 10090004
+            },
+            {
+              "after_damage": 26992792405,
+              "enemy_def": 208707.0,
+              "monster_level": 880,
+              "record_id": 230880,
+              "level_change_id": 10090005
+            },
+            {
+              "after_damage": 33627634597,
+              "enemy_def": 234010.0,
+              "monster_level": 910,
+              "record_id": 230910,
+              "level_change_id": 10090006
+            },
+            {
+              "after_damage": 40205133817,
+              "enemy_def": 250779.0,
+              "monster_level": 940,
+              "record_id": 230940,
+              "level_change_id": 10090007
+            },
+            {
+              "after_damage": 46730992167,
+              "enemy_def": 280716.0,
+              "monster_level": 970,
+              "record_id": 230970,
+              "level_change_id": 10090008
+            },
+            {
+              "after_damage": 53179370117,
+              "enemy_def": 300158.0,
+              "monster_level": 1000,
+              "record_id": 231000,
+              "level_change_id": 10090009
+            },
+            {
+              "after_damage": 59559843925,
+              "enemy_def": 335572.0,
+              "monster_level": 1030,
+              "record_id": 231030,
+              "level_change_id": 10090010
+            },
+            {
+              "after_damage": 65837153311,
+              "enemy_def": 358155.0,
+              "monster_level": 1060,
+              "record_id": 231060,
+              "level_change_id": 10090011
+            },
+            {
+              "after_damage": 72713932635,
+              "enemy_def": 399836.0,
+              "monster_level": 1090,
+              "record_id": 231090,
+              "level_change_id": 10090012
+            },
+            {
+              "after_damage": 79488198383,
+              "enemy_def": 425984.0,
+              "monster_level": 1120,
+              "record_id": 231120,
+              "level_change_id": 10090013
+            },
+            {
+              "after_damage": 86093571522,
+              "enemy_def": 475031.0,
+              "monster_level": 1150,
+              "record_id": 231150,
+              "level_change_id": 10090014
+            },
+            {
+              "after_damage": 92565671252,
+              "enemy_def": 505338.0,
+              "monster_level": 1180,
+              "record_id": 231180,
+              "level_change_id": 10090015
+            },
+            {
+              "after_damage": 98889804276,
+              "enemy_def": 562843.0,
+              "monster_level": 1210,
+              "record_id": 231210,
+              "level_change_id": 10090016
+            },
+            {
+              "after_damage": 105049776739,
+              "enemy_def": 597891.0,
+              "monster_level": 1240,
+              "record_id": 231240,
+              "level_change_id": 10090017
+            },
+            {
+              "after_damage": 111027733571,
+              "enemy_def": 665298.0,
+              "monster_level": 1270,
+              "record_id": 231270,
+              "level_change_id": 10090018
+            },
+            {
+              "after_damage": 116795782663,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10090019
+            },
+            {
+              "after_damage": 122340170456,
+              "enemy_def": 705868.0,
+              "monster_level": 1300,
+              "record_id": 231300,
+              "level_change_id": 10090020
+            }
+          ]
+        }
+      }
+    }
+  }
+}

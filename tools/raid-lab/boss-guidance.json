@@ -1,0 +1,115 @@
+{
+  "checked_at": "2026-09-10",
+  "profiles": {
+    "museum-storm-bringer": {
+      "source": "https://note.com/shiro_gov/n/n3c2d5932a8e1?hl=en",
+      "source_name": "Shiro · Museum field guide",
+      "required_tags": [
+        "Healing"
+      ],
+      "preferred_tags": [
+        "Cover repair",
+        "Shield",
+        "Pierce"
+      ],
+      "barrier_element": "Fire",
+      "summary": "Bring healing for sustained runs; destroy turrets and handle interruption checks. Cover or other protection may still be needed.",
+      "cover_policy": "Selective cover for dangerous attacks; continuous firing is not guaranteed by healer presence.",
+      "healing_reason": "Repeated incoming damage makes a sustained run difficult without healing.",
+      "confidence": "Guide-based composition rule; healing sufficiency unverified"
+    },
+    "museum-ultra": {
+      "source": "https://note.com/shiro_gov/n/n3c2d5932a8e1?hl=en",
+      "source_name": "Shiro · Museum field guide",
+      "required_tags": [],
+      "preferred_tags": [
+        "Shield",
+        "Cover repair",
+        "Healing",
+        "Pierce"
+      ],
+      "summary": "Shockwaves and poison need protection; repeated cover use can exhaust cover HP.",
+      "cover_policy": "Shield or selective cover; a cover-repair unit can help longer runs.",
+      "confidence": "Museum-specific guide; incoming damage unverified"
+    },
+    "anomaly-ultra": {
+      "source": null,
+      "source_name": "external reference · Anomaly Ultra",
+      "required_tags": [
+        "Shield"
+      ],
+      "preferred_tags": [
+        "Cover repair",
+        "Pierce"
+      ],
+      "vulnerable_element": "Water",
+      "summary": "Use shielding for shockwaves. Cover poison attacks unless a sufficiently strong shield can absorb them.",
+      "cover_policy": "Selective cover for poison and dangerous attacks; healing cannot undo a lethal hit.",
+      "confidence": "Guide-based shield preference enforced; shield strength and uptime unverified"
+    },
+    "anomaly-kraken": {
+      "source": null,
+      "source_name": "external reference · Anomaly Kraken",
+      "required_tags": [],
+      "preferred_tags": [
+        "Shield",
+        "Pierce"
+      ],
+      "vulnerable_element": "Electric",
+      "summary": "Destroy front tentacles before their charged attack, which ignores cover and shields. The separate team-wide attack can be covered or shielded.",
+      "cover_policy": "Cover cannot replace the tentacle damage check. Use protection selectively for the other attacks.",
+      "confidence": "Part-destruction and protection rules; deadlines unverified"
+    },
+    "anomaly-harvester": {
+      "source": null,
+      "source_name": "external reference · Anomaly Harvester",
+      "required_tags": [],
+      "preferred_tags": [
+        "AoE",
+        "Healing"
+      ],
+      "vulnerable_element": "Wind",
+      "summary": "Clear dangerous adds and destroy the head to expose the core. Leaving too many adds alive causes heavy team damage.",
+      "cover_policy": "Cover or taunt targeted gunfire as needed; prevent add pressure through damage.",
+      "confidence": "Guide-based add-clear preference; wave and survival simulation incomplete"
+    },
+    "anomaly-indivilia": {
+      "source": null,
+      "source_name": "external reference · Anomaly Indivilia",
+      "required_tags": [],
+      "preferred_tags": [
+        "AoE",
+        "Shield",
+        "Healing"
+      ],
+      "vulnerable_element": "Iron",
+      "summary": "Handle suicide adds and destroy the tail before its lethal attack. Frequent lasers require protection.",
+      "cover_policy": "Selective cover for lasers; phase-transition attacks need specific protection. No cover glitch is assumed.",
+      "confidence": "Guide-based priorities; precise phase-transition survival unverified"
+    },
+    "anomaly-mirror-container": {
+      "source": null,
+      "source_name": "external reference · Anomaly Mirror Container",
+      "required_tags": [],
+      "preferred_tags": [
+        "Shield"
+      ],
+      "required_weapon_groups": [
+        [
+          "SR",
+          "RL"
+        ],
+        [
+          "AR",
+          "SMG",
+          "MG",
+          "SR"
+        ]
+      ],
+      "vulnerable_element": "Fire",
+      "summary": "Bring a strong single shot for Glass Slippers and a precise aiming option for red/grey circles. More total DPS does not establish either check.",
+      "cover_policy": "Hold other shooters while setting up the slipper shot. Cover, shield or taunt targeted attacks when needed.",
+      "confidence": "Weapon-access checks only; one-shot threshold and player aim unverified"
+    }
+  }
+}

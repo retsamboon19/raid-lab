@@ -1,0 +1,73 @@
+{
+  "monster_id": 1520040153,
+  "source_sha256": "D14690756E7E8D24CF13DF50A7DB62A6C932C28E7A759BA6E731FDFCF1E15A5B",
+  "level_changes": [
+    {
+      "after_damage": 0,
+      "enemy_def": 4217.0,
+      "monster_level": 250,
+      "record_id": 334250,
+      "level_change_id": 20901
+    },
+    {
+      "after_damage": 178000001,
+      "enemy_def": 4217.0,
+      "monster_level": 250,
+      "record_id": 334250,
+      "level_change_id": 20902
+    },
+    {
+      "after_damage": 475000001,
+      "enemy_def": 4217.0,
+      "monster_level": 250,
+      "record_id": 334250,
+      "level_change_id": 20903
+    },
+    {
+      "after_damage": 890000001,
+      "enemy_def": 4317.0,
+      "monster_level": 350,
+      "record_id": 334350,
+      "level_change_id": 20904
+    },
+    {
+      "after_damage": 1364000001,
+      "enemy_def": 4317.0,
+      "monster_level": 400,
+      "record_id": 334400,
+      "level_change_id": 20905
+    },
+    {
+      "after_damage": 2194000001,
+      "enemy_def": 4317.0,
+      "monster_level": 500,
+      "record_id": 334500,
+      "level_change_id": 20906
+    },
+    {
+      "after_damage": 3023000001,
+      "enemy_def": 4417.0,
+      "monster_level": 550,
+      "record_id": 334550,
+      "level_change_id": 20907
+    },
+    {
+      "after_damage": 3853000001,
+      "enemy_def": 4517.0,
+      "monster_level": 650,
+      "record_id": 334650,
+      "level_change_id": 20908
+    },
+    {
+      "after_damage": 5394000001,
+      "enemy_def": 4517.0,
+      "monster_level": 650,
+      "record_id": 334650,
+      "level_change_id": 20909
+    }
+  ],
+  "unresolved": [
+    "Recovered stage passives grant immortality and increased elemental damage; exact incoming-damage conversion remains unverified.",
+    "Offline stage-8 threshold differs from the current external reference guide."
+  ]
+}

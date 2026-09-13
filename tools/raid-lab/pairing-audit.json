@@ -1,0 +1,5947 @@
+{
+  "catalog_units": 200,
+  "supported_units": 87,
+  "unsupported_units": 113,
+  "distinct_build_variants": 129,
+  "unknown_rule_fields": {
+    "pairs": [],
+    "orders": [],
+    "dependencies": []
+  },
+  "unresolved_enablers": [],
+  "units": [
+    {
+      "id": "2B",
+      "name": "2B",
+      "burst": "3",
+      "class": "Defender",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "name": "A2",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "에이다",
+      "name": "Ada",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 13,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 5,
+          "targets": [
+            "allies_burst_casted_burst3",
+            "enemies_nearest_in_range",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "에이드",
+      "name": "Ade",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "에이드 : 에이전트 바니",
+      "name": "Ade: Agent Bunny",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 10,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 4,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "애드미",
+      "name": "Admi",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "아이기스",
+      "name": "Aigis",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "앨리스",
+      "name": "Alice",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 8,
+      "team_examples": 26,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 6,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "allies_top_atk:2",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "앨리스 : 원더랜드 바니",
+      "name": "Alice: Wonderland Bunny",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 6,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "앵커",
+      "name": "Anchor",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "앵커 : 이노센트 메이드",
+      "name": "Anchor: Innocent Maid",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 27,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 10,
+          "dependencies": [
+            {
+              "unit": "앵커 : 이노센트 메이드",
+              "effect": "불가사리(모양) 오므라이스 4",
+              "stat": "heal_hp_pct",
+              "kind": "squad",
+              "key": "Aegis",
+              "providers": [
+                "마스트 : 로망틱 메이드",
+                "헬름",
+                "헬름 : 아쿠아마린"
+              ],
+              "recipient": "앵커 : 이노센트 메이드",
+              "timing": [
+                "full_burst_start"
+              ],
+              "conditions": [
+                "squad_ally_exists"
+              ]
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "아니스",
+      "name": "Anis",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 8,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "아니스 : 스파클링 서머",
+      "name": "Anis: Sparkling Summer",
+      "burst": "3",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 9,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 3,
+          "targets": [
+            "allies_code:전격",
+            "enemies_top_atk:2",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "아니스 : 스타",
+      "name": "Anis: Star",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 65,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 17,
+          "dependencies": [],
+          "conditional_effects": 9,
+          "burst_only_effects": 6,
+          "targets": [
+            "['self', 'allies_below_def']",
+            "all_allies",
+            "enemies_random",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "앤 : 미라클 페어리",
+      "name": "Anne: Miracle Fairy",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "아르카나",
+      "name": "Arcana",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 10,
+          "dependencies": [
+            {
+              "unit": "아르카나",
+              "effect": "마법사 카드",
+              "stat": "skill_cooldown_pct",
+              "kind": "named_ally",
+              "key": "이사벨",
+              "providers": [
+                "이사벨"
+              ],
+              "recipient": "이사벨",
+              "timing": [
+                "full_burst_end"
+              ],
+              "conditions": [
+                "self_state:운명의 수레바퀴 카드",
+                "burst_casted"
+              ]
+            },
+            {
+              "unit": "아르카나",
+              "effect": "마법사 카드 2",
+              "stat": "atk_dmg_pct",
+              "kind": "named_ally",
+              "key": "이사벨",
+              "providers": [
+                "이사벨"
+              ],
+              "recipient": "이사벨",
+              "timing": [
+                "full_burst_end"
+              ],
+              "conditions": [
+                "self_state:운명의 수레바퀴 카드",
+                "burst_casted"
+              ]
+            },
+            {
+              "unit": "아르카나",
+              "effect": "힘 카드",
+              "stat": "atk_caster_based_pct",
+              "kind": "named_ally",
+              "key": "이사벨",
+              "providers": [
+                "이사벨"
+              ],
+              "recipient": "이사벨",
+              "timing": [
+                "full_burst_end"
+              ],
+              "conditions": [
+                "self_state:운명의 수레바퀴 카드",
+                "burst_casted"
+              ]
+            }
+          ],
+          "conditional_effects": 5,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "allies_code:전격",
+            "이사벨"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "아르카나 : 포츈 메이트",
+      "name": "Arcana: Fortune Mate",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 17,
+          "dependencies": [
+            {
+              "unit": "아르카나 : 포츈 메이트",
+              "effect": "청춘의 기록",
+              "stat": "normal_atk_dmg_pct",
+              "kind": "state_event",
+              "key": "행복한 기억",
+              "providers": [
+                "아르카나 : 포츈 메이트"
+              ],
+              "recipient": "아르카나 : 포츈 메이트",
+              "timing": [
+                "event:행복한 기억"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 4,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_enemies",
+            "allies_weapon:SG",
+            "allies_weapon_excl_self:SG",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "아리아",
+      "name": "Aria",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "아크레인저 블랙",
+      "name": "Ark Ranger Black",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 14,
+          "dependencies": [
+            {
+              "unit": "아크레인저 블랙",
+              "effect": "아크 블랙 코레더",
+              "stat": "dot_damage",
+              "kind": "state_event",
+              "key": "변신",
+              "providers": [
+                "아크레인저 블랙"
+              ],
+              "recipient": "아크레인저 블랙",
+              "timing": [
+                "event:변신",
+                "event:enemy_spawn"
+              ],
+              "conditions": [
+                "self_state:변신"
+              ]
+            }
+          ],
+          "conditional_effects": 7,
+          "burst_only_effects": 7,
+          "targets": [
+            "all_enemies",
+            "allies_code_weapon:풍압:AR",
+            "enemies_top_hp:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "아스카",
+      "name": "Asuka",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [
+            {
+              "unit": "아스카",
+              "effect": "호승심 2",
+              "stat": "atk_pct",
+              "kind": "healing",
+              "key": "direct healing",
+              "providers": [
+                "나가",
+                "마나",
+                "민트",
+                "블랑",
+                "솔린 : 프로스트 티켓",
+                "아니스 : 스타",
+                "아스카",
+                "앵커 : 이노센트 메이드",
+                "에이다",
+                "유키코",
+                "트리나",
+                "프리카",
+                "플로라",
+                "헬름"
+              ],
+              "recipient": "아스카",
+              "timing": [
+                "event:heal_received"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "아스카",
+              "effect": "돌격 전술",
+              "stat": "element_bonus_pct",
+              "kind": "shield",
+              "key": "active shield",
+              "providers": [
+                "레이",
+                "크라운",
+                "플로라"
+              ],
+              "recipient": "아스카",
+              "timing": [
+                "full_burst_start"
+              ],
+              "conditions": [
+                "during_shield"
+              ]
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 4,
+          "targets": [
+            "allies_code:작열",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "아스카 : WILLE",
+      "name": "Asuka: WILLE",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 14,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 4,
+          "targets": [
+            "enemies_nearest:2",
+            "enemies_with_buff:안티 AT 필드",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "아비스타",
+      "name": "Avistar",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "베이",
+      "name": "Bay",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "벨로타",
+      "name": "Belorta",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "비스킷",
+      "name": "Biscuit",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 9,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "블랑",
+      "name": "Blanc",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 10,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [
+            {
+              "unit": "블랑",
+              "effect": "래빗 트윈즈 W 2",
+              "stat": "burst_cooldown_reduce",
+              "kind": "squad",
+              "key": "777",
+              "providers": [
+                "누아르",
+                "루주"
+              ],
+              "recipient": "블랑",
+              "timing": [
+                "full_burst_end"
+              ],
+              "conditions": [
+                "squad_ally_exists"
+              ]
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "allies_lowest_hp_excl:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "브래디",
+      "name": "Bready",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 12,
+          "dependencies": [
+            {
+              "unit": "브래디",
+              "effect": "머물고 싶은 맛",
+              "stat": "charge_speed_pct",
+              "kind": "stat",
+              "key": "dot_dmg_pct",
+              "providers": [
+                "로산나 : 시크 오션"
+              ],
+              "recipient": "브래디",
+              "timing": [
+                "event:stat_applied:dot_dmg_pct"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "브래디",
+              "effect": "머물고 싶은 맛 2",
+              "stat": "remove_named_buff",
+              "kind": "stat",
+              "key": "dot_dmg_pct",
+              "providers": [
+                "로산나 : 시크 오션"
+              ],
+              "recipient": "브래디",
+              "timing": [
+                "event:stat_applied:dot_dmg_pct"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "브래디",
+              "effect": "나누고 싶은 맛",
+              "stat": "charge_speed_pct",
+              "kind": "stat",
+              "key": "split_dmg_pct",
+              "providers": [
+                "델타 : 닌자 시프",
+                "마스트 : 로망틱 메이드",
+                "앵커 : 이노센트 메이드"
+              ],
+              "recipient": "브래디",
+              "timing": [
+                "event:stat_applied:split_dmg_pct"
+              ],
+              "conditions": [
+                "not_self_state:머물고 싶은 맛"
+              ]
+            },
+            {
+              "unit": "브래디",
+              "effect": "나누고 싶은 맛 2",
+              "stat": "remove_named_buff",
+              "kind": "stat",
+              "key": "split_dmg_pct",
+              "providers": [
+                "델타 : 닌자 시프",
+                "마스트 : 로망틱 메이드",
+                "앵커 : 이노센트 메이드"
+              ],
+              "recipient": "브래디",
+              "timing": [
+                "event:stat_applied:split_dmg_pct"
+              ],
+              "conditions": [
+                "not_self_state:머물고 싶은 맛"
+              ]
+            }
+          ],
+          "conditional_effects": 8,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "브리드",
+      "name": "Brid",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "브리드 : 사일런트 트랙",
+      "name": "Brid: Silent Track",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 5,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 5,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 1,
+          "targets": [
+            "all_allies_excl_self",
+            "all_enemies",
+            "enemies_code:풍압",
+            "enemies_lowest_hp:1",
+            "enemies_lowest_hp_code:풍압:1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "센티",
+      "name": "Centi",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 11,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 4,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_lowest_hp:5",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 5,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "enemies_lowest_hp:5",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 9,
+          "dependencies": [
+            {
+              "unit": "센티",
+              "effect": "보수공사 2",
+              "stat": "element_bonus_pct",
+              "kind": "state_event",
+              "key": "현장검토",
+              "providers": [
+                "센티"
+              ],
+              "recipient": "센티",
+              "timing": [
+                "event:현장검토"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_code:철갑",
+            "enemies_lowest_hp:5",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 10,
+          "dependencies": [
+            {
+              "unit": "센티",
+              "effect": "보수공사 2",
+              "stat": "element_bonus_pct",
+              "kind": "state_event",
+              "key": "현장검토",
+              "providers": [
+                "센티"
+              ],
+              "recipient": "센티",
+              "timing": [
+                "event:현장검토"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "allies_code:철갑",
+            "enemies_lowest_hp:5",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "차임",
+      "name": "Chime",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "치사토",
+      "name": "Chisato",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 10,
+          "dependencies": [],
+          "conditional_effects": 4,
+          "burst_only_effects": 3,
+          "targets": [
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "신데렐라",
+      "name": "Cinderella",
+      "burst": "3",
+      "class": "Defender",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 20,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_random",
+            "same_target:유리 구두 풀 컨텍트",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "신데렐라 : 크리스탈 웨이브",
+      "name": "Cinderella: Crystal Wave",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 10,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 22,
+          "dependencies": [
+            {
+              "unit": "신데렐라 : 크리스탈 웨이브",
+              "effect": "디스트로이",
+              "stat": "part_dmg_pct",
+              "kind": "state_event",
+              "key": "저격 모드",
+              "providers": [
+                "신데렐라 : 크리스탈 웨이브"
+              ],
+              "recipient": "신데렐라 : 크리스탈 웨이브",
+              "timing": [
+                "event:저격 모드"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "신데렐라 : 크리스탈 웨이브",
+              "effect": "핀 포인트 해제",
+              "stat": "remove_named_buff",
+              "kind": "state_event",
+              "key": "저격 모드",
+              "providers": [
+                "신데렐라 : 크리스탈 웨이브"
+              ],
+              "recipient": "신데렐라 : 크리스탈 웨이브",
+              "timing": [
+                "event:저격 모드"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 5,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "enemies_nearest:1",
+            "enemies_top_atk:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "클레어",
+      "name": "Claire",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "클레이",
+      "name": "Clay",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "코코아",
+      "name": "Cocoa",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "크로우",
+      "name": "Crow",
+      "burst": "3",
+      "class": "Defender",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "크라운",
+      "name": "Crown",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 13,
+      "team_examples": 83,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 11,
+          "dependencies": [
+            {
+              "unit": "크라운",
+              "effect": "로얄 에타이어 4",
+              "stat": "atk_dmg_pct",
+              "kind": "healing",
+              "key": "direct healing",
+              "providers": [
+                "나가",
+                "마나",
+                "민트",
+                "블랑",
+                "솔린 : 프로스트 티켓",
+                "아니스 : 스타",
+                "앵커 : 이노센트 메이드",
+                "유키코",
+                "크라운",
+                "트리나",
+                "프리카",
+                "플로라",
+                "헬름"
+              ],
+              "recipient": "크라운",
+              "timing": [
+                "event:heal_received"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "all_allies_burst_casted",
+            "all_allies_burst_not_casted",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "크러스트",
+      "name": "Crust",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "D",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "D : 킬러 와이프",
+      "name": "D: Killer Wife",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SR",
+            "enemies_nearest:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "델타",
+      "name": "Delta",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "델타 : 닌자 시프",
+      "name": "Delta: Ninja Thief",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 16,
+          "dependencies": [],
+          "conditional_effects": 8,
+          "burst_only_effects": 7,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "enemies_nearest_in_range",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "디젤",
+      "name": "Diesel",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "디젤 : 윈터 스위츠",
+      "name": "Diesel: Winter Sweets",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 8,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 6,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_allies",
+            "all_allies_excl_self",
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "도라",
+      "name": "Dolla",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 1,
+          "targets": [
+            "all_allies",
+            "enemies_top_def:1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "도로시",
+      "name": "Dorothy",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "도로시 : 세렌디피티",
+      "name": "Dorothy: Serendipity",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 5,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 3,
+          "targets": [
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "드레이크",
+      "name": "Drake",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 5,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "enemies_in_range",
+            "enemies_lowest_hp:3",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "enemies_in_range",
+            "enemies_lowest_hp:3",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "enemies_in_range",
+            "enemies_lowest_hp:1",
+            "enemies_lowest_hp:3",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "enemies_in_range",
+            "enemies_lowest_hp:1",
+            "enemies_lowest_hp:3",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "드레이크 : 그레이트 빌런",
+      "name": "Drake: Great Villain",
+      "burst": "3",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E.H.",
+      "name": "E.H.",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "아인",
+      "name": "Ein",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 8,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 4,
+          "targets": [
+            "enemies_random:1",
+            "enemies_top_def:10",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "일레그",
+      "name": "Elegg",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "일레그 : 붐 앤 쇼크",
+      "name": "Elegg: Boom and Shock",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 9,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_enemies",
+            "allies_code:수냉",
+            "enemies_random",
+            "enemies_random:1",
+            "enemies_with_buff:빙의",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "에밀리아",
+      "name": "Emilia",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 3,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "엠마",
+      "name": "Emma",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "엠마 : 택티컬 업",
+      "name": "Emma: Tactical Upgrade",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "에피넬",
+      "name": "Epinel",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "에테르",
+      "name": "Ether",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "은화",
+      "name": "Eunhwa",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "은화 : 택티컬 업",
+      "name": "Eunhwa: Tactical Upgrade",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "이브",
+      "name": "EVE",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 3,
+          "targets": [
+            "enemies_code:전격",
+            "enemies_random:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "엑시아",
+      "name": "Exia",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "플로라",
+      "name": "Flora",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 7,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_adjacent:2",
+            "allies_code:전격"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_adjacent:2",
+            "allies_code:전격"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 9,
+          "dependencies": [
+            {
+              "unit": "플로라",
+              "effect": "아이리스 3",
+              "stat": "atk_caster_based_pct",
+              "kind": "shield",
+              "key": "individual shield",
+              "providers": [
+                "크라운",
+                "플로라"
+              ],
+              "recipient": "플로라",
+              "timing": [
+                "event:shield_applied"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_adjacent:2",
+            "allies_code:전격"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 10,
+          "dependencies": [
+            {
+              "unit": "플로라",
+              "effect": "아이리스 3",
+              "stat": "atk_caster_based_pct",
+              "kind": "shield",
+              "key": "individual shield",
+              "providers": [
+                "크라운",
+                "플로라"
+              ],
+              "recipient": "플로라",
+              "timing": [
+                "event:shield_applied"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 0,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "allies_adjacent:2",
+            "allies_code:전격"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "폴크방",
+      "name": "Folkwang",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "프림",
+      "name": "Frima",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "그레이브",
+      "name": "Grave",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 18,
+          "dependencies": [
+            {
+              "unit": "그레이브",
+              "effect": "과열 II",
+              "stat": "atk_pct",
+              "kind": "state_event",
+              "key": "미래 예지",
+              "providers": [
+                "그레이브"
+              ],
+              "recipient": "그레이브",
+              "timing": [
+                "event:미래 예지",
+                "hit_count:30"
+              ],
+              "conditions": [
+                "self_state:미래 예지",
+                "self_state:과열 I"
+              ]
+            },
+            {
+              "unit": "그레이브",
+              "effect": "과열 III",
+              "stat": "atk_dmg_pct",
+              "kind": "state_event",
+              "key": "미래 예지",
+              "providers": [
+                "그레이브"
+              ],
+              "recipient": "그레이브",
+              "timing": [
+                "event:미래 예지",
+                "hit_count:60"
+              ],
+              "conditions": [
+                "self_state:미래 예지",
+                "self_state:과열 II"
+              ]
+            }
+          ],
+          "conditional_effects": 6,
+          "burst_only_effects": 9,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "길로틴",
+      "name": "Guillotine",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "길로틴 : 윈터 슬레이어",
+      "name": "Guillotine: Winter Slayer",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "길티",
+      "name": "Guilty",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "하란",
+      "name": "Harran",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "헬름",
+      "name": "Helm",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 6,
+      "team_examples": 43,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 5,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:1"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:1"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:1",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:1",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "헬름 : 아쿠아마린",
+      "name": "Helm: Aquamarine",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "enemies_random:1",
+            "same_target",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "히메노",
+      "name": "Himeno",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "iDoll 플라워",
+      "name": "iDoll Flower",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "iDoll 오션",
+      "name": "iDoll Ocean",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "iDoll 썬",
+      "name": "iDoll Sun",
+      "burst": "3",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "이사벨",
+      "name": "Isabel",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 5,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "enemies_top_def:5",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "자칼",
+      "name": "Jackal",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 9,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "질",
+      "name": "Jill",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 12,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 7,
+          "targets": [
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "율리아",
+      "name": "Julia",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 4,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_top_def:5",
+            "same_target",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_top_def:5",
+            "same_target",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_top_def:5",
+            "same_target",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_random",
+            "same_target",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "K",
+      "name": "K",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "킬로",
+      "name": "Kilo",
+      "burst": "3",
+      "class": "Defender",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "쿠루미",
+      "name": "Kurumi",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "레이블",
+      "name": "Label",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "라플라스",
+      "name": "Laplace",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 1,
+          "targets": [
+            "same_target",
+            "self",
+            "target",
+            "target_body"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 1,
+          "targets": [
+            "same_target",
+            "self",
+            "target",
+            "target_body"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 4,
+          "burst_only_effects": 1,
+          "targets": [
+            "same_target",
+            "self",
+            "target",
+            "target_body"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 4,
+          "burst_only_effects": 1,
+          "targets": [
+            "same_target",
+            "self",
+            "target",
+            "target_body"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "라플라스 : 얼티밋 히어로",
+      "name": "Laplace: Ultimate Hero",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 17,
+          "dependencies": [],
+          "conditional_effects": 11,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_enemies",
+            "enemies_nearest:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "레오나",
+      "name": "Leona",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 6,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "allies_weapon_top_atk:SG:2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "리버렐리오",
+      "name": "Liberalio",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 22,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_enemies",
+            "allies_lowest_atk_burst3:1",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "릴리",
+      "name": "Lily",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "리타",
+      "name": "Liter",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 11,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 1,
+          "targets": [
+            "all_allies",
+            "allies_lowest_cover_hp:2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "리틀 머메이드",
+      "name": "Little Mermaid",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 36,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 5,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "enemies_random",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "루드밀라",
+      "name": "Ludmilla",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "루드밀라 : 윈터 오너",
+      "name": "Ludmilla: Winter Owner",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 8,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "메이든",
+      "name": "Maiden",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "메이든 : 아이스 로즈",
+      "name": "Maiden: Ice Rose",
+      "burst": "3",
+      "class": "Defender",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 8,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 10,
+          "dependencies": [],
+          "conditional_effects": 6,
+          "burst_only_effects": 2,
+          "targets": [
+            "allies_code_excl_self:전격",
+            "enemies_nearest:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "마키마",
+      "name": "Makima",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "마나",
+      "name": "Mana",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 12,
+          "dependencies": [],
+          "conditional_effects": 6,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_down_top_atk_excl:1",
+            "allies_top_base_charge_time:1",
+            "enemies_nearest:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "마르차나",
+      "name": "Marciana",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "마르차나 : 마린 스터디",
+      "name": "Marciana: Marine Study",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 14,
+          "dependencies": [],
+          "conditional_effects": 10,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_enemies",
+            "enemies_code:전격",
+            "enemies_random:1",
+            "enemies_top_hp:1",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "마리",
+      "name": "Mari",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "메어리",
+      "name": "Mary",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "메어리 : 베이 갓데스",
+      "name": "Mary: Bay Goddess",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 2,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "마스트",
+      "name": "Mast",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "마스트 : 로망틱 메이드",
+      "name": "Mast: Romantic Maid",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 7,
+      "team_examples": 46,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 10,
+          "dependencies": [],
+          "conditional_effects": 7,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "맥스웰",
+      "name": "Maxwell",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 7,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 6,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "allies_top_atk:2",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "맥스웰 : 오디너리 미케닉",
+      "name": "Maxwell: Ordinary Mechanic",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 14,
+          "dependencies": [],
+          "conditional_effects": 5,
+          "burst_only_effects": 11,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "미카",
+      "name": "Mica",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "미카 : 스노우 버디",
+      "name": "Mica: Snow Buddy",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "미하라",
+      "name": "Mihara",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "미하라 : 본딩 체인",
+      "name": "Mihara: Bonding Chain",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 18,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 9,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_random",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "밀크",
+      "name": "Milk",
+      "burst": "1",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "밀크 : 블루밍 바니",
+      "name": "Milk: Blooming Bunny",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 5,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 15,
+          "dependencies": [],
+          "conditional_effects": 7,
+          "burst_only_effects": 6,
+          "targets": [
+            "all_enemies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "민트",
+      "name": "Mint",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 13,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 15,
+          "dependencies": [],
+          "conditional_effects": 9,
+          "burst_only_effects": 8,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "미란다",
+      "name": "Miranda",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 5,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 5,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_top_atk_excl:1",
+            "allies_weapon:SMG"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 5,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_top_atk_excl:2",
+            "allies_weapon:SMG"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_top_atk_excl:1",
+            "allies_top_atk_excl:2",
+            "allies_weapon:SMG",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_top_atk_excl:1",
+            "allies_top_atk_excl:2",
+            "allies_weapon:SMG",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "미사토",
+      "name": "Misato",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "모더니아",
+      "name": "Modernia",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [
+            {
+              "unit": "모더니아",
+              "effect": "대도약 2",
+              "stat": "atk_pct",
+              "kind": "stat_threshold",
+              "key": "accuracy_pct",
+              "providers": [
+                "누아르",
+                "드레이크",
+                "디젤 : 윈터 스위츠",
+                "레오나",
+                "모더니아",
+                "미란다",
+                "앵커 : 이노센트 메이드"
+              ],
+              "recipient": "모더니아",
+              "timing": [
+                "hit_count:200"
+              ],
+              "conditions": [
+                "self_stat_above:accuracy_pct:0"
+              ]
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "목단",
+      "name": "Moran",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 12,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 12,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:3",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:3",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 14,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:3",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 14,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 6,
+          "targets": [
+            "all_allies",
+            "enemies_top_atk:3",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "모리",
+      "name": "Mori",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "N102",
+      "name": "N102",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 9,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "나가",
+      "name": "Naga",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 16,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [
+            {
+              "unit": "나가",
+              "effect": "우정의 가드 2",
+              "stat": "core_dmg_pct",
+              "kind": "shield",
+              "key": "individual shield",
+              "providers": [
+                "크라운",
+                "플로라"
+              ],
+              "recipient": "나가",
+              "timing": [
+                "event:shield_applied"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "나가",
+              "effect": "친구들과 함께라면! 3",
+              "stat": "atk_caster_based_pct",
+              "kind": "shield",
+              "key": "active shield",
+              "providers": [
+                "크라운",
+                "플로라"
+              ],
+              "recipient": "나가",
+              "timing": [
+                "burst_cast"
+              ],
+              "conditions": [
+                "during_shield"
+              ]
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "allies_lowest_hp:2",
+            "allies_top_atk:2",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "나유타",
+      "name": "Nayuta",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 18,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 16,
+          "dependencies": [
+            {
+              "unit": "나유타",
+              "effect": "위선",
+              "stat": "core_dmg_pct",
+              "kind": "state_event",
+              "key": "기억 흡수",
+              "providers": [
+                "나유타"
+              ],
+              "recipient": "나유타",
+              "timing": [
+                "event:기억 흡수"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "나유타",
+              "effect": "위선 2",
+              "stat": "atk_caster_based_pct",
+              "kind": "state_event",
+              "key": "기억 흡수",
+              "providers": [
+                "나유타"
+              ],
+              "recipient": "나유타",
+              "timing": [
+                "event:기억 흡수"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "나유타",
+              "effect": "위선 3",
+              "stat": "heal_split",
+              "kind": "state_event",
+              "key": "기억 흡수",
+              "providers": [
+                "나유타"
+              ],
+              "recipient": "나유타",
+              "timing": [
+                "event:기억 흡수"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "나유타",
+              "effect": "위선 4",
+              "stat": "heal_hp_pct",
+              "kind": "state_event",
+              "key": "기억 흡수",
+              "providers": [
+                "나유타"
+              ],
+              "recipient": "나유타",
+              "timing": [
+                "event:기억 흡수"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "나유타",
+              "effect": "무상",
+              "stat": "atk_pct",
+              "kind": "state_event",
+              "key": "기억 흡수",
+              "providers": [
+                "나유타"
+              ],
+              "recipient": "나유타",
+              "timing": [
+                "event:기억 흡수"
+              ],
+              "conditions": [
+                "self_stack_above:기억 흡수:2"
+              ]
+            },
+            {
+              "unit": "나유타",
+              "effect": "무상 2",
+              "stat": "atk_dmg_pct",
+              "kind": "state_event",
+              "key": "기억 흡수",
+              "providers": [
+                "나유타"
+              ],
+              "recipient": "나유타",
+              "timing": [
+                "event:기억 흡수"
+              ],
+              "conditions": [
+                "self_stack_above:기억 흡수:10"
+              ]
+            },
+            {
+              "unit": "나유타",
+              "effect": "무상 3",
+              "stat": "core_dmg_pct",
+              "kind": "state_event",
+              "key": "기억 흡수",
+              "providers": [
+                "나유타"
+              ],
+              "recipient": "나유타",
+              "timing": [
+                "event:기억 흡수"
+              ],
+              "conditions": [
+                "self_stack_above:기억 흡수:30"
+              ]
+            }
+          ],
+          "conditional_effects": 5,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "same_target",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "네온",
+      "name": "Neon",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "네온 : 블루 오션",
+      "name": "Neon: Blue Ocean",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "네온 : 비전 아이",
+      "name": "Neon: Vision Eye",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 8,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 17,
+          "dependencies": [],
+          "conditional_effects": 11,
+          "burst_only_effects": 6,
+          "targets": [
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "네로",
+      "name": "Nero",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "네베",
+      "name": "Neve",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "니힐리스타",
+      "name": "Nihilister",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "노아",
+      "name": "Noah",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "누아르",
+      "name": "Noir",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [
+            {
+              "unit": "누아르",
+              "effect": "피날레 4",
+              "stat": "accuracy_pct",
+              "kind": "squad",
+              "key": "777",
+              "providers": [
+                "루주",
+                "블랑"
+              ],
+              "recipient": "누아르",
+              "timing": [
+                "burst_cast"
+              ],
+              "conditions": [
+                "squad_ally_exists"
+              ]
+            },
+            {
+              "unit": "누아르",
+              "effect": "피날레 5",
+              "stat": "intercept_dmg_pct",
+              "kind": "squad",
+              "key": "777",
+              "providers": [
+                "루주",
+                "블랑"
+              ],
+              "recipient": "누아르",
+              "timing": [
+                "burst_cast"
+              ],
+              "conditions": [
+                "squad_ally_exists"
+              ]
+            }
+          ],
+          "conditional_effects": 3,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "allies_weapon:SG"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "노이즈",
+      "name": "Noise",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "노벨",
+      "name": "Novel",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "파스칼",
+      "name": "Pascal",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "페퍼",
+      "name": "Pepper",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "팬텀",
+      "name": "Phantom",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 6,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 12,
+          "dependencies": [],
+          "conditional_effects": 6,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 7,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 15,
+          "dependencies": [],
+          "conditional_effects": 8,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_enemies",
+            "same_target",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "폴리",
+      "name": "Poli",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "파워",
+      "name": "Power",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "프리카",
+      "name": "Prika",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 12,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 13,
+          "dependencies": [
+            {
+              "unit": "프리카",
+              "effect": "무대 파트 : 보컬",
+              "stat": null,
+              "kind": "named_ally",
+              "key": "민트",
+              "providers": [
+                "민트"
+              ],
+              "recipient": "민트",
+              "timing": [
+                "event:떼창"
+              ],
+              "conditions": [
+                "self_state:퍼포먼스"
+              ]
+            },
+            {
+              "unit": "프리카",
+              "effect": "무대 파트 : 보컬",
+              "stat": null,
+              "kind": "state_event",
+              "key": "떼창",
+              "providers": [
+                "민트"
+              ],
+              "recipient": "프리카",
+              "timing": [
+                "event:떼창"
+              ],
+              "conditions": [
+                "self_state:퍼포먼스"
+              ]
+            },
+            {
+              "unit": "프리카",
+              "effect": "앵콜",
+              "stat": "named_buff_duration_extend",
+              "kind": "state_event",
+              "key": "떼창",
+              "providers": [
+                "민트"
+              ],
+              "recipient": "프리카",
+              "timing": [
+                "event:떼창"
+              ],
+              "conditions": [
+                "self_state:퍼포먼스"
+              ]
+            },
+            {
+              "unit": "프리카",
+              "effect": "앵콜 2",
+              "stat": "atk_dmg_pct",
+              "kind": "state_event",
+              "key": "떼창",
+              "providers": [
+                "민트"
+              ],
+              "recipient": "프리카",
+              "timing": [
+                "event:떼창"
+              ],
+              "conditions": [
+                "self_state:퍼포먼스"
+              ]
+            },
+            {
+              "unit": "프리카",
+              "effect": "앵콜 3",
+              "stat": "burst_cooldown_reduce",
+              "kind": "state_event",
+              "key": "떼창",
+              "providers": [
+                "민트"
+              ],
+              "recipient": "프리카",
+              "timing": [
+                "event:떼창"
+              ],
+              "conditions": [
+                "self_state:퍼포먼스"
+              ]
+            }
+          ],
+          "conditional_effects": 6,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "self",
+            "민트"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "프리바티",
+      "name": "Privaty",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 28,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "same_target",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "same_target",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 10,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "same_target",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "same_target",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "프리바티 : 언카인드 메이드",
+      "name": "Privaty: Unkind Maid",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 2,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "프로덕트 08",
+      "name": "Product 08",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "프로덕트 12",
+      "name": "Product 12",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "프로덕트 23",
+      "name": "Product 23",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "퀸(마코토)",
+      "name": "Queen (Makoto)",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 15,
+          "dependencies": [
+            {
+              "unit": "퀸(마코토)",
+              "effect": "페르소나 : 요한나 2",
+              "stat": "split_damage",
+              "kind": "state_event",
+              "key": "1more",
+              "providers": [
+                "퀸(마코토)"
+              ],
+              "recipient": "퀸(마코토)",
+              "timing": [
+                "event:1more"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "퀸(마코토)",
+              "effect": "페르소나 : 요한나 3",
+              "stat": "split_damage",
+              "kind": "state_event",
+              "key": "추격",
+              "providers": [
+                "유키코"
+              ],
+              "recipient": "퀸(마코토)",
+              "timing": [
+                "event:추격"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "퀸(마코토)",
+              "effect": "배턴 터치",
+              "stat": "atk_caster_based_pct",
+              "kind": "state_event",
+              "key": "1more",
+              "providers": [
+                "퀸(마코토)"
+              ],
+              "recipient": "퀸(마코토)",
+              "timing": [
+                "event:1more"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 1,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_enemies",
+            "allies_burst3_persona_excl_self",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "퀀시",
+      "name": "Quency",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "퀀시 : 이스케이프 퀸",
+      "name": "Quency: Escape Queen",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 12,
+          "dependencies": [],
+          "conditional_effects": 7,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_enemies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "키리",
+      "name": "Quiry",
+      "burst": "3",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "람",
+      "name": "Ram",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 2,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "라피",
+      "name": "Rapi",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "라피 : 레드 후드",
+      "name": "Rapi: Red Hood",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 69,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 21,
+          "dependencies": [],
+          "conditional_effects": 16,
+          "burst_only_effects": 7,
+          "targets": [
+            "all_allies",
+            "enemies_nearest:1",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "라푼젤",
+      "name": "Rapunzel",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 2,
+      "team_examples": 5,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "라푼젤 : 퓨어 그레이스",
+      "name": "Rapunzel: Pure Grace",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "레이븐",
+      "name": "Raven",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "레드 후드",
+      "name": "Red Hood",
+      "burst": "A",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 17,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 14,
+          "dependencies": [
+            {
+              "unit": "레드 후드",
+              "effect": "와일드 투스 2",
+              "stat": "def_caster_based_pct",
+              "kind": "state_event",
+              "key": "비스트 케이지",
+              "providers": [
+                "레드 후드"
+              ],
+              "recipient": "레드 후드",
+              "timing": [
+                "event:비스트 케이지"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "레드 후드",
+              "effect": "와일드 투스 3",
+              "stat": "lifesteal_pct",
+              "kind": "state_event",
+              "key": "엔드 하울링",
+              "providers": [
+                "레드 후드"
+              ],
+              "recipient": "레드 후드",
+              "timing": [
+                "event:엔드 하울링"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "레드 후드",
+              "effect": "와일드 투스 4",
+              "stat": "atk_pct",
+              "kind": "state_event",
+              "key": "레드 울프",
+              "providers": [
+                "레드 후드"
+              ],
+              "recipient": "레드 후드",
+              "timing": [
+                "event:레드 울프"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "라이",
+      "name": "Rei",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "레이",
+      "name": "Rei",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_enemies",
+            "allies_code:작열",
+            "enemies_nearest_in_range",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "레이 (가칭)",
+      "name": "Rei (Tentative Name)",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "allies_burst_casted_weapon:MG",
+            "allies_with_buff:섬멸 태세",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "렘",
+      "name": "Rem",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 2,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "로산나",
+      "name": "Rosanna",
+      "burst": "1",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 10,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_top_atk:2",
+            "same_target",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 12,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_top_atk:2",
+            "same_target",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 3,
+          "targets": [
+            "enemies_top_atk:2",
+            "same_target",
+            "self",
+            "target"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 14,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 3,
+          "targets": [
+            "enemies_top_atk:2",
+            "same_target",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "로산나 : 시크 오션",
+      "name": "Rosanna: Chic Ocean",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 6,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "enemies_nearest:1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "루주",
+      "name": "Rouge",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 6,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 6,
+          "burst_only_effects": 4,
+          "targets": [
+            "all_allies",
+            "allies_adjacent:2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "루마니",
+      "name": "Rumani",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "루피",
+      "name": "Rupee",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "루피 : 윈터 쇼퍼",
+      "name": "Rupee: Winter Shopper",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "사쿠라",
+      "name": "Sakura",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "사쿠라 (SR)",
+      "name": "Sakura",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "사쿠라 : 블룸 인 서머",
+      "name": "Sakura: Bloom in Summer",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_random",
+            "enemies_top_atk:1",
+            "enemies_with_buff:벚꽃잎",
+            "same_target:화양연화",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "홍련",
+      "name": "Scarlet",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 4,
+      "team_examples": 6,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 6,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "홍련 : 흑영",
+      "name": "Scarlet: Black Shadow",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 5,
+      "team_examples": 19,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 10,
+          "dependencies": [],
+          "conditional_effects": 4,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_enemies",
+            "enemies_in_range",
+            "enemies_lowest_def:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "시그널",
+      "name": "Signal",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "신",
+      "name": "Sin",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "백학",
+      "name": "Snow Crane",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "스노우 화이트",
+      "name": "Snow White",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 5,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 6,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "enemies_in_range",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "스노우 화이트 : 헤비암즈",
+      "name": "Snow White: Heavy Arms",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 19,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 25,
+          "dependencies": [],
+          "conditional_effects": 7,
+          "burst_only_effects": 6,
+          "targets": [
+            "all_enemies",
+            "all_projectiles",
+            "enemies_nearest:1",
+            "enemies_with_buff:록 온",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "스노우 화이트 : 이노센트 데이즈",
+      "name": "Snow White: Innocent Days",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "소다",
+      "name": "Soda",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "소다 : 트윙클링 바니",
+      "name": "Soda: Twinkling Bunny",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 8,
+          "burst_only_effects": 4,
+          "targets": [
+            "['self', 'allies_top_atk_excl:1']",
+            "all_allies",
+            "all_enemies",
+            "enemies_nearest:1",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "솔져 E.G.",
+      "name": "Soldier EG",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Electric",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "솔져 F.A.",
+      "name": "Soldier FA",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "솔져 O.W.",
+      "name": "Soldier OW",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "솔린",
+      "name": "Soline",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "솔린 : 프로스트 티켓",
+      "name": "Soline: Frost Ticket",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "소라",
+      "name": "Sora",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "슈가",
+      "name": "Sugar",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 6,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "allies_weapon:SG",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "allies_weapon:SG",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 11,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 2,
+          "targets": [
+            "['allies_code_weapon:수냉:SG', 'allies_code_weapon:철갑:SG']",
+            "allies_weapon:SG",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 4,
+          "targets": [
+            "['allies_code_weapon:수냉:SG', 'allies_code_weapon:철갑:SG']",
+            "allies_weapon:SG",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "타키나",
+      "name": "Takina",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Iron",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 1,
+      "team_examples": 4,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "티아",
+      "name": "Tia",
+      "burst": "1",
+      "class": "Defender",
+      "element": "Iron",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 2,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "토브",
+      "name": "Tove",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Water",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 8,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 3,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "allies_weapon:SG",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "트리나",
+      "name": "Trina",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 4,
+          "burst_only_effects": 8,
+          "targets": [
+            "all_allies",
+            "allies_code_weapon:전격:AR",
+            "allies_code_weapon_leftmost:전격:AR:1",
+            "allies_lowest_hp:2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "트로니",
+      "name": "Trony",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "벨벳",
+      "name": "Velvet",
+      "burst": "2",
+      "class": "Supporter",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 6,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 13,
+          "dependencies": [],
+          "conditional_effects": 9,
+          "burst_only_effects": 2,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "self",
+            "target"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "베스티",
+      "name": "Vesti",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "베스티 : 택티컬 업",
+      "name": "Vesti: Tactical Upgrade",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 2,
+      "team_examples": 16,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "바이퍼",
+      "name": "Viper",
+      "burst": "2",
+      "class": "Attacker",
+      "element": "Water",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 1,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "볼륨",
+      "name": "Volume",
+      "burst": "1",
+      "class": "Attacker",
+      "element": "Wind",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 0,
+      "team_examples": 2,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 1,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "얀",
+      "name": "Yan",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "유키코",
+      "name": "Yukiko",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 2,
+      "team_examples": 1,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 14,
+          "dependencies": [
+            {
+              "unit": "유키코",
+              "effect": "페르소나 : 코노하나사쿠야 2",
+              "stat": "split_damage",
+              "kind": "state_event",
+              "key": "1more",
+              "providers": [
+                "유키코"
+              ],
+              "recipient": "유키코",
+              "timing": [
+                "event:1more"
+              ],
+              "conditions": []
+            },
+            {
+              "unit": "유키코",
+              "effect": "추격",
+              "stat": "atk_caster_based_pct",
+              "kind": "state_event",
+              "key": "1more",
+              "providers": [
+                "유키코"
+              ],
+              "recipient": "유키코",
+              "timing": [
+                "event:1more"
+              ],
+              "conditions": []
+            }
+          ],
+          "conditional_effects": 4,
+          "burst_only_effects": 5,
+          "targets": [
+            "all_allies",
+            "all_enemies",
+            "allies_burst3_persona_excl_self",
+            "self"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "율하",
+      "name": "Yulha",
+      "burst": "3",
+      "class": "Attacker",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "유니",
+      "name": "Yuni",
+      "burst": "2",
+      "class": "Defender",
+      "element": "Fire",
+      "status": "unsupported skill kit; excluded from search",
+      "supported": false,
+      "explicit_pair_rules": 0,
+      "team_examples": 0,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 0,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 0,
+          "targets": []
+        }
+      ]
+    },
+    {
+      "id": "츠바이",
+      "name": "Zwei",
+      "burst": "1",
+      "class": "Supporter",
+      "element": "Electric",
+      "status": "skill model available; gameplay accuracy unverified",
+      "supported": true,
+      "explicit_pair_rules": 3,
+      "team_examples": 3,
+      "variants": [
+        {
+          "favorite_phase": 0,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 1,
+          "effects": 7,
+          "dependencies": [],
+          "conditional_effects": 0,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 2,
+          "effects": 8,
+          "dependencies": [],
+          "conditional_effects": 1,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        },
+        {
+          "favorite_phase": 3,
+          "effects": 9,
+          "dependencies": [],
+          "conditional_effects": 2,
+          "burst_only_effects": 3,
+          "targets": [
+            "all_allies",
+            "self"
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Every catalogue entry and distinct resolved Favorite Item kit was inspected. This is implementation coverage, not a complete gameplay validation or exhaustive optimal-team proof."
+}

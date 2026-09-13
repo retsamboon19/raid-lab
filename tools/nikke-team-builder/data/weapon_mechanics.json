@@ -1,0 +1,104 @@
+{
+  "_comment": "무기 유형별 발사 메카닉. 타이머 기반: next_fire_time = current_time + (1 / fire_rate). charge_time은 parsed_nikke.json에서 로드",
+  "_timing_model": "매 프레임 current_time >= next_fire_time이면 발사 후 next_fire_time += (1 / fire_rate)",
+  "_priority": [
+    "weapon_type_defaults는 무기군 기본값 = 3계층 중 최하위 폴백이다. 해석 순서(timeline.py CharState._pick):",
+    "  ① weapon_delays.json _exceptions[캐릭터]  — 수동 실측 오버라이드 (스크래퍼가 안 건드림)",
+    "  ② parsed_nikke.json[캐릭터]              — 스크래퍼가 CDN에서 자동 수집 (fire_rate/pellets/muzzles)",
+    "  ③ 여기 weapon_type_defaults               — 무기군 기본값",
+    "따라서 실제로 이 값이 쓰이는 곳은 (a) 캐릭터별 값이 없는 더미(test_B1 등)와",
+    "(b) 무기 변경 무기다 — 변경 무기는 CDN에 레코드가 없어 ②가 비고 ①→③으로 떨어진다.",
+    "수치 출처: CDN roledata shot_detail 195명 전수의 대표값. rate_of_fire(rpm)/60 = 초당 발수.",
+    "`type`(auto/auto_warmup/charge)도 폴백이다 — 차지 여부는 무기 유형과 독립된 축이라 SR/RL이라고 차지인 게 아니다. 정본은 CDN `조작 타입`에서 온 parsed_nikke `is_charge`이고(비차지 RL = 파스칼), 무기 변경 모드는 parsed_skills 효과의 `charge`가 정본이다(SG인 채로 차지하는 드레이크 : 그레이트 빌런 `오버 오버 드라이브`). 정본 문서: docs/mechanics/CDN 발사 데이터.md §차지 무기인가"
+  ],
+  "_burst_energy": [
+    "burst_energy = **히트당** 버스트 게이지(%). 한 발이 만드는 게이지는 burst_energy × pellets × muzzles다.",
+    "즉 SG 0.4는 발당 4%(펠릿 10), 총구 2개인 무기는 그만큼 두 배다.",
+    "출처는 CDN shot_detail의 target_burst_energy_pershot / 10000 — 무기군 최빈값이다.",
+    "  AR 0.4(23/36) · SMG 0.2(24/31) · SG 0.4(16/27) · MG 0.1(26/26) · SR 5.6(27/37) · RL 2.8(25/41)",
+    "캐릭터별 실값은 ②층(parsed_nikke.json burst_energy)이 언제나 먼저 잡으므로, 여기 값이 실제로",
+    "쓰이는 곳은 위 _priority가 적은 대로 더미와 무기 변경 무기뿐이다.",
+    "풀차지 배율은 여기 없다 — parsed_nikke.json의 full_charge_mult를 게이지에도 그대로 쓴다.",
+    "식·실측 대조는 docs/mechanics/버스트 게이지.md."
+  ],
+  "clip_characters": {
+    "_comment": "클립 무기: 재장전 1회가 최대 장탄의 1/3만 채운다. parsed_nikke.json의 reload_time(≤1초)은 클립 1회 시간이고, 오토는 탄창이 찰 때까지 3연속으로 굴리므로 실효 재장전은 reload_time x 3 — 일반 SG/RL과 사실상 같다. 표기값만 보고 '재장전이 3배 빠르다'로 읽으면 딜이 부풀려진다. 상세는 GAMEPLAY.md 무기 메카닉, 구현은 timeline.py _finish_reload().",
+    "_fallback_only": "2026-08-28부터 클립 판정의 정본은 CDN reload_bullet에서 유도한 parsed_nikke.json의 clip_count다(3300 -> 3회). 이 명단은 CDN 값이 없는 프리뷰 캐릭터 폴백으로만 쓰인다 — 전수 대조에서 두 출처는 아래 14명 그대로 일치했다. 새 클립 캐릭터를 여기 손으로 적을 필요는 없다.",
+    "SG": [
+      "누아르",
+      "드레이크",
+      "바이퍼",
+      "네온",
+      "페퍼",
+      "슈가",
+      "메이든",
+      "프로덕트 23",
+      "소다 : 트윙클링 바니"
+    ],
+    "RL": [
+      "센티",
+      "루마니",
+      "아니스",
+      "자칼",
+      "트리나"
+    ]
+  },
+  "accuracy": {
+    "_comment": "코어히트 확률 모델. D(px) = spread × (1 - _slope_ratio × 명중%), P = min(1, (r_c/R)^_model_n),  R = D/2,  r_c = core_px/2. 적 core_px가 0이면(DEFAULT_ENEMY 기본) 이 경로를 아예 타지 않는다.",
+    "_source_spread": "spread는 **CDN 정본**이다 — shot_detail의 start/end_accuracy_circle_scale과 accuracy_change_pershot이 parsed_nikke.json의 spread_start/spread_end/spread_change_pershot으로 들어온다. 무기군별 하드코딩 표는 2026-08-27에 지웠다. 값·분포는 docs/mechanics/CDN 발사 데이터.md",
+    "_source_slope": "**_slope_ratio는 CDN에 없다.** 커뮤니티 실험값(https://arca.live/b/nikketgv/96243965)의 무기별 slope/base가 AR 0.9079% · SMG 0.9091% · SG 0.9083%로 사실상 같아, 무기별 slope 3개가 아니라 곱셈 법칙 하나로 읽고 그 평균을 보편 상수로 잡았다. **추론이지 확인된 사실이 아니다** — docs/DATA_VERIFY.md §명중률/탄착군에 ⬜로 남아 있다. 종전에 acc_slope 0이던 RL·SR·MG도 이 상수를 타므로 명중률에 반응하게 됐다(모델 확장, 유저 승인)",
+    "_slope_ratio": 0.00908,
+    "_model_n": 2.55,
+    "_fallback_spread": 10,
+    "_fallback_note": "CDN 미수집(preview_skills.json 출시 전) 캐릭터 전용. 수집된 캐릭터는 여기까지 오지 않는다"
+  },
+  "weapon_type_defaults": {
+    "AR": {
+      "burst_energy": 0.4,
+      "type": "auto",
+      "fire_rate": 12
+    },
+    "SMG": {
+      "burst_energy": 0.2,
+      "type": "auto",
+      "fire_rate": 24
+    },
+    "SG": {
+      "burst_energy": 0.4,
+      "type": "auto",
+      "fire_rate": 1.5,
+      "pellets": 10,
+      "_pellets_note": "총 대미지가 펠릿으로 분산. 펠릿당 대미지 = 계수 / pellets. 실제 히트 수는 pellets × muzzles (총구 수는 parsed_nikke.json에서 캐릭터별로 로드, 기본 1)"
+    },
+    "MG": {
+      "burst_energy": 0.1,
+      "type": "auto_warmup",
+      "_warmup_formula": "fire_rate(w) = fire_rate_min + (fire_rate_max - fire_rate_min) * min(w, warmup_bullets) / warmup_bullets",
+      "fire_rate_min": 1,
+      "fire_rate_max": 70,
+      "warmup_bullets": 41.4,
+      "cooldown_time": 1.0,
+      "_cooldown_note": "예열은 재장전으로 리셋되지 않고 미사격 시간에 비례해 식는다. cooldown_time을 max→0 선형 완냉 시간으로 해석 → cool_rate = warmup_bullets/cooldown_time = 41.4발/s (_cool_warmup)",
+      "_source": "CDN shot_detail (MG 25명 전원 동일): rate_of_fire 60rpm → 1/s, end_rate_of_fire 4200rpm → 70/s, rate_of_fire_change_pershot 100rpm/발 → warmup_bullets (4200-60)/100 = 41.4. cooldown_time은 rate_of_fire_reset_time 100(=1.0초) — 이 필드는 MG 25명만 값이 있고 다른 무기군 170명은 전부 0이다",
+      "_frame_cap_note": "fire_rate_max 70은 데이터 표기값이고 실제 체감은 60/s다(유명 실측값). 게임이 60fps라 프레임당 1발이 상한이기 때문 — timeline.py _tick_auto가 이 상한을 적용하므로 여기 70을 그대로 두어도 시뮬 결과는 60/s가 된다. 60으로 낮춰 적지 않는 이유는 예열 곡선이 CDN 그대로 유지되어야 하기 때문(41.4발 표기 = 실효로는 35.4발째에 이미 60/s 도달)"
+    },
+    "SR": {
+      "burst_energy": 5.6,
+      "type": "charge",
+      "fire_rate": 1.0,
+      "post_fire_delay": 0.215,
+      "_post_fire_delay_note": "**무기 변경(weapon_change) 모드 전용 폴백이다.** 원래 무기의 발사 후 딜레이는 여기까지 내려오지 않는다 — weapon_delays.json _defaults_by_weapon_type(SR/RL 0.38)이 언제나 먼저 잡는다(timeline.py CharState.__init__). 이 값이 실제로 쓰이는 건 _tick_weapon_change()가 wc_mech에서 읽을 때뿐이고, 그쪽은 _defaults_by_weapon_type을 보지 않는다. 그래서 같은 RL이라도 원래 무기는 0.38, 변경 모드는 0.215다(나유타 `기억 연소`). 2026-05-29에 원래 무기만 0.215→0.38로 올렸고 모드 쪽은 그대로 두었다 — 지우면 0이 되어 나유타 딜이 움직인다",
+      "_note": "charge_time은 parsed_nikke.json에서 로드. 캐릭터별 딜레이는 weapon_delays.json에서 관리",
+      "_fire_rate_note": "차지 무기는 차지 시간 + 발사 후 딜레이로 주기가 결정되므로 fire_rate를 발사 루프에 쓰지 않는다(참고용 기록)"
+    },
+    "RL": {
+      "burst_energy": 2.8,
+      "type": "charge",
+      "fire_rate": 1.0,
+      "post_fire_delay": 0.215,
+      "_post_fire_delay_note": "**무기 변경(weapon_change) 모드 전용 폴백이다.** 위 SR 항목의 같은 주석 참고 — 원래 무기는 weapon_delays.json의 0.38을 쓰고 여기까지 내려오지 않는다. 나유타 `기억 연소`(RL 모드)가 실제 사용처다",
+      "_note": "charge_time은 parsed_nikke.json에서 로드. 캐릭터별 딜레이는 weapon_delays.json에서 관리",
+      "_fire_rate_note": "차지 무기는 차지 시간 + 발사 후 딜레이로 주기가 결정되므로 fire_rate를 발사 루프에 쓰지 않는다(참고용 기록)"
+    }
+  }
+}
