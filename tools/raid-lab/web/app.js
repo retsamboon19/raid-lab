@@ -3,10 +3,18 @@ const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>new Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:2}).format(n||0);
 const clone=x=>JSON.parse(JSON.stringify(x));
+let activeAccount=null,savedAccounts=[],accountSaveQueue=Promise.resolve(),accountSwitching=false;
 let modelRevision=null,bosses=[],catalog=[],byId={},roster=[],defaults={},demo=[],cubes=[],report=null,job=null,editing=null,revision=0,reportRevision=-1,jobRevision=0,source='No roster loaded';
-async function api(path,body){const r=await fetch('/api/'+path,body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let d;try{d=await r.json()}catch{throw Error('The local app did not return a valid response. Restart Raid Lab.')}if(!r.ok)throw Error(d.error||'Request failed');return d}
+async function api(path,body){if(activeAccount&&/^history(?:\/|\?|$)/.test(path))path+=(path.includes('?')?'&':'?')+'account_id='+encodeURIComponent(activeAccount);if(activeAccount&&['search','manual'].includes(path))body={...body,account_id:activeAccount};const r=await fetch('/api/'+path,body===undefined?{}:{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let d;try{d=await r.json()}catch{throw Error('The local app did not return a valid response. Restart Raid Lab.')}if(!r.ok)throw Error(d.error||'Request failed');return d}
 function notice(text,error=false){$('notice').textContent=text;$('notice').className=error?'error':''}
-function save(){try{localStorage.setItem('raid-lab-v1',JSON.stringify({roster,source}));}catch{notice('Browser storage is unavailable. Export your roster to keep it.',true)}}
+function save(){const creating=!activeAccount;if(creating)activeAccount='custom';const snapshot={account_id:activeAccount,roster:clone(roster),source};accountSaveQueue=accountSaveQueue.catch(()=>{}).then(()=>creating?api('accounts/import',{data:{...snapshot,account_name:'Custom roster'}}):api('accounts/save',snapshot)).then(()=>listAccounts()).catch(e=>{notice('Account could not be saved: '+e.message,true);throw e;});accountSaveQueue.catch(()=>{});}
+async function listAccounts(){savedAccounts=(await api('accounts')).accounts;$('accountSelect').textContent=(savedAccounts.find(a=>a.id===activeAccount)?.name||'Select account')+' ▾';$('accountMenu').innerHTML=savedAccounts.length?savedAccounts.map(a=>`<div class="account-row"><button class="account-choice" data-account="${esc(a.id)}" aria-pressed="${a.id===activeAccount}">${esc(a.name)} <small>${a.count} units</small></button><button class="account-delete" data-delete="${esc(a.id)}" aria-label="Delete ${esc(a.name)}" title="Delete account and cached data"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></svg></button></div>`).join(''):'<p>No saved accounts</p>';}
+function closeAccountMenu(){$('accountMenu').hidden=true;$('accountSelect').setAttribute('aria-expanded','false');}
+async function deleteAccount(id){if(accountSwitching||working||accountRefreshing){notice('Finish or cancel the current operation before deleting an account.',true);return;}const name=savedAccounts.find(a=>a.id===id)?.name||'this account';if(!confirm(`Delete ${name}? Its roster, cached details and recommendation history will be removed from Raid Lab.`))return;accountSwitching=true;$('accountSelect').disabled=true;closeAccountMenu();try{await accountSaveQueue;await api('accounts/delete',{account_id:id});localStorage.removeItem('raid-lab-v1');localStorage.setItem('raid-lab-accounts-migrated','1');await listAccounts();if(activeAccount===id){if(savedAccounts.length)await useAccount(await api('accounts/'+savedAccounts[0].id));else{activeAccount=null;roster=[];source='No roster loaded';revision++;report=null;reportRevision=-1;historyUI.reset();$('resultContent').innerHTML='';$('emptyResults').hidden=false;$('resultsCount').textContent='0';$('searchActivity').hidden=true;localStorage.removeItem('raid-lab-active-account');renderRoster();switchTab('roster');await listAccounts();}}notice(`Deleted ${name} and its cached data and history.`);}catch(e){notice(e.message,true);}finally{accountSwitching=false;$('accountSelect').disabled=false;}}
+
+async function useAccount(fresh){activeAccount=fresh.account_id;roster=clone(fresh.roster);source=fresh.source||fresh.account_name;revision++;report=null;reportRevision=-1;$('resultContent').innerHTML='';$('emptyResults').hidden=false;$('resultsCount').textContent='0';$('searchActivity').hidden=true;$('search').value='';$('tagFilter').value='';historyUI.reset();renderRoster();switchTab('roster');localStorage.setItem('raid-lab-active-account',activeAccount);await listAccounts();notice(`Loaded ${fresh.account_name}: ${roster.length} owned units.`);}
+async function switchAccount(id){if(accountSwitching||working||accountRefreshing){$('accountSelect').value=activeAccount;notice('Finish or cancel the current operation before switching accounts.',true);return;}accountSwitching=true;$('accountSelect').disabled=true;try{await accountSaveQueue;await useAccount(await api('accounts/'+encodeURIComponent(id)));}catch(e){$('accountSelect').value=activeAccount;notice(e.message,true);}finally{accountSwitching=false;$('accountSelect').disabled=false;}}
+async function initAccounts(){await listAccounts();const legacy=JSON.parse(localStorage.getItem('raid-lab-v1')||'null');if(!localStorage.getItem('raid-lab-accounts-migrated')&&legacy?.roster?.length){if(legacy.source?.startsWith('BlaBlaLink')&&savedAccounts.some(a=>a.id==='my-account'))await api('accounts/save',{account_id:'my-account',...legacy});else await api('accounts/import',{data:legacy,name:'Previously loaded roster'});localStorage.setItem('raid-lab-accounts-migrated','1');localStorage.removeItem('raid-lab-v1');await listAccounts();}const wanted=localStorage.getItem('raid-lab-active-account');const id=savedAccounts.find(a=>a.id===wanted)?.id||savedAccounts[0]?.id;if(id)await useAccount(await api('accounts/'+id));else renderRoster();}
 function changed(){revision++;save();renderRoster();if(report)renderReport()}
 const feedbackUI=RaidFeedback.create({api,getRoster:()=>roster,getCatalog:()=>byId});
 const historyUI=RaidHistory.create({feedback:feedbackUI.open,root:$('historyView'),api,getCatalog:()=>byId,download,checks:squadCheckItems,getModelRevision:()=>modelRevision});
@@ -24,7 +32,7 @@ function renderRoster(){
  $('coverage').textContent=`${catalog.filter(c=>c.supported).length} skill kits available for simulation · ${catalog.length} units in the catalogue. Unsupported units stay in your roster but are excluded from search.`;
 }
 function download(filename,obj){const u=URL.createObjectURL(new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
-async function imported(data){const d=await api('import',data);roster=d.roster;source=d.source;changed();notice(`Imported ${roster.length} owned units. ${roster.filter(r=>r.assumptions.length).length} have build assumptions to review.`+(d.warnings.length?'\n'+d.warnings.join('\n'):''));switchTab('roster')}
+async function imported(data,name){if(working||accountRefreshing||accountSwitching)throw Error('Finish the current operation before importing an account.');await accountSaveQueue;const d=await api('accounts/import',{data,name});await useAccount(d);notice(`Imported ${d.account_name}: ${roster.length} owned units.`+(d.warnings?.length?' '+d.warnings.join(' '):''));}
 function field(id,label,value,min,max,step='1'){return `<label>${label}<input id="e_${id}" type="number" value="${esc(value)}" min="${min}" max="${max}" step="${step}" required></label>`}
 function selectField(id,label,value,options){return `<label>${label}<select id="e_${id}">${options.map(o=>`<option value="${esc(o[0])}" ${String(o[0])===String(value)?'selected':''}>${esc(o[1])}</option>`).join('')}</select></label>`}
 function drawEditor(){const r=roster[editing],b=r.build;$('editName').textContent=byId[r.id].name;$('editNotes').textContent=r.assumptions.join(' ')||'Custom build. Double-check all investment before comparing teams.';$('editError').textContent='';
@@ -64,14 +72,20 @@ async function cancelSearch(){if(!job)return;const id=job;$('cancelBtn').disable
 
 function openManual(i){const campaign=$('content_mode').value==='campaign';$('manualRun').textContent=campaign?'Assess this team':'Simulate this team';const ids=i<0?roster.filter(r=>byId[r.id].supported).slice(0,5).map(r=>r.id):report.teams[i].members;if(ids.length<5){notice('Add or import at least five units with supported kits to simulate a team.',true);return}$('manualSlots').innerHTML=ids.map((id,j)=>`<label>Slot ${j+1}<select id="m${j}">${roster.filter(r=>byId[r.id].supported).map(r=>`<option value="${esc(r.id)}" ${r.id===id?'selected':''}>${esc(byId[r.id].name)} · B${esc(byId[r.id].burst)}</option>`).join('')}</select></label>`).join('');$('manualError').textContent='';$('manualDialog').showModal()}
 async function init(){try{const d=await api('catalog');modelRevision=d.model_revision;catalog=d.catalog;byId=Object.fromEntries(catalog.map(c=>[c.id,c]));defaults=d.default_build;demo=d.demo;cubes=d.cubes;bosses=d.bosses;loadComputeOptions();selectBossLibrary();updateUptime();
- try{const stored=JSON.parse(localStorage.getItem('raid-lab-v1')||'null');if(stored?.roster?.length){const valid=await api('import',{roster:stored.roster});roster=valid.roster;source=stored.source||'Saved on this device'}}catch{notice('Saved roster could not be loaded. Import your last export to restore it.',true)}const local=await api('local-roster'); if(local.roster?.length && (!roster.length || source.startsWith('DEMO'))){roster=local.roster;source=local.source;save();notice('Loaded your local BlaBlaLink export: '+roster.length+' owned units. '+(local.warnings||[]).join(' '));loadSavedReport(local)} renderRoster();
+ await initAccounts();
  }catch(e){notice(e.message,true);$('buildBtn').disabled=true}
 }
 $('rosterTab').onclick=()=>switchTab('roster');$('resultsTab').onclick=()=>switchTab('results');$('historyTab').onclick=()=>switchTab('history');$('restoreSavedReport').onclick=()=>switchTab('history');
 $('search').oninput=renderRoster;$('tagFilter').onchange=renderRoster;
-$('importBtn').onclick=()=>$('file').click();$('file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>4_000_000)throw Error('Roster file must be under 4 MB.');await imported(JSON.parse(await f.text()))}catch(err){notice(err.message,true)}finally{e.target.value=''}};
-$('exportBtn').onclick=()=>download('raid-lab-roster.json',{version:1,roster});
-$('demoBtn').onclick=()=>{roster=clone(demo);source='DEMO · fictional investment';changed();notice('Demo roster loaded. These are example builds, not your account. Start with Quick search to try the engine.')};
+$('importBtn').onclick=()=>$('file').click();$('file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>4_000_000)throw Error('Roster file must be under 4 MB.');await imported(JSON.parse(await f.text()),f.name.replace(/\.json$/i,''))}catch(err){notice(err.message,true)}finally{e.target.value=''}};
+$('exportBtn').onclick=()=>download((savedAccounts.find(a=>a.id===activeAccount)?.name||'raid-lab-roster')+'.json',{version:1,account_id:activeAccount,account_name:savedAccounts.find(a=>a.id===activeAccount)?.name,source,roster});
+$('accountSelect').onclick=()=>{const open=$('accountMenu').hidden;$('accountMenu').hidden=!open;$('accountSelect').setAttribute('aria-expanded',String(open));};
+$('accountMenu').onclick=e=>{const remove=e.target.closest('[data-delete]');if(remove){deleteAccount(remove.dataset.delete);return;}const choice=e.target.closest('[data-account]');if(choice){closeAccountMenu();switchAccount(choice.dataset.account);}};
+document.addEventListener('click',e=>{if(!e.target.closest('.account-picker'))closeAccountMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAccountMenu();});
+$('publicProfileBtn').onclick=()=>{if(working||accountRefreshing)return;$('publicProfileError').textContent='';$('publicProfileDialog').showModal();};
+$('publicProfileForm').onsubmit=e=>{e.preventDefault();const url=$('publicProfileUrl').value.trim();$('publicProfileDialog').close();refreshAccount(false,url);};
+$('demoBtn').onclick=()=>imported({account_id:'demo',account_name:'Demo account',source:'DEMO · fictional investment',roster:clone(demo)}).catch(e=>notice(e.message,true));
 $('guideBtn').onclick=()=>{document.querySelector('.import-help').open=true;document.querySelector('.import-help').scrollIntoView({behavior:'smooth'})};
 $('addBtn').onclick=()=>{$('pickSearch').value='';renderPicker();$('picker').showModal()};$('pickSearch').oninput=renderPicker;
 $('pickList').onclick=e=>{const button=e.target.closest('[data-add]');if(!button)return;const c=catalog[Number(button.dataset.add)];roster.push({id:c.id,build:clone(defaults),enabled:true,assumptions:['New unit: enter your build. Defaults are skills 1/1/1, no gear or collection, bond 1, no research, and no equipped cube.']});source='Custom roster';changed();$('picker').close();openEditor(roster.length-1)};
@@ -88,9 +102,10 @@ $('manualRun').onclick=()=>{const members=Array.from({length:5},(_,i)=>$('m'+i).
 init();
 
 let accountJob=null,accountRefreshing=false;
-async function refreshAccount(chooseBrowser=false){
- if(accountRefreshing)return;
- accountRefreshing=true;
+async function refreshAccount(chooseBrowser=false,profileUrl=null){
+ if(accountRefreshing||working||accountSwitching)return;
+ try{await accountSaveQueue;}catch(e){notice(e.message,true);return;}
+ accountRefreshing=true;$('accountSelect').disabled=true;$('publicProfileBtn').disabled=true;
  const button=$('loadLocalBtn');button.disabled=true;button.textContent='Refreshing account…';
  $('accountCancel').disabled=true;
  $('accountFinish').hidden=true;
@@ -98,7 +113,7 @@ async function refreshAccount(chooseBrowser=false){
  $('accountConnectionStatus').textContent='Preparing account login…';
  $('accountDialog').showModal();
  try{
-  const refresh=await api('account-refresh',{choose_browser:chooseBrowser});accountJob=refresh.id;
+  const refresh=await api('account-refresh',{choose_browser:chooseBrowser,profile_url:profileUrl});accountJob=refresh.id;
   $('accountCancel').disabled=false;
   while(true){
    const state=await api('account-refresh/'+refresh.id);
@@ -115,13 +130,13 @@ async function refreshAccount(chooseBrowser=false){
    $('accountFinish').hidden=!state.awaiting_close;
    if(state.status==='error')throw Error(state.error);
    if(state.status==='done'){
-    const fresh=state.result;roster=fresh.roster;source=fresh.source;changed();switchTab('roster');
+    const fresh=state.result;await useAccount(fresh);
     notice('Account refreshed from BlaBlaLink at '+new Date(fresh.refreshed_at).toLocaleString()+'. '+roster.length+' owned units. '+(job?'The running simulation keeps its original inputs; rerun afterward to use the refreshed gear. ':'')+(fresh.warnings||[]).join(' '));break;
    }
    notice(state.phase||'Fetching the latest BlaBlaLink account data…');
    await new Promise(resolve=>setTimeout(resolve,1200));
   }
- }catch(e){notice(e.message,true)}finally{accountJob=null;accountRefreshing=false;$('accountCancel').disabled=false;$('accountDialog').close();button.disabled=false;button.textContent='Load my account'}
+ }catch(e){notice(e.message,true)}finally{accountJob=null;accountRefreshing=false;$('accountCancel').disabled=false;$('accountDialog').close();button.disabled=false;button.textContent='Load my account';$('accountSelect').disabled=false;$('publicProfileBtn').disabled=false;}
 }
 $('loadLocalBtn').onclick=()=>refreshAccount();
 const browserButton=document.createElement('button');browserButton.textContent='Browser…';browserButton.className='quiet';browserButton.title='Choose or change the browser used to refresh your account';$('loadLocalBtn').after(browserButton);browserButton.onclick=()=>{if(accountRefreshing){if(!$('accountDialog').open)$('accountDialog').showModal()}else refreshAccount(true)};

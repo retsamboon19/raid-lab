@@ -218,6 +218,7 @@ class LoginBrowser:
         paths = {name: ('/api/game/proxy/' + name, 'POST') for name in ROUTES}
         paths['account'] = ('/api/ugc/proxy/standalonesite/User/GetUserInfoNew', 'POST')
         paths['role'] = ('/api/game/proxy/Game/GetSavedRoleInfo', 'GET')
+        paths['player_info'] = ('/api/ugc/direct/standalonesite/User/GetUserGamePlayerInfo', 'POST')
         if route not in paths:
             raise ValueError('Unsupported account endpoint.')
         path, method = paths[route]

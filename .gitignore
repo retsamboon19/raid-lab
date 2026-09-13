@@ -19,6 +19,8 @@
 !/tools/raid-lab/feedback-service/
 !/tools/raid-lab/PAIRING-AUDIT.md
 !/tools/raid-lab/account_sync.py
+!/tools/raid-lab/accounts.py
+!/tools/raid-lab/test_accounts.py
 !/tools/raid-lab/boss-guidance.json
 !/tools/raid-lab/boss-static-data.json
 !/tools/raid-lab/boss_behavior.py
@@ -104,6 +106,8 @@
 !/tools/nikke-team-builder/LICENSE
 /tools/nikke-team-builder/scraper/*
 !/tools/nikke-team-builder/scraper/nikke_scraped.json
+!/tools/nikke-team-builder/scraper/profile_fetch.py
+!/tools/nikke-team-builder/scraper/cdn_path.py
 **/__pycache__/
 **/*.pyc
 **/*.pyo

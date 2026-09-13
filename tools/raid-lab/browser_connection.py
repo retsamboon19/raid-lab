@@ -4,17 +4,21 @@ import threading
 import time
 import account_sync
 import browser_login
+import accounts
 
 LOCK = threading.RLock()
 JOBS = {}
 ACTIVE = ('running', 'needs_browser')
 browsers = browser_login.browsers
 
-def start(force_browser=False):
+def start(force_browser=False, profile_url=None):
+    target = accounts.public_identity(profile_url) if profile_url else None
     with LOCK:
         for key, row in JOBS.items():
             if row['status'] in ACTIVE:
                 if time.time() - row['created'] < 900:
+                    if row.get('target') != target:
+                        raise ValueError('An account import is already running. Finish or cancel it first.')
                     return key
                 row['cancel'].set()
                 row.update(status='error', error='Account connection timed out. Try Load my account again.')
@@ -24,7 +28,7 @@ def start(force_browser=False):
         available = browsers()
         saved = browser_login.preference().get('browser')
         JOBS[token] = {'status': 'needs_browser', 'phase': 'Choose a browser for BlaBlaLink sign-in',
-                       'created': time.time(), 'cancel': threading.Event(), 'browser': None}
+                       'created': time.time(), 'cancel': threading.Event(), 'browser': None, 'target':target}
         if not available:
             JOBS[token].update(status='error', error='Install Chrome or Microsoft Edge to use browser login. You can still import a roster file.')
         elif not force_browser and any(b['id'] == saved for b in available):
@@ -39,7 +43,7 @@ def state(token):
         if row['status'] in ACTIVE and time.time() - row['created'] > 900:
             row['cancel'].set()
             row.update(status='error', error='Account connection timed out. Click Load my account to try again. Your saved roster was not changed.')
-        result = {k: v for k, v in row.items() if k not in ('cancel', 'created')}
+        result = {k: v for k, v in row.items() if k not in ('cancel', 'created', 'target')}
         if row['status'] == 'needs_browser':
             result['browsers'] = [{'id': b['id'], 'name': b['name']} for b in browsers()]
             result['preferred'] = browser_login.preference().get('browser')
@@ -77,6 +81,16 @@ def run(job, selected):
         while not cancelled.is_set():
             try:
                 identity = login.account()
+                target = row.get('target')
+                name = 'My account'
+                if target:
+                    phase('Reading public profile')
+                    profile = login.request('player_info', {'intl_openid':'29080-' + target})
+                    if profile.get('code') != 0 or not (profile.get('data') or {}).get('area_id'):
+                        raise account_sync.RefreshError('The public profile is unavailable or private. No saved account was changed.')
+                    info = profile['data']
+                    identity = {'openid':target, 'area':int(info['area_id'])}
+                    name = info.get('role_name') or info.get('nickname') or info.get('nick_name') or info.get('name') or ('Public account ' + target[-6:])
                 def request(route, body, cookie):
                     if cancelled.is_set():
                         raise InterruptedError()
@@ -87,9 +101,10 @@ def run(job, selected):
                 with LOCK:
                     if cancelled.is_set() or row['status'] != 'running':
                         raise InterruptedError()
-                    fresh = account_sync.convert_and_save(snapshot)
+                    fresh = accounts.save_snapshot(snapshot, identity['openid'], metadata['area'], name, public=bool(target))
                     try:
-                        browser_login.remember(selected['id'], metadata['area'])
+                        if not target:
+                            browser_login.remember(selected['id'], metadata['area'])
                         login.mark_ready()
                     except OSError:
                         pass

@@ -71,7 +71,7 @@ class BrowserConnectionTests(unittest.TestCase):
         fresh = {'roster': [], 'source': 'BlaBlaLink', 'refreshed_at': 'now'}
         with patch.object(b.browser_login, 'LoginBrowser', return_value=login), \
              patch.object(login, 'request', side_effect=lambda route,body:self.post(route,body,None)) as post, \
-             patch.object(account_sync, 'convert_and_save', return_value=fresh) as save:
+             patch.object(b.accounts, 'save_snapshot', return_value=fresh) as save:
             b.run(job, CHROME)
         self.assertEqual(post.call_count, 3)
         self.assertTrue(save.call_args.args[0]['complete'])
@@ -88,7 +88,7 @@ class BrowserConnectionTests(unittest.TestCase):
             return self.post(*args)
         with patch.object(b.browser_login, 'LoginBrowser', return_value=login), \
              patch.object(login, 'request', side_effect=lambda route,body:cancelled_post(route,body,None)), \
-             patch.object(account_sync, 'convert_and_save') as save:
+             patch.object(b.accounts, 'save_snapshot') as save:
             b.run(job, CHROME)
         save.assert_not_called(); self.assertEqual(b.state(job)['status'], 'error')
 
@@ -96,7 +96,7 @@ class BrowserConnectionTests(unittest.TestCase):
         job = self.job(); login = self.make_login()
         login.account.side_effect=[account_sync.LoginRequired(),{'openid':'profile-id','area':83}]
         with patch.object(b.browser_login, 'LoginBrowser', return_value=login), \
-             patch.object(account_sync, 'convert_and_save', return_value={'refreshed_at':'now'}):
+             patch.object(b.accounts, 'save_snapshot', return_value={'refreshed_at':'now'}):
             b.run(job,CHROME)
         login.sign_in.assert_called_once()
         self.assertEqual(b.state(job)['status'],'done')
@@ -129,7 +129,7 @@ class BrowserConnectionTests(unittest.TestCase):
             return {'code': 0, 'data': {}} if route.endswith('GetUserCharacterDetails') else self.post(route, *args)
         with patch.object(b.browser_login, 'LoginBrowser', return_value=login), \
              patch.object(login, 'request', side_effect=lambda route,body:post(route,body,None)), \
-             patch.object(account_sync, 'convert_and_save') as save:
+             patch.object(b.accounts, 'save_snapshot') as save:
             b.run(job, CHROME)
         save.assert_not_called(); self.assertEqual(b.state(job)['status'], 'error')
 

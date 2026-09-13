@@ -12,14 +12,18 @@ import core
 import browser_connection
 import report_history
 import feedback
+import accounts
 
 ROOT=Path(__file__).resolve().parent
 JOBS={}
 LOCK=threading.Lock()
 PORT=8766
 
-def history_store():
-    return report_history.ReportHistory(ROOT/'private', core.CAT)
+def history_store(account_id=None):
+    if account_id:
+        accounts.read(account_id)
+    directory = accounts.account_dir(account_id) if account_id else ROOT/'private'
+    return report_history.ReportHistory(directory, core.CAT)
 
 def worker(payload,kind,events,cancel):
     try:
@@ -27,7 +31,7 @@ def worker(payload,kind,events,cancel):
         if payload.get('roster'):
             result['feedback_context']={'owned_units':core.import_roster({'roster':payload['roster']})['roster']}
         try:
-            result['history']=history_store().save(result,kind)
+            result['history']=history_store(payload.get('account_id')).save(result,kind)
         except Exception:
             # The computed result remains usable even if private storage is full,
             # read-only or unavailable. This must never turn a successful run into an error.
@@ -59,14 +63,22 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if not self.allowed():return self.send_json({'error':'Local access only.'},403)
         path=urlsplit(self.path).path
+        if path=='/api/accounts':
+            return self.send_json({'accounts':accounts.listing()})
+        if path.startswith('/api/accounts/'):
+            try:return self.send_json(accounts.read(path.rsplit('/',1)[1]))
+            except ValueError as error:return self.send_json({'error':str(error)},404)
         if path=='/api/history' or path.startswith('/api/history/'):
             try:
+                params=parse_qs(urlsplit(self.path).query,keep_blank_values=True)
+                account_ids=params.pop('account_id',[])
+                if len(account_ids)>1:raise ValueError('Invalid account selection.')
+                history=history_store(account_ids[0] if account_ids else None)
                 if path=='/api/history':
-                    params=parse_qs(urlsplit(self.path).query,keep_blank_values=True)
                     if set(params)-{'mode','boss','offset','limit'} or any(len(values)!=1 for values in params.values()):
                         raise ValueError('Invalid history query.')
-                    return self.send_json(history_store().list(**{key:values[0] for key,values in params.items()}))
-                result=history_store().get(path[len('/api/history/'):])
+                    return self.send_json(history.list(**{key:values[0] for key,values in params.items()}))
+                result=history.get(path[len('/api/history/'):])
                 return self.send_json(result or {'error':'Recommendation not found.'},200 if result else 404)
             except ValueError as error:return self.send_json({'error':str(error)},400)
             except Exception:return self.send_json({'error':'Recommendation history is unavailable. Try again after checking local storage.'},503)
@@ -102,15 +114,31 @@ class Handler(SimpleHTTPRequestHandler):
             length=int(self.headers.get('Content-Length','0'))
             if not 0<length<=4_000_000:raise ValueError('JSON must be between 1 byte and 4 MB.')
             body=json.loads(self.rfile.read(length))
+            if self.path=='/api/accounts/delete':
+                with LOCK, browser_connection.LOCK:
+                    if any(collect(job)['status']=='running' for job in JOBS.values()) or any(row['status'] in browser_connection.ACTIVE for row in browser_connection.JOBS.values()):
+                        raise ValueError('Finish or cancel the current operation before deleting an account.')
+                    accounts.delete(body['account_id'])
+                    JOBS.clear()
+                    browser_connection.JOBS.clear()
+                return self.send_json({'ok':True})
+            if self.path=='/api/accounts/import':
+                return self.send_json(accounts.import_file(body['data'],body.get('name')))
+            if self.path=='/api/accounts/save':
+                old=accounts.read(body['account_id'])
+                fresh=core.import_roster({'roster':body['roster']})
+                fresh['source']=str(body.get('source') or old.get('source',''))[:250]
+                return self.send_json(accounts.save(fresh,old['account_id'],old['account_name']))
             if self.path=='/api/feedback':return self.send_json(feedback.submit(body))
             if self.path=='/api/account-refresh':
-                return self.send_json({'id':browser_connection.start(body.get('choose_browser',False))},202)
+                return self.send_json({'id':browser_connection.start(body.get('choose_browser',False),body.get('profile_url'))},202)
             if self.path=='/api/account-connect':return self.send_json(browser_connection.connect(body['job'],body['browser']))
             if self.path=='/api/account-finish-signin':return self.send_json(browser_connection.finish_signin(body['job']))
             if self.path=='/api/account-cancel':
                 browser_connection.cancel(body['job']);return self.send_json({'ok':True})
             if self.path=='/api/import':return self.send_json(core.import_roster(body))
             if self.path in ('/api/search','/api/manual'):
+                if body.get('account_id'):accounts.read(body['account_id'])
                 core.validate_settings(body.get('settings',{}));core.import_roster({'roster':body.get('roster',[])})
                 with LOCK:
                     for job in JOBS.values():

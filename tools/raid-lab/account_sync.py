@@ -38,7 +38,7 @@ def fetch_latest(cookie,post,progress=lambda **kw:None,preferred_area=None,accou
         data=response.get('data')
         if not isinstance(data,dict):raise RefreshError('BlaBlaLink returned an incomplete response.')
         return data
-    areas=list(dict.fromkeys(([preferred_area] if preferred_area else [])+[83,1,261,219,145,81,82]))
+    areas=[preferred_area] if preferred_area else [83,1,261,219,145,81,82,85]
     roster=None;area=None
     for candidate in areas:
         progress(phase='Reading your BlaBlaLink roster')

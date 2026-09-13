@@ -127,7 +127,7 @@ def _equip_stat(cls: str, part: str, part_data: dict, corp: str | None = None) -
       `tier` 없음      오버로드 — `기업` 표를 `level`로 조회한다 (관측값)
       `tier` + `corp`  T9 기업 — 같은 등급의 일반 표를 기본값으로 쓰고 위 식을 곱한다.
                        `corp`(장비 제조사)가 캐릭터 기업 `corp` 인자와 같아야 +30%가 붙는다
-      `tier`만         일반 T1~T9 — 강화가 없으므로 `level`을 보지 않는다
+      `tier`만         일반 T1~T9 — 제조사 보너스 없이 강화 `level`을 적용한다
     `tier: "없음"`은 미장착 — 0이다.
 
     인게임은 부위마다 반올림한 뒤 합치므로 여기서도 부위 단위로 반올림한다.
@@ -139,10 +139,8 @@ def _equip_stat(cls: str, part: str, part_data: dict, corp: str | None = None) -
         return _EQUIP_STATS["기업"][cls][part][str(part_data["level"])]
     base = _EQUIP_STATS["일반"][tier][cls][part]
     gear_corp = part_data.get("corp")
-    if not gear_corp:
-        return base
     mult = 1 + GEAR_LEVEL_BONUS * part_data.get("level", 0)
-    if gear_corp == corp:
+    if gear_corp and gear_corp == corp:
         mult += CORP_MATCH_BONUS
     return {k: float(round(v * mult)) for k, v in base.items()}
 
