@@ -127,7 +127,8 @@ class HealingTests(unittest.TestCase):
     def manager(self):
         buff=SimpleNamespace(effect={'stat':'heal_split'},target_chars=['a','b','c'],expires_at=5)
         return SimpleNamespace(_active=[buff],state={'hp':{'a':95.,'b':20.,'c':0.}},
-            effective_max_hp=lambda n:100.,sync_hp=lambda n:None,notify=lambda *args:None)
+            _by_stat=lambda stat:[],
+            effective_max_hp=lambda n:100.,sync_hp=lambda n:None,notify=lambda *args,**kwargs:None)
 
     def test_heal_sharing_caps_each_living_recipient_once(self):
         bm=self.manager();log=SimpleNamespace(heal_events=[])
@@ -153,7 +154,7 @@ class HealingTests(unittest.TestCase):
         from unittest.mock import Mock
         bm=self.manager();bm._active=[];bm.state['hp']['a']=100;bm.notify=Mock()
         _restore_hp(bm,'a',40,1,'healer')
-        bm.notify.assert_called_once_with('event:heal_received',1,'a')
+        bm.notify.assert_called_once_with('event:heal_received',1,'a',healer='healer')
 
 
 if __name__=='__main__':unittest.main()

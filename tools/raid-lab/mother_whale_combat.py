@@ -3,6 +3,7 @@
 Physical approximations are explicit; no observed score or roster names are used.
 """
 import copy
+import unit_combat
 import json
 import random
 import re
@@ -26,7 +27,7 @@ ASSUMPTIONS=[
     'Ultrasonic Wave sets existing summons to 90 HP with one damage per hit. All-enemy skills hit each summon; distributed damage bypasses the reduction according to the recovered damage-share priority effect.',
     'Boss damage excludes damage spent on summons. The full direct hit transfers to the body when a part breaks, even when it exceeds remaining part HP. Part destruction also removes body HP and changes damage-based phases; that bonus is reported separately from direct damage. Character Battle Records additionally include summon hits, including overkill.',
     'Summon entry and attack cadence approximate movement using their AI waits and skill casting/delay values. Projectiles are treated as arriving at the attack marker; manual projectile interception is not modeled.',
-    'Incoming damage uses ATK minus effective DEF, multiplied by the skill and level ratios, divided among the attack shots. Finite cover, shields, healing, taunt and invulnerability are applied. The run ends conservatively at the first squad death; client damage conversion remains approximate.',
+    'Incoming damage uses ATK minus effective DEF, multiplied by the skill and level ratios, divided among the attack shots. Finite cover, shields, healing, taunt and invulnerability are applied. Fallen units stop acting, revival can return them, and a squad wipe ends the run; client damage conversion remains approximate.',
     'Museum weekly damage buffs are not applied. These are modeled outcomes, not verified in-game clear predictions.',
 ]
 
@@ -331,9 +332,11 @@ class MotherWhaleRuntime(EncounterRuntime):
         if not self.bm or self.stopped:return
         bm=self.bm;hp=bm.state['hp'];stat=self.stat(monster);m=monster or self.monster
         names=[n for n in self.squad if hp[n]>0]
-        taunters=[n for n in names if self.protection(n,'taunt')]
+        if not names: return
+        visible=unit_combat.targetable(self,names)
+        taunters=[n for n in visible if self.protection(n,'taunt')]
         count=max(1,skill['ShotCount']);all_targets=skill.get('TargetCount')==5
-        targets=names if all_targets else [self.rng.choice(taunters or names) for _ in range(count)]
+        targets=names if all_targets else [self.rng.choice(taunters or visible) for _ in range(count)]
         for name in targets:
             roll=self.rng.random()*100
             direct_cover=roll<skill.get('TargetCoverRatio',0)
@@ -345,31 +348,30 @@ class MotherWhaleRuntime(EncounterRuntime):
             defence=max(0.,bm._effective_def(name)-base_def*.05*len(debuffs))
             boost=(1.2 if buffed else 0.) if monster else self.monster_stack_bonus('StatAtk')+(self.attack_boost if self.time<self.attack_boost_until else 0.)
             attack=stat['LevelAttack']*m['AttackRatio']/10000*(1+boost)
+            attack=unit_combat.enemy_attack(self,attack)
             amount=incoming_hit(attack,defence,skill['SkillValue01'],stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount']))
             amount*=max(0,1+self.active_stat(name,'received_dmg_pct')/100)
             # Water enemies have advantage against Fire units.
             if self.squad[name].get('element_code')=='작열' and m['ElementId']==[200001]:amount*=1.1
+            amount*=unit_combat.elemental_reduction(self,name,m['ElementId'][0])
             blocked=None;absorbed=0.
             shields=[ab for ab in bm._active if ab.shield_per_target.get(name,0)>0 and self.time<ab.expires_at]
             if self.protection(name,'invincible'):blocked='invincible'
             elif shields:
-                ab=shields[0];absorbed=min(amount,ab.shield_per_target[name]);ab.shield_per_target[name]-=absorbed
-                if ab.effect.get('stat')=='shared_shield_from_max_hp_pct':
-                    for n in ab.shield_per_target:ab.shield_per_target[n]=ab.shield_per_target[name]
-                blocked='shield';bm._invalidate_buffs_cache()
+                blocked,absorbed=unit_combat.hit_shield(self,name,amount)
             elif self.cover.get(name,0)>0 and (direct_cover or bm.state.get('planned_cover') or (self.auto_cover and amount>hp[name]*.95)):
-                amount=incoming_hit(attack,self.cover_def[name],skill['SkillValue01'],stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount']))
+                amount=incoming_hit(attack,unit_combat.cover_defence(self,name),skill['SkillValue01'],stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount']))
                 absorbed=min(amount,self.cover[name]);self.cover[name]-=absorbed;blocked='cover';self.covered.add(name)
             elif direct_cover:blocked='destroyed cover'
             else:
-                hp[name]=max(1. if self.protection(name,'undying') else 0.,hp[name]-amount)
-                bm.sync_hp(name);bm.notify('received_hit',self.time,name)
+                unit_combat.hurt(self,name,amount)
                 if skill['Id'] in (530904,530905,530912,530913,530914,530915):
                     self.def_debuffs[name]=(debuffs+[self.time+90])[-10:]
             self.incoming.append(dict(time=round(self.time,3),source=source,shot=skill['Id'],target=name,
                 damage=0 if blocked else round(amount),blocked_by=blocked,absorbed=round(absorbed),hp=round(hp[name]),cover=round(self.cover.get(name,0))))
             if hp[name]<=0:
-                self.stop_reason='First squad death: '+name;self.stopped=True;self.log('squad member died',unit=name);break
+                self.log('squad member died',unit=name)
+            unit_combat.check_defeat(self)
 
     def report(self):
         report=super().report()
@@ -406,4 +408,5 @@ class MotherWhaleRuntime(EncounterRuntime):
             barrier_damage_by_unit=dict(self.barrier_damage_by_unit),
             stop_reason=self.stop_reason,survival='failed' if self.stop_reason else 'survived modeled attacks',
             policy=dict(target=self.target_policy,auto_cover=self.auto_cover),assumptions=list(ASSUMPTIONS))
+        report.update(unit_combat.report(self))
         return report

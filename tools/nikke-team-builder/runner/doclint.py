@@ -74,6 +74,13 @@ DONE_MARKS = ("✅", "⚠️")  # 구현됐다고 주장하는 표기
 # 사유 없이 등록하지 않는다 — 사유 없는 예외는 검사를 조용히 무력화한다.
 # 키 끝의 `*`는 prefix 매칭.
 STATUS_EXEMPT: dict[str, str] = {
+    "allies_down_top_atk": "Resolved by the allies_down_ family in roster_mechanics.resolve_target; sorts only fallen units by attack.",
+    "cover_def_pct": "Implemented in Raid Lab unit_combat.cover_defence; the adapter is outside calculator/.",
+    "cover_hp_pct": "Implemented in Raid Lab finite cover initialization and roster tick updates.",
+    "received_dmg_from_code": "Element-specific incoming reduction is applied by Raid Lab unit_combat.elemental_reduction.",
+    "민트": "Literal squad-member target, handled by the general target-in-squad resolver.",
+    "revive": "Legacy unused key; current roster uses revive_hp_pct. A Python handler function named revive is not an implementation of this stat.",
+
     "enemies_*": "단일 적 시뮬이라 `_resolve_target()`의 `startswith(\"enemies\")` 일반 "
                  "분기가 전부 `__enemy__` 센티널로 처리한다. 개별 키 리터럴이 없다",
     "target_and_nearby": "위 `enemies` 일반 분기와 같은 센티널 경로",
@@ -736,6 +743,17 @@ def check_state_carrier() -> bool:
             if ref in wc_modes or ref == WEAPON_CHANGE_STATE:
                 continue          # 무기 변경 모드는 state["weapon_change"]가 담체다
             types = kinds.get(ref)
+            # Tactical Up formations are deliberately supplied by another member.
+            external = {
+                ('엠마 : 택티컬 업', '포메이션 AS'): '은화 : 택티컬 업',
+                ('은화 : 택티컬 업', '포메이션 LT'): '엠마 : 택티컬 업',
+                ('베스티 : 택티컬 업', '전장 조성'): '엠마 : 택티컬 업',
+            }.get((name, ref))
+            if types is None and external:
+                types = {e.get('type') for e in data.get(external, [])
+                         if e.get('name') == ref and e.get('target') in ('all_allies', 'allies_squad')}
+                if not types:
+                    types = None
             if types is None:
                 bad.append(f"{name} / {ref}  — 그 이름의 효과가 없다")
             elif not (types & _PERSISTENT_TYPES):

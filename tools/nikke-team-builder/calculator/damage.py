@@ -238,6 +238,8 @@ def _factor5(buffs: dict, hit_type: dict) -> float:
         # 같은 clause의 bonus_damage·dot_damage는 대상 아님 → is_burst_damage 안에 둔다.
         if hit_type.get("is_aoe_burst"):
             val += buffs.get("burst_dmg_aoe_pct", 0.0) / 100.0
+        if hit_type.get("is_single_burst"):
+            val += buffs.get("burst_dmg_single_pct", 0.0) / 100.0
     if hit_type.get("is_pierce_damage"):
         val += buffs.get("pierce_dmg_pct", 0.0) / 100.0
     if hit_type.get("is_armor_break_damage"):
@@ -254,6 +256,8 @@ def _factor5(buffs: dict, hit_type: dict) -> float:
     # 파츠 대미지 — hit_type["is_part"]로 제어
     if hit_type.get("is_part"):
         val += buffs.get("part_dmg_pct", 0.0) / 100.0
+    if hit_type.get("is_shield"):
+        val += buffs.get("shield_dmg_pct", 0.0) / 100.0
 
     return val
 

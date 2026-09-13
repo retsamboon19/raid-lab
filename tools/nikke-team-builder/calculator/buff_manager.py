@@ -26,6 +26,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from calculator.base_stat import NO_ITEM
+from calculator import roster_mechanics as roster
 
 _DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
 _TABLE_DIR = os.path.join(_DATA_DIR, "base_stat_tables")
@@ -188,6 +189,13 @@ _BUFFS_ZERO: dict[str, Any] = {
 # parsed_skills stat → buffs 딕셔너리 키 매핑
 # 매핑에 없는 stat은 damage/instant type이거나 타임라인 처리 대상
 _STAT_TO_BUFF: dict[str, str] = {
+    'burst_dmg_single_pct': 'burst_dmg_single_pct',
+    'projectile_dmg_pct': 'projectile_dmg_pct',
+    'qte_dmg_pct': 'qte_dmg_pct',
+    'intercept_dmg_pct': 'qte_dmg_pct',
+    'shield_dmg_pct': 'shield_dmg_pct',
+    'explosion_range': 'explosion_range',
+    'pierce_range_pct': 'pierce_range_pct',
     "atk_pct":              "atk_pct",
     "def_ignore_pct":       "def_ignore_pct",
     "crit_rate":            "crit_rate",
@@ -384,7 +392,7 @@ def _has_runtime_cond(conditions: list, expires: float) -> bool:
     if expires != math.inf:
         return False
     for c in conditions:
-        for prefix in _RUNTIME_COND_PREFIXES:
+        for prefix in (*_RUNTIME_COND_PREFIXES, *roster.RUNTIME_CONDITIONS):
             if c == prefix or c.startswith(prefix):
                 return True
     return False
@@ -524,6 +532,7 @@ class BuffManager:
         self._instant_timers: dict[int, tuple[str, float, float]] = {}
         # charge_hold:N 임계값 캐시 (캐스터별). `charge_hold_thresholds()` 참조
         self._charge_hold_cache: dict[str, list[tuple[float, str]]] = {}
+        self._roster_rng = random.Random(42)
 
         # 지연 resolve 대상 캐시: (caster, 활성화 시각, target 문자열) → 대상 목록.
         # 같은 시전자가 같은 시각에 같은 target으로 건 효과들이 대상을 공유한다.
@@ -583,6 +592,7 @@ class BuffManager:
         self._notify_index: dict[str, dict[str, list]] = {}
         self._squad_notify_index: dict[str, list] = {}
         self._squad_hit_index: dict[str, list] = {}
+        self._every_stack_steps = {}
 
         # 조건부 passive 버프의 이전 틱 조건 충족 여부: id(ActiveBuff) → bool
         # tick()에서 False→True / True→False 전환 감지해 buff_event_handler 발생
@@ -647,6 +657,11 @@ class BuffManager:
 
     def _timing_to_index_key(self, timing: str) -> str | None:
         """timing 문자열 → notify 인덱스 조회 키. every:* 는 None 반환 (틱 전용)."""
+        extra_key = roster.timing_key(timing)
+        if extra_key is not None:
+            return extra_key
+        if timing.startswith("every_stack:"):
+            return timing.rsplit(":", 1)[0]
         if timing == "passive":
             return "battle_start"
         if timing.startswith("every:"):
@@ -700,6 +715,7 @@ class BuffManager:
         self._notify_index.clear()
         self._squad_notify_index.clear()
         self._squad_hit_index.clear()
+        self._every_stack_steps.clear()
         valid_types = ("buff", "instant", "weapon_change", "damage")
 
         for eff, eff_caster in self._effects:
@@ -709,6 +725,11 @@ class BuffManager:
                 key = self._timing_to_index_key(timing)
                 if key is None:
                     continue
+                if timing.startswith("every_stack:"):
+                    ref, raw_n = timing[len("every_stack:"):].rsplit(":", 1)
+                    steps = self._every_stack_steps.setdefault((eff_caster, ref), [])
+                    if raw_n.isdigit() and int(raw_n) > 0 and int(raw_n) not in steps:
+                        steps.append(int(raw_n))
                 if timing.startswith("squad_ammo_consume:"):
                     bucket = self._squad_notify_index.setdefault(key, [])
                     bucket.append((eff, eff_caster))
@@ -935,6 +956,9 @@ class BuffManager:
             self._instant_timers[id(eff)] = (caster, t + tick_interval, expires)
             return
 
+        if roster.instant(self, eff, caster, t, val):
+            return
+
         # ── 내장 처리 ──────────────────────────────────────────────────────
 
         # force_skill_use — `[스킬 N 강제 사용]`
@@ -1016,7 +1040,8 @@ class BuffManager:
             for ab in self._active:
                 if ab.effect.get("name") != target_name:
                     continue
-                affected = [c for c in (ab.target_chars or []) if c == caster]
+                targets = set(self._resolve_target(eff.get("target", "self"), caster))
+                affected = [c for c in (ab.target_chars or []) if c in targets]
                 if not affected:
                     continue
                 # stack_change_immune인 대상은 건너뜀
@@ -1148,6 +1173,7 @@ class BuffManager:
                 ab for ab in self._active
                 if not (
                     ab.effect.get("polarity") == "harmful"
+                    and not ab.effect.get("undispellable")
                     and any(tc in (ab.target_chars or []) for tc in target_chars)
                 )
             ]
@@ -1225,6 +1251,7 @@ class BuffManager:
                 )
                 cap = base_cap + add_cap
                 gauges[gauge_id] = min(new_val, cap)
+                self._emit_every_stack(gauge_id, current, gauges[gauge_id], caster, t)
             else:  # gauge_consume / gauge_consume_as_ammo
                 if val == -1.0:  # fixed_value: -1 = 전체 소모
                     consumed = current
@@ -1334,6 +1361,8 @@ class BuffManager:
 
         caster_idx = self._notify_index.get(caster, {})
         candidates = caster_idx.get(event, [])
+        if any('event_priority' in eff for eff, _ in candidates):
+            candidates = sorted(candidates, key=lambda item: item[0].get('event_priority', 0))
 
         for eff, eff_caster in candidates:
             for timing in eff["trigger"]["timing"]:
@@ -1364,6 +1393,26 @@ class BuffManager:
                     if self._condition_ok(eff["trigger"].get("condition", []), eff_caster, t, eff):
                         self._activate(eff, attacker, t)
                     break
+
+    def _emit_every_stack(self, ref: str, old: float, new: float, caster: str, t: float) -> None:
+        """게이지가 old → new로 오르며 넘은 배수 경계마다 `every_stack:ref` 1회.
+
+        경계값을 ctx `stack_value`로 실어 보내고, 어느 N의 배수인지는 `_timing_match`가
+        가른다 — N이 서로 다른 효과가 같은 게이지를 봐도 이벤트 하나로 끝난다.
+        한 번에 여러 경계를 넘으면(큰 충전량) 넘은 경계마다 따로 쏜다.
+        cap에 걸려 값이 안 오르면 경계를 넘지 않으므로 발동하지 않는다
+        (길로틴 : 윈터 슬레이어 — 경험치 100 이후 레벨 업이 멈추는 근거).
+        """
+        steps = self._every_stack_steps.get((caster, ref))
+        if not steps or new <= old:
+            return
+        bounds = sorted({
+            k * n
+            for n in steps
+            for k in range(math.floor(old / n) + 1, math.floor(new / n) + 1)
+        })
+        for b in bounds:
+            self.notify(f"every_stack:{ref}", t, caster, stack_value=b)
 
     def _apply_trigger_count_reduce(self, n: int, eff: dict, caster: str, t: float) -> int:
         """활성화된 trigger_count_reduce 버프가 eff를 대상으로 하면 n을 감소시킨다. 최솟값 1.
@@ -1414,14 +1463,20 @@ class BuffManager:
             return raw
         char = self._char.get(caster, {})
         skill_lv = _get_skill_lv(char, eff)
-        return str(tv.get(skill_lv, tv.get("10", raw)))
+        value = tv.get(skill_lv, tv.get("10", raw))
+        return str(int(value)) if isinstance(value, (int, float)) and float(value).is_integer() else str(value)
 
     def _timing_match(
         self, timing: str, event: str, count: int, t: float, eff: dict, caster: str = ""
     ) -> bool:
         """timing 문자열과 현재 이벤트가 매칭되는지 확인."""
 
+        match = roster.timing_match(timing, event, count, self._notify_ctx)
+        if match is not None:
+            return match
         # passive: battle_start에 한 번 등록 (영구 지속)
+        if timing.startswith("every_stack:"):
+            return timing.rsplit(":", 1)[0]
         if timing == "passive":
             return event == "battle_start"
 
@@ -1533,7 +1588,7 @@ class BuffManager:
             return count % n == 0
 
         # received_hit:N
-        if timing.startswith("received_hit:") and event == "received_hit":
+        if timing.startswith(("received_hit:", "received_hit_count:")) and event == "received_hit":
             raw = timing.split(":")[1]
             if not raw.lstrip("-").isdigit(): return False
             return count % int(raw) == 0
@@ -1559,6 +1614,13 @@ class BuffManager:
         # stack_reach:버프명:N — 해당 버프 스택이 N에 도달하는 순간 발동
         if timing.startswith("stack_reach:") and event.startswith("stack_reach:"):
             return timing == event
+
+        if timing.startswith("every_stack:") and event.startswith("every_stack:"):
+            ref_key, raw = timing.rsplit(":", 1)
+            if ref_key != event or not raw.isdigit() or int(raw) <= 0:
+                return False
+            b = self._notify_ctx.get("stack_value")
+            return b is not None and b % int(raw) == 0
 
         # event:xxx
         if timing.startswith("event:") and event == timing:
@@ -1606,6 +1668,10 @@ class BuffManager:
             else caster
         )
         for cond in conditions:
+            resolved = roster.condition(self, cond, caster, t)
+            if resolved is not None:
+                if not resolved: return False
+                continue
             if cond == "during_charge":
                 if not self.state.get("charging", {}).get(caster):
                     return False
@@ -1619,6 +1685,21 @@ class BuffManager:
                 # 트리거를 발생시킨 그 히트가 크리티컬이었는가 — notify의 ctx로 전달된다.
                 # 확률 근사가 아니라 실제 롤 결과를 읽는다 (율리아 `마르카토 2`).
                 if not self._notify_ctx.get("hit_crit"):
+                    return False
+            elif cond == "not_core":
+                # 트리거를 일으킨 그 탄이 코어가 아니었는가 — timeline이 명중 notify에
+                # `core_frac`(그 탄의 코어 확률)을 싣는다. 실리지 않은 경로는 코어 판정이
+                # 없는 명중이라 비코어로 본다. 기대값 모드에서는 `prob:`와 같은 규약으로
+                # (1 − core_frac)을 누적해 1.0을 넘길 때 발동한다 (길로틴 : 윈터 슬레이어 `경험치 2`).
+                p = 1.0 - float(self._notify_ctx.get("core_frac", 0.0))
+                if self.state.get("rng_expected"):
+                    acc = self.state.setdefault("rng_acc", {})
+                    key = ("not_core", id(eff), caster)
+                    acc[key] = acc.get(key, 0.0) + p
+                    if acc[key] < 1.0:
+                        return False
+                    acc[key] -= 1.0
+                elif p <= 0.0 or (p < 1.0 and random.random() >= p):
                     return False
             elif cond == "burst_casted":
                 if not self.state.get("burst_casted", {}).get(burst_check_char):
@@ -1821,8 +1902,20 @@ class BuffManager:
         weapon_change는 _active에 등록되지 않으므로 여기서 같이 봐야
         `self_state:저격 모드`처럼 모드 자체를 가리키는 조건이 성립한다.
         """
-        if any(caster in (ab.target_chars or []) for ab in self._by_name(state_name)):
-            return True
+        checking = self.state.setdefault('_checking_states', set())
+        key = (caster, state_name)
+        if key in checking:
+            return False
+        checking.add(key)
+        try:
+            for ab in self._by_name(state_name):
+                if caster not in (ab.target_chars or []) or self._cur_t >= ab.expires_at:
+                    continue
+                if not ab.has_runtime_conditions or self._runtime_condition_ok(
+                        ab.effect['trigger'].get('condition', []), ab.caster, caster, caster, self._cur_t):
+                    return True
+        finally:
+            checking.remove(key)
         if state_name == WEAPON_CHANGE_STATE:
             # 원문이 모드 이름이 아니라 「무기 변경 상태」라고만 쓴 경우 — 그 캐릭터가
             # 무슨 모드든 들고 있으면 성립한다. 모드명으로만 대조하면 영구 거짓이 된다
@@ -1885,8 +1978,8 @@ class BuffManager:
             if eff_caster != caster:
                 continue
             for timing in eff["trigger"]["timing"]:
-                if timing.startswith("charge_hold:"):
-                    raw = timing.split(":", 1)[1]
+                if timing.startswith(("charge_hold:", "charge_hold_count:")):
+                    raw = timing.split(":")[1]
                     try:
                         found[raw] = float(raw)
                     except ValueError:
@@ -1948,6 +2041,8 @@ class BuffManager:
                 val = self._get_value(ab.effect, ab, name)
                 if val is not None:
                     bonus_flat += caster_base_hp * val / 100.0
+        for ab in roster.active(self, name, "hp_copy"):
+            bonus_flat += getattr(ab, "copied_base", 0) * (self._get_value(ab.effect, ab, name) or 0) / 100
         return base_hp * (1.0 + bonus_pct / 100.0) + bonus_flat
 
     def shield_amount(self, name: str) -> float:
@@ -1968,6 +2063,7 @@ class BuffManager:
             ab.shield_per_target.get(name, 0.0) > 0.0
             for ab in self._active
             if ab.effect.get("stat") in _SHIELD_STATS
+            and (ab.effect.get("stat") != "shared_shield_from_max_hp_pct" or name in (ab.target_chars or []))
         )
 
     def add_burst_gauge(self, amount: float, t: float,
@@ -2013,6 +2109,8 @@ class BuffManager:
         prev_pct = self.state["hp_pct"].get(name)
         new_pct = hp / max_hp * 100.0
         self.state["hp_pct"][name] = new_pct
+        self._invalidate_buffs_cache()
+        roster.hp_edges(self, name, prev_pct, new_pct)
 
         if prev_pct is not None:
             if new_pct < prev_pct:
@@ -2096,13 +2194,20 @@ class BuffManager:
 
     def _activate(self, eff: dict, caster: str, t: float, suppress_event: bool = False):
         """효과를 ActiveBuff로 변환해 활성 목록에 추가하거나 갱신."""
+        if not roster.alive(self, caster):
+            return
         # max_trigger: 전투 중 최대 발동 횟수 제한
+        if eff.get("stat") == "revive_hp_pct" and not self._resolve_target(eff.get("target"), caster):
+            return
         max_trigger = eff.get("max_trigger")
         if max_trigger is not None:
             eid = id(eff)
             if self._trigger_counts.get(eid, 0) >= max_trigger:
                 return
             self._trigger_counts[eid] = self._trigger_counts.get(eid, 0) + 1
+
+        roster.before_activate(self, eff, caster, t)
+        hp_before = {n: self.effective_max_hp(n) for n in self.squad_names} if eff.get("stat") == "max_hp_pct" else {}
 
         if eff.get("type") == "instant":
             self._dispatch_instant(eff, caster, t)
@@ -2159,7 +2264,7 @@ class BuffManager:
                     self._active.append(ActiveBuff(
                         effect=eff, caster=caster, target_chars=targets,
                         activated_at=t, expires_at=expires, stack=init_stack,
-                        has_runtime_conditions=_has_runtime_cond(eff["trigger"].get("condition", []), expires),
+                        has_runtime_conditions=_has_runtime_cond(eff["trigger"].get("condition", []), expires) and not eff.get("trigger_only_conditions", False),
                     ))
                     if self._buff_event_handler and eff.get("name") and targets:
                         for tgt in targets:
@@ -2224,6 +2329,8 @@ class BuffManager:
             return
 
         duration = eff.get("duration")
+        if eff.get("duration_scaling_ref"):
+            duration = max(0, self.ref_count(caster, eff["duration_scaling_ref"]) or 0)
         if duration is None and "duration_values" in eff:
             char = self._char.get(caster, {})
             skill_lv = _get_skill_lv(char, eff)
@@ -2243,6 +2350,7 @@ class BuffManager:
                 c for c in targets
                 if not self._has_immune(c, "debuff_immune")
                 and (named_immune is None or not self._has_immune(c, named_immune))
+                and not roster.consume_debuff_charge(self, c, t)
             ]
             if not targets:
                 return
@@ -2337,7 +2445,7 @@ class BuffManager:
                 bullets_left=-1 if use_per_target else duration_bullets,
                 bullets_per_target={c: duration_bullets for c in (targets or [])} if use_per_target else {},
                 per_char_stacks={c: 1 for c in (targets or [])} if (use_per_target and max_stack != 1) else {},
-                has_runtime_conditions=_has_runtime_cond(eff["trigger"].get("condition", []), expires),
+                has_runtime_conditions=_has_runtime_cond(eff["trigger"].get("condition", []), expires) and not eff.get("trigger_only_conditions", False),
                 scaling_stack=self._capture_scaling_stack(eff, caster),
             ))
             name = eff.get("name", "")
@@ -2410,23 +2518,19 @@ class BuffManager:
             ab_ref = next((ab for ab in self._active if ab.effect is eff and ab.caster == caster), None)
             if ab_ref is not None and targets:
                 if stat == "max_hp_pct":
-                    # 현재 체력 동반 증가: 이번 스택 1회분 단위값만큼 hp 가산
-                    base_hp = self.state.get("base_stats", {}).get(caster, {}).get("hp", 0.0)
-                    full_val = self._get_value(eff, ab_ref, caster)  # 현재 스택 기준 전체값
-                    unit_val = (full_val / ab_ref.stack) if (full_val is not None and ab_ref.stack > 0) else None
-                    if unit_val is not None and base_hp > 0:
-                        for tgt in targets:
-                            if tgt in self.state["hp"]:
-                                self.state["hp"][tgt] = min(
-                                    self.state["hp"][tgt] + base_hp * unit_val / 100.0,
-                                    self.effective_max_hp(tgt),
-                                )
-                                self.sync_hp(tgt)
+                    for tgt in targets:
+                        if tgt in self.state["hp"] and roster.alive(self, tgt):
+                            maximum = self.effective_max_hp(tgt)
+                            gain = max(0, maximum - hp_before.get(tgt, maximum))
+                            self.state["hp"][tgt] = min(maximum, self.state["hp"][tgt] + gain)
+                            self.sync_hp(tgt)
                 else:
                     # 최대 체력만 증가: hp 절대값 변화 없음, hp_pct만 재동기화
                     for tgt in targets:
                         if tgt in self.state["hp"]:
                             self.sync_hp(tgt)
+
+        roster.after_activate(self, eff, caster, t)
 
     # ── 틱 (every:Ns 처리 + 만료 정리) ──────────────────────────────────
 
@@ -2437,6 +2541,7 @@ class BuffManager:
         - every:Ns 효과 발동 체크
         """
         self._cur_t = t
+        roster.tick(self, t)
 
         # ── `same_target:[이름]` DoT 중첩 램프 ────────────────────────────
         #
@@ -2594,11 +2699,22 @@ class BuffManager:
             eff_name = eff.get("name", "")
             flat = 0.0
             if eff_name:
+                # 조건부 영구 버프는 `_active`에 등록만 되고 게이팅을 런타임 재평가에
+                # 맡긴다(`_RUNTIME_COND_PREFIXES`). 여기서 조건을 안 보면 조건이 거짓인
+                # 주기 단축이 그대로 먹는다 — 엠마 : 택티컬 업 `포메이션 LT 5~7`은
+                # 은화가 없으면 꺼져야 하는데 30초 주기가 10초로 줄어 버린다.
                 flat = sum(
                     (self._get_value(ab.effect, ab, caster) or 0.0)
                     for ab in self._by_stat("effect_interval")
                     if ab.effect.get("target_effect") == eff_name
                     and (ab.target_chars is None or caster in (ab.target_chars or []))
+                    and (
+                        not ab.has_runtime_conditions
+                        or self._runtime_condition_ok(
+                            ab.effect["trigger"].get("condition", []),
+                            ab.caster, caster, caster, t,
+                        )
+                    )
                 )
             interval = max(0.0, base_interval + flat) * max(0.0, 1.0 + cool_pct / 100.0)
             interval = max(interval, base_interval * 0.05)  # 최소 5% cap
@@ -2798,6 +2914,8 @@ class BuffManager:
 
         if stat == "def_pct" and applies_to_target and not applies_to_caster:
             buff_key = "enemy_def_down_pct"
+        if stat == "atk_pct" and applies_to_target and not applies_to_caster:
+            buff_key = "enemy_atk_pct"
         actual_recipient = caster if applies_to_caster else target
 
         if buff_key in _BOOL_BUFF_KEYS:
@@ -2956,6 +3074,8 @@ class BuffManager:
             # 아군 대상 def_pct는 base_stat용 — 데미지엔 무관하므로 def_pct 키로 흘려보내 무시.
             if stat == "def_pct" and applies_to_target and not applies_to_caster:
                 buff_key = "enemy_def_down_pct"
+            if stat == "atk_pct" and applies_to_target and not applies_to_caster:
+                buff_key = "enemy_atk_pct"
 
             # boolean 플래그 스탯: 수치 없이 True만 세팅
             if buff_key in _BOOL_BUFF_KEYS:
@@ -3096,6 +3216,7 @@ class BuffManager:
             if overflow > 0.0:
                 buffs["charge_dmg_pct"] += overflow * conv / 100.0
 
+        roster.augment_buffs(self, caster, target, t, buffs)
         self._buffs_cache[cache_key] = buffs
         return buffs
 
@@ -3109,6 +3230,10 @@ class BuffManager:
     ) -> bool:
         """get_buffs 호출 시마다 재평가하는 상태 의존 condition."""
         for cond in conditions:
+            resolved = roster.condition(self, cond, buff_caster, t)
+            if resolved is not None:
+                if not resolved: return False
+                continue
             if cond == "during_charge":
                 if not self.state.get("charging", {}).get(buff_caster):
                     return False
@@ -3270,6 +3395,11 @@ class BuffManager:
 
         # lost_hp_pct: 잃은 체력 % 비례 (실제값 = base × 잃은 체력%)
         scaling = eff.get("scaling")
+        if scaling == "max_ammo":
+            cs = self.state.get("char_states", {}).get(ab.caster)
+            if cs:
+                cap = cs.weapon["max_ammo"] * (1 + roster.total(self, ab.caster, "max_ammo_pct") / 100) + roster.total(self, ab.caster, "max_ammo_flat")
+                return base * max(1, math.ceil(cap))
         if scaling == "lost_hp_pct":
             hp_pct = self.state.get("hp_pct", {}).get(ab.caster, 100.0)
             lost = max(0.0, 100.0 - hp_pct)
@@ -3340,6 +3470,10 @@ class BuffManager:
             for t in target:
                 result.extend(self._resolve_target(t, caster))
             return result
+
+        resolved = roster.resolve_target(self, target, caster, _NIKKE)
+        if resolved is not None:
+            return resolved
 
         if target == "self":
             return [caster]
@@ -3517,6 +3651,9 @@ class BuffManager:
                 v = self._get_value(ab.effect, ab, name)
                 if v is not None:
                     atk_flat += v
+        for ab in roster.active(self, name, "atk_copy"):
+            atk_flat += getattr(ab, "copied_base", 0) * (self._get_value(ab.effect, ab, name) or 0) / 100
+        atk_flat += self.effective_max_hp(name) * roster.total(self, name, "atk_from_hp_pct") / 100
         return base * (1 + atk_pct / 100) + atk_flat
 
     def _capture_scaling_stack(self, eff: dict, caster: str) -> int | None:
@@ -3560,7 +3697,7 @@ class BuffManager:
         return base * (1 + def_pct / 100) + def_flat
 
     def _top_by(self, stat: str, n: int, exclude: str | None = None) -> list[str]:
-        pool = [name for name in self.squad_names if name != exclude]
+        pool = [name for name in self.squad_names if name != exclude and roster.alive(self, name)]
         if stat == "atk":
             pool.sort(key=self._effective_atk, reverse=True)
         else:
@@ -3570,7 +3707,7 @@ class BuffManager:
 
     def _lowest_hp(self, n: int, exclude: str | None = None) -> list[str]:
         hp_pct = self.state.get("hp_pct", {})
-        names = [x for x in self.squad_names if x != exclude]
+        names = [x for x in self.squad_names if x != exclude and roster.alive(self, x)]
         # 동률이면 squad_names 순서(앞쪽 우선)로 결정
         pool = sorted(names,
                       key=lambda x: (hp_pct.get(x, 100.0), self.squad_names.index(x)))

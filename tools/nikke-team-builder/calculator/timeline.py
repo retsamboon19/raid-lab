@@ -20,6 +20,7 @@ import random
 from typing import Any
 
 from .base_stat import calc_base_stats
+from . import roster_mechanics as roster
 from .buff_manager import (
     BuffManager, _QUANT_PARTS_KEY, _get_skill_lv,
     BURST_GAUGE_EXCEPTIONS,
@@ -596,6 +597,21 @@ def _notify_frac(bm, key: str, name: str, frac: float, fire) -> None:
 
 
 # ── CharState (캐릭터별 발사 상태) ────────────────────────────────────────
+
+def _bullet_core_fracs(core_fracs: list[float], muzzles: int) -> list[float]:
+    """펠릿 단위 코어 확률을 **탄(총구) 단위**로 접는다 — `hit_count` 1회당 1값.
+
+    `not_core` 조건(「명중 시 코어가 아니라면」)이 트리거를 일으킨 그 탄의 코어 여부를
+    읽는데, 명중은 탄 단위이고 코어 판정은 펠릿 단위라 묶음 평균을 넘긴다.
+    펠릿 1이면 히트 하나의 값 그대로다.
+    """
+    per = max(1, len(core_fracs) // max(1, muzzles))
+    out = []
+    for m in range(muzzles):
+        chunk = core_fracs[m * per:(m + 1) * per]
+        out.append(sum(chunk) / len(chunk) if chunk else 0.0)
+    return out
+
 
 class CharState:
     """캐릭터 1명의 발사 루프 상태 관리. 버스트 사용 중에도 발사 계속."""
@@ -1208,7 +1224,7 @@ class CharState:
             return []
 
         # 기절 중: 일반공격 불가
-        if bm.is_stunned(self.name):
+        if not roster.alive(bm, self.name) or bm.is_stunned(self.name):
             return []
 
         # weapon_change 활성 시: 임시 무기 교체 후 해당 무기의 발사 루프로 처리
@@ -1482,6 +1498,7 @@ class CharState:
         hit_count = split * self.muzzles
 
         expected = cfg.get("rng_mode") == "expected"
+        core_fracs = []
         for i in range(hit_count):
             # 히트마다 독립 샘플링 (SG: 10회, 기타: 1회). 기대값 모드는 판정 대신 확률을 넘긴다
             # (P_core가 1이면 판정할 게 없으므로 기대값 모드에서도 코어 히트로 남긴다)
@@ -1517,8 +1534,11 @@ class CharState:
                                    **({"skill_name": self._wc_name}
                                       if self._wc_is_skill_damage() else {})))
             bm.notify("pellet_hit", t, self.name)
+            _notify_frac(bm, "crit_pellet_hit", self.name, res["crit_frac"],
+                         lambda: bm.notify("crit_pellet_hit", t, self.name))
             body_ev = "squad_part_hit" if enemy.get("has_parts", False) else "squad_body_hit"
             core_frac = P_core if expected else (1.0 if is_core else 0.0)
+            core_fracs.append(core_frac)
             _notify_frac(bm, body_ev, self.name, 1.0 - core_frac,
                          lambda: bm.notify_team_hit(body_ev, t, self.name))
             _notify_frac(bm, "crit_hit", self.name, res["crit_frac"],
@@ -1542,14 +1562,15 @@ class CharState:
         # 이 발의 대미지 자체는 건드리지 않는다.
         #
         # 「공격 시」는 **발사 단위**라 총구·펠릿과 무관하게 발사 1회당 1회다.
+        bm.notify("pellet_hit_single", t, self.name, pellets=hit_count)
         bm.notify("on_attack", t, self.name)
         # 「명중 시」는 **탄 단위**라 총구 수만큼 발생한다 — 총구 2개는 탄 1발 소모에
         # 공격 1회·명중 2회다(유저 확인). 펠릿은 한 탄을 나눈 것이라 여기 곱하지
         # 않는다(`pellet_hit`이 루프 안에서 따로 센다).
         # 빗나간 탄은 이 루프에서 빠지고 `on_attack`만 남는 것이 분리의 목적이다 —
         # 지금은 미스 모델이 없어 총구 전부가 명중한다. 여기가 그 게이트 자리다.
-        for _ in range(self.muzzles):
-            bm.notify("hit_count", t, self.name)
+        for bullet_core in _bullet_core_fracs(core_fracs, self.muzzles):
+            bm.notify("hit_count", t, self.name, core_frac=bullet_core)
         if not self._wc_is_skill_damage():
             bm.consume_bullet_buffs(self.name, t)
         if is_last:
@@ -1880,14 +1901,17 @@ class CharState:
             bm.notify("squad_ammo_consume", t, self.name)
         # 발사 → 명중 순서, 명중은 탄 단위(총구 수만큼) — `_fire()`와 같은 규약이다.
         # `풀 차지 공격 시`(발사)와 `풀 차지 공격 명중 시`(명중)도 같은 축으로 가른다.
+        bm.notify("pellet_hit_single", t, self.name, pellets=hit_count)
         bm.notify("on_attack", t, self.name)
         if is_full:
             bm.notify("full_charge_fire", t, self.name)
-        for _ in range(self.muzzles):
-            bm.notify("hit_count", t, self.name)
+        else:
+            bm.notify("non_full_charge_fire", t, self.name)
+        for bullet_core in _bullet_core_fracs(core_fracs, self.muzzles):
+            bm.notify("hit_count", t, self.name, core_frac=bullet_core)
         if is_full:
             for _ in range(self.muzzles):
-                bm.notify("full_charge_hit", t, self.name)
+                bm.notify("full_charge_hit", t, self.name, normal_damage=bm.state.get("last_normal_hit", {}).get(self.name, (t, 0))[1])
         # 일반 공격 명중이면 충전 창·풀차지·피격 대상 종류와 무관하게 시전자 기준값을
         # 갱신한다. weapon_change 스킬 대미지는 일반 공격이 아니므로 제외한다.
         if not self._wc_is_skill_damage():
@@ -2700,6 +2724,20 @@ class CharState:
         if wc_eff is not None:
             wc_max = wc_eff.get("max_ammo", -1)
             if wc_max != -1:
+                # 원문 `최대 장탄 수 : N발 X [게이지/스택] 개수`. **표기 장탄 자체가 카운터에
+                # 비례**하므로 장탄 *버프*와는 다른 층이고, `max_ammo_buff_applies`(괄호구)와
+                # 무관하게 곱한다. 값을 다시 재는 시점은 다른 장탄과 같아야 한다 —
+                # `_wc_ammo_full` 캐시를 쓰는 이유가 그것이다(모드 진입·재장전 완료뿐).
+                # 매 tick 재면 종료 조건(`모든 탄환 발사 시`)만 흔들려 탄이 마른 채
+                # 끝나지 않는 모드가 생긴다. (E.H. `인 투 더 헤븐`)
+                ref = wc_eff.get("max_ammo_scaling_ref")
+                if ref:
+                    if self._wc_ammo_full is None:
+                        n = bm.ref_count(self.name, ref)
+                        # None은 "그런 이름이 없다" → 배수 1. 0은 진짜 0이라 0발이 맞다
+                        # (모드가 첫 tick에 `모든 탄환 발사 시`로 스스로 끝난다).
+                        self._wc_ammo_full = int(wc_max) * (1 if n is None else int(n))
+                    return self._wc_ammo_full
                 # `(사용 무기 변경 시 최대 장탄 수 효과 갱신)` 문구가 없으면 표기 장탄 고정.
                 if not wc_eff.get("max_ammo_buff_applies"):
                     return int(wc_max)
@@ -3242,7 +3280,7 @@ class BurstController:
         for name in candidates:
             if t < self.burst_ready_at.get(name, 0.0) - 1e-9:
                 continue
-            if bm.is_stunned(name):
+            if not roster.alive(bm, name) or bm.is_stunned(name):
                 continue
             # **딜레이 버스트** — 이 사람이 차례인데 유저가 아직 안 누른다.
             # 정본: docs/CONTROL.md §L0 · §딜레이 버스트.
@@ -3522,6 +3560,8 @@ def _register_instant_handlers(bm, char_states: dict[str, "CharState"], burst_ct
             base_hp = bm.state["base_stats"].get(name, {}).get("hp", 0.0)
             max_hp = bm.effective_max_hp(name)
             heal_base = max_hp if eff.get("scaling") == "max_hp" else base_hp
+            if eff.get('heal_basis') == 'caster_max_hp':
+                heal_base = bm.effective_max_hp(caster)
             _restore_hp(bm, name, heal_base * val / 100.0, t, caster, sim_log)
 
     def handle_current_hp_reduce(eff, caster, t, val):
@@ -3551,6 +3591,7 @@ def _register_instant_handlers(bm, char_states: dict[str, "CharState"], burst_ct
     bm.register_instant_handler("heal_hp_pct", handle_heal_hp_pct)
     bm.register_instant_handler("current_hp_reduce", handle_current_hp_reduce)
     bm.register_instant_handler("force_reload", handle_force_reload)
+    roster.register_handlers(bm, char_states, sim_log)
 
 
 # ── simulate ──────────────────────────────────────────────────────────────
@@ -3811,9 +3852,12 @@ def _is_charge_nikke(name: str) -> bool:
 
 def _restore_hp(bm, recipient, amount, t, caster, sim_log=None):
     """Apply one heal, splitting it once across an active heal-sharing group."""
+    if not roster.alive(bm, recipient):
+        return
+    amount *= max(0, 1 + roster.total(bm, caster, 'heal_given_pct', t) / 100)
     targets=[recipient]
     shared=False
-    for ab in bm._active:
+    for ab in reversed(bm._active):
         if ab.effect.get("stat") != "heal_split" or t >= ab.expires_at:
             continue
         group=ab.target_chars if ab.target_chars is not None else bm._resolve_lazy(ab)
@@ -3826,22 +3870,32 @@ def _restore_hp(bm, recipient, amount, t, caster, sim_log=None):
     share=amount/len(targets)
     for name in targets:
         before=bm.state["hp"].get(name,0)
-        bm.state["hp"][name]=min(before+share,bm.effective_max_hp(name))
+        received = share * max(0, 1 + roster.total(bm, name, 'heal_received_pct', t) / 100)
+        maximum = bm.effective_max_hp(name)
+        excess = max(0, before + received - maximum)
+        stores = list(roster.active(bm, name, 'heal_overcharge_store', t))
+        if stores and excess > 0:
+            cap = sum(bm.effective_max_hp(a.caster) * (bm._get_value(a.effect, a, name) or 0) / 100 for a in stores)
+            reserve = bm.state.setdefault('stored_healing', {})
+            reserve[name] = min(cap, reserve.get(name, 0) + excess)
+        bm.state["hp"][name]=min(before+received,maximum)
         bm.sync_hp(name)
         if sim_log is not None:
             sim_log.heal_events.append({"t":t,"caster":caster,"target":name,
                 "effective":bm.state["hp"][name]-before,"requested":share,
                 "triggers_heal_received":not shared})
         if not shared:
-            bm.notify("event:heal_received",t,name)
+            bm.notify("event:heal_received",t,name,healer=caster)
 
 
 def _encounter_damage(cfg, caster, element, **args):
     runtime = cfg.get("encounter_runtime")
-    if runtime is None:
-        return calc_damage(**args)
-    return runtime.resolve(caster, element, args["weapon"].get("weapon_type", ""),
-                           args["hit_type"], calc_damage, args)
+    result = calc_damage(**args) if runtime is None else runtime.resolve(
+        caster, element, args["weapon"].get("weapon_type", ""), args["hit_type"], calc_damage, args)
+    bm = cfg.get('_buff_manager')
+    if bm is not None:
+        roster.record_damage(bm, caster, result['damage'], bm._cur_t, args['hit_type'])
+    return result
 
 
 def simulate(
@@ -3977,6 +4031,25 @@ def simulate(
     _dot_events: list[HitEvent] = []
 
     def _handle_damage_eff(eff: dict, caster: str, t: float):
+        if eff.get("stat") in ("copy_hit_damage", "fixed_split_damage"):
+            lv = _get_skill_lv(char_states[caster].char, eff)
+            coefficient = float(eff.get("values", {}).get(lv, eff.get("fixed_value", 0)))
+            is_split = eff["stat"] == "fixed_split_damage"
+            amount = coefficient if is_split else bm._notify_ctx.get("normal_damage", 0) * coefficient / 100
+            if is_split:
+                amount *= max(0, 1 + bm.get_buffs(caster, "__enemy__", t).get("split_dmg_pct", 0) / 100)
+            ht = default_hit_type(is_normal_atk=False, is_split=is_split)
+            ht.update(effect_target=eff.get("target"), fixed_copy=True)
+            runtime = cfg.get("encounter_runtime")
+            result_fixed = {"damage": amount, "is_crit": False, "crit_frac": 0.0}
+            if runtime is not None:
+                result_fixed = runtime.resolve(caster, _NIKKE[caster].get("element_code"), char_states[caster].weapon_type, ht,
+                    lambda **kw: {"damage": amount, "is_crit": False, "crit_frac": 0.0},
+                    {"base_atk": 0, "buffs": {}, "weapon": char_states[caster].weapon,
+                    "hit_type": ht, "enemy_def": 0, "expected": True})
+            _dot_events.append(HitEvent(t=t, caster=caster, damage=result_fixed["damage"], is_crit=False,
+                                       hit_tag=eff["stat"], skill_name=eff["name"]))
+            return
         if eff.get("target") == "all_projectiles":
             return
         cs = char_states.get(caster)
@@ -4100,6 +4173,10 @@ def simulate(
             buffs = dict(buffs)
             buffs["atk_flat"] = buffs.get("atk_flat", 0.0) + bm.effective_max_hp(caster) * _pct / 100.0
 
+        if eff.get("scaling") == "max_hp_as_atk":
+            buffs = dict(buffs)
+            converted = bm.effective_max_hp(caster) * float(eff.get("scaling_hp_pct", 0)) / 100
+            buffs["atk_flat"] = converted - cs.base_atk * (1 + buffs.get("atk_pct", 0) / 100)
         weapon_type = cs.weapon.get("weapon_type", "")
         ht = default_hit_type(
             is_normal_atk=is_normal,
@@ -4110,11 +4187,11 @@ def simulate(
             # 파츠 판정은 원문이 파츠를 명시한 스킬(hits_parts)에만 붙는다 — 파츠 보스일 때만
             is_part=(bool(eff.get("hits_parts")) and enm.get("has_parts", False)),
             is_optimal_range=(weapon_type in enm.get("optimal_range_weapons", []) and is_normal),
-            is_burst_damage=(base_stat == "burst_damage"),
+            is_burst_damage=(base_stat in ("burst_damage", "armor_break_burst_damage")),
             # 대상 설명이 '적 전체에게'인 버스트 대미지 → burst_dmg_aoe_pct 수혜
             is_aoe_burst=(base_stat == "burst_damage" and target_field == "all_enemies"),
             is_pierce_damage=(base_stat == "pierce_damage"),
-            is_armor_break_damage=(base_stat == "armor_break_damage"),
+            is_armor_break_damage=(base_stat in ("armor_break_damage", "armor_break_burst_damage")),
             is_dot=(base_stat == "dot_damage"),
             is_projectile_explosion=(base_stat == "projectile_explosion_damage"
                                      or (is_normal and cs.base_weapon_type == "RL")),
@@ -4133,6 +4210,7 @@ def simulate(
         # Encounter targets distinguish an all-enemy hit from one body hit.
         # This metadata does not change the stationary damage formula.
         ht["effect_target"] = target_field
+        ht["is_single_burst"] = base_stat in ("burst_damage", "armor_break_burst_damage") and isinstance(target_field, str) and target_field.startswith("enemies_") and target_field.endswith(":1")
         ht["effect_name"] = eff.get("name")
 
         for _ in range(hit_count):
@@ -4230,6 +4308,8 @@ def simulate(
         max_hp = bm.effective_max_hp(ev.caster)
         _restore_hp(bm, ev.caster, heal, t, ev.caster, sim_log)
 
+    cfg['_buff_manager'] = bm
+    bm.state['encounter_runtime'] = cfg.get('encounter_runtime')
     bm.battle_start(0.0)
 
     # battle_start 버프 적용 후 장탄을 실제 max_ammo로 초기화
@@ -4249,6 +4329,11 @@ def simulate(
     cover_windows = cfg.get("planned_cover_windows", [])
     if runtime is not None and hasattr(runtime, "bind"):
         runtime.bind(bm, squad, char_states)
+        roster.register_handlers(bm, char_states, sim_log)
+        bm.state['target_is_boss'] = True
+        for char in squad:
+            for event in ('event:target_spawn', 'event:enemy_spawn'):
+                bm.notify(event, 0.0, char['name'])
     cover_index = 0
     t = 0.0
     while t <= duration:

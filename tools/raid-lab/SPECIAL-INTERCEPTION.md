@@ -42,7 +42,7 @@ they are older guides, so their team tier lists are not used as current rankings
 Circle damage is resolved from actual simulated hits, separately from body
 damage. Failed checks drive retaliation. Missiles require HP damage. Finite
 cover, shields, healing, taunt, stun and corrosion affect survival; scoring
-stops at the first death or maximum reward threshold.
+allows revival and stops at a squad wipe or maximum reward threshold.
 
 EX selection compares boss HP progress, then interruption reliability and
 survival margin among completed reward targets. Direct damage remains visible

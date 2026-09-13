@@ -9,7 +9,7 @@ from pathlib import Path
 from bisect import bisect_right
 
 CHECKED = "2026-09-10"
-MODEL_REVISION = "special-interception-v1"
+MODEL_REVISION = "complete-roster-v1"
 MUSEUM_SOURCE = "https://gamewith.jp/nikke/article/show/573385"
 ADVANTAGE = {"Fire":"Wind", "Wind":"Iron", "Iron":"Electric", "Electric":"Water", "Water":"Fire"}
 
@@ -89,7 +89,7 @@ for key in RAID_PROFILES:
         p['checked_at']='2026-09-14'
         p['facts']={'unmodeled':['Exact spatial movement, projectile travel and incidental part hits','Gameplay calibration'],
                     'qte':'Actual circle HP and deadlines; boss-specific retaliation',
-                    'survival':'Finite HP, cover, shields, healing and first-death stopping'}
+                    'survival':'Finite HP, cover, shields, healing and revival; stops on a squad wipe'}
 BY_ID['museum-mother-whale']['automatic_mechanics']=True
 BY_ID['anomaly-kraken']['automatic_mechanics']=True
 for key,p in BY_ID.items():

@@ -5,6 +5,7 @@ Uncertain physical conversions are named in MODEL_ASSUMPTIONS and the report.
 No account names, recorded scores, or recorded encounter timestamps are inputs.
 """
 import copy
+import unit_combat
 import json
 import math
 import random
@@ -28,7 +29,7 @@ MODEL_ASSUMPTIONS=[
     'Ordinary and special interruption HP use LevelBrokenHp times target ratio / 10000; intro, geometry and spread collision remain approximate.',
     'Normal and transformed weapon fire targets finite parts and applies part-damage buffs; overlapping pierce/AoE geometry is not modeled.',
     'Incoming damage subtracts DEF before skill and level ratios and divides the attack budget among its shots, following the recovered damage routine; complete client validation is pending. Projectile travel and interception are unmodeled; multi-projectile attacks resolve their shots at the same estimated impact time.',
-    'Finite cover uses the level table; shields gate an individual hit. Cover is reserved for hits exceeding 95% of current HP. The run conservatively ends at the first squad death.',
+    'Finite cover uses the level table; shields gate an individual hit. Cover is reserved for hits exceeding 95% of current HP. Fallen units stop acting; revival can return them. A squad wipe ends the run.',
     'Core geometry assumes perfect hits on a targeted front tentacle or exposed phase-two body; spread and hidden-core pierce overlap are unverified.',
 ]
 
@@ -340,25 +341,26 @@ class KrakenRuntime(EncounterRuntime):
             self.log('interruption safety margin increased after missed cancellation',seconds=self.interrupt_margin)
         bm=self.bm;hp=bm.state['hp'];stat=self.stat()
         bypass=shot in (1,10,8,14,16,7)
-        targets=list(self.squad) if shot in (6,7,16) else [self.rng.choice(list(self.squad)) for _ in range(skill.get('ShotCount',1))]
+        names=[n for n in self.squad if hp[n]>0]
+        if not names: return
+        visible=unit_combat.targetable(self,names)
+        taunters=[n for n in visible if self.protection(n,'taunt')]
+        targets=names if shot in (6,7,16) else [self.rng.choice(taunters or visible) for _ in range(skill.get('ShotCount',1))]
         for name in targets:
             if hp[name]<=0:continue
             in_cover=(name in self.covered or bm.state.get('planned_cover')) and self.cover.get(name,0)>0
-            defence=self.cover_def[name] if in_cover and not bypass else bm._effective_def(name)
-            amount=incoming_hit(stat['LevelAttack'],defence,skill['SkillValue01'],stat['LevelStatdamageratio'],skill['ShotCount'])
+            defence=unit_combat.cover_defence(self,name) if in_cover and not bypass else bm._effective_def(name)
+            amount=incoming_hit(unit_combat.enemy_attack(self,stat['LevelAttack']),defence,skill['SkillValue01'],stat['LevelStatdamageratio'],skill['ShotCount'])
             if self.squad[name].get('element_code')=='전격':
                 stage=sum(self.damage>=x['ConditionValueMin'] for x in DATA['stages'])
                 amount*=3 if stage<=3 else 4 if stage<=6 else 5
+            amount*=unit_combat.elemental_reduction(self,name,200001)
             blocked=None;absorbed=0.
             shields=[ab for ab in bm._active if ab.shield_per_target.get(name,0)>0]
             if self.protection(name,'invincible'):
                 blocked='invincible'
             elif not bypass and shields:
-                # Shield gating: depletion blocks this individual hit, not future hits.
-                ab=shields[0];absorbed=min(amount,ab.shield_per_target[name]);ab.shield_per_target[name]-=absorbed
-                if ab.effect.get('stat')=='shared_shield_from_max_hp_pct':
-                    for target in ab.shield_per_target:ab.shield_per_target[target]=ab.shield_per_target[name]
-                blocked='shield';bm._invalidate_buffs_cache()
+                blocked,absorbed=unit_combat.hit_shield(self,name,amount)
             elif not bypass and in_cover:
                 mapping=next(x for x in DATA['skill_functions'] if x['SkillId']==skill['Id'])
                 for func in DATA['functions']:
@@ -369,13 +371,12 @@ class KrakenRuntime(EncounterRuntime):
                 # Ally received-damage modifiers belong to the HP recipient.
                 # Do not mix enemy vulnerability buffs into incoming attacks.
                 amount*=max(0.,1+self.active_stat(name,'received_dmg_pct')/100)
-                minimum=1. if self.protection(name,'undying') else 0.
-                hp[name]=max(minimum,hp[name]-amount);bm.sync_hp(name)
-                bm.notify('received_hit',self.time,name)
+                unit_combat.hurt(self,name,amount)
             self.incoming.append(dict(time=round(self.time,3),shot=shot,target=name,damage=0 if blocked else round(amount),
                 blocked_by=blocked,absorbed=round(absorbed),hp=round(hp[name]),cover=round(self.cover.get(name,0))))
             if hp[name]<=0:
-                self.log('squad member died',unit=name);self.stop_reason='First squad death; conservative survival stop';self.stopped=True
+                self.log('squad member died',unit=name)
+            unit_combat.check_defeat(self)
         self.log('boss attack landed',shot=shot)
 
     def report(self):
@@ -392,4 +393,5 @@ class KrakenRuntime(EncounterRuntime):
                 'All recovered Kraken part destruction damage ratios are zero; part breaks add no separate body HP loss.'
                 if self.part_break_damage_supported else
                 'Part destruction bonus is not modeled: the Kraken monster HP scaling record is missing.'])
+        report.update(unit_combat.report(self))
         return report

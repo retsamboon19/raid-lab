@@ -30,6 +30,10 @@
 !/tools/raid-lab/browser_connection.py
 !/tools/raid-lab/browser_login.py
 !/tools/raid-lab/burst_rotation.py
+!/tools/raid-lab/unit_combat.py
+!/tools/raid-lab/test_complete_roster.py
+!/tools/raid-lab/validate_roster.py
+!/tools/raid-lab/KIT-COVERAGE.md
 !/tools/raid-lab/core.py
 !/tools/raid-lab/cp-penalty.json
 !/tools/raid-lab/critical_parts.py

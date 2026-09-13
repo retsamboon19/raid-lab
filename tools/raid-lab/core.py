@@ -57,7 +57,7 @@ def tags_for(name, effects=None):
 
 CATALOG = []
 for name, m in META.items():
-    if name.startswith('_'): continue
+    if name.startswith(('_', 'test_')): continue
     d = BY_ID.get(RAW.get(name,{}).get('id'), {})
     CATALOG.append({'id':name,'name':d.get('name_localkey',{}).get('name',name),
         'name_code':d.get('name_code'),'resource_id':RAW.get(name,{}).get('id'),
@@ -193,7 +193,9 @@ def import_roster(data):
             if rare=='SSR': notes.append('Favorite-item phase needs manual entry; collection set to SR15.'); b['collection_stage']='SR15'
             notes.append('Imported ownership, skills, limit breaks and available Overload lines. Missing gear tiers/levels, cube, research, bond and favorite phase use visible defaults; review before comparing damage. Current displayed ATK is not reused at a fixed raid level.')
             b=validate_build(b)
-        if not CAT[key]['supported']: notes.append('Skill kit not supported; excluded from simulations.')
+        if CAT[key]['supported']:
+            notes=[n for n in notes if n != 'Skill kit not supported; excluded from simulations.']
+        else: notes.append('Skill kit not supported; excluded from simulations.')
         result.append({'id':key,'build':b,'enabled':r.get('enabled',True) is not False,'assumptions':list(dict.fromkeys(str(n) for n in notes))})
     if not result: raise ValueError('No matching owned units found. Import the character-data export, not accounts or a blank character template.')
     return {'roster':result,'warnings':warnings,'source':kind}

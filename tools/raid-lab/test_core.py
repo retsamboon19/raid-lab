@@ -7,10 +7,16 @@ class RosterTests(unittest.TestCase):
         demo=core.demo_roster()
         self.assertGreaterEqual(len(demo),25)
         self.assertEqual(core.import_roster({'roster':demo})['roster'],demo)
-    def test_unsupported_notes_do_not_multiply(self):
-        n=next(c['id'] for c in core.CATALOG if not c['supported'])
+    def test_complete_real_catalog_and_repeatable_import(self):
+        self.assertEqual(len(core.CATALOG),200)
+        self.assertTrue(all(c['supported'] for c in core.CATALOG))
+        self.assertFalse(any(c['id'].startswith('test_') for c in core.CATALOG))
+        n=core.NAME_MAP['crow']
         a=core.import_roster({'roster':[{'id':n,'build':core.default_build()}]})
         self.assertEqual(core.import_roster(a)['roster'],a['roster'])
+        old=copy.deepcopy(a)
+        old['roster'][0]['assumptions']=['Skill kit not supported; excluded from simulations.','Keep gear assumption.']
+        self.assertEqual(core.import_roster(old)['roster'][0]['assumptions'],['Keep gear assumption.'])
     def test_personal_cdr_is_not_team_cdr(self):
         c=next(c for c in core.CATALOG if c['name']=='Blanc')
         self.assertNotIn('CDR',c['tags'])

@@ -3,6 +3,7 @@
 Recovered records drive branch decisions. Physical geometry and animation travel
 are approximations and remain explicit in every report.
 """
+import unit_combat
 import copy
 import json
 import math
@@ -40,7 +41,7 @@ ASSUMPTIONS=[
  'Finite non-main parts use LevelBrokenHp with the monster and part HP ratios, following the recovered client constructor. Main or linked body HP uses LevelHp. Interruption HP uses LevelBrokenHp. Geometry and complete fights still need gameplay validation.',
  'Part destruction causes separate body HP loss using the main part BrokenHp and the destroyed part DamageHpRatio. This bonus is reported separately from direct character damage and does not increase lifesteal.',
  'Animation loops use table casting time. Movement and phase animations use one second when no explicit duration is present; projectile flight and overlap geometry remain approximate.',
- 'Incoming damage uses enemy ATK and skill percentage, effective DEF and the level damage ratio. Finite cover, shields, healing, taunt, stun and invulnerability affect the run. The first death stops scoring conservatively.',
+ 'Incoming damage uses enemy ATK and skill percentage, effective DEF and the level damage ratio. Finite cover, shields, healing, taunt, stun and invulnerability affect the run. Units stop attacking when defeated; living revival skills can restore them. Scoring stops when the squad is defeated.',
  'Ordinary projectile interception and summon travel are approximate. Museum weekly buffs are not applied. Modeled survival is not a verified in-game clear.',
  'Crystal sphere uses a 300-hit check and a modeled ten-second flight window; exact Museum travel needs client validation. Poison ticks use one-second intervals. Boss debuff immunity, collision-based cover bypass and overlapping pierce targets are not fully reproduced.',
 ]
@@ -355,7 +356,7 @@ class RaidBossRuntime(EncounterRuntime):
     def attack_targets(self,skill,node):
         if not self.bm:return []
         if '_locked_targets' in node:return node['_locked_targets']
-        names=[n for n in self.squad if self.bm.state['hp'][n]>0]
+        names=unit_combat.targetable(self,[n for n in self.squad if self.bm.state['hp'][n]>0])
         if not names:return []
         position=node.get('ECharacterPosition_targetPosition',node.get('ECharacterPosition_positionType','None'))
         if position.startswith('Player'):return [list(self.squad)[int(position[-1])-1]]
@@ -401,9 +402,9 @@ class RaidBossRuntime(EncounterRuntime):
             item['next']+=1
             if self.protection(name,'invincible'):continue
             amount*=max(0,1+self.active_stat(name,'received_dmg_pct')/100)
-            hp[name]=max(1 if self.protection(name,'undying') else 0,hp[name]-amount);self.bm.sync_hp(name)
+            unit_combat.hurt(self,name,amount)
             self.incoming.append(dict(time=round(t,3),source='Damage over time',shot=f['Id'],target=name,damage=round(amount),blocked_by=None,hp=round(hp[name]),cover=round(self.cover[name])))
-            if hp[name]<=0:self.stop_reason='First squad death from damage over time: '+name;self.stopped=True;break
+            unit_combat.check_defeat(self)
 
     def select_part(self,caster):
         if self.active or any(p['status']=='active' for p in self.projectiles) or self.part_policy=='body':return None
@@ -463,7 +464,9 @@ class RaidBossRuntime(EncounterRuntime):
         if projectile and normal and not self.active and (self.follows_aim(caster, getattr(self,'aim_controller',caster))):
             result=calculate(**dict(args,enemy_def=0,hit_type=dict(hit_type,core_prob=0,is_core=False,is_part=False)))
             if result['damage']>0:projectile['hp']-=1
-            if projectile['hp']<=0:projectile.update(status='passed',destroyed_at=self.time);self.log('crystal sphere destroyed')
+            if projectile['hp']<=0:
+                projectile.update(status='passed',destroyed_at=self.time);self.log('crystal sphere destroyed')
+                unit_combat.broadcast(self, 'event:projectile_destroy')
             result['damage']=0;return result
         part=self.select_part(caster) if normal else None
         adds=self.living_adds();controlled=self.follows_aim(caster, getattr(self,'aim_controller',caster))
@@ -484,7 +487,7 @@ class RaidBossRuntime(EncounterRuntime):
         amount=result['damage']
         if add:
             dealt=min(add['hp'],1 if add['protected'] and amount>0 else amount);add['hp']-=dealt;self.damage_to_adds+=dealt
-            if add['hp']<=0:add.update(cleared_at=self.time,clear_reason='squad')
+            if add['hp']<=0:add.update(cleared_at=self.time,clear_reason='squad');unit_combat.broadcast(self, 'event:enemy_death')
             self.damage=before;result['damage']=0
         elif part and amount>0 and not was_active:
             was_alive=self.world.parts.alive(part)
@@ -504,7 +507,7 @@ class RaidBossRuntime(EncounterRuntime):
             if split:self.damage-=result['damage'];result['damage']=round(result['damage']/(len(adds)+1));self.damage+=result['damage']
             for a in adds:
                 dealt=min(a['hp'],1 if a['protected'] and not split and each>0 else each);a['hp']-=dealt;self.damage_to_adds+=dealt
-                if a['hp']<=0:a.update(cleared_at=self.time,clear_reason='squad skill')
+                if a['hp']<=0:a.update(cleared_at=self.time,clear_reason='squad skill');unit_combat.broadcast(self, 'event:enemy_death')
         if normal and not was_active:self.normal_by_unit[caster]=self.normal_by_unit.get(caster,0)+amount
         if self.barrier:self.barrier_damage_by_unit[caster]=self.barrier_damage_by_unit.get(caster,0)+result['damage']
         return result
@@ -515,25 +518,25 @@ class RaidBossRuntime(EncounterRuntime):
         if not names:return
         targets=self.attack_targets(skill,node)*max(1,skill['ShotCount'])
         for n in targets:
+            if bm.state['hp'].get(n,0)<=0:continue
             hp=bm.state['hp'];defence=bm._effective_def(n)
             boost=sum(v/10000 for i,(end,v) in self.effects.items() if i in self.functions and end>self.time and self.functions[i]['FunctionType']=='StatAtk')
             attack=stat['LevelAttack']*m['AttackRatio']/10000*(1+boost)
+            attack=unit_combat.enemy_attack(self,attack)
             amount=incoming_hit(attack,defence,skill['SkillValue01'],stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount']))
             if self.key.startswith('anomaly-') and self.squad[n].get('element_code')==WEAK_UNITS.get(m['ElementId'][0]):amount*=3 if self.stage()['Step']<=3 else 4 if self.stage()['Step']<=6 else 5
             amount*=max(0,1+self.active_stat(n,'received_dmg_pct')/100)
+            amount*=unit_combat.elemental_reduction(self,n,m['ElementId'][0])
             blocked=None;absorbed=0;shields=[a for a in bm._active if a.shield_per_target.get(n,0)>0 and self.time<a.expires_at]
             if self.protection(n,'invincible'):blocked='invincible'
             elif shields:
-                a=shields[0];absorbed=min(amount,a.shield_per_target[n]);a.shield_per_target[n]-=absorbed
-                if a.effect.get('stat')=='shared_shield_from_max_hp_pct':
-                    for name in a.shield_per_target:a.shield_per_target[name]=a.shield_per_target[n]
-                blocked='shield';bm._invalidate_buffs_cache()
+                blocked,absorbed=unit_combat.hit_shield(self,n,amount)
             elif not node.get('_bypass_cover') and self.cover.get(n,0)>0 and (n in self.covered or bm.state.get('planned_cover') or self.auto_cover and (amount>hp[n]*.95 or any(f['FunctionType'] in ('Stun','Damage') and f['DurationValue']>0 for f in self.hurt_functions(skill)))):
-                absorbed=min(self.cover[n],incoming_hit(attack,self.cover_def[n],skill['SkillValue01'],stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount'])));self.cover[n]-=absorbed;blocked='cover';self.covered.add(n)
+                absorbed=min(self.cover[n],incoming_hit(attack,unit_combat.cover_defence(self,n),skill['SkillValue01'],stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount'])));self.cover[n]-=absorbed;blocked='cover';self.covered.add(n)
             else:
                 for f in self.hurt_functions(skill):
                     if f['FunctionType']=='CurrentHpRatioDamage' and f['DurationValue']==0:amount+=hp[n]*f['FunctionValue']/10000
-                hp[n]=max(1 if self.protection(n,'undying') else 0,hp[n]-amount);bm.sync_hp(n);bm.notify('received_hit',self.time,n)
+                unit_combat.hurt(self,n,amount)
                 self.apply_skill_functions(skill,'HurtFunctionIdSkill',n)
                 for f in self.hurt_functions(skill):
                     if f['FunctionType'] not in ('Damage','CurrentHpRatioDamage') or f['DurationValue']<=0:continue
@@ -542,7 +545,8 @@ class RaidBossRuntime(EncounterRuntime):
                     self.dot_ticks=[d for d in self.dot_ticks if d['marker'] is not marker]
                     self.dot_ticks.append(dict(marker=marker,function=f,target=n,next=self.time+1,end=self.time+f['DurationValue']/100))
             self.incoming.append(dict(time=round(self.time,3),source=source or NAMES[self.key],shot=skill['Id'],target=n,damage=0 if blocked else round(amount),absorbed=round(absorbed),blocked_by=blocked,hp=round(hp[n]),cover=round(self.cover[n])))
-            if hp[n]<=0:self.stop_reason='First squad death: '+n;self.stopped=True;self.log('squad member died',unit=n);break
+            if hp[n]<=0:self.log('squad member died',unit=n)
+            unit_combat.check_defeat(self)
     def hurt_functions(self,skill):
         row=next((s for m in self.data['monsters'] for s in m['SkillData'] if s['SkillId']==skill['Id']),{})
         return [self.functions[i] for i in row.get('HurtFunctionIdSkill',[]) if i]
@@ -567,4 +571,5 @@ class RaidBossRuntime(EncounterRuntime):
             stop_reason=self.stop_reason,survival='failed' if self.stop_reason else 'survived modeled attacks',
             policy=dict(target=self.part_policy,attack_choice=self.choice_policy,auto_cover=self.auto_cover),
             assumptions=list(ASSUMPTIONS)+(['Unmodeled recovered effect types: '+', '.join(sorted(self.unhandled))] if self.unhandled else []))
+        report.update(unit_combat.report(self))
         return report

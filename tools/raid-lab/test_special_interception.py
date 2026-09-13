@@ -138,18 +138,23 @@ class SpecialTests(unittest.TestCase):
         for _ in range(6):r.apply_function(1999101,n)
         self.assertGreater(r.bm.state['hp'][n],0)
         r.apply_function(1999101,n);self.assertEqual(r.bm.state['hp'][n],0)
-        self.assertIn('seven stacks',r.stop_reason)
+        self.assertEqual(r.bm.state['deaths'][-1]['cause'],'corrosion')
+        self.assertEqual(r.report()['survival'],'failed')
         r=runtime('chatterbox',bind=True);n=next(iter(r.squad))
         for _ in range(6):r.apply_function(1999101,n)
         r.bm._active=[a for a in r.bm._active if a.effect.get('name')!='Chatterbox corrosion']
         r.apply_function(1999101,n);self.assertEqual(r.debuff_stacks[n],1)
         self.assertFalse(r.stopped)
 
-    def test_first_death_stops_damage_and_reports_failure(self):
+    def test_fallen_unit_fails_survival_but_allows_ally_revival(self):
         r=runtime('alteisen',bind=True,auto_cover=False);n=next(iter(r.squad));r.bm.state['hp'][n]=1
         r.receive_attack(r.skills[6],{'_locked_targets':[n],'_bypass_cover':True})
-        self.assertTrue(r.stopped);self.assertEqual(hit(r,1e10,n),0)
+        self.assertFalse(r.stopped)
         self.assertEqual(r.report()['survival'],'failed')
+        for unit in r.squad:r.bm.state['hp'][unit]=0
+        import unit_combat
+        unit_combat.check_defeat(r)
+        self.assertTrue(r.stopped);self.assertEqual(hit(r,1e10,n),0)
 
     def test_reward_threshold_stops_successfully(self):
         r=runtime();r.damage=r.max_reward_damage;r.advance(.1,{})

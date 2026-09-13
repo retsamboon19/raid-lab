@@ -142,6 +142,7 @@ class EncounterRuntime:
             q=self.active;e=q['event']
             eligible=(not target.get('element') or target['element'] in self.element_access.get(caster,[element])) and (not target.get('weapons') or weapon in target['weapons'])
             damage=result['damage'] if eligible else 0
+            damage*=max(0,1+(args.get('buffs',{}).get('qte_dmg_pct',0)+args.get('buffs',{}).get('intercept_dmg_pct',0))/100)
             if target.get('hit_count'):damage=1 if eligible and damage>0 else 0
             if target.get('first_hit_only') and q['attempted']:damage=0
             if eligible:q['attempted']=True
@@ -174,4 +175,4 @@ class EncounterRuntime:
     def report(self):
         return {'events':self.events,'stopped':self.stopped,'simulated_until':round(self.time,3),'control_plan':copy.deepcopy(self.control_plan),'off_burst_controller':self.aim_controller_override or getattr(self,'aim_controller',None),
                 'checks':[{'id':x['event']['id'],'status':x['status'],'targets':x['targets'],'remaining_target_damage':x['dealt']} for x in self.states.values() if x['event']['kind']=='qte'],
-                'assumptions':['Automatic QTE aim selects the first eligible shooter ready to fire and follows with the squad during Full Burst. Explicit script controllers override this. Actual shots must meet each target threshold before its deadline.', 'Scripted cover stops firing and new bursts; cover HP, incoming damage and survival are not modeled. Exact aiming errors, interruption-specific buffs and collision geometry are not modeled.']}
+                'assumptions':['Automatic QTE aim selects the first eligible shooter ready to fire and follows with the squad during Full Burst. Explicit script controllers override this. Actual shots must meet each target threshold before its deadline.', 'Scripted cover stops firing and new bursts; cover HP, incoming damage and survival are not modeled. Exact aiming errors and collision geometry are not modeled.']}

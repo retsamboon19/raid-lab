@@ -4,6 +4,7 @@ Spatial AI is reduced to explicit encounter phases. Movement, missile flight
 and manual reaction are approximations, disclosed with every result.
 """
 import copy
+import unit_combat
 from boss_behavior import RUNNING
 from raid_boss_combat import RaidBossRuntime, PART_LABELS, DATA
 from mechanics import EncounterRuntime
@@ -18,7 +19,7 @@ ASSUMPTIONS=[
     'Circle HP and casting times, enemy stats, projectile HP and finite part HP come from the recovered EX records. Actual weapon hits must clear every circle; QTE and projectile damage do not inflate boss damage.',
     'The spatial behavior trees are reduced to boss-specific phase policies. Movement and recovery use an approximate one-second interval. Missile flight uses a three-second reaction window; exact trajectories, splash overlap and animation-driven projectile counts need gameplay calibration.',
     'Target changes include 0.15 seconds of reaction time. Aim is accurate after that delay. The model does not assume invulnerability from manual dodging.',
-    'Finite cover, shields, healing, taunt, stun, Chatterbox debuff stacks and deaths are simulated. Grave Digger phase-three drill attacks bypass cover. The first death stops scoring; recovery after a death is not simulated.',
+    'Finite cover, shields, healing, taunt, stun, Chatterbox debuff stacks and deaths are simulated. Grave Digger phase-three drill attacks bypass cover. Defeated units stop firing; revival skills can return them to battle. Scoring stops on squad defeat.',
     'Modernia preserves her final wing; Chatterbox preserves his head and final launcher under the safe targeting policy. Incidental splash or piercing damage to protected parts is not modeled.',
     'Train turret enrage timing is not fully reproduced. Chatterbox overlap-change is approximated as one extra corrosion stack. Those interactions and cover-stat conversion still need client verification.',
     'Stage 9 means the recovered maximum reward threshold was reached. It is not a promise of a live-game clear. Physical timing and incoming damage remain approximate.',
@@ -238,14 +239,14 @@ class SpecialInterceptionRuntime(RaidBossRuntime):
         if active and not self.active and normal and controlled:
             p=active[0]
             result=calculate(**dict(args,enemy_def=p['defence'],hit_type=dict(hit_type,core_prob=0,is_core=False,is_part=False)))
-            if self.reaction_target(p['id']):self.damage_projectile(p,result['damage'])
+            if self.reaction_target(p['id']):self.damage_projectile(p,result['damage']*max(0,1+args.get('buffs',{}).get('projectile_dmg_pct',0)/100))
             result['damage']=0;return result
         # AoE can clear visible missiles. Distributed skills split their budget.
         aoe=active and not self.active and not normal and (hit_type.get('effect_target')=='all_enemies' or hit_type.get('is_split'))
         if aoe:
             for p in active:
                 raw=calculate(**dict(args,enemy_def=p['defence'],hit_type=dict(hit_type,core_prob=0,is_core=False,is_part=False)))['damage']
-                self.damage_projectile(p,raw/(len(active)+1) if hit_type.get('is_split') else raw)
+                self.damage_projectile(p,(raw/(len(active)+1) if hit_type.get('is_split') else raw)*max(0,1+args.get('buffs',{}).get('projectile_dmg_pct',0)/100))
         # Prevent the base class's hit-count sphere handler from taking HP missiles.
         projectiles=self.projectiles;self.projectiles=[]
         try:
@@ -256,8 +257,9 @@ class SpecialInterceptionRuntime(RaidBossRuntime):
         return result
 
     def damage_projectile(self,p,amount):
+        if p['hp'] <= 0: return
         dealt=min(p['hp'],max(0,amount));p['hp']-=dealt;self.damage_to_projectiles+=dealt
-        if p['hp']<=0:p.update(status='passed',destroyed_at=self.time);self.log('projectile destroyed',id=p['id'])
+        if p['hp']<=0:p.update(status='passed',destroyed_at=self.time);self.log('projectile destroyed',id=p['id']);unit_combat.broadcast(self,'event:projectile_destroy')
 
     def apply_function(self,ident,target=None,part=None):
         if self.key=='special-chatterbox' and ident in (1999101,1999102,1999133) and target and self.bm:
@@ -270,8 +272,11 @@ class SpecialInterceptionRuntime(RaidBossRuntime):
                 count=sum(a.stack for a in self.bm._active if a.effect is eff and a.expires_at>self.time)
                 self.debuff_stacks[target]=count
                 if count>=f['FullCount']:
-                    self.bm.state['hp'][target]=0;self.bm.sync_hp(target);self.stopped=True
-                    self.stop_reason='Chatterbox corrosion reached seven stacks: '+target
+                    self.bm.state['hp'][target]=0;self.bm.sync_hp(target)
+                    self.bm.state.setdefault('deaths',[]).append({'t':self.time,'unit':target,'cause':'corrosion'})
+                    for ally in self.squad:
+                        if ally!=target:self.bm.notify('event:ally_down',self.time,ally,subject=target)
+                    unit_combat.check_defeat(self)
                     self.log('squad member died',unit=target,reason='corrosion')
             elif ident==1999133:
                 # Punches carry a second stack operation in addition to StatDef.
