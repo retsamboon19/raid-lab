@@ -203,7 +203,7 @@ class RaidBossTests(unittest.TestCase):
 
     def test_manual_and_search_settings_install_automatic_runtime(self):
         for key in PROFILES:
-            s=core.validate_settings(dict(boss_id=key,content_mode='museum' if key.startswith('museum-') else 'anomaly' if key.startswith('anomaly-') else 'solo'))
+            s=core.validate_settings(dict(boss_id=key,content_mode='museum' if key.startswith('museum-') else 'anomaly' if key.startswith('anomaly-') else 'special' if key.startswith('special-') else 'solo'))
             self.assertIsInstance(core.encounters.config(s,30)['encounter_runtime'],RaidBossRuntime)
             self.assertEqual(s['boss_simulation'],'automatic')
 

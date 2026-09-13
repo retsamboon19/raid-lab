@@ -7,7 +7,7 @@ def assessment(entry):
     checks=fight.get('critical_deadlines',fight.get('critical_parts',[]))
     missed=[p for p in checks if p.get('status')=='failed']
     pending=[p for p in checks if p.get('status') not in ('passed','failed','not_required')]
-    complete=fight.get('simulated_until',0)>=entry.get('duration',float('inf'))-.1
+    complete=bool(fight.get('target_reached')) or fight.get('simulated_until',0)>=entry.get('duration',float('inf'))-.1
     passed=bool(fight.get('critical_deadlines_supported') or checks) and complete and not missed and not pending
     return dict(passed=passed,missed=len(missed),pending=len(pending),checks=checks,complete=complete)
 
@@ -76,6 +76,9 @@ def screen_score(row):
 
 def select_tested(rows,count,required=False,seeds=(),width=64):
     """Bounded allocation beam; completed seed plans are always retained."""
+    if count==1 and any((r.get('encounter_timeline') or {}).get('special_interception') for r in rows):
+        from candidate_ranking import score
+        return [max(rows,key=lambda r:(int(required and assessment(r)['passed']),score(r)))]
     by_members={}
     def rank(r):return (int(required and assessment(r)['passed']),r['damage'])
     for r in rows:

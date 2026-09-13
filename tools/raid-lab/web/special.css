@@ -1,0 +1,13 @@
+.ex-guide{border-top:1px solid var(--line);padding-top:12px;margin-top:15px}
+.ex-guide summary{font-weight:650;color:var(--accent);font-size:13px;cursor:pointer}
+.ex-guide p{font-size:13px;line-height:1.55;margin:12px 0}
+.ex-guide strong{color:var(--ink)}
+.ex-guide a{color:var(--accent)}
+.ex-guide small{display:block;font-size:12px}
+.ex-result{padding:17px 20px;margin:18px 0;border:1px solid #535e35;border-radius:8px;background:#1b2118}
+.ex-result>strong{font-size:15px;color:var(--accent)}
+.ex-result p{font-size:14px;max-width:85ch}
+.ex-result small{display:block;font-size:12px}
+.ex-result.ex-stopped{border-color:#82524c;background:#251d1d}
+.ex-result.ex-stopped>strong{color:#f1b0a6}
+@media(max-width:480px){.ex-result{padding:14px}.ex-result>strong{font-size:14px}}

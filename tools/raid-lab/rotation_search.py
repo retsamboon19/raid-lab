@@ -1,5 +1,6 @@
 """Reserve rotation alternatives for simulation; select only by actual damage."""
 import itertools
+from candidate_ranking import score
 
 
 def timing(team):
@@ -89,7 +90,7 @@ def improve(results, ids, catalog, effects, priority, valid, orders, prefetch, r
                 alternative = {i: run(t, screen_duration) for i, t in changes.items()}
             except (ValueError, KeyError, IndexError, TypeError):
                 continue
-            damage_gain = sum(t['damage'] for t in alternative.values()) - sum(t['damage'] for t in baseline.values())
+            damage_gain = sum(score(t) for t in alternative.values()) - sum(score(t) for t in baseline.values())
             burst_gain = sum(timing(t)['bursts'] for t in alternative.values()) - sum(timing(t)['bursts'] for t in baseline.values())
             cadence_gain = sum(timing(t)['on_time_share'] for t in alternative.values()) - sum(timing(t)['on_time_share'] for t in baseline.values())
             screened.append((proposal, changes, damage_gain, burst_gain, cadence_gain))
@@ -124,8 +125,9 @@ def improve(results, ids, catalog, effects, priority, valid, orders, prefetch, r
                       'before': {i + 1: timing(results[i]) for i in changes},
                       'after': {i + 1: timing(t) for i, t in alternative.items()}}
             audit.append(record)
-            if after - before > best_gain:
-                best_gain = after - before
+            gain = sum(score(t) for t in alternative.values()) - sum(score(results[i]) for i in changes)
+            if gain > best_gain:
+                best_gain = gain
                 best = alternative, record
         if best:
             for i, alternative in best[0].items():

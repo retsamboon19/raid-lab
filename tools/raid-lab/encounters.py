@@ -9,7 +9,7 @@ from pathlib import Path
 from bisect import bisect_right
 
 CHECKED = "2026-09-10"
-MODEL_REVISION = "raid-boss-parts-v4"
+MODEL_REVISION = "special-interception-v1"
 MUSEUM_SOURCE = "https://gamewith.jp/nikke/article/show/573385"
 ADVANTAGE = {"Fire":"Wind", "Wind":"Iron", "Iron":"Electric", "Electric":"Water", "Water":"Fire"}
 
@@ -82,12 +82,21 @@ from raid_boss_combat import PROFILES as RAID_PROFILES
 for key in RAID_PROFILES:
     BY_ID[key]['automatic_mechanics']=True
     BY_ID[key]['status']='Automatic fight model'
+    if key.startswith('special-'):
+        p=BY_ID[key];data=RAID_PROFILES[key]
+        p['enemy_element']={100001:'Fire',200001:'Water',300001:'Wind',400001:'Electric',500001:'Iron'}[data['monster']['ElementId'][0]]
+        p['weakness']=next(k for k,v in ADVANTAGE.items() if v==p['enemy_element'])
+        p['checked_at']='2026-09-14'
+        p['facts']={'unmodeled':['Exact spatial movement, projectile travel and incidental part hits','Gameplay calibration'],
+                    'qte':'Actual circle HP and deadlines; boss-specific retaliation',
+                    'survival':'Finite HP, cover, shields, healing and first-death stopping'}
 BY_ID['museum-mother-whale']['automatic_mechanics']=True
 BY_ID['anomaly-kraken']['automatic_mechanics']=True
 for key,p in BY_ID.items():
     p['critical_part_deadlines']=key in ('museum-mother-whale','anomaly-kraken') or any(
         skill['ControlParts'] and skill['CancelType'].startswith('BrokenParts')
         for skill in RAID_PROFILES.get(key,{}).get('skills',[]))
+BY_ID['special-modernia']['critical_part_deadlines']=True
 BY_ID['museum-crystal-chamber']['attack_choices']=[
     {'id':'auto','name':'Choose for this squad'},
     {'id':'projectile','name':'Crystal sphere · hit-count check'},
@@ -115,6 +124,10 @@ KRAKEN_STATIC=json.loads((Path(__file__).parent/'kraken-static-data.json').read_
 for key,guide in GUIDANCE['profiles'].items():
     BY_ID[key]['guidance']=guide
     if guide.get('barrier_element'):BY_ID[key]['barrier_element']=guide['barrier_element']
+from special_guidance import GUIDES as SPECIAL_GUIDES
+for key,guide in SPECIAL_GUIDES.items():
+    BY_ID['special-'+key]['guidance']=copy.deepcopy(guide)
+    BY_ID['special-'+key]['sources']=[guide['source']]
 
 CP_TABLE=json.loads((Path(__file__).parent/'cp-penalty.json').read_text(encoding='utf-8'))['rows']
 
@@ -266,7 +279,11 @@ def config(settings, duration):
         out['encounter_runtime']=MotherWhaleRuntime(script,duration,mode=settings['museum_mode'])
     if settings['boss_id'] in RAID_PROFILES:
         from raid_boss_combat import RaidBossRuntime
-        out['encounter_runtime']=RaidBossRuntime(script,duration,key=settings['boss_id'],mode=settings['museum_mode'],choice_policy=settings.get('boss_attack_choice','auto'),part_policy=settings.get('boss_part_policy','safe'))
+        runtime=RaidBossRuntime
+        if settings['boss_id'].startswith('special-'):
+            from special_interception import SpecialInterceptionRuntime
+            runtime=SpecialInterceptionRuntime
+        out['encounter_runtime']=runtime(script,duration,key=settings['boss_id'],mode=settings['museum_mode'],choice_policy=settings.get('boss_attack_choice','auto'),part_policy=settings.get('boss_part_policy','safe'))
     if out.get('encounter_runtime'):
         out['encounter_runtime'].aim_controller_override=settings.get('_aim_controller')
     return out
@@ -274,6 +291,9 @@ def config(settings, duration):
 
 def notes(settings):
     p=settings["encounter"]
+    if p['id'].startswith('special-'):
+        from special_interception import ASSUMPTIONS
+        return list(ASSUMPTIONS)
     if p['id'] in RAID_PROFILES:
         from raid_boss_combat import ASSUMPTIONS
         return list(ASSUMPTIONS)

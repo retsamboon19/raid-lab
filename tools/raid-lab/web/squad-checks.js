@@ -25,6 +25,7 @@ function squadCheckItems(team, settings, names={}) {
  const duration=Number(team.duration||settings.duration||0);
  const partObjectives=settings.encounter?.critical_parts||[];
  const fullRun=duration>0&&Number.isFinite(fight?.simulated_until)&&fight.simulated_until>=duration-.1;
+ const completedRoute=fullRun||fight?.target_reached===true;
  const element=team.elemental_damage;
  if(element) add('element','Element',element.providers?.length?'pass':'fail',element.providers?.length?`${element.element} covered`:`${element.element} missing`,
   element.assessment==='modeled-barrier'?element.criterion:element.providers?.length?`${element.providers.map(n=>names[n]||n).join(', ')} passed the matching damage-contribution screen. This does not establish enough circle damage before a QTE deadline.`:'No matching unit passed the damage-contribution screen. An element label alone is insufficient.');
@@ -36,7 +37,8 @@ function squadCheckItems(team, settings, names={}) {
   `Core HP: ${Math.round(core.hp).toLocaleString()}. ${core.destroyed_at!=null?`Destroyed at ${core.destroyed_at.toFixed(2)}s.`:`${Math.round(core.remaining_hp).toLocaleString()} HP remains.`} ${core.deadline!=null?`First protection wave deadline: ${core.deadline.toFixed(2)}s.`:'No protection wave activated in the observed interval.'} Actual targeted hits determine the break. Summons can instead be cleared before protection or defeated afterward; it is not automatically a failed fight.`);
  else if(fight?.critical_deadlines_supported) {
   const checks=fight.critical_deadlines||[],passed=checks.filter(p=>p.status==='passed').length,failed=checks.some(p=>p.status==='failed');
-  add('parts','Critical parts',failed?'warn':fullRun&&passed===checks.length?'pass':'unknown',checks.length?`${passed}/${checks.length} deadlines`:'No deadline reached',checks.length?checks.map(p=>`${p.part}: ${p.status}; deadline ${p.deadline.toFixed(2)}s${p.destroyed_at!=null?`, destroyed ${p.destroyed_at.toFixed(2)}s`:''}.`).join(' '):'No part-dependent attack deadline was reached during this modeled route.');
+  const disabled=fight.special_interception&&completedRoute&&!checks.length&&fight.critical_parts?.some(p=>p.id==='Weapon_03'&&p.destroyed_at!=null);
+  add('parts','Critical parts',failed?'warn':completedRoute&&(passed===checks.length)&&Boolean(checks.length||disabled)?'pass':'unknown',disabled?'Core disabled':checks.length?`${passed}/${checks.length} deadlines`:'No deadline reached',disabled?'The core was destroyed before a second beam deadline was needed on this completed route.':checks.length?checks.map(p=>`${p.part}: ${p.status}; deadline ${p.deadline.toFixed(2)}s${p.destroyed_at!=null?`, destroyed ${p.destroyed_at.toFixed(2)}s`:''}.`).join(' '):'No part-dependent attack deadline was reached during this modeled route.');
  }
  else if(fight?.critical_parts?.length) {
   const parts=fight.critical_parts,passed=parts.filter(p=>p.status==='passed').length,missed=parts.filter(p=>p.status==='failed').length;
@@ -46,12 +48,16 @@ function squadCheckItems(team, settings, names={}) {
   partObjectives.map(p=>`${p.part}: ${p.objective} ${p.consequence} ${p.alternative} Not established by this simulation: ${(p.missing||[]).join(', ')}. Total DPS and a passing burst-timing check do not prove a part break.`).join(' '));
 
  const checks=fight?.checks||[];
- if(fight?.qte_required===false) add('qte','QTE','info','Not applicable','This boss variant uses summon clearing and an elemental barrier rather than a timed circle QTE. See Critical parts and Summons for those outcomes.');
+ if(fight?.qte_route_skipped) add('qte','QTE','info','Route avoided','No circle check appeared on this completed Modernia route. Keeping a wing intact avoids the repeated teleport checks. Core destruction, bombs and survival are assessed separately.');
+ else if(fight?.special_interception&&completedRoute&&!checks.length) add('qte','QTE','info','Not encountered','No circle check occurred before this route ended. This is not a circle-damage pass; check the reward stage and survival result.');
+ else if(fight?.special_interception&&fight.stop_reason&&!checks.length) add('qte','QTE','info','Not reached','The run stopped at a squad death before a circle check appeared. The QTE model is active, but this team has no circle-clearance evidence. Inspect Survival first.');
+ else if(fight?.qte_required===false) add('qte','QTE','info','Not applicable','This boss variant uses summon clearing and an elemental barrier rather than a timed circle QTE. See Critical parts and Summons for those outcomes.');
  else if(checks.some(c=>c.status==='failed')) add('qte','QTE','fail','Failed in model','At least one scripted interruption check failed. Inspect the mechanic details for the failed target and timing.');
- else if(checks.length&&checks.every(c=>c.status==='passed')&&fullRun) add('qte','QTE','pass','Scripted checks passed',`${checks.length} scripted checks passed during the full simulated fight. This covers only the modeled targets and deadlines; unmodeled mechanics and aiming remain unverified.`);
+ else if(checks.length&&checks.every(c=>c.status==='passed')&&completedRoute) add('qte','QTE','pass','Scripted checks passed',`${checks.length} scripted checks passed before ${fight?.target_reached?'the maximum reward stage was reached':'the full simulated fight ended'}. This covers only the modeled targets and deadlines; unmodeled mechanics and aiming remain unverified.`);
  else add('qte','QTE','unknown',checks.length?'Incomplete':'Unverified',checks.length?'Some checks are pending, unknown, or the simulated fight ended early. There is not enough evidence for a full-fight QTE pass.':'No calibrated QTE checks were recorded. Correct element and high team DPS do not prove circle clearance.');
 
  if(fight?.model&&(fight.stop_reason||fight.survival==='failed')) add('survival','Survival','fail','Stopped in model',`${fight.stop_reason||'The survival model reported a failure.'} This result depends on the model\u2019s approximate incoming damage.`);
+ else if(fight?.model&&fight.target_reached&&fight.survival==='survived modeled attacks') add('survival','Survival','pass','Stage 9 reached',`The squad remained alive until the maximum reward threshold at ${fight.simulated_until}s. Finite cover, shields, healing and incoming attacks were modeled. This is not a verified in-game clear.`);
  else if(fight?.model&&fullRun&&fight.survival==='survived modeled attacks') add('survival','Survival','pass','Survived in model',`The squad survived modeled attacks for ${duration}s. Incoming damage and boss behavior still need gameplay calibration.`);
  else add('survival','Survival','unknown','Unverified',fight?.model?'The attack simulation did not establish survival through the full requested duration.':'A stationary damage simulation does not test survival. A complete calibrated incoming-attack model is needed to establish this.');
  if(Array.isArray(fight?.summons)&&fight.summons.length) {
@@ -76,7 +82,7 @@ function squadCheckItems(team, settings, names={}) {
  }
  if(fight?.projectiles?.length) {
   const passed=fight.projectiles.filter(p=>p.status==='passed').length,failed=fight.projectiles.some(p=>p.status==='failed');
-  add('projectiles','Projectiles',failed?'warn':passed===fight.projectiles.length?'pass':'unknown',`${passed}/${fight.projectiles.length} stopped`,fight.projectiles.map(p=>`${p.max_hp} hits required; ${p.hp} remain. Deadline ${p.deadline.toFixed(2)}s. ${p.status==='passed'?`Destroyed at ${p.destroyed_at.toFixed(2)}s.`:p.status==='failed'?'Hit the squad.':'Still in flight.'}`).join(' '));
+  add('projectiles','Projectiles',failed?'warn':passed===fight.projectiles.length?'pass':'unknown',`${passed}/${fight.projectiles.length} stopped`,fight.projectiles.slice(0,12).map(p=>`${Math.round(p.max_hp).toLocaleString()} ${p.kind==='hp'?'HP':'hits'} required; ${Math.round(p.hp).toLocaleString()} remain. Deadline ${p.deadline.toFixed(2)}s. ${p.status==='passed'?`Destroyed at ${p.destroyed_at.toFixed(2)}s.`:p.status==='failed'?'Hit the squad.':'Still in flight.'}`).join(' ')+(fight.projectiles.length>12?' Showing the first 12 projectiles.':''));
  }
 
  const stages=rotation?.support_stages||[];
@@ -90,7 +96,7 @@ function squadCheckItems(team, settings, names={}) {
   `${timing.passed} of ${timing.total} follow-up burst cycles started within 5 seconds after the previous Full Burst ended. Pass requires more than half. Uses actual B1 activation, including gauge refill and cooldown delays, and each recorded Full Burst end, so shortened or extended bursts are respected. The opening cycle and endings with less than 5 seconds left to observe are excluded. Planned cover or boss downtime can delay activation.`);
  else add('wait','Burst timing','unknown','Unverified','No follow-up cycle with a complete 5-second observation window was recorded. The opening burst is excluded.');
  add('uptime','Full Burst',Number.isFinite(rotation?.uptime_pct)?'info':'unknown',Number.isFinite(rotation?.uptime_pct)?`${rotation.uptime_pct}% uptime`:'Unverified',
-  Number.isFinite(rotation?.uptime_pct)?`${rotation.full_burst_seconds}s of the ${duration}s fight was spent in Full Burst. Longer uptime is not always better: duration-changing units, fixed buff expiry, gauge generation and total damage must be considered together.`:'Full Burst window durations are unavailable in this result.');
+  Number.isFinite(rotation?.uptime_pct)?`${rotation.full_burst_seconds}s of the ${rotation.observed_duration??duration}s observed fight was spent in Full Burst. Longer uptime is not always better: duration-changing units, fixed buff expiry, gauge generation and total damage must be considered together.`:'Full Burst window durations are unavailable in this result.');
 
  const healers=team.recommendation?.available_healers;
  if(!Array.isArray(healers)) add('healing','Healing','unknown','Unverified','No healing assessment is available in this result.');

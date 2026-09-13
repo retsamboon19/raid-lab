@@ -22,7 +22,7 @@ PROFILES=DATA['profiles']
 ELEMENTS={100001:'작열',200001:'수냉',300001:'풍압',400001:'전격',500001:'철갑'}
 COUNTER={100001:'수냉',200001:'전격',300001:'작열',400001:'철갑',500001:'풍압'}
 WEAK_UNITS={100001:'풍압',200001:'작열',300001:'철갑',400001:'수냉',500001:'전격'}
-NAMES={'sr39':'Island Eater','sr40':'Luxurious Spider',**{k:k.split('-',1)[1].replace('-',' ').title() for k in PROFILES if k.startswith(('museum-','anomaly-'))}}
+NAMES={'sr39':'Island Eater','sr40':'Luxurious Spider',**{k:k.split('-',1)[1].replace('-',' ').title() for k in PROFILES if k.startswith(('museum-','anomaly-','special-'))}}
 PART_LABELS={
  'indivilia':{'Weapon_03':'Tail','Weapon_01':'Left pincer','Weapon_02':'Right pincer','Weapon_04':'Phase 2 head','Weapon_05':'Core'},
  'modernia':{'Weapon_03':'Core','Weapon_01':'Left wing','Weapon_02':'Right wing'},

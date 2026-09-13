@@ -22,7 +22,8 @@ class GuidanceTests(unittest.TestCase):
     def test_guidance_keeps_variants_and_sources_separate(self):
         self.assertIsNone(encounters.BY_ID['anomaly-ultra']['guidance']['source'])
         self.assertIn('note.com',encounters.BY_ID['museum-storm-bringer']['guidance']['source'])
-        self.assertNotIn('guidance',encounters.BY_ID['special-modernia'])
+        self.assertEqual(encounters.BY_ID['special-modernia']['guidance']['source'],'https://nikke.gg/special-interception-modernia/')
+        self.assertNotEqual(encounters.BY_ID['special-modernia']['guidance'],encounters.BY_ID['museum-modernia'].get('guidance'))
     def test_support_presence_never_proves_survival(self):
         s=core.validate_settings({'boss_id':'museum-storm-bringer'})
         r=encounters.assessment(s,self.nonhealers,core.CAT)

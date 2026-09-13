@@ -62,6 +62,11 @@
 !/tools/raid-lab/rotation_search.py
 !/tools/raid-lab/search_guidance.py
 !/tools/raid-lab/server.py
+!/tools/raid-lab/special_interception.py
+!/tools/raid-lab/candidate_ranking.py
+!/tools/raid-lab/special_guidance.py
+!/tools/raid-lab/test_special_interception.py
+!/tools/raid-lab/SPECIAL-INTERCEPTION.md
 !/tools/raid-lab/team_rationale.py
 !/tools/raid-lab/test_account_sync.py
 !/tools/raid-lab/test_aim_control.py

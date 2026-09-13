@@ -23,6 +23,7 @@ from kit_dependencies import KitDependencies
 import pairing_search
 import burst_rotation
 import rotation_search
+from candidate_ranking import score as candidate_score
 from parallel_compute import CandidateExecutor, worker_limit
 
 def read(path):
@@ -453,6 +454,15 @@ def attach_combat_assessment(entry):
                 {'name':'Part objectives','status':'modeled','detail':'Part damage, destruction and repair change the boss attack branches. The squad checks show each recorded objective.'}]
             if fight.get('choices'):entry['mechanics']['checks'].insert(0,{'name':'Boss attack choices','status':'modeled','detail':'; '.join(f"{c['time']:.2f}s: {c['route']}" for c in fight['choices'])})
             entry['mechanics']['summary']='Part objectives, QTEs, attack choices and survival affect this simulation. Select a squad check to inspect its outcome.'
+        if fight.get('special_interception'):
+            entry['combat_elapsed']=max(.001,fight['simulated_until'])
+            entry['dps']=entry['damage']/entry['combat_elapsed']
+            if entry.get('burst_rotation'):
+                entry['burst_rotation']['uptime_pct']=round(100*entry['burst_rotation']['full_burst_seconds']/entry['combat_elapsed'],1)
+                entry['burst_rotation']['observed_duration']=entry['combat_elapsed']
+            entry['mechanics']['summary']=f"Reward stage {fight['reward_stage']}/9 in the model. Circle damage, missiles, cover and incoming attacks were tested; movement and manual aim remain approximate."
+            for check in entry['mechanics']['checks']:
+                if check['name']=='Automatic boss script':check['detail']='Boss-specific EX phase policies use recovered skill records and actual interruption outcomes. Spatial movement is approximated.'
     if fight and fight.get("stop_reason"):
         entry.setdefault("warnings",[]).append("Experimental boss model stopped: "+fight["stop_reason"]+". This is not a verified in-game failure.")
 
@@ -494,7 +504,7 @@ def evaluate_candidate(team,duration,detail,roster,s):
             try:alternatives.append(evaluate_candidate(team,duration,detail,roster,dict(s,_aim_controller=controller)))
             except ValueError as error:errors.append(str(error))
         if not alternatives:raise ValueError('; '.join(sorted(set(errors))))
-        result=max(alternatives,key=lambda r:(assessment(r)['passed'],r['damage']))
+        result=max(alternatives,key=lambda r:(assessment(r)['passed'],candidate_score(r)))
         result['control_comparison']=[dict(unit=r['encounter_timeline']['off_burst_controller'],damage=r['damage'],parts_passed=assessment(r)['passed']) for r in alternatives]
         result['critical_part_requirement']=assessment(result)
         return result
@@ -678,7 +688,7 @@ def _search(payload,progress,cancelled,executor):
             'compute':{'mode':s['compute_mode'],'workers':executor.workers,'backend':'CPU processes',**compute},
             'selection':{'critical_parts':selection_report(selected,s['teams']) if s.get('require_critical_parts') else None,
                          'joint_allocation_checks':list(joint_allocation_checks),
-                         'method':'Best completed simulations retained during the search.','optimality':'Best tested allocation so far.'},
+                         'objective':'Reward progress, then interruption reliability, remaining HP and clear time.' if s['content_mode']=='special' else 'Simulated damage', 'method':'Best completed simulations retained during the search.','optimality':'Best tested allocation so far.'},
             'warnings':list(imported['warnings']),
             'assumptions':sorted({str(note) for r in selected for n in r['members'] for note in roster[n]['assumptions']}),
             'limitations':encounters.notes(s)+[damage_model_note(s),'Only completed full-fight simulations are eligible. Stopping early can leave fewer squads than requested.']}
@@ -709,7 +719,7 @@ def _search(payload,progress,cancelled,executor):
     for i,p in enumerate(candidates):
         try:
             samples=[run(t,min(30,s['duration'])) for t in p]
-            score=sum(r['damage'] for r in samples)
+            score=sum(candidate_score(r) for r in samples)
             if s.get('require_critical_parts'):
                 from critical_parts import screen_score
                 metrics=[screen_score(r) for r in samples]
@@ -729,7 +739,7 @@ def _search(payload,progress,cancelled,executor):
         finalists.append((sum(t['damage'] for t in results),results))
     if not finalists:raise ValueError('No finalist passed the full simulation: '+ '; '.join(errors[-3:]))
     comparisons=[{'damage':v,'members':[t['members'] for t in rows]} for v,rows in finalists]
-    total,results=max(finalists,key=lambda x:x[0])
+    total,results=max(finalists,key=lambda x:sum(candidate_score(r) for r in x[1]))
     critical_search=[]
     if s.get('require_critical_parts'):
         if executor.partial_result and len(executor.partial_result['teams'])==s['teams']:results=executor.partial_result['teams']
@@ -772,7 +782,7 @@ def _search(payload,progress,cancelled,executor):
             if key not in cache:continue
             alternative=cache[key]
             dependency_checks.append({**proposal,'baseline_damage':baseline['damage'],'damage':alternative['damage'],'healing_dependencies':alternative.get('healing_dependencies',[])})
-            if alternative['damage']>best['damage']:best=alternative
+            if candidate_score(alternative)>candidate_score(best):best=alternative
         results[index]=best
     for index in range(len(results)):verify_dependencies(index)
     # Test one joint round before independent partner sweeps can use the
@@ -797,7 +807,7 @@ def _search(payload,progress,cancelled,executor):
         prefetch(orders,min(30,s['duration']),phase='Screening damage dealers with their partners')
         screened=[]
         for order,option in orders.items():
-            try:screened.append((run(order,min(30,s['duration']))['damage'],order,option))
+            try:screened.append((candidate_score(run(order,min(30,s['duration']))),order,option))
             except (ValueError,KeyError,IndexError,TypeError):continue
         finalists=membership_shortlist(sorted(screened,reverse=True),3)
         full={order:option for _,team,option in finalists for order in burst_orders(team,catalog,guidance)}
@@ -809,7 +819,7 @@ def _search(payload,progress,cancelled,executor):
             alternative=cache[key]
             package_checks.append({'squad':index+1,'package':option['package'],'members':list(order),
                 'baseline_damage':baseline['damage'],'damage':alternative['damage']})
-            if alternative['damage']>best['damage']:best=alternative
+            if candidate_score(alternative)>candidate_score(best):best=alternative
         results[index]=best
     # Try a small number of cross-team exchanges; never optimise teams in isolation.
     if s['teams']>1:
@@ -838,7 +848,7 @@ def _search(payload,progress,cancelled,executor):
             for candidate in baseline_orders:
                 try:alternative=run(candidate,s['duration'],True)
                 except (ValueError,KeyError,IndexError,TypeError):continue
-                if alternative['damage']>baseline['damage']:baseline=alternative
+                if candidate_score(alternative)>candidate_score(baseline):baseline=alternative
             results[0]=baseline
             # Rank memberships before simulation; retain alternatives per outgoing
             # slot and rotate exploratory choices so the strongest score cannot
@@ -861,8 +871,8 @@ def _search(payload,progress,cancelled,executor):
             for candidate,change in neighbors.items():
                 audit={'pass':iteration+1,'members':list(candidate),'outgoing':change[0],'incoming':change[1],'duration':min(30,s['duration'])}
                 try:
-                    damage=run(candidate,min(30,s['duration']))['damage']
-                    screened.append((damage,candidate,change));audit.update(status='screened',damage=damage)
+                    sample=run(candidate,min(30,s['duration']))
+                    screened.append((candidate_score(sample),candidate,change));audit.update(status='screened',damage=sample['damage'])
                 except (ValueError,KeyError,IndexError,TypeError) as e:audit.update(status='excluded',reason=str(e))
                 screening_checks.append(audit)
             promoted=membership_shortlist(screened,3)
@@ -877,9 +887,9 @@ def _search(payload,progress,cancelled,executor):
                 except (ValueError,KeyError,IndexError,TypeError) as e:
                     neighborhood_checks.append({'pass':iteration+1,'members':list(candidate),'outgoing':outgoing,'incoming':incoming,'status':'excluded','reason':str(e)});continue
                 neighborhood_checks.append({'pass':iteration+1,'members':list(candidate),'outgoing':outgoing,'incoming':incoming,'status':'tested','damage':alternative['damage'],'baseline_damage':baseline['damage'],'stop_reason':(alternative.get('encounter_timeline') or {}).get('stop_reason')})
-                if alternative['damage']>best['damage']:best=alternative
+                if candidate_score(alternative)>candidate_score(best):best=alternative
             results[0]=best
-            stable_rounds=stable_rounds+1 if best['damage']<=baseline['damage'] else 0
+            stable_rounds=stable_rounds+1 if candidate_score(best)<=candidate_score(baseline) else 0
             # Two unchanged rounds cover both recommended and exploratory picks.
             # Avoid repeatedly simulating the same neighborhood until the timer.
             if stable_rounds>=2:break
@@ -914,7 +924,7 @@ def _search(payload,progress,cancelled,executor):
                 continue
             delta=alternative['damage']-baseline['damage']
             replacement_checks.append({'squad':index+1,'outgoing':outgoing,'incoming':incoming,'status':'tested','baseline_damage':baseline['damage'],'alternative_damage':alternative['damage'],'delta_pct':round(100*delta/max(1,baseline['damage']),2),'baseline_members':baseline['members']})
-            if alternative['damage']>best['damage']:best=alternative
+            if candidate_score(alternative)>candidate_score(best):best=alternative
         results[index]=best
     rotation_checks=[]
     for index,baseline in enumerate(results):
@@ -927,7 +937,7 @@ def _search(payload,progress,cancelled,executor):
             try:alternative=run(candidate,s['duration'],True)
             except (ValueError,KeyError,IndexError,TypeError):continue
             rotation_checks.append({'squad':index+1,'members':candidate,'damage':alternative['damage']})
-            if alternative['damage']>best['damage']:best=alternative
+            if candidate_score(alternative)>candidate_score(best):best=alternative
         results[index]=best
     from critical_parts import select_tested,selection_report
     results=select_tested([r for k,r in cache.items() if k[1]==s['duration'] and k[2]],s['teams'],s.get('require_critical_parts'),[results])
@@ -946,7 +956,7 @@ def _search(payload,progress,cancelled,executor):
         ranking_warnings.append('Ranking is sensitive to unverified survival predictions: '
                       f'{len(survival_model_stops)} full-duration candidates stopped early in the experimental boss model. '
                       'A lower score from a modeled death does not establish that the team is worse in game.')
-    return {'compute':{'mode':s['compute_mode'],'workers':executor.workers,'backend':'GPU exploration + CPU verification' if compute['gpu_used'] else 'CPU processes',**compute},'selection':{'critical_parts':critical_selection,'joint_allocation_checks':joint_allocation_checks,'rotation_improvements':rotation_improvements,'pairing_packages':package_audit,'package_checks':package_checks,'dependency_checks':dependency_checks,'survival_model_stops':survival_model_stops,'screening_checks':screening_checks,'rotation_checks':rotation_checks,'neighborhood_checks':neighborhood_checks,'replacement_checks':replacement_checks,'method':('Investment- and guide-ranked replacement shortlists with rotating exploration; promising memberships receive full-fight burst-priority verification.' if s['teams']==1 else 'Build-aware shortlist, 30-second screening, full-duration finalists and cross-team support swaps.')+' Rotation alternatives receive 60-second screening and full-fight damage verification, including affected donor squads, regardless of the CDR filter. Final unused-unit comparisons follow; this is a bounded DPS search, not exhaustive optimization.'+(' Critical-part candidates are screened by damage dealt before their deadlines, then verified through full fights within the same time limit.' if s.get('require_critical_parts') else ''),'full_duration_finalists':comparisons,'optimality':'Best tested allocation; not an exhaustive optimum.'},'teams':results,'total':sum(t['damage'] for t in results),'elapsed':round(time.perf_counter()-start,2),'simulations':sims,'plans_considered':len(plans),'settings':public_settings(s),'warnings':imported['warnings']+ranking_warnings+(['Some candidates were excluded: '+ '; '.join(sorted(set(errors))[:3])] if errors else []),'assumptions':sorted({str(note) for n in {n for t in results for n in t['members']} for r in [roster[n]] for note in r['assumptions']}),'limitations':encounters.notes(s)+[damage_model_note(s),'Expected critical/core hits; fixed seed. Skill support is upstream implementation coverage, not a guarantee of in-game accuracy.',('The selected search depth is a hard computation limit, including critical-part searches. Deadline-focused samples prioritize full-fight tests. A fallback means no fully passing allocation was found within the tests completed, not that every possible team was exhausted.' if s.get('require_critical_parts') else 'Bounded search, not a proof of the best roster allocation. Short screening can miss slow-ramping teams.'),('Automatic boss models require matching-element access and evaluate actual interruption and barrier hits; a total-damage percentage is not used in place of those mechanics.' if s['boss_id']=='museum-mother-whale' or s['boss_id'] in encounters.RAID_PROFILES else 'Element-locked QTE bosses require a matching damage dealer among the top three contributors with at least 15% of simulated damage, regardless of Burst stage or class. This is a composition safeguard, not a QTE pass guarantee.')]}
+    return {'compute':{'mode':s['compute_mode'],'workers':executor.workers,'backend':'GPU exploration + CPU verification' if compute['gpu_used'] else 'CPU processes',**compute},'selection':{'critical_parts':critical_selection,'joint_allocation_checks':joint_allocation_checks,'rotation_improvements':rotation_improvements,'pairing_packages':package_audit,'package_checks':package_checks,'dependency_checks':dependency_checks,'survival_model_stops':survival_model_stops,'screening_checks':screening_checks,'rotation_checks':rotation_checks,'neighborhood_checks':neighborhood_checks,'replacement_checks':replacement_checks,'objective':'Reward progress, then interruption reliability, remaining HP and clear time.' if s['content_mode']=='special' else 'Simulated damage', 'method':('Investment- and guide-ranked replacement shortlists with rotating exploration; promising memberships receive full-fight burst-priority verification.' if s['teams']==1 else 'Build-aware shortlist, 30-second screening, full-duration finalists and cross-team support swaps.')+' Rotation alternatives receive 60-second screening and full-fight damage verification, including affected donor squads, regardless of the CDR filter. Final unused-unit comparisons follow; this is a bounded search of simulated teams, not exhaustive optimization.'+(' Critical-part candidates are screened by damage dealt before their deadlines, then verified through full fights within the same time limit.' if s.get('require_critical_parts') else ''),'full_duration_finalists':comparisons,'optimality':'Best tested allocation; not an exhaustive optimum.'},'teams':results,'total':sum(t['damage'] for t in results),'elapsed':round(time.perf_counter()-start,2),'simulations':sims,'plans_considered':len(plans),'settings':public_settings(s),'warnings':imported['warnings']+ranking_warnings+(['Some candidates were excluded: '+ '; '.join(sorted(set(errors))[:3])] if errors else []),'assumptions':sorted({str(note) for n in {n for t in results for n in t['members']} for r in [roster[n]] for note in r['assumptions']}),'limitations':encounters.notes(s)+[damage_model_note(s),'Expected critical/core hits; fixed seed. Skill support is upstream implementation coverage, not a guarantee of in-game accuracy.',('The selected search depth is a hard computation limit, including critical-part searches. Deadline-focused samples prioritize full-fight tests. A fallback means no fully passing allocation was found within the tests completed, not that every possible team was exhausted.' if s.get('require_critical_parts') else 'Bounded search, not a proof of the best roster allocation. Short screening can miss slow-ramping teams.'),('Automatic boss models require matching-element access and evaluate actual interruption and barrier hits; a total-damage percentage is not used in place of those mechanics.' if s['boss_id']=='museum-mother-whale' or s['boss_id'] in encounters.RAID_PROFILES else 'Element-locked QTE bosses require a matching damage dealer among the top three contributors with at least 15% of simulated damage, regardless of Burst stage or class. This is a composition safeguard, not a QTE pass guarantee.')]}
 
 def manual(payload):
     s=validate_settings(payload.get('settings',{})); rows=import_roster({'roster':payload.get('roster',[])})['roster']
@@ -966,7 +976,7 @@ def simulate_manual(ids,by,s):
         from critical_parts import assessment
         start=time.perf_counter()
         alternatives=[simulate_manual(ids,by,dict(s,_aim_controller=n)) for n in ids]
-        chosen=max(alternatives,key=lambda r:(assessment(r['teams'][0])['passed'],r['total']))
+        chosen=max(alternatives,key=lambda r:(assessment(r['teams'][0])['passed'],candidate_score(r['teams'][0])))
         team=chosen['teams'][0]
         team['control_comparison']=[dict(unit=r['teams'][0]['encounter_timeline']['off_burst_controller'],damage=r['total'],parts_passed=assessment(r['teams'][0])['passed']) for r in alternatives]
         team['critical_part_requirement']=assessment(team)
@@ -994,7 +1004,7 @@ def simulate_manual(ids,by,s):
     if t['elemental_damage'] and not t['elemental_damage']['providers']:
         t['warnings'].append('No substantial '+t['elemental_damage']['element']+' damage dealer. This manual lineup would be excluded from recommendations for this element-locked QTE boss.')
     attach_combat_assessment(t)
-    if t['encounter_timeline'] and any(c['status']=='failed' for c in t['encounter_timeline']['checks']):
+    if t['encounter_timeline'] and not t['encounter_timeline'].get('model') and any(c['status']=='failed' for c in t['encounter_timeline']['checks']):
         t['mechanics']['status']='Scripted QTE failed'
         t['warnings'].append('A QTE failed; damage after a scripted wipe is not counted.')
     t['timeline']=[0]*math.ceil(s['duration']/5)
