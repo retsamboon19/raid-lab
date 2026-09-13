@@ -37,7 +37,9 @@ function doPost(event) {
     const metadata={...validated.metadata,received_at:new Date().toISOString()};
     const readme='Raid Lab battle feedback\n\nSquad: '+(body.squad+1)+'\nProfile: '+body.profile_url+'\nOwnership snapshot: '+body.ownership_basis+'\n\n'+body.message+'\n\nSee feedback.json for the recommendation, builds, settings and owned units.\n';
     const files=[Utilities.newBlob(validated.bytes,body.image.type,'battle-record.'+validated.extension),Utilities.newBlob(JSON.stringify(metadata,null,2),'application/json','feedback.json'),Utilities.newBlob(readme,'text/plain','Read me.txt')];
-    folder.createFile(Utilities.zip(files,name));
+    const savedFile=folder.createFile(Utilities.zip(files,name));
+    // Notification failure must never reject feedback already stored in Drive.
+    try {notifyFeedback(savedFile,body);} catch(error) {console.warn('Feedback saved, but email notification failed. Check email authorization and Google mail quota.');}
     return reply({ok:true,id:body.id});
   } catch(error) {
     // Do not expose Drive IDs, service errors or account information to clients.
@@ -47,7 +49,26 @@ function doPost(event) {
   } finally {if(lock&&lock.hasLock())lock.releaseLock();}
 }
 function reply(value){return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);}
-function doGet(){return reply({service:'Raid Lab private feedback',version:1});}
+function doGet(){return reply({service:'Raid Lab private feedback',version:2});}
+
+function notifyFeedback(file,body){
+  const recipient=PropertiesService.getScriptProperties().getProperty('FEEDBACK_NOTIFY_EMAIL');
+  if(!recipient)return;
+  const settings=body.recommendation.settings||{};
+  const boss=String(settings.encounter?.name||settings.boss_id||'Unspecified boss').replace(/[\r\n]/g,' ').slice(0,120);
+  MailApp.sendEmail({to:recipient,subject:'Raid Lab: new battle feedback — '+boss,
+    body:'New battle feedback received.\n\nBoss: '+boss+'\nMode: '+String(settings.content_mode||'Unspecified')+'\nSquad: '+(body.squad+1)+'\nReceipt: '+body.id+'\n\nOpen the private feedback ZIP:\n'+file.getUrl()+'\n\nThe screenshot, user message and roster details are inside. The file remains private.',name:'Raid Lab feedback'});
+}
+
+// Run in the editor once, then update the existing web-app deployment.
+function enableEmailNotifications(){
+  checkInbox();
+  const recipient=Session.getEffectiveUser().getEmail();
+  if(!recipient)throw Error('Google could not determine your email address. Run this from the script editor while signed in.');
+  MailApp.sendEmail({to:recipient,subject:'Raid Lab feedback notifications — setup test',body:'Email delivery is working. Update your existing web-app deployment to a new version to activate notifications for new feedback.',name:'Raid Lab feedback'});
+  PropertiesService.getScriptProperties().setProperty('FEEDBACK_NOTIFY_EMAIL',recipient);
+  console.log('Notification recipient saved and setup email sent. Update the existing deployment to a new version.');
+}
 
 // Run once in the editor to authorize and check the private destination.
 function checkInbox(){

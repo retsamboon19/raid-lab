@@ -14,6 +14,12 @@ This is a one-time setup for the Raid Lab maintainer. Players do not need Google
 
 When updating the service code, use **Deploy → Manage deployments → Edit → New version** to keep the same URL.
 
+## Email notifications
+
+Replace the existing project's code with the latest `Code.gs`, save, and run **enableEmailNotifications** from the editor. Authorize the additional send-email permission. This sends a setup email to the signed-in script owner's address and saves that address in Script Properties. Then update the **existing** deployment via **Deploy → Manage deployments → Edit → Version: New version → Deploy**. The endpoint URL stays unchanged.
+
+Each new ZIP triggers one email containing the boss, mode, squad and a private Drive link. Submissions cannot choose the recipient. Retries of an already stored receipt do not send another email. If Google rejects an email (for example because of its mail quota), the feedback remains saved; the failure is logged under Apps Script Executions, and email is not automatically retried. Existing feedback is not emailed retroactively.
+
 ## What is stored
 
 Each accepted submission creates one `feedback-<receipt>.zip` with `Read me.txt`, `feedback.json`, and one PNG/JPEG image. The JSON contains the message, profile link, selected squad, all squads in that recommendation, builds, encounter settings, available damage accounting and owned-unit snapshot. Older recommendations explicitly label ownership as the current roster when no original snapshot exists. Players review these details before sending. No login session is read or transmitted.

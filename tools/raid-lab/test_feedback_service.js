@@ -8,3 +8,13 @@ assert.equal(send(body).ok,true);assert.equal(writes,1);assert.equal(send(body).
 for(const change of [{squad:2},{image:{type:'image/svg+xml',data:'PHN2Zz4='}},{extra:'no'},{message:''},{profile_url:'https://evil.test'}])assert.equal(send({...body,...change}).ok,false);
 privateFolder=false;assert.equal(send({...body,id:'b'.repeat(32)}).ok,false);assert.equal(writes,1);
 console.log('Feedback service: validation, private-folder check, archive and duplicate retry passed.');
+const emails=[];let failMail=false;
+context.PropertiesService={getScriptProperties:()=>({getProperty:key=>key==='FEEDBACK_NOTIFY_EMAIL'?'owner@example.test':'private-folder'})};
+context.MailApp={sendEmail:mail=>{if(failMail)throw Error('Quota');emails.push(mail);}};
+context.DriveApp.getFolderById=()=>({getSharingAccess:()=> 'private',getFilesByName:name=>({hasNext:()=>names.has(name)}),createFile:blob=>{names.add(blob.name);writes++;return {getUrl:()=> 'https://drive.google.com/file/d/test/view'};}});
+assert.equal(send({...body,id:'c'.repeat(32)}).ok,true);
+assert.equal(emails.length,1);assert.equal(emails[0].to,'owner@example.test');assert(emails[0].body.includes('https://drive.google.com/file/d/test/view'));
+assert.equal(send({...body,id:'c'.repeat(32)}).ok,true);assert.equal(emails.length,1);
+failMail=true;assert.equal(send({...body,id:'d'.repeat(32)}).ok,true);assert.equal(writes,3);
+assert.equal(send({...body,id:'d'.repeat(32)}).ok,true);assert.equal(writes,3);assert.equal(emails.length,1);
+console.log('Email checks passed: fixed recipient, private link, no duplicate mail, uploads survive mail failures.');
