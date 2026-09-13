@@ -1,0 +1,10 @@
+const assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+let writes=0,privateFolder=true;const names=new Set();
+const context={console,Utilities:{base64Decode:s=>[...Buffer.from(s,'base64')],newBlob:(data,type,name)=>({data,type,name}),zip:(files,name)=>({files,name})},PropertiesService:{getScriptProperties:()=>({getProperty:()=> 'private-folder'})},LockService:{getScriptLock:()=>({tryLock:()=>true,hasLock:()=>true,releaseLock:()=>{}})},DriveApp:{Access:{PRIVATE:'private'},getFolderById:()=>({getSharingAccess:()=>privateFolder?'private':'public',getFilesByName:name=>({hasNext:()=>names.has(name)}),createFile:blob=>{assert.equal(blob.files.length,3);assert.equal(blob.files[2].name,'Read me.txt');names.add(blob.name);writes++;}})},ContentService:{MimeType:{JSON:'json'},createTextOutput:text=>({setMimeType:()=>JSON.parse(text)})}};
+vm.createContext(context);vm.runInContext(fs.readFileSync('feedback-service/Code.gs','utf8'),context);
+const body={id:'a'.repeat(32),message:'Damage differed.',profile_url:'https://www.blablalink.com/shiftyspad?uid=YWJj',recommendation:{teams:[{members:['demo']}]},owned_units:[{id:'demo'}],ownership_basis:'recommendation-time',squad:0,image:{type:'image/png',data:Buffer.from([137,80,78,71,13,10,26,10,0]).toString('base64')}};
+const send=value=>context.doPost({postData:{contents:JSON.stringify(value)}});
+assert.equal(send(body).ok,true);assert.equal(writes,1);assert.equal(send(body).ok,true);assert.equal(writes,1);
+for(const change of [{squad:2},{image:{type:'image/svg+xml',data:'PHN2Zz4='}},{extra:'no'},{message:''},{profile_url:'https://evil.test'}])assert.equal(send({...body,...change}).ok,false);
+privateFolder=false;assert.equal(send({...body,id:'b'.repeat(32)}).ok,false);assert.equal(writes,1);
+console.log('Feedback service: validation, private-folder check, archive and duplicate retry passed.');

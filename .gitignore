@@ -13,6 +13,10 @@
 !/tools/nikke-team-builder/
 /tools/raid-lab/*
 !/tools/raid-lab/web/
+!/tools/raid-lab/feedback.py
+!/tools/raid-lab/test_feedback.py
+!/tools/raid-lab/test_feedback_service.js
+!/tools/raid-lab/feedback-service/
 !/tools/raid-lab/PAIRING-AUDIT.md
 !/tools/raid-lab/account_sync.py
 !/tools/raid-lab/boss-guidance.json

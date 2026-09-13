@@ -11,6 +11,7 @@ from urllib.parse import parse_qs, urlsplit
 import core
 import browser_connection
 import report_history
+import feedback
 
 ROOT=Path(__file__).resolve().parent
 JOBS={}
@@ -23,6 +24,8 @@ def history_store():
 def worker(payload,kind,events,cancel):
     try:
         result=core.manual(payload) if kind=='manual' else core.search(payload,lambda **kw:events.put({'status':'running',**kw}),cancel.is_set)
+        if payload.get('roster'):
+            result['feedback_context']={'owned_units':core.import_roster({'roster':payload['roster']})['roster']}
         try:
             result['history']=history_store().save(result,kind)
         except Exception:
@@ -67,6 +70,7 @@ class Handler(SimpleHTTPRequestHandler):
                 return self.send_json(result or {'error':'Recommendation not found.'},200 if result else 404)
             except ValueError as error:return self.send_json({'error':str(error)},400)
             except Exception:return self.send_json({'error':'Recommendation history is unavailable. Try again after checking local storage.'},503)
+        if path=='/api/feedback-config':return self.send_json(feedback.config())
         if path=='/api/catalog':
             cubes=core.read(core.ENGINE/'data/base_stat_tables/cube.json')
             return self.send_json({'model_revision':core.encounters.MODEL_REVISION,'modes':core.encounters.MODES,'bosses':core.encounters.BOSSES,'catalog':core.CATALOG,'default_build':core.default_build(),'demo':core.demo_roster(),'cubes':[k for k in cubes if not k.startswith('_') and k!='공통']})
@@ -98,6 +102,7 @@ class Handler(SimpleHTTPRequestHandler):
             length=int(self.headers.get('Content-Length','0'))
             if not 0<length<=4_000_000:raise ValueError('JSON must be between 1 byte and 4 MB.')
             body=json.loads(self.rfile.read(length))
+            if self.path=='/api/feedback':return self.send_json(feedback.submit(body))
             if self.path=='/api/account-refresh':
                 return self.send_json({'id':browser_connection.start(body.get('choose_browser',False))},202)
             if self.path=='/api/account-connect':return self.send_json(browser_connection.connect(body['job'],body['browser']))

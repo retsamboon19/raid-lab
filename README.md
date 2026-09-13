@@ -44,6 +44,8 @@ To update, extract a fresh copy, copy your old `tools/raid-lab/private` folder i
 
 ## Development
 
+**Battle feedback:** use **Give feedback** on a squad or saved report to attach one Battle Records image, a short message, your shared BlaBlaLink profile URL, and recommendation/owned-unit details. You can review the attached details before sending. Private uploads require the maintainer's [one-time Drive inbox setup](tools/raid-lab/feedback-service/README.md); the form clearly indicates when uploads are not yet activated.
+
 App: `tools/raid-lab`. Vendored engine: `tools/nikke-team-builder`. All runtime paths are relative. `launch.ps1 -PrepareOnly` prepares dependencies without launching a browser or making a shortcut.
 
 See [third-party notices](THIRD_PARTY_NOTICES.md). NIKKE and its characters belong to their respective rights holders. This is an unofficial fan tool.
