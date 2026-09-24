@@ -1,6 +1,12 @@
 {
   "_comment": "무기 유형별 발사 메카닉. 타이머 기반: next_fire_time = current_time + (1 / fire_rate). charge_time은 parsed_nikke.json에서 로드",
   "_timing_model": "매 프레임 current_time >= next_fire_time이면 발사 후 next_fire_time += (1 / fire_rate)",
+  "temporary_weapon_native_ammo": {
+    "_source": "Installed v152 CharacterShotTable.mpk: Nayuta replacement ShotId 1022302 has MaxAmmo 999; SpotWeaponData.TrueMaxAmmo applies live ammo buffs to that base.",
+    "나유타": {
+      "기억 연소": {"shot_id": 1022302, "base_max_ammo": 999}
+    }
+  },
   "_priority": [
     "weapon_type_defaults는 무기군 기본값 = 3계층 중 최하위 폴백이다. 해석 순서(timeline.py CharState._pick):",
     "  ① weapon_delays.json _exceptions[캐릭터]  — 수동 실측 오버라이드 (스크래퍼가 안 건드림)",

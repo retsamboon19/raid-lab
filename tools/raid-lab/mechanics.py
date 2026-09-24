@@ -135,6 +135,8 @@ class EncounterRuntime:
         target=self.target(caster,weapon,element) if normal else None
         if target is not None:
             args=dict(args);args['enemy_def']=target.get('def',args['enemy_def']);args['hit_type']=dict(hit_type,is_core=False,core_prob=0)
+            target_context=getattr(self,'damage_target_args',None)
+            if target_context is not None:args=target_context(args,caster,target)
         result=calculate(**args)
         if self.stopped or self.blocks('invulnerable'):
             result['damage']=0;return result

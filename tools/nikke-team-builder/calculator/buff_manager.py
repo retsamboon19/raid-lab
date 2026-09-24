@@ -27,6 +27,7 @@ from typing import Any
 
 from calculator.base_stat import NO_ITEM
 from calculator import roster_mechanics as roster
+from calculator.optimal_range import is_optimal_range
 
 _DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
 _TABLE_DIR = os.path.join(_DATA_DIR, "base_stat_tables")
@@ -473,6 +474,9 @@ class ActiveBuff:
     shield_per_target: dict[str, float] = field(default_factory=dict)
                                       # shield_from_max_hp_pct의 대상별 보호막량.
                                       # 수명은 ActiveBuff와 같아 별도 만료 상태를 두지 않는다.
+    enemy_target_windows: dict[str, dict] = field(default_factory=dict)
+                                      # Per-enemy activation/expiry/stack snapshots
+                                      # for encounters with multiple enemy entities.
 
     uid: int = field(default_factory=lambda: next(_AB_SEQ))
     # 이 인스턴스의 고유 식별자.
@@ -1179,6 +1183,41 @@ class BuffManager:
             ]
             return
 
+        # `remove_scope: "target"` — `target`으로 풀린 캐릭터에게서만 지운다.
+        # 같은 이름의 상태를 여러 캐릭터가 따로 들 때 전역 제거가 짝의 상태까지
+        # 지우는 것을 막는다(길티 : 마이티 바니 · 신 : 스위프트 바니).
+        if stat == "remove_named_buff" and eff.get("remove_scope") == "target":
+            target_name = eff.get("target_effect", "")
+            scope = set(self._resolve_target(eff.get("target", "self"), caster) or [])
+            hit = [ab for ab in self._by_name(target_name)
+                   if scope & set(ab.target_chars or [])]
+            if not hit:
+                return
+            ended = []
+            for ab in hit:
+                gone = [c for c in ab.target_chars if c in scope]
+                if self._buff_event_handler:
+                    for tgt in gone:
+                        self._buff_event_handler(
+                            "expire", target_name, ab.caster, tgt, t, t)
+                ab.target_chars = [c for c in ab.target_chars if c not in scope]
+                if not ab.target_chars:
+                    ended.append(ab)
+            if ended:
+                ended_uids = {ab.uid for ab in ended}
+                self._active = [ab for ab in self._active if ab.uid not in ended_uids]
+                live = {id(ab.effect) for ab in self._active}
+                for ab in ended:
+                    if id(ab.effect) not in live:
+                        self._dot_timers.pop(id(ab.effect), None)
+                        self._instant_timers.pop(id(ab.effect), None)
+            self._invalidate_buffs_cache()
+            # 전역 제거와 같이 순회가 끝난 뒤 emit한다. 수령자별 상태 종료라
+            # 제거된 대상만 이벤트를 받는다.
+            for ab in ended:
+                self.notify(f"event:state_end:{target_name}", t, ab.caster)
+            return
+
         # remove_named_buff: 특정 name의 버프 즉시 제거 (_active + _dot_timers 모두)
         if stat == "remove_named_buff":
             target_name = eff.get("target_effect", "")
@@ -1658,6 +1697,18 @@ class BuffManager:
 
         return False
 
+    def _living_enemy_count(self) -> int:
+        """Current native enemy roster size when an encounter exposes one."""
+        runtime = self.state.get("encounter_runtime")
+        if not callable(getattr(runtime, "select_enemy_effect_targets", None)):
+            return 1
+        explicit = getattr(runtime, "living_enemy_count", None)
+        if callable(explicit):
+            return max(0, int(explicit()))
+        living_adds = getattr(runtime, "living_adds", None)
+        return int(not getattr(runtime, "stopped", False)) + (
+            len(living_adds()) if callable(living_adds) else 0)
+
     def _condition_ok(self, conditions: list, caster: str, t: float, eff: dict | None = None) -> bool:
         """발동 시점 조건 평가. False이면 발동 안 함."""
         # burst_casted 계열 조건 평가 기준 캐릭터:
@@ -1843,14 +1894,12 @@ class BuffManager:
                 if enemy_code and enemy_code != code:
                     return False
             elif cond.startswith("enemy_count_below:"):
-                # 단일 보스 sim: 적 1기. "랩쳐 N기 이하" → 1 <= N (N>=1이면 항상 참)
                 n = int(cond.split(":")[1])
-                if 1 > n:
+                if self._living_enemy_count() > n:
                     return False
             elif cond.startswith("enemy_count_above:"):
-                # 단일 보스 sim: 적 1기. "랩쳐 N기 이상" → 1 >= N (N>=2이면 항상 거짓 → 무발동)
                 n = int(cond.split(":")[1])
-                if 1 < n:
+                if self._living_enemy_count() < n:
                     return False
             elif cond.startswith("self_stack_above:"):
                 parts = cond.split(":")
@@ -1884,13 +1933,8 @@ class BuffManager:
                 if float(self.state.get("enemy", {}).get("core_px", 0) or 0) < 1:
                     return False
             elif cond == "optimal_range":
-                # 적정 사거리 여부의 정본은 `enemy["optimal_range_weapons"]`다 —
-                # ③ 고정 +30%를 태우는 것과 같은 판정을 쓴다(timeline `is_optimal_range`).
-                # 기본값이 빈 목록이므로 스쿼드 스펙이 무기군을 명시하지 않으면 무발동이다.
-                # 무기 유형은 로스터 값을 본다(무기 변경 모드는 반영하지 않는다 —
-                # 지금 이 조건을 쓰는 캐릭터에 모드 전환이 없다).
                 wt = _NIKKE.get(caster, {}).get("weapon_type")
-                if wt not in (self.state.get("enemy", {}).get("optimal_range_weapons") or []):
+                if not is_optimal_range(caster, wt, self.state.get("enemy", {}), self, t):
                     return False
             # 나머지 condition은 get_buffs에서 재평가
         return True
@@ -1962,7 +2006,12 @@ class BuffManager:
         """
         if eff.get("event_scope") != "recipients":
             return list(self.squad_names)
-        return [c for c in (targets or [caster]) if c in self.squad_names]
+        # 확정 대상이 0명이면 아무도 받지 않았다. 시전자에게 폴백하면
+        # `allies_with_buff:` 동기화가 수령자 없는 상태 적용 이벤트를 한 번 더 만든다.
+        # None은 지연 resolve라 아직 모르는 경우에만 시전자로 폴백한다.
+        if targets is None:
+            return [caster] if caster in self.squad_names else []
+        return [c for c in targets if c in self.squad_names]
 
     def charge_hold_thresholds(self, caster: str) -> list[tuple[float, str]]:
         """이 캐스터의 효과가 쓰는 `charge_hold:N` 임계값 목록 — `(값, 원문 표기)`.
@@ -2171,6 +2220,17 @@ class BuffManager:
                 return True
         return False
 
+    def _enemy_has_immune(self, entity_id: str, immune_stat: str,
+                          t: float) -> bool:
+        """Check an encounter enemy's snapshotted immunity window."""
+        for ab in self._active:
+            if ab.effect.get("stat") != immune_stat:
+                continue
+            window = ab.enemy_target_windows.get(entity_id)
+            if window is not None and float(window["activated_at"]) <= t < float(window["expires_at"]):
+                return True
+        return False
+
     def is_stunned(self, char_name: str) -> bool:
         """char_name이 현재 기절(stun) 상태이면 True.
 
@@ -2231,6 +2291,19 @@ class BuffManager:
                 raw_target = eff.get("target", "self")
                 lazy = isinstance(raw_target, str) and raw_target.startswith(_LAZY_RESOLVE_PREFIXES)
                 targets = None if lazy else self._resolve_target(raw_target, caster)
+                enemy_targets = self._enemy_target_snapshot(eff, caster, t)
+                if eff.get("polarity") == "harmful" and enemy_targets is not None:
+                    eff_name = eff.get("name", "")
+                    named_immune = f"debuff_immune:{eff_name}" if eff_name else None
+                    enemy_targets = [
+                        entity_id for entity_id in enemy_targets
+                        if not self._enemy_has_immune(entity_id, "debuff_immune", t)
+                        and (named_immune is None
+                             or not self._enemy_has_immune(entity_id, named_immune, t))
+                    ]
+                    if not enemy_targets:
+                        self._dot_timers.pop(id(eff), None)
+                        return
                 max_stack = eff.get("max_stack", 1)
                 existing = next(
                     (ab for ab in self._active if ab.effect is eff and ab.caster == caster), None
@@ -2256,6 +2329,10 @@ class BuffManager:
                         cap = max_stack if max_stack != -1 else existing.stack + 1
                         existing.stack = min(existing.stack + 1, cap)
                         existing.expires_at = expires
+                    self._refresh_enemy_target_windows(
+                        existing, enemy_targets, t, expires, max_stack)
+                    if enemy_targets is not None:
+                        self._invalidate_buffs_cache()
                     if self._buff_event_handler and eff.get("name"):
                         for tgt in (existing.target_chars or []):
                             self._buff_event_handler("activate", eff["name"], caster, tgt, t, existing.expires_at, None, eff.get("stat"))
@@ -2265,6 +2342,8 @@ class BuffManager:
                         effect=eff, caster=caster, target_chars=targets,
                         activated_at=t, expires_at=expires, stack=init_stack,
                         has_runtime_conditions=_has_runtime_cond(eff["trigger"].get("condition", []), expires) and not eff.get("trigger_only_conditions", False),
+                        enemy_target_windows=self._new_enemy_target_windows(
+                            enemy_targets, t, expires, init_stack),
                     ))
                     if self._buff_event_handler and eff.get("name") and targets:
                         for tgt in targets:
@@ -2341,9 +2420,21 @@ class BuffManager:
         raw_target = eff.get("target", "self")
         lazy = isinstance(raw_target, str) and raw_target.startswith(_LAZY_RESOLVE_PREFIXES)
         targets = None if lazy else self._resolve_target(raw_target, caster)
+        enemy_targets = self._enemy_target_snapshot(eff, caster, t)
 
         # harmful 효과: debuff_immune 또는 named debuff immunity인 대상 제거
-        if eff.get("polarity") == "harmful" and targets is not None:
+        if eff.get("polarity") == "harmful" and enemy_targets is not None:
+            eff_name = eff.get("name", "")
+            named_immune = f"debuff_immune:{eff_name}" if eff_name else None
+            enemy_targets = [
+                entity_id for entity_id in enemy_targets
+                if not self._enemy_has_immune(entity_id, "debuff_immune", t)
+                and (named_immune is None
+                     or not self._enemy_has_immune(entity_id, named_immune, t))
+            ]
+            if not enemy_targets:
+                return
+        elif eff.get("polarity") == "harmful" and targets is not None:
             eff_name = eff.get("name", "")
             named_immune = f"debuff_immune:{eff_name}" if eff_name else None
             targets = [
@@ -2421,6 +2512,10 @@ class BuffManager:
                         self.notify(f"event:{name}", t, _sq)
             # 재발동이므로 참조 중첩도 이 시점 값으로 다시 고정
             existing.scaling_stack = self._capture_scaling_stack(eff, caster)
+            self._refresh_enemy_target_windows(
+                existing, enemy_targets, t, expires, max_stack)
+            if enemy_targets is not None:
+                self._invalidate_buffs_cache()
 
             # 갱신 이벤트: 만료 시각이 바뀌었으므로 activate로 재기록
             if self._buff_event_handler and name and existing.target_chars is None:
@@ -2447,6 +2542,8 @@ class BuffManager:
                 per_char_stacks={c: 1 for c in (targets or [])} if (use_per_target and max_stack != 1) else {},
                 has_runtime_conditions=_has_runtime_cond(eff["trigger"].get("condition", []), expires) and not eff.get("trigger_only_conditions", False),
                 scaling_stack=self._capture_scaling_stack(eff, caster),
+                enemy_target_windows=self._new_enemy_target_windows(
+                    enemy_targets, t, expires),
             ))
             name = eff.get("name", "")
             if name:
@@ -3308,12 +3405,10 @@ class BuffManager:
                 if self._has_target_state(state_name):
                     return False
             elif cond.startswith("enemy_count_below:"):
-                # 단일 보스 sim: 적 1기. "랩쳐 N기 이하" → 1 <= N (N>=1이면 항상 참)
-                if 1 > int(cond.split(":")[1]):
+                if self._living_enemy_count() > int(cond.split(":")[1]):
                     return False
             elif cond.startswith("enemy_count_above:"):
-                # 단일 보스 sim: 적 1기. "랩쳐 N기 이상" → 1 >= N (N>=2이면 항상 거짓)
-                if 1 < int(cond.split(":")[1]):
+                if self._living_enemy_count() < int(cond.split(":")[1]):
                     return False
             # prob:N은 notify 시점에만 평가 (get_buffs에서 재판정하지 않음)
         return True
@@ -3462,6 +3557,61 @@ class BuffManager:
                         self._buff_event_handler("activate", name, ab.caster, tgt,
                                                  ab.activated_at, ab.expires_at, val, stat)
         return ab.target_chars
+
+    def _enemy_target_snapshot(self, eff: dict, caster: str, t: float) -> list[str] | None:
+        """Resolve enemy entities when an encounter exposes a native selector.
+
+        The ordinary calculator deliberately represents every enemy as the
+        ``__enemy__`` sentinel.  Multi-entity encounters can opt into exact
+        activation-time membership without changing that public model.
+        """
+        runtime = self.state.get("encounter_runtime")
+        selector = getattr(runtime, "select_enemy_effect_targets", None)
+        if selector is None:
+            return None
+        selected = selector(eff, caster, t)
+        if selected is None:
+            return None
+        return list(dict.fromkeys(str(entity_id) for entity_id in selected))
+
+    @staticmethod
+    def _new_enemy_target_windows(selected: list[str] | None, t: float,
+                                  expires: float, stack: int = 1) -> dict[str, dict]:
+        if selected is None:
+            return {}
+        return {
+            entity_id: {"activated_at": t, "expires_at": expires, "stack": stack}
+            for entity_id in selected
+        }
+
+    @staticmethod
+    def _refresh_enemy_target_windows(ab: ActiveBuff, selected: list[str] | None,
+                                      t: float, expires: float, max_stack: int) -> None:
+        """Refresh only entities selected by this activation.
+
+        Native target lists are captured per activation.  Previously selected
+        living targets retain their old expiry; newly spawned or newly ranked
+        targets receive a separate window and do not extend the old target.
+        """
+        if selected is None:
+            return
+        for entity_id in selected:
+            old = ab.enemy_target_windows.get(entity_id)
+            if max_stack == 1 or old is None or old["expires_at"] <= t:
+                stack = 1
+            else:
+                cap = max_stack if max_stack != -1 else int(old["stack"]) + 1
+                stack = min(int(old["stack"]) + 1, cap)
+            ab.enemy_target_windows[entity_id] = {
+                "activated_at": t,
+                "expires_at": expires,
+                "stack": stack,
+            }
+        if ab.enemy_target_windows:
+            ab.expires_at = max(
+                float(window["expires_at"])
+                for window in ab.enemy_target_windows.values()
+            )
 
     def _resolve_target(self, target: Any, caster: str) -> list[str]:
         """target 문자열 → 캐릭터명 목록."""

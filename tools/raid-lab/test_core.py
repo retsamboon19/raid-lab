@@ -3,12 +3,23 @@ import unittest
 import core
 
 class RosterTests(unittest.TestCase):
+    def test_anomaly_report_uses_modeled_barrier_access_not_damage_share(self):
+        entry=dict(members=['support','dealer'],damage=100,breakdown={'support':1,'dealer':99},
+                   encounter_timeline=dict(model_id='anomaly-source-runtime-v3',model='experimental',
+                                           survival='alive',checks=[]))
+        catalog={'support':{'barrier_elements':['전격']},'dealer':{'barrier_elements':['철갑']}}
+        result=core.elemental_damage_report(entry,{'encounter':{'barrier_element':'전격'}},catalog)
+        self.assertEqual(result['assessment'],'modeled-barrier')
+        self.assertEqual(result['providers'],['support'])
+        core.attach_combat_assessment(entry)
+        self.assertTrue(any(c['name']=='Interruption targets' for c in entry['mechanics']['checks']))
+
     def test_export_roundtrip(self):
         demo=core.demo_roster()
         self.assertGreaterEqual(len(demo),25)
         self.assertEqual(core.import_roster({'roster':demo})['roster'],demo)
     def test_complete_real_catalog_and_repeatable_import(self):
-        self.assertEqual(len(core.CATALOG),200)
+        self.assertEqual(len(core.CATALOG),202)
         self.assertTrue(all(c['supported'] for c in core.CATALOG))
         self.assertFalse(any(c['id'].startswith('test_') for c in core.CATALOG))
         n=core.NAME_MAP['crow']

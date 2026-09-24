@@ -26,6 +26,13 @@ from .buff_manager import (
     BURST_GAUGE_EXCEPTIONS,
 )
 from .damage import calc_damage, default_hit_type, is_element_match
+from .optimal_range import is_optimal_range
+from .cinematics import (
+    CinematicCursor,
+    advance_cinematic_functions,
+    advance_cinematic_reloads,
+    rebase_cinematic_reloads,
+)
 from .sim_result import (
     HitEvent,
     BurstLogEntry,
@@ -594,6 +601,51 @@ def _notify_frac(bm, key: str, name: str, frac: float, fire) -> None:
     while acc[k] >= 1.0:
         acc[k] -= 1.0
         fire()
+
+
+def _notify_count(bm, key: str, name: str, count: float, fire) -> None:
+    """Emit a physical-collision event ``count`` times, retaining fractions."""
+    count = max(0.0, float(count))
+    whole = int(count)
+    for _ in range(whole):
+        fire()
+    _notify_frac(bm, key, name, count - whole, fire)
+
+
+def _enemy_target_snapshot(bm: BuffManager, caster: str,
+                           t: float) -> dict[str, tuple[str, ...]]:
+    """Capture enemy buff recipients for effects of the current charged shot.
+
+    An ``on_attack`` effect can clear a lock before ``full_charge_fire`` runs,
+    while the charged shot's damage still targets the recipients it locked when
+    fired.  BuffManager carries this through one notification's context only.
+    """
+    events = bm._notify_index.get(caster, {})
+    cleared = {
+        effect.get("target_effect")
+        for effect, _ in events.get("on_attack", ())
+        if effect.get("stat") == "remove_named_buff"
+    }
+    required = {
+        effect["target"].split(":", 1)[1]
+        for effect, _ in events.get("full_charge_fire", ())
+        if isinstance(effect.get("target"), str)
+        and effect["target"].startswith("enemies_with_buff:")
+    }
+    names = cleared & required
+    if not names:
+        return {}
+    targets: dict[str, list[str]] = {}
+    for active in bm._active:
+        name = active.effect.get("name")
+        if name not in names:
+            continue
+        for entity_id, window in active.enemy_target_windows.items():
+            if float(window["activated_at"]) <= t < float(window["expires_at"]):
+                ids = targets.setdefault(name, [])
+                if entity_id not in ids:
+                    ids.append(entity_id)
+    return {name: tuple(ids) for name, ids in targets.items()}
 
 
 # ── CharState (캐릭터별 발사 상태) ────────────────────────────────────────
@@ -1465,7 +1517,7 @@ class CharState:
             bm.notify("squad_ammo_consume", t, self.name)
         buffs = bm.get_buffs(self.name, "__enemy__", t)
         buffs["is_element_match"] = self.element_match(bm)
-        is_optimal = self.weapon_type in enemy.get("optimal_range_weapons", [])
+        is_optimal = is_optimal_range(self.name, self.weapon_type, enemy, bm, t)
 
         # 코어히트 확률: core_px>0이면 명중률·탄착군·코어 크기로 계산, 0이면 코어 없음
         if enemy.get("core_px", 0) > 0:
@@ -1499,6 +1551,7 @@ class CharState:
 
         expected = cfg.get("rng_mode") == "expected"
         core_fracs = []
+        gauge_hits = 0.0
         for i in range(hit_count):
             # 히트마다 독립 샘플링 (SG: 10회, 기타: 1회). 기대값 모드는 판정 대신 확률을 넘긴다
             # (P_core가 1이면 판정할 게 없으므로 기대값 모드에서도 코어 히트로 남긴다)
@@ -1514,6 +1567,10 @@ class CharState:
                 is_pierce_damage=bool(buffs.get("pierce_enabled")),
                 is_armor_break_damage=bool(buffs.get("armor_break_enabled")),
                 coeff=coeff,
+                pellet_index=i % split,
+                pellet_count=split,
+                accuracy_circle=self._current_spread(buffs),
+                weapon_changed=self._in_weapon_change,
                 _debug_factors=in_debug_window,
             )
             if in_debug_window and i == 0:
@@ -1533,18 +1590,29 @@ class CharState:
                                    is_crit=res["is_crit"], hit_tag=tag,
                                    **({"skill_name": self._wc_name}
                                       if self._wc_is_skill_damage() else {})))
-            bm.notify("pellet_hit", t, self.name)
+            collision_hits = float(res.get("collision_hits", 1.0))
+            gauge_hits += collision_hits
+            _notify_count(bm, "pellet_hit", self.name, collision_hits,
+                          lambda: bm.notify("pellet_hit", t, self.name))
             _notify_frac(bm, "crit_pellet_hit", self.name, res["crit_frac"],
                          lambda: bm.notify("crit_pellet_hit", t, self.name))
-            body_ev = "squad_part_hit" if enemy.get("has_parts", False) else "squad_body_hit"
             core_frac = P_core if expected else (1.0 if is_core else 0.0)
             core_fracs.append(core_frac)
-            _notify_frac(bm, body_ev, self.name, 1.0 - core_frac,
-                         lambda: bm.notify_team_hit(body_ev, t, self.name))
+            if "collision_hits" in res:
+                _notify_count(bm, "squad_part_hit", self.name, res.get("part_hits", 0.0),
+                              lambda: bm.notify_team_hit("squad_part_hit", t, self.name))
+                _notify_count(bm, "squad_body_hit", self.name, res.get("body_hits", 0.0),
+                              lambda: bm.notify_team_hit("squad_body_hit", t, self.name))
+                event_core = float(res.get("core_hits", 0.0))
+            else:
+                body_ev = "squad_part_hit" if enemy.get("has_parts", False) else "squad_body_hit"
+                _notify_frac(bm, body_ev, self.name, 1.0 - core_frac,
+                             lambda: bm.notify_team_hit(body_ev, t, self.name))
+                event_core = core_frac
             _notify_frac(bm, "crit_hit", self.name, res["crit_frac"],
                          lambda: bm.notify("crit_hit", t, self.name))
-            _notify_frac(bm, "core_hit", self.name, core_frac,
-                         lambda: bm.notify("core_hit", t, self.name))
+            _notify_count(bm, "core_hit", self.name, event_core,
+                          lambda: bm.notify("core_hit", t, self.name))
 
         # 일반 공격 명중은 충전 창 밖에서도 시전자 기준 버충값을 `(발당)`→`(대상)`으로
         # 전환한다. 구조물 명중도 같은 방아쇠지만 현재 시뮬에는 구조물 대상이 없다.
@@ -1553,7 +1621,7 @@ class CharState:
 
         # 버스트 게이지: 히트 수만큼. 오토 무기라 풀차지 배율이 걸릴 자리가 없다.
         gauge_buffs = bm.get_buffs(self.name, "__enemy__", t)
-        bm.add_burst_gauge(self._burst_gain(gauge_buffs, hit_count), t, self.name, "weapon")
+        bm.add_burst_gauge(self._burst_gain(gauge_buffs, gauge_hits), t, self.name, "weapon")
 
         # 발사(`on_attack`) → 명중(`hit_count`) 순서다. 쏘고 나서 맞는다는 실제 순서이고,
         # 같은 발에 걸린 「N회 공격 시」 버프가 「N회 명중 시」 딜에 실리는 근거다
@@ -1680,7 +1748,14 @@ class CharState:
             # **누름을 어떻게 할지는 차지 시작 시점에 한 번만 정한다(래치).** 매 프레임
             # 다시 보면 창 경계에서 한 발이 반쯤 톡톡이인 채로 갈라진다. 반대로 **떼는**
             # 시점을 고르는 홀드는 매 틱 평가한다 — `_apply_click_schedule()`.
-            _entry = self._click_entry(t, bm, _CLICK_PRESS_MODES) if self._owns(bm) else None
+            # DOWN_Charge는 풀차지가 차면 자동 발사라 톡톡이/홀드 입력을 받지 않는다.
+            # 기본 무기는 __init__에서 조작 설정 자체를 거부하고, 무기 변경 모드는
+            # 진입 뒤 input_type이 바뀔 수 있으므로 여기서도 실행을 막는다.
+            _entry = (
+                self._click_entry(t, bm, _CLICK_PRESS_MODES)
+                if self.input_type != "DOWN_Charge" and self._owns(bm)
+                else None
+            )
             self._tap_this_shot = bool(_entry is not None and _entry["mode"] == "tap")
             if _entry is None or _entry["mode"] == "auto":
                 self._close_ctrl(t)   # 조작 없음 = 카메라를 잡고 있을 이유가 없다
@@ -1759,7 +1834,7 @@ class CharState:
 
         return events
 
-    def _burst_gain(self, buffs: dict, hit_count: int, full_charge: bool = False,
+    def _burst_gain(self, buffs: dict, hit_count: float, full_charge: bool = False,
                     burst_energy: float | None = None) -> float:
         """이번 발사가 만드는 버스트 게이지(%). 충전 창 판정은 하지 않는다.
 
@@ -1802,11 +1877,11 @@ class CharState:
         """차지 무기 1발 발사 처리. `is_full=False`면 논차지 샷(톡톡이)."""
         events = []
         self._apply_wc_first_coeff()
-        is_optimal = self.weapon_type in enemy.get("optimal_range_weapons", [])
         if is_full:
             self._last_full_charge_t = t
             self._force_full_charge = False
             bm.notify("full_charge", t, self.name)
+        is_optimal = is_optimal_range(self.name, self.weapon_type, enemy, bm, t)
         buffs = bm.get_buffs(self.name, "__enemy__", t)
         buffs["is_element_match"] = self.element_match(bm)
         if enemy.get("core_px", 0) > 0:
@@ -1844,6 +1919,8 @@ class CharState:
         is_full_burst = bm.state.get("full_burst", False)
         core_fracs: list[float] = []
         crit_fracs: list[float] = []
+        encounter_counts: list[dict | None] = []
+        gauge_hits = 0.0
         for i in range(hit_count):
             # P_core가 1이면 판정할 게 없으므로 기대값 모드에서도 코어 히트로 남긴다
             is_core = (P_core >= 1.0) if expected else (random.random() < P_core)
@@ -1860,6 +1937,10 @@ class CharState:
                 is_armor_break_damage=bool(buffs.get("armor_break_enabled")),
                 is_projectile_explosion=(self.base_weapon_type == "RL"),
                 coeff=coeff,
+                pellet_index=i % split,
+                pellet_count=split,
+                accuracy_circle=self._current_spread(buffs),
+                weapon_changed=self._in_weapon_change,
                 _debug_factors=in_debug_window,
             )
             if in_debug_window and i == 0:
@@ -1884,8 +1965,12 @@ class CharState:
                                    is_crit=res["is_crit"], hit_tag=tag,
                                    **({"skill_name": self._wc_name}
                                       if self._wc_is_skill_damage() else {})))
+            collision_hits = float(res.get("collision_hits", 1.0))
+            gauge_hits += collision_hits
+            encounter_counts.append(res if "collision_hits" in res else None)
             if hit_count > 1:
-                bm.notify("pellet_hit", t, self.name)
+                _notify_count(bm, "pellet_hit", self.name, collision_hits,
+                              lambda: bm.notify("pellet_hit", t, self.name))
             core_fracs.append(P_core if expected else (1.0 if is_core else 0.0))
             crit_fracs.append(res["crit_frac"])
         infinite_ammo = bool(buffs.get("infinite_ammo"))
@@ -1900,11 +1985,15 @@ class CharState:
                 self._sim_log.ammo_log.append(AmmoLogEntry(t=t, caster=self.name, ammo=self.ammo))
             bm.notify("squad_ammo_consume", t, self.name)
         # 발사 → 명중 순서, 명중은 탄 단위(총구 수만큼) — `_fire()`와 같은 규약이다.
-        # `풀 차지 공격 시`(발사)와 `풀 차지 공격 명중 시`(명중)도 같은 축으로 가른다.
+        # `on_attack`이 록 온을 제거해도 같은 발의 풀차지 효과는 발사 직전
+        # 대상에게 명중한다. 대상만 이 발의 이벤트 컨텍스트에 보존하고 다른
+        # on_attack 효과의 순서는 그대로 둔다.
+        shot_targets = _enemy_target_snapshot(bm, self.name, t) if is_full else None
         bm.notify("pellet_hit_single", t, self.name, pellets=hit_count)
         bm.notify("on_attack", t, self.name)
         if is_full:
-            bm.notify("full_charge_fire", t, self.name)
+            bm.notify("full_charge_fire", t, self.name,
+                      shot_enemy_targets=shot_targets)
         else:
             bm.notify("non_full_charge_fire", t, self.name)
         for bullet_core in _bullet_core_fracs(core_fracs, self.muzzles):
@@ -1923,24 +2012,31 @@ class CharState:
         # 히트 수는 위 발사 루프가 센 것과 같은 값이다(펠릿 × 총구).
         gauge_buffs = bm.get_buffs(self.name, "__enemy__", t)
         bm.add_burst_gauge(
-            self._burst_gain(gauge_buffs, hit_count,
+            self._burst_gain(gauge_buffs, gauge_hits,
                              full_charge=(is_full and self.name in bm.state["camera"])),
             t, self.name,
             "weapon:full_charge" if is_full else "weapon")
-        body_ev = "squad_part_hit" if enemy.get("has_parts", False) else "squad_body_hit"
         # 히트 브로드캐스트는 **펠릿마다** 나간다 (연사 경로와 같다). 발당 1회로 세면
         # 펠릿 15짜리 모드 사격이 팀에게 1히트로 보인다.
-        for core_frac in core_fracs:
-            _notify_frac(bm, body_ev, self.name, 1.0 - core_frac,
-                         lambda: bm.notify_team_hit(body_ev, t, self.name))
+        for core_frac, counts in zip(core_fracs, encounter_counts):
+            if counts is not None:
+                _notify_count(bm, "squad_part_hit", self.name, counts.get("part_hits", 0.0),
+                              lambda: bm.notify_team_hit("squad_part_hit", t, self.name))
+                _notify_count(bm, "squad_body_hit", self.name, counts.get("body_hits", 0.0),
+                              lambda: bm.notify_team_hit("squad_body_hit", t, self.name))
+            else:
+                body_ev = "squad_part_hit" if enemy.get("has_parts", False) else "squad_body_hit"
+                _notify_frac(bm, body_ev, self.name, 1.0 - core_frac,
+                             lambda: bm.notify_team_hit(body_ev, t, self.name))
         if not self._wc_is_skill_damage():
             bm.consume_bullet_buffs(self.name, t)
         for crit_frac in crit_fracs:
             _notify_frac(bm, "crit_hit", self.name, crit_frac,
                          lambda: bm.notify("crit_hit", t, self.name))
-        for core_frac in core_fracs:
-            _notify_frac(bm, "core_hit", self.name, core_frac,
-                         lambda: bm.notify("core_hit", t, self.name))
+        for core_frac, counts in zip(core_fracs, encounter_counts):
+            event_core = counts.get("core_hits", 0.0) if counts is not None else core_frac
+            _notify_count(bm, "core_hit", self.name, event_core,
+                          lambda: bm.notify("core_hit", t, self.name))
         if is_last:
             # `_fire()`와 같은 규약 — 명중이라 총구 수만큼.
             for _ in range(self.muzzles):
@@ -2130,6 +2226,8 @@ class CharState:
         orig_post_delay        = self.post_fire_delay
         orig_cover_during_delay = self.cover_during_delay
         orig_min_fire_cycle    = self._min_fire_cycle
+        orig_input_type       = self.input_type
+        orig_full_charge_only = self.full_charge_only
         orig_ammo              = self.ammo if not was_ready else None
 
         self.weapon              = wc_weapon_dict
@@ -2146,8 +2244,14 @@ class CharState:
         self.post_fire_delay     = wc_post_fire_delay
         self.cover_during_delay  = _pick("cover_during_delay", wc_over, wc_eff,
                                          default=self.cover_during_delay)
-        # 변경 무기는 CDN에 레코드 자체가 없다 — 원래 무기의 주기 하한을 물려주지 않는다.
-        self._min_fire_cycle     = 0.0
+        self.input_type           = wc_eff.get("input_type", self.input_type)
+        self.full_charge_only     = bool(wc_eff.get("full_charge_only", self.full_charge_only))
+        # 변경 무기는 원래 무기의 주기 하한을 물려주지 않는다. 변경 무기 자체가
+        # DOWN_Charge이면 그 무기의 연사속도만 하한으로 쓴다.
+        self._min_fire_cycle     = (
+            1.0 / wc_fire_rate
+            if self.input_type == "DOWN_Charge" and wc_fire_rate else 0.0
+        )
 
         # 실효 최대 장탄. 스킬 텍스트에 `(사용 무기 변경 시 최대 장탄 수 효과 갱신)`이 있는
         # 무기 변경만 최대 장탄 수 버프를 받는다(`max_ammo_buff_applies`). 문구가 없으면 표기 고정.
@@ -2200,6 +2304,8 @@ class CharState:
         self.post_fire_delay     = orig_post_delay
         self.cover_during_delay  = orig_cover_during_delay
         self._min_fire_cycle     = orig_min_fire_cycle
+        self.input_type           = orig_input_type
+        self.full_charge_only     = orig_full_charge_only
         if orig_ammo is not None and was_ready:
             # ready→charging 전환만 된 경우는 ammo 원복 불필요 (충전 중)
             pass
@@ -2723,7 +2829,16 @@ class CharState:
         base_override: int | None = None
         if wc_eff is not None:
             wc_max = wc_eff.get("max_ammo", -1)
-            if wc_max != -1:
+            if wc_max == -1:
+                # The temporary weapon still has a real magazine behind its
+                # AllAmmo flag. SpotWeaponData.TrueMaxAmmo computes buffs from
+                # its authored base; only CurrentAmmo/MaxAmmo display 999.
+                # Use an installed replacement shot row, never infer that
+                # every unlimited weapon has the same backing magazine.
+                native_row = (_MECHANICS.get("temporary_weapon_native_ammo", {})
+                              .get(self.name, {}).get(wc_eff.get("name", ""), {}))
+                base_override = native_row.get("base_max_ammo")
+            else:
                 # 원문 `최대 장탄 수 : N발 X [게이지/스택] 개수`. **표기 장탄 자체가 카운터에
                 # 비례**하므로 장탄 *버프*와는 다른 층이고, `max_ammo_buff_applies`(괄호구)와
                 # 무관하게 곱한다. 값을 다시 재는 시점은 다른 장탄과 같아야 한다 —
@@ -2748,9 +2863,19 @@ class CharState:
                     return self._wc_ammo_full
                 base_override = int(wc_max)
         full = self._buffed_ammo(bm, t, base_override)
-        if base_override is not None:
+        if base_override is not None and wc_eff is not None and wc_eff.get("max_ammo", -1) != -1:
             self._wc_ammo_full = full   # 이 세션 동안 고정
         return full
+
+    def native_ammo_state(self, bm: BuffManager, t: float) -> dict:
+        """Expose the weapon's native CurrentAmmo, MaxAmmo, TrueMaxAmmo getters."""
+        true_max = self._full_ammo(bm, t)
+        all_ammo = self._has_infinite_ammo(bm, t)
+        return {
+            "current_ammo": 999 if all_ammo else self.ammo,
+            "max_ammo": 999 if all_ammo else true_max,
+            "true_max_ammo": true_max,
+        }
 
     def _buffed_ammo(self, bm: BuffManager, t: float, base: int | None = None) -> int:
         """`base`(미지정이면 무기 기본 장탄)에 최대 장탄 버프를 얹은 실효 장탄."""
@@ -3348,6 +3473,7 @@ class BurstController:
             )
             ht["effect_target"] = eff.get("target")
             ht["effect_name"] = eff.get("name")
+            ht["effect_source"] = eff.get("source")
             for _ in range(hit_count):
                 if in_debug_window:
                     print(f"t={t:.3f}s  [{eff.get('name', '버스트 스킬')}]  base_atk={cs.base_atk:,}  enemy_def={self.enemy_def:,}")
@@ -3878,6 +4004,16 @@ def _restore_hp(bm, recipient, amount, t, caster, sim_log=None):
             cap = sum(bm.effective_max_hp(a.caster) * (bm._get_value(a.effect, a, name) or 0) / 100 for a in stores)
             reserve = bm.state.setdefault('stored_healing', {})
             reserve[name] = min(cap, reserve.get(name, 0) + excess)
+        # Delta's IFAK stores healing received during its window, separately
+        # from excess-HP reserves that are consumed on the next incoming hit.
+        for storage in roster.active(bm, name, 'heal_overcharge_store_atk_pct', t):
+            effect_name = storage.effect.get('name', '')
+            cap = bm._effective_atk(storage.caster) * (bm._get_value(storage.effect, storage, name) or 0) / 100
+            cap *= 1 + sum((bm._get_value(boost.effect, boost, storage.caster) or 0) / 100
+                           for boost in roster.active(bm, storage.caster, 'accumulate_max_scale_pct', t)
+                           if boost.effect.get('target_effect') == effect_name)
+            reserve = bm.state.setdefault('stored_healing_atk', {}).setdefault(storage.caster, {})
+            reserve[effect_name] = min(cap, reserve.get(effect_name, 0) + max(0, received))
         bm.state["hp"][name]=min(before+received,maximum)
         bm.sync_hp(name)
         if sim_log is not None:
@@ -4186,7 +4322,7 @@ def simulate(
             is_core_damage=(base_stat == "core_damage"),
             # 파츠 판정은 원문이 파츠를 명시한 스킬(hits_parts)에만 붙는다 — 파츠 보스일 때만
             is_part=(bool(eff.get("hits_parts")) and enm.get("has_parts", False)),
-            is_optimal_range=(weapon_type in enm.get("optimal_range_weapons", []) and is_normal),
+            is_optimal_range=(is_normal and is_optimal_range(caster, weapon_type, enm, bm, t)),
             is_burst_damage=(base_stat in ("burst_damage", "armor_break_burst_damage")),
             # 대상 설명이 '적 전체에게'인 버스트 대미지 → burst_dmg_aoe_pct 수혜
             is_aoe_burst=(base_stat == "burst_damage" and target_field == "all_enemies"),
@@ -4210,9 +4346,12 @@ def simulate(
         # Encounter targets distinguish an all-enemy hit from one body hit.
         # This metadata does not change the stationary damage formula.
         ht["effect_target"] = target_field
+        ht["hits_parts"] = bool(eff.get("hits_parts"))
         ht["is_single_burst"] = base_stat in ("burst_damage", "armor_break_burst_damage") and isinstance(target_field, str) and target_field.startswith("enemies_") and target_field.endswith(":1")
         ht["effect_name"] = eff.get("name")
+        ht["effect_source"] = eff.get("source")
 
+        gauge_hits = 0.0
         for _ in range(hit_count):
             if in_debug_window:
                 print(f"t={t:.3f}s  [{eff.get('name', stat)}]  base_atk={cs.base_atk:,}  enemy_def={enm.get('def', 31784):,}")
@@ -4229,6 +4368,15 @@ def simulate(
                 is_crit=res["is_crit"], hit_tag=hit_tag,
                 skill_name=eff.get("name", stat),
             ))
+            collision_hits = float(res.get("collision_hits", 1.0))
+            gauge_hits += collision_hits
+            if "collision_hits" in res:
+                _notify_count(bm, "squad_part_hit", caster, res.get("part_hits", 0.0),
+                              lambda: bm.notify_team_hit("squad_part_hit", t, caster))
+                _notify_count(bm, "squad_body_hit", caster, res.get("body_hits", 0.0),
+                              lambda: bm.notify_team_hit("squad_body_hit", t, caster))
+                _notify_count(bm, "core_hit", caster, res.get("core_hits", 0.0),
+                              lambda: bm.notify("core_hit", t, caster))
             # hit_count:[스킬명] 이벤트 — named damage effect 명중마다 발생.
             # 이 히트의 크리 여부를 함께 실어 보낸다 (`trigger_hit_crit` 조건용).
             # 기대값 모드에는 is_crit이 없으므로 crit_frac을 소수 누적해 같은 장기
@@ -4256,7 +4404,7 @@ def simulate(
         gauge_src = eff_name or stat
         gauge_be = (BURST_GAUGE_EXCEPTIONS.get(caster, {})
                     .get(gauge_src, {}).get("burst_energy"))
-        bm.add_burst_gauge(cs._burst_gain(buffs, hit_count, burst_energy=gauge_be), t, caster,
+        bm.add_burst_gauge(cs._burst_gain(buffs, gauge_hits, burst_energy=gauge_be), t, caster,
                            f"skill:{gauge_src}")
 
         # weapon_hit:name 이벤트 발생 (hit_count:N 트리거로 발사된 발사체 명중 시)
@@ -4326,6 +4474,7 @@ def simulate(
     _next_part_break = _part_break_interval if _part_break_interval > 0 else math.inf
 
     runtime = cfg.get("encounter_runtime")
+    cinematic_cursor = CinematicCursor()
     cover_windows = cfg.get("planned_cover_windows", [])
     if runtime is not None and hasattr(runtime, "bind"):
         runtime.bind(bm, squad, char_states)
@@ -4341,6 +4490,50 @@ def simulate(
             runtime.advance(t, state)
             if runtime.stopped:
                 break
+            for cinematic in cinematic_cursor.consume(runtime, t):
+                runtime_advance = getattr(runtime, "advance_cinematic_time", None)
+                runtime_begin = getattr(runtime, "begin_cinematic_time", None)
+                runtime_finish = getattr(runtime, "finish_cinematic_time", None)
+                cinematic_reload_advances: set[str] = set()
+                cinematic_reload_finishes: set[str] = set()
+
+                def _before_cinematic_tick(elapsed: float, delta: float) -> None:
+                    # Keep encounter virtual time installed while BuffManager
+                    # emits periodic damage into the encounter resolver.
+                    if runtime_begin is not None:
+                        runtime_begin(elapsed, delta)
+
+                def _after_cinematic_tick(elapsed: float, delta: float) -> None:
+                    advanced, finished = advance_cinematic_reloads(
+                        char_states, bm, t + elapsed
+                    )
+                    cinematic_reload_advances.update(advanced)
+                    cinematic_reload_finishes.update(finished)
+                    # Encounter-owned periodic effects run after BuffManager so
+                    # they observe function/shield expiry at this virtual frame.
+                    if runtime_advance is not None:
+                        runtime_advance(elapsed, delta)
+                    # Function ticks occur while the battle clock is frozen, so
+                    # every emitted hit is reported at the phase boundary.
+                    for ev in _dot_events:
+                        ev.t = t
+                        result.hits.append(ev)
+                        result.char_total[ev.caster] += ev.damage
+                        _apply_lifesteal(ev, bm, base_stats, t)
+                    _dot_events.clear()
+
+                if not cinematic.stop_spot_tick:
+                    advance_cinematic_functions(
+                        bm, burst_ctrl, state, t, cinematic.seconds, DT,
+                        _after_cinematic_tick,
+                        before_tick=_before_cinematic_tick,
+                    )
+                    rebase_cinematic_reloads(
+                        char_states, cinematic.seconds,
+                        cinematic_reload_advances, cinematic_reload_finishes,
+                    )
+                if runtime_finish is not None:
+                    runtime_finish(cinematic.seconds)
         bm.tick(t)
         while cover_index < len(cover_windows) and t >= cover_windows[cover_index][1]:
             cover_index += 1

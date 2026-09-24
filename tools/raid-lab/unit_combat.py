@@ -12,8 +12,12 @@ def enemy_attack(runtime, attack):
 
 
 def elemental_reduction(runtime, name, element):
+    return max(0, 1 + elemental_reduction_percent(runtime, name, element) / 100)
+
+
+def elemental_reduction_percent(runtime, name, element):
     code = {100001: '작열', 200001: '수냉', 300001: '풍압', 400001: '전격', 500001: '철갑'}.get(element)
-    return max(0, 1 + kits.total(runtime.bm, name, 'received_dmg_from_code:' + str(code), runtime.time) / 100)
+    return kits.total(runtime.bm, name, 'received_dmg_from_code:' + str(code), runtime.time)
 
 
 def targetable(runtime, names):

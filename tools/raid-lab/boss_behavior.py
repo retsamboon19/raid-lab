@@ -90,7 +90,9 @@ class BehaviorTree:
             if kind=='ParallelComplete' and completed:
                 for child in children:
                     if child['ID'] not in completed:self.reset(child)
-                return SUCCESS
+                # Native OverrideStatus (0x914400) returns the first finished
+                # child's actual status in authored child order.
+                return next(completed[child['ID']] for child in children if child['ID'] in completed)
             decisive=SUCCESS if kind=='ParallelSelector' else FAILURE
             if decisive in completed.values():
                 for child in children:
@@ -116,7 +118,10 @@ class BehaviorTree:
             state['count']=state.get('count',0)+1
             forever=node.get('SharedBoolrepeatForever',{}).get('BooleanmValue',False)
             count=node.get('SharedIntcount',{}).get('Int32mValue',0)
-            if not forever and state['count']>=count:return SUCCESS
+            # Native Repeater keeps the last child's status (OnChildExecuted
+            # 0x915bc0); inherited ParentTask.Decorate (0x8ff3b0) returns it
+            # unchanged. A repeat limit does not turn failure into success.
+            if not forever and state['count']>=count:return result
             self.reset(children[0]);return RUNNING
         if 'started' not in state:state['started']=self.time
         result=self.world.action(node,self.time,state)

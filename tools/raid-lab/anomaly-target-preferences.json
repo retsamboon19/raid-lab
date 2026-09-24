@@ -1,0 +1,3290 @@
+{
+  "schema": 1,
+  "source_sha256": "A119492898E5E5AEC9E07AE9E52E88F0B483A5F595C9728DCC19A4EF9CCD36F0",
+  "client_version": "152.8.11",
+  "source_tables": [
+    "CharacterTable",
+    "CharacterSkillTable",
+    "StateEffectTable",
+    "FunctionTable"
+  ],
+  "direct_skills": {
+    "2B": {
+      "스킬3": {
+        "skill_id": 1810301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "A2": {
+      "스킬3": {
+        "skill_id": 1811301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "D": {
+      "스킬3": {
+        "skill_id": 1040301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "D : 킬러 와이프": {
+      "스킬3": {
+        "skill_id": 1043301,
+        "prefer_target": "NearAim",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "HitMonsterGetBuff"
+      }
+    },
+    "E.H.": {
+      "스킬3": {
+        "skill_id": 1113301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "K": {
+      "스킬3": {
+        "skill_id": 1041301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "N102": {
+      "스킬2": {
+        "skill_id": 1120201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1120301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "iDoll 썬": {
+      "스킬3": {
+        "skill_id": 1308301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "iDoll 오션": {
+      "스킬2": {
+        "skill_id": 1305201,
+        "prefer_target": "LowHPRatio",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1305301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "iDoll 플라워": {
+      "스킬2": {
+        "skill_id": 1304201,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1304301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "그레이브": {
+      "스킬3": {
+        "skill_id": 1514301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "길로틴": {
+      "스킬3": {
+        "skill_id": 1180301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "길로틴 : 윈터 슬레이어": {
+      "스킬3": {
+        "skill_id": 1182301,
+        "prefer_target": "HighMaxHP",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "길티": {
+      "스킬3": {
+        "skill_id": 1400301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "길티 : 마이티 바니": {
+      "스킬3": {
+        "skill_id": 1404301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "나가": {
+      "스킬3": {
+        "skill_id": 1450301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "나유타": {
+      "스킬3": {
+        "skill_id": 1223301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "네로": {
+      "스킬3": {
+        "skill_id": 1380301,
+        "prefer_target": "HighHP",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "네베": {
+      "스킬1": {
+        "skill_id": 1193101,
+        "prefer_target": "LowHPRatio",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1193301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "네온": {
+      "스킬3": {
+        "skill_id": 1011301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "네온 : 블루 오션": {
+      "스킬3": {
+        "skill_id": 1014301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "네온 : 비전 아이": {
+      "스킬3": {
+        "skill_id": 1018301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "노벨": {
+      "스킬1": {
+        "skill_id": 1212101,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1212301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "노아": {
+      "스킬3": {
+        "skill_id": 1232301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "노이즈": {
+      "스킬3": {
+        "skill_id": 1430301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "누아르": {
+      "스킬3": {
+        "skill_id": 1271301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "니힐리스타": {
+      "스킬2": {
+        "skill_id": 1261201,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantArea",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5
+      },
+      "스킬3": {
+        "skill_id": 1261301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "델타": {
+      "스킬3": {
+        "skill_id": 1020301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstallDecoy"
+      }
+    },
+    "델타 : 닌자 시프": {
+      "스킬3": {
+        "skill_id": 1023301,
+        "prefer_target": "LowDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "도라": {
+      "스킬1": {
+        "skill_id": 1202101,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1202301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "도로시": {
+      "스킬2": {
+        "skill_id": 1233201,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1233301,
+        "prefer_target": "NearAim",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "Stigma",
+        "excluded_nk_layers": [
+          8,
+          11
+        ]
+      }
+    },
+    "도로시 : 세렌디피티": {
+      "스킬3": {
+        "skill_id": 1234301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "드레이크": {
+      "스킬3": {
+        "skill_id": 1101301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantArea",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5
+      }
+    },
+    "드레이크 : 그레이트 빌런": {
+      "스킬3": {
+        "skill_id": 1104301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "디젤": {
+      "스킬3": {
+        "skill_id": 1072301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "디젤 : 윈터 스위츠": {
+      "스킬3": {
+        "skill_id": 1075301,
+        "prefer_target": "Random",
+        "condition": "ExcludeSelf",
+        "skill_type": "SetBuff"
+      }
+    },
+    "라이": {
+      "스킬3": {
+        "skill_id": 1392301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "라푼젤": {
+      "스킬2": {
+        "skill_id": 1221201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1221301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "라푼젤 : 퓨어 그레이스": {
+      "스킬3": {
+        "skill_id": 1226301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "라플라스": {
+      "스킬3": {
+        "skill_id": 1100301,
+        "prefer_target": "NearAim",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "LaserBeam"
+      }
+    },
+    "라플라스 : 얼티밋 히어로": {
+      "스킬3": {
+        "skill_id": 1103301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "라피": {
+      "스킬2": {
+        "skill_id": 1010201,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1010301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "라피 : 레드 후드": {
+      "스킬3": {
+        "skill_id": 1016301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "람": {
+      "스킬2": {
+        "skill_id": 1822201,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1822301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "레드 후드": {
+      "스킬3": {
+        "skill_id": 1470301,
+        "prefer_target": "Defender",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "레오나": {
+      "스킬3": {
+        "skill_id": 1382301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "레이": {
+      "스킬3": {
+        "skill_id": 1831301,
+        "prefer_target": "Fire",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "레이 (가칭)": {
+      "스킬3": {
+        "skill_id": 1834301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "레이븐": {
+      "스킬3": {
+        "skill_id": 1851301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantAllParts"
+      }
+    },
+    "레이블": {
+      "스킬3": {
+        "skill_id": 1582301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "렘": {
+      "스킬3": {
+        "skill_id": 1820301,
+        "prefer_target": "HighAttackLastSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "로산나": {
+      "스킬3": {
+        "skill_id": 1280301,
+        "prefer_target": "Attacker",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "로산나 : 시크 오션": {
+      "스킬2": {
+        "skill_id": 1283101,
+        "prefer_target": "HighAttackLastSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1283301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "루드밀라": {
+      "스킬3": {
+        "skill_id": 1190301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "루드밀라 : 윈터 오너": {
+      "스킬3": {
+        "skill_id": 1194301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "루마니": {
+      "스킬3": {
+        "skill_id": 1240301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "루주": {
+      "스킬3": {
+        "skill_id": 1272301,
+        "prefer_target": "LowDefence",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "루피": {
+      "스킬3": {
+        "skill_id": 1200301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstantArea",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5
+      }
+    },
+    "루피 : 윈터 쇼퍼": {
+      "스킬3": {
+        "skill_id": 1203301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "리버렐리오": {
+      "스킬3": {
+        "skill_id": 1262301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "리타": {
+      "스킬2": {
+        "skill_id": 1082201,
+        "prefer_target": "LowHPCover",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1082301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "리틀 머메이드": {
+      "스킬3": {
+        "skill_id": 1513301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "SetBuff"
+      }
+    },
+    "릴리": {
+      "스킬1": {
+        "skill_id": 1852101,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬2": {
+        "skill_id": 1852201,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1852301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "마나": {
+      "스킬3": {
+        "skill_id": 1290301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "마르차나": {
+      "스킬3": {
+        "skill_id": 1321301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "마르차나 : 마린 스터디": {
+      "스킬3": {
+        "skill_id": 1322301,
+        "prefer_target": "HighMaxHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "마리": {
+      "스킬2": {
+        "skill_id": 1832201,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1832301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "마스트": {
+      "스킬3": {
+        "skill_id": 1350301,
+        "prefer_target": "HighAttackFirstSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "마스트 : 로망틱 메이드": {
+      "스킬3": {
+        "skill_id": 1354301,
+        "prefer_target": "HighMaxHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "마키마": {
+      "스킬3": {
+        "skill_id": 1800301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "맥스웰": {
+      "스킬3": {
+        "skill_id": 1102301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "맥스웰 : 오디너리 미케닉": {
+      "스킬3": {
+        "skill_id": 1105301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "메어리": {
+      "스킬3": {
+        "skill_id": 1130301,
+        "prefer_target": "HighAttackFirstSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "메어리 : 베이 갓데스": {
+      "스킬3": {
+        "skill_id": 1132301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "메이든": {
+      "스킬2": {
+        "skill_id": 1181201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      },
+      "스킬3": {
+        "skill_id": 1181301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "메이든 : 아이스 로즈": {
+      "스킬3": {
+        "skill_id": 1183301,
+        "prefer_target": "NearAim",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantSequentialAttack"
+      }
+    },
+    "모더니아": {
+      "스킬3": {
+        "skill_id": 1260301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "모리": {
+      "스킬3": {
+        "skill_id": 1590301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "목단": {
+      "스킬3": {
+        "skill_id": 1281301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "미란다": {
+      "스킬3": {
+        "skill_id": 1032301,
+        "prefer_target": "HighAttackLastSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "미사토": {
+      "스킬3": {
+        "skill_id": 1833301,
+        "prefer_target": "HighAttackLastSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "미카": {
+      "스킬2": {
+        "skill_id": 1061201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1061301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "미카 : 스노우 버디": {
+      "스킬3": {
+        "skill_id": 1062301,
+        "prefer_target": "HaveDebuff",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "미하라": {
+      "스킬3": {
+        "skill_id": 1161301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "미하라 : 본딩 체인": {
+      "스킬3": {
+        "skill_id": 1162301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "민트": {
+      "스킬3": {
+        "skill_id": 1600301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "밀크": {
+      "스킬1": {
+        "skill_id": 1141101,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1141301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "밀크 : 블루밍 바니": {
+      "스킬3": {
+        "skill_id": 1143301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "바이퍼": {
+      "스킬3": {
+        "skill_id": 1112301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "백학": {
+      "스킬3": {
+        "skill_id": 1620301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "베스티": {
+      "스킬3": {
+        "skill_id": 1091301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "LaunchWeapon"
+      }
+    },
+    "베스티 : 택티컬 업": {
+      "스킬3": {
+        "skill_id": 1094301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantAllParts"
+      }
+    },
+    "베이": {
+      "스킬3": {
+        "skill_id": 1550301,
+        "prefer_target": "HighAttackFirstSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "벨로타": {
+      "스킬3": {
+        "skill_id": 1060301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "벨벳": {
+      "스킬3": {
+        "skill_id": 1316301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "볼륨": {
+      "스킬3": {
+        "skill_id": 1431301,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "브래디": {
+      "스킬3": {
+        "skill_id": 1520301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "브리드": {
+      "스킬2": {
+        "skill_id": 1070201,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1070301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "브리드 : 사일런트 트랙": {
+      "스킬3": {
+        "skill_id": 1073301,
+        "prefer_target": "Random",
+        "condition": "ExcludeSelf",
+        "skill_type": "SetBuff"
+      }
+    },
+    "블랑": {
+      "스킬3": {
+        "skill_id": 1270301,
+        "prefer_target": "LowHP",
+        "condition": "ExcludeSelf",
+        "skill_type": "SetBuff"
+      }
+    },
+    "비스킷": {
+      "스킬3": {
+        "skill_id": 1381301,
+        "prefer_target": "Random",
+        "condition": "DestroyCover",
+        "skill_type": "SetBuff"
+      }
+    },
+    "사쿠라": {
+      "스킬3": {
+        "skill_id": 1282301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "사쿠라 (SR)": {
+      "스킬3": {
+        "skill_id": 1836301,
+        "prefer_target": "LowHPRatio",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "사쿠라 : 블룸 인 서머": {
+      "스킬2": {
+        "skill_id": 1284201,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1284301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantSequentialAttack"
+      }
+    },
+    "센티": {
+      "스킬2": {
+        "skill_id": 1080201,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      },
+      "스킬3": {
+        "skill_id": 1080301,
+        "prefer_target": "LowHP",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "소다": {
+      "스킬2": {
+        "skill_id": 1312201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1312301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "소다 : 트윙클링 바니": {
+      "스킬3": {
+        "skill_id": 1314301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "소라": {
+      "스킬3": {
+        "skill_id": 1532301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "SetBuff"
+      }
+    },
+    "솔린": {
+      "스킬3": {
+        "skill_id": 1071301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "솔린 : 프로스트 티켓": {
+      "스킬3": {
+        "skill_id": 1074301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "솔져 E.G.": {
+      "스킬2": {
+        "skill_id": 1300201,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1300301,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "솔져 F.A.": {
+      "스킬2": {
+        "skill_id": 1301201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1301301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "솔져 O.W.": {
+      "스킬2": {
+        "skill_id": 1306201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1306301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "슈가": {
+      "스킬3": {
+        "skill_id": 1140301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "스노우 화이트": {
+      "스킬2": {
+        "skill_id": 1220201,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      },
+      "스킬3": {
+        "skill_id": 1220301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "스노우 화이트 : 이노센트 데이즈": {
+      "스킬3": {
+        "skill_id": 1224301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "스노우 화이트 : 헤비암즈": {
+      "스킬3": {
+        "skill_id": 1471301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "SetBuff"
+      }
+    },
+    "시그널": {
+      "스킬3": {
+        "skill_id": 1022301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 800,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 4.0,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "신": {
+      "스킬3": {
+        "skill_id": 1401301,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "신 : 스위프트 바니": {
+      "스킬3": {
+        "skill_id": 1405301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "신데렐라": {
+      "스킬3": {
+        "skill_id": 1511301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantSequentialAttack"
+      }
+    },
+    "신데렐라 : 크리스탈 웨이브": {
+      "스킬3": {
+        "skill_id": 1515301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "아니스": {
+      "스킬2": {
+        "skill_id": 1012201,
+        "prefer_target": "HighAttackLastSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1012301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "아니스 : 스타": {
+      "스킬3": {
+        "skill_id": 1017301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "AutoFireWeapon"
+      }
+    },
+    "아니스 : 스파클링 서머": {
+      "스킬3": {
+        "skill_id": 1015301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "아르카나": {
+      "스킬3": {
+        "skill_id": 1581301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "아르카나 : 포츈 메이트": {
+      "스킬3": {
+        "skill_id": 1583301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "아리아": {
+      "스킬3": {
+        "skill_id": 1432301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "아비스타": {
+      "스킬3": {
+        "skill_id": 1441301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "아스카": {
+      "스킬3": {
+        "skill_id": 1830301,
+        "prefer_target": "Defender",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "아스카 : WILLE": {
+      "스킬3": {
+        "skill_id": 1835301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "아이기스": {
+      "스킬3": {
+        "skill_id": 1872301,
+        "prefer_target": "LowDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "아인": {
+      "스킬3": {
+        "skill_id": 1391301,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "아크레인저 블랙": {
+      "스킬3": {
+        "skill_id": 1570301,
+        "prefer_target": "HighMaxHP",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "애드미": {
+      "스킬2": {
+        "skill_id": 1172201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1172301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "앤 : 미라클 페어리": {
+      "스킬3": {
+        "skill_id": 1121301,
+        "prefer_target": "Attacker",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "앨리스": {
+      "스킬3": {
+        "skill_id": 1191301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "앨리스 : 원더랜드 바니": {
+      "스킬3": {
+        "skill_id": 1195301,
+        "prefer_target": "HighAttackLastSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "앵커": {
+      "스킬3": {
+        "skill_id": 1351301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "앵커 : 이노센트 메이드": {
+      "스킬3": {
+        "skill_id": 1355301,
+        "prefer_target": "HighMaxHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "얀": {
+      "스킬3": {
+        "skill_id": 1201301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantArea",
+        "range_diameter_cm": 700,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 3.5
+      }
+    },
+    "에밀리아": {
+      "스킬3": {
+        "skill_id": 1821301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "에이다": {
+      "스킬3": {
+        "skill_id": 1840301,
+        "prefer_target": "HighAttackFirstSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "에이드": {
+      "스킬3": {
+        "skill_id": 1310301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "에이드 : 에이전트 바니": {
+      "스킬3": {
+        "skill_id": 1315301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "에테르": {
+      "스킬1": {
+        "skill_id": 1291101,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬2": {
+        "skill_id": 1291201,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1291301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "에피넬": {
+      "스킬3": {
+        "skill_id": 1241301,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "엑시아": {
+      "스킬3": {
+        "skill_id": 1210301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "엠마": {
+      "스킬3": {
+        "skill_id": 1090301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "엠마 : 택티컬 업": {
+      "스킬3": {
+        "skill_id": 1093301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "SetBuff"
+      }
+    },
+    "유니": {
+      "스킬3": {
+        "skill_id": 1160301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 1000,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 5.0,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "유키코": {
+      "스킬3": {
+        "skill_id": 1871301,
+        "prefer_target": "LowDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "율리아": {
+      "스킬1": {
+        "skill_id": 1150101,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1150301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "율하": {
+      "스킬2": {
+        "skill_id": 1171201,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1171301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "은화": {
+      "스킬3": {
+        "skill_id": 1092301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "은화 : 택티컬 업": {
+      "스킬3": {
+        "skill_id": 1095301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "이브": {
+      "스킬3": {
+        "skill_id": 1850301,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantSequentialAttack"
+      }
+    },
+    "이사벨": {
+      "스킬2": {
+        "skill_id": 1231201,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1231301,
+        "prefer_target": "HighDefence",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "일레그": {
+      "스킬3": {
+        "skill_id": 1500301,
+        "prefer_target": "NearAim",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "일레그 : 붐 앤 쇼크": {
+      "스킬3": {
+        "skill_id": 1502301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "자칼": {
+      "스킬3": {
+        "skill_id": 1111301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "질": {
+      "스킬3": {
+        "skill_id": 1841301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "차임": {
+      "스킬3": {
+        "skill_id": 1331301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "츠바이": {
+      "스킬3": {
+        "skill_id": 1390301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "치사토": {
+      "스킬3": {
+        "skill_id": 1860301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "코코아": {
+      "스킬1": {
+        "skill_id": 1311101,
+        "prefer_target": "HaveDebuff",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1311301,
+        "prefer_target": "HaveDebuff",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "쿠루미": {
+      "스킬3": {
+        "skill_id": 1862301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "퀀시": {
+      "스킬2": {
+        "skill_id": 1402201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1402301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "퀀시 : 이스케이프 퀸": {
+      "스킬3": {
+        "skill_id": 1403301,
+        "prefer_target": "LowDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "퀸(마코토)": {
+      "스킬3": {
+        "skill_id": 1870301,
+        "prefer_target": "LowDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "크라운": {
+      "스킬3": {
+        "skill_id": 1330301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "크러스트": {
+      "스킬3": {
+        "skill_id": 1521301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "크로우": {
+      "스킬3": {
+        "skill_id": 1110301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "클레어": {
+      "스킬3": {
+        "skill_id": 1842301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "클레이": {
+      "스킬3": {
+        "skill_id": 1551301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "키리": {
+      "스킬3": {
+        "skill_id": 1033301,
+        "prefer_target": "Defender",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "킬로": {
+      "스킬3": {
+        "skill_id": 1361301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "타키나": {
+      "스킬2": {
+        "skill_id": 1861201,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1861301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "ChangeWeapon"
+      }
+    },
+    "토브": {
+      "스킬3": {
+        "skill_id": 1192301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "트로니": {
+      "스킬3": {
+        "skill_id": 1501301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "트리나": {
+      "스킬3": {
+        "skill_id": 1412301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "티아": {
+      "스킬3": {
+        "skill_id": 1451301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "파스칼": {
+      "스킬3": {
+        "skill_id": 1812301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "파워": {
+      "스킬3": {
+        "skill_id": 1801301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "팬텀": {
+      "스킬3": {
+        "skill_id": 1580301,
+        "prefer_target": "LowDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "페퍼": {
+      "스킬2": {
+        "skill_id": 1131201,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1131301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "폴리": {
+      "스킬2": {
+        "skill_id": 1030201,
+        "prefer_target": "LowHPLastSelf",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1030301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "폴크방": {
+      "스킬1": {
+        "skill_id": 1242101,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      },
+      "스킬2": {
+        "skill_id": 1242201,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1242301,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "InstallBarrier"
+      }
+    },
+    "프로덕트 08": {
+      "스킬2": {
+        "skill_id": 1302201,
+        "prefer_target": "HighAttack",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1302301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "프로덕트 12": {
+      "스킬2": {
+        "skill_id": 1303201,
+        "prefer_target": "LowHP",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1303301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantCircle",
+        "range_diameter_cm": 500,
+        "range_stat_id": 191,
+        "base_cast_radius_m": 2.5,
+        "circle_height_cm": 0,
+        "base_cast_height_m": 0.0
+      }
+    },
+    "프로덕트 23": {
+      "스킬2": {
+        "skill_id": 1307201,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1307301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "프리바티": {
+      "스킬3": {
+        "skill_id": 1170301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "프리바티 : 언카인드 메이드": {
+      "스킬3": {
+        "skill_id": 1313301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "프리카": {
+      "스킬3": {
+        "skill_id": 1601301,
+        "prefer_target": "Random",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "프림": {
+      "스킬3": {
+        "skill_id": 1142301,
+        "prefer_target": "HighDefence",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "플로라": {
+      "스킬3": {
+        "skill_id": 1411301,
+        "prefer_target": "LowDefence",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "하란": {
+      "스킬3": {
+        "skill_id": 1230301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "헬름": {
+      "스킬3": {
+        "skill_id": 1352301,
+        "prefer_target": "HighAttack",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      }
+    },
+    "헬름 : 아쿠아마린": {
+      "스킬2": {
+        "skill_id": 1353201,
+        "prefer_target": "Random",
+        "condition": "IncludeNoneTargetLast",
+        "skill_type": "InstantNumber"
+      },
+      "스킬3": {
+        "skill_id": 1353301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "홍련": {
+      "스킬3": {
+        "skill_id": 1222301,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "InstantAll"
+      }
+    },
+    "홍련 : 흑영": {
+      "스킬3": {
+        "skill_id": 1225401,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      }
+    },
+    "히메노": {
+      "스킬2": {
+        "skill_id": 1802201,
+        "prefer_target": "LowHP",
+        "condition": "None",
+        "skill_type": "SetBuff"
+      },
+      "스킬3": {
+        "skill_id": 1802301,
+        "prefer_target": "HighAttack",
+        "condition": "ExcludeSelf",
+        "skill_type": "SetBuff"
+      }
+    }
+  },
+  "nested_character_skills": {
+    "2B": {
+      "스킬2": [
+        {
+          "function_id": 281020101,
+          "skill_id": 1810201,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "InstantAll"
+        }
+      ]
+    },
+    "N102": {
+      "스킬1": [
+        {
+          "function_id": 212010101,
+          "skill_id": 1120101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "iDoll 오션": {
+      "스킬1": [
+        {
+          "function_id": 230510101,
+          "skill_id": 1305101,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "나가": {
+      "스킬2": [
+        {
+          "function_id": 245020101,
+          "skill_id": 1450201,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 245020103,
+          "skill_id": 1450401,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "나유타": {
+      "스킬1": [
+        {
+          "function_id": 222310104,
+          "skill_id": 1223101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "InstantAll"
+        }
+      ]
+    },
+    "네온": {
+      "스킬1": [
+        {
+          "function_id": 201110101,
+          "skill_id": 1011101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "델타 : 닌자 시프": {
+      "스킬1": [
+        {
+          "function_id": 202310104,
+          "skill_id": 1023101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantCircle",
+          "range_diameter_cm": 700,
+          "range_stat_id": 191,
+          "base_cast_radius_m": 3.5,
+          "circle_height_cm": 0,
+          "base_cast_height_m": 0.0
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 202320101,
+          "skill_id": 1023201,
+          "prefer_target": "Defender",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 202320106,
+          "skill_id": 1023401,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 202320109,
+          "skill_id": 1023501,
+          "prefer_target": "HighAttackFirstSelf",
+          "condition": "None",
+          "skill_type": "HealCharge"
+        }
+      ]
+    },
+    "드레이크": {
+      "스킬2": [
+        {
+          "function_id": 210120101,
+          "skill_id": 1101201,
+          "prefer_target": "LowHP",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "드레이크 : 그레이트 빌런": {
+      "스킬1": [
+        {
+          "function_id": 210410101,
+          "skill_id": 1104101,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "ChangeWeapon"
+        }
+      ]
+    },
+    "디젤 : 윈터 스위츠": {
+      "스킬2": [
+        {
+          "function_id": 207520101,
+          "skill_id": 1075201,
+          "prefer_target": "Random",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "라이": {
+      "스킬2": [
+        {
+          "function_id": 239220101,
+          "skill_id": 1392201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallDecoy"
+        }
+      ]
+    },
+    "라푼젤": {
+      "스킬1": [
+        {
+          "function_id": 222110101,
+          "skill_id": 1221101,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "라푼젤 : 퓨어 그레이스": {
+      "스킬1": [
+        {
+          "function_id": 222610101,
+          "skill_id": 1226101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 222610102,
+          "skill_id": 1226101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ]
+    },
+    "라플라스 : 얼티밋 히어로": {
+      "스킬1": [
+        {
+          "function_id": 210310103,
+          "skill_id": 1103101,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "ChangeWeapon"
+        }
+      ]
+    },
+    "라피 : 레드 후드": {
+      "스킬2": [
+        {
+          "function_id": 201620102,
+          "skill_id": 1016201,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "ChangeWeapon"
+        }
+      ]
+    },
+    "레오나": {
+      "스킬2": [
+        {
+          "function_id": 238220102,
+          "skill_id": 1382201,
+          "prefer_target": "HighAttack",
+          "condition": "OnlySG",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "레이": {
+      "스킬1": [
+        {
+          "function_id": 283110102,
+          "skill_id": 1831101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantCircle",
+          "range_diameter_cm": 700,
+          "range_stat_id": 191,
+          "base_cast_radius_m": 3.5,
+          "circle_height_cm": 0,
+          "base_cast_height_m": 0.0
+        }
+      ]
+    },
+    "레이븐": {
+      "스킬1": [
+        {
+          "function_id": 285110101,
+          "skill_id": 1851101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "레이블": {
+      "스킬1": [
+        {
+          "function_id": 258210101,
+          "skill_id": 1582101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 258210107,
+          "skill_id": 1582101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 258210108,
+          "skill_id": 1582101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 258220104,
+          "skill_id": 1582201,
+          "prefer_target": "HighAttack",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 258220108,
+          "skill_id": 1582401,
+          "prefer_target": "HighAttack",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "렘": {
+      "스킬2": [
+        {
+          "function_id": 282020102,
+          "skill_id": 1820201,
+          "prefer_target": "HighAttackLastSelf",
+          "condition": "OnlyRL",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "로산나": {
+      "스킬1": [
+        {
+          "function_id": 228010103,
+          "skill_id": 1280101,
+          "prefer_target": "HighAttack",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "리버렐리오": {
+      "스킬1": [
+        {
+          "function_id": 226210108,
+          "skill_id": 1262101,
+          "prefer_target": "LowAttack",
+          "condition": "BurstStep3",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "리틀 머메이드": {
+      "스킬2": [
+        {
+          "function_id": 251320105,
+          "skill_id": 1513201,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantSequentialAttack"
+        },
+        {
+          "function_id": 251320106,
+          "skill_id": 1513401,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantSequentialAttack"
+        },
+        {
+          "function_id": 251320107,
+          "skill_id": 1513501,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "마나": {
+      "스킬1": [
+        {
+          "function_id": 229010103,
+          "skill_id": 1290101,
+          "prefer_target": "HighAttack",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 229020105,
+          "skill_id": 1290201,
+          "prefer_target": "LongInitChargeTime",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "마르차나": {
+      "스킬1": [
+        {
+          "function_id": 232110102,
+          "skill_id": 1321101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "마르차나 : 마린 스터디": {
+      "스킬1": [
+        {
+          "function_id": 232210101,
+          "skill_id": 1322101,
+          "prefer_target": "HighMaxHP",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 232210102,
+          "skill_id": 1322401,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 232220115,
+          "skill_id": 1322201,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetNone",
+          "skill_type": "InstantAll"
+        },
+        {
+          "function_id": 232220116,
+          "skill_id": 1322501,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "마스트": {
+      "스킬1": [
+        {
+          "function_id": 235010102,
+          "skill_id": 1350101,
+          "prefer_target": "HighAttackFirstSelf",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 235010104,
+          "skill_id": 1350101,
+          "prefer_target": "HighAttackFirstSelf",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 235020101,
+          "skill_id": 1350201,
+          "prefer_target": "HighAttackFirstSelf",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "맥스웰": {
+      "스킬1": [
+        {
+          "function_id": 210210101,
+          "skill_id": 1102101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "메어리": {
+      "스킬1": [
+        {
+          "function_id": 213010101,
+          "skill_id": 1130101,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "메이든 : 아이스 로즈": {
+      "스킬2": [
+        {
+          "function_id": 218320101,
+          "skill_id": 1183201,
+          "prefer_target": "HighAttackLastSelf",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 218320106,
+          "skill_id": 1183401,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "모리": {
+      "스킬1": [
+        {
+          "function_id": 259010101,
+          "skill_id": 1590101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 259010102,
+          "skill_id": 1590101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 259020103,
+          "skill_id": 1590201,
+          "prefer_target": "HighAttack",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "목단": {
+      "스킬2": [
+        {
+          "function_id": 228120101,
+          "skill_id": 1281201,
+          "prefer_target": "HighAttack",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 228120107,
+          "skill_id": 1281401,
+          "prefer_target": "HighAttackLastSelf",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "미사토": {
+      "스킬1": [
+        {
+          "function_id": 283310102,
+          "skill_id": 1833101,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "미하라 : 본딩 체인": {
+      "스킬1": [
+        {
+          "function_id": 216210115,
+          "skill_id": 1162101,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 216210116,
+          "skill_id": 1162401,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 216210144,
+          "skill_id": 1162101,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 216210145,
+          "skill_id": 1162401,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "밀크 : 블루밍 바니": {
+      "스킬1": [
+        {
+          "function_id": 214310103,
+          "skill_id": 1143101,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 214320102,
+          "skill_id": 1143201,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "백학": {
+      "스킬2": [
+        {
+          "function_id": 262020102,
+          "skill_id": 1620201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ]
+    },
+    "베이": {
+      "스킬1": [
+        {
+          "function_id": 255010101,
+          "skill_id": 1550101,
+          "prefer_target": "HighAttack",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 255020101,
+          "skill_id": 1550201,
+          "prefer_target": "HighAttackFirstSelf",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "브래디": {
+      "스킬2": [
+        {
+          "function_id": 252020104,
+          "skill_id": 1520201,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "브리드 : 사일런트 트랙": {
+      "스킬1": [
+        {
+          "function_id": 207310102,
+          "skill_id": 1073101,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstantAll"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 207320101,
+          "skill_id": 1073201,
+          "prefer_target": "LowHP",
+          "condition": "OnlyWind",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 207320103,
+          "skill_id": 1073401,
+          "prefer_target": "LowHP",
+          "condition": "None",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "블랑": {
+      "스킬1": [
+        {
+          "function_id": 227010101,
+          "skill_id": 1270101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ]
+    },
+    "비스킷": {
+      "스킬1": [
+        {
+          "function_id": 238110101,
+          "skill_id": 1381101,
+          "prefer_target": "Attacker",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "사쿠라 (SR)": {
+      "스킬2": [
+        {
+          "function_id": 283620101,
+          "skill_id": 1836201,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 283620103,
+          "skill_id": 1836401,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "소다 : 트윙클링 바니": {
+      "스킬1": [
+        {
+          "function_id": 231410105,
+          "skill_id": 1314401,
+          "prefer_target": "HighAttackFirstSelf",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 231420103,
+          "skill_id": 1314101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 231420104,
+          "skill_id": 1314201,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "스노우 화이트 : 이노센트 데이즈": {
+      "스킬1": [
+        {
+          "function_id": 222410102,
+          "skill_id": 1224101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantCircle",
+          "range_diameter_cm": 300,
+          "range_stat_id": 191,
+          "base_cast_radius_m": 1.5,
+          "circle_height_cm": 0,
+          "base_cast_height_m": 0.0
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 222420101,
+          "skill_id": 1224201,
+          "prefer_target": "LowHP",
+          "condition": "None",
+          "skill_type": "InstantAll"
+        }
+      ]
+    },
+    "스노우 화이트 : 헤비암즈": {
+      "스킬1": [
+        {
+          "function_id": 247110101,
+          "skill_id": 1471101,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "TargetingSequentialAttack"
+        },
+        {
+          "function_id": 247110106,
+          "skill_id": 1471401,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantAll"
+        },
+        {
+          "function_id": 247110115,
+          "skill_id": 1471601,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantAll"
+        }
+      ]
+    },
+    "신 : 스위프트 바니": {
+      "스킬2": [
+        {
+          "function_id": 240520105,
+          "skill_id": 1405101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "ChangeWeapon"
+        }
+      ]
+    },
+    "신데렐라": {
+      "스킬2": [
+        {
+          "function_id": 251120101,
+          "skill_id": 1511201,
+          "prefer_target": "LowDefence",
+          "condition": "None",
+          "skill_type": "InstallDecoy"
+        },
+        {
+          "function_id": 251120102,
+          "skill_id": 1511201,
+          "prefer_target": "LowDefence",
+          "condition": "None",
+          "skill_type": "InstallDecoy"
+        }
+      ]
+    },
+    "신데렐라 : 크리스탈 웨이브": {
+      "스킬1": [
+        {
+          "function_id": 251510102,
+          "skill_id": 1515101,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "ChangeWeapon"
+        },
+        {
+          "function_id": 251510110,
+          "skill_id": 1515101,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "ChangeWeapon"
+        },
+        {
+          "function_id": 251510117,
+          "skill_id": 1515601,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 151530103,
+          "skill_id": 1515501,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstantAll"
+        },
+        {
+          "function_id": 251520102,
+          "skill_id": 1515201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallDecoy"
+        },
+        {
+          "function_id": 251520113,
+          "skill_id": 1515701,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstantAllParts"
+        }
+      ]
+    },
+    "아니스 : 스파클링 서머": {
+      "스킬2": [
+        {
+          "function_id": 201520101,
+          "skill_id": 1015201,
+          "prefer_target": "HighAttack",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "아르카나 : 포츈 메이트": {
+      "스킬2": [
+        {
+          "function_id": 258320110,
+          "skill_id": 1583201,
+          "prefer_target": "HighAttackLastSelf",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "아스카 : WILLE": {
+      "스킬1": [
+        {
+          "function_id": 283510102,
+          "skill_id": 1835101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantCircle",
+          "range_diameter_cm": 350,
+          "range_stat_id": 191,
+          "base_cast_radius_m": 1.75,
+          "circle_height_cm": 0,
+          "base_cast_height_m": 0.0
+        }
+      ]
+    },
+    "아인": {
+      "스킬2": [
+        {
+          "function_id": 239120101,
+          "skill_id": 1391201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "앨리스": {
+      "스킬1": [
+        {
+          "function_id": 219110101,
+          "skill_id": 1191101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "에이다": {
+      "스킬2": [
+        {
+          "function_id": 284020101,
+          "skill_id": 1840201,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantCircle",
+          "range_diameter_cm": 500,
+          "range_stat_id": 191,
+          "base_cast_radius_m": 2.5,
+          "circle_height_cm": 0,
+          "base_cast_height_m": 0.0
+        }
+      ]
+    },
+    "엠마 : 택티컬 업": {
+      "스킬1": [
+        {
+          "function_id": 209310114,
+          "skill_id": 1093101,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 209310115,
+          "skill_id": 1093101,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "유키코": {
+      "스킬1": [
+        {
+          "function_id": 287110104,
+          "skill_id": 1871101,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 287120109,
+          "skill_id": 1871201,
+          "prefer_target": "HighAttack",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "이브": {
+      "스킬1": [
+        {
+          "function_id": 285010102,
+          "skill_id": 1850101,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantSequentialAttack"
+        },
+        {
+          "function_id": 285010104,
+          "skill_id": 1850401,
+          "prefer_target": "Random",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantSequentialAttack"
+        }
+      ]
+    },
+    "일레그": {
+      "스킬1": [
+        {
+          "function_id": 250010102,
+          "skill_id": 1500101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantCircleSeparate"
+        }
+      ]
+    },
+    "일레그 : 붐 앤 쇼크": {
+      "스킬1": [
+        {
+          "function_id": 250210101,
+          "skill_id": 1502101,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "TargetHitCountGetBuff"
+        },
+        {
+          "function_id": 250210102,
+          "skill_id": 1502101,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "TargetHitCountGetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 250220102,
+          "skill_id": 1502201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstantAll"
+        }
+      ]
+    },
+    "자칼": {
+      "스킬1": [
+        {
+          "function_id": 211110101,
+          "skill_id": 1111101,
+          "prefer_target": "HighMaxHP",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 211120101,
+          "skill_id": 1111201,
+          "prefer_target": "HighAttackFirstSelf",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "퀸(마코토)": {
+      "스킬1": [
+        {
+          "function_id": 287010104,
+          "skill_id": 1870101,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 287010106,
+          "skill_id": 1870401,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 287020106,
+          "skill_id": 1870201,
+          "prefer_target": "HighAttack",
+          "condition": "ExcludeSelf",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "클레어": {
+      "스킬1": [
+        {
+          "function_id": 284210101,
+          "skill_id": 1842101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 284220101,
+          "skill_id": 1842201,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ]
+    },
+    "키리": {
+      "스킬1": [
+        {
+          "function_id": 203310102,
+          "skill_id": 1033101,
+          "prefer_target": "Defender",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 203320101,
+          "skill_id": 1033201,
+          "prefer_target": "Defender",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "킬로": {
+      "스킬1": [
+        {
+          "function_id": 236110101,
+          "skill_id": 1361101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 236110102,
+          "skill_id": 1361101,
+          "prefer_target": "HighAttack",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ]
+    },
+    "트로니": {
+      "스킬1": [
+        {
+          "function_id": 250110101,
+          "skill_id": 1501101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "ExplosiveCircuit"
+        },
+        {
+          "function_id": 250110104,
+          "skill_id": 1501401,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "ExplosiveCircuit"
+        }
+      ]
+    },
+    "트리나": {
+      "스킬1": [
+        {
+          "function_id": 241210102,
+          "skill_id": 1412101,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 241210104,
+          "skill_id": 1412401,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 241220104,
+          "skill_id": 1412201,
+          "prefer_target": "Electronic",
+          "condition": "OnlyAR",
+          "skill_type": "SetBuff"
+        },
+        {
+          "function_id": 241220106,
+          "skill_id": 1412501,
+          "prefer_target": "Electronic",
+          "condition": "OnlyAR",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "파스칼": {
+      "스킬1": [
+        {
+          "function_id": 281210101,
+          "skill_id": 1812101,
+          "prefer_target": "HighDefence",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ],
+      "스킬2": [
+        {
+          "function_id": 281220101,
+          "skill_id": 1812201,
+          "prefer_target": "LowHP",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "페퍼": {
+      "스킬1": [
+        {
+          "function_id": 213110101,
+          "skill_id": 1131101,
+          "prefer_target": "LowHPRatio",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "프로덕트 08": {
+      "스킬1": [
+        {
+          "function_id": 230210101,
+          "skill_id": 1302101,
+          "prefer_target": "LowHP",
+          "condition": "None",
+          "skill_type": "SetBuff"
+        }
+      ]
+    },
+    "프리바티 : 언카인드 메이드": {
+      "스킬1": [
+        {
+          "function_id": 231310101,
+          "skill_id": 1313101,
+          "prefer_target": "NearAim",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    },
+    "플로라": {
+      "스킬2": [
+        {
+          "function_id": 241120101,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 241120102,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 241120103,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 241120104,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 241120105,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 241120106,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 241120107,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        },
+        {
+          "function_id": 241120108,
+          "skill_id": 1411201,
+          "prefer_target": "Random",
+          "condition": "None",
+          "skill_type": "InstallBarrier"
+        }
+      ]
+    },
+    "홍련 : 흑영": {
+      "스킬1": [
+        {
+          "function_id": 222510102,
+          "skill_id": 1225101,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        },
+        {
+          "function_id": 222510104,
+          "skill_id": 1225201,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantCircleSeparate"
+        },
+        {
+          "function_id": 222510106,
+          "skill_id": 1225301,
+          "prefer_target": "LowDefence",
+          "condition": "IncludeNoneTargetLast",
+          "skill_type": "InstantNumber"
+        }
+      ]
+    }
+  }
+}

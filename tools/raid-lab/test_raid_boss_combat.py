@@ -181,7 +181,7 @@ class RaidBossTests(unittest.TestCase):
         r=RaidBossRuntime([],180,key='anomaly-ultra',auto_cover=False);bm,names=bind(r)
         r.cover=dict.fromkeys(names,0);r.receive_attack(r.skills[2],{'_locked_targets':names})
         self.assertTrue(r.dot_ticks)
-        before=bm.state['hp'][names[0]];r.time=1;r.advance_dots(1)
+        before=bm.state['hp'][names[0]];r.time=1.5;r.advance_dots(1.5)
         self.assertLess(bm.state['hp'][names[0]],before)
         # The engine's cleanse removes harmful buffs, including the DoT marker.
         bm._active=[a for a in bm._active if a.effect.get('polarity')!='harmful'];before=bm.state['hp'][names[0]]

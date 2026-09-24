@@ -6,7 +6,7 @@ from types import SimpleNamespace
 import core
 from calculator.buff_manager import BuffManager, char_effects
 from calculator import roster_mechanics as kits
-from calculator.timeline import CharState, _register_instant_handlers
+from calculator.timeline import CharState, _register_instant_handlers, _restore_hp
 
 
 def manager(*names, level=10, favorite=0):
@@ -33,7 +33,7 @@ def buff(stat, target='self', value=10.0, **kw):
 
 class CompleteRosterTests(unittest.TestCase):
     def test_every_real_character_has_all_three_base_skills(self):
-        self.assertEqual(len(core.CATALOG), 200)
+        self.assertEqual(len(core.CATALOG), 202)
         for c in core.CATALOG:
             with self.subTest(character=c['name']):
                 self.assertTrue(c['supported'])
@@ -132,6 +132,60 @@ class CompleteRosterTests(unittest.TestCase):
         wc = next(e for e in char_effects(eh, 0) if e['type'] == 'weapon_change')
         bm._activate(wc, eh, 0)
         self.assertEqual(cs[eh]._full_ammo(bm, 0), 4)
+
+    def test_nayuta_all_ammo_displays_999_but_keeps_buffed_true_magazine(self):
+        bm, (nayuta,), states = manager('Nayuta')
+        state = states[nayuta]
+        bm._activate(buff('max_ammo_pct', value=-50.66), nayuta, 0)
+        self.assertEqual(state.native_ammo_state(bm, 0)['true_max_ammo'], 59)
+        weapon_change = next(e for e in char_effects(nayuta, 0)
+                             if e['type'] == 'weapon_change' and e['max_ammo'] == -1)
+        all_ammo = next(e for e in char_effects(nayuta, 0)
+                        if e.get('stat') == 'infinite_ammo')
+        bm._activate(weapon_change, nayuta, 0)
+        bm._activate(all_ammo, nayuta, 0)
+        self.assertEqual(state.native_ammo_state(bm, 0), {
+            'current_ammo': 999, 'max_ammo': 999, 'true_max_ammo': 493})
+        # TrueMaxAmmo tracks live buffs even while AllAmmo masks the display.
+        self.assertEqual(state.native_ammo_state(bm, 11)['true_max_ammo'], 999)
+
+    def test_delta_ifak_stores_healing_to_atk_cap_and_discharges_on_expiry(self):
+        bm, (delta, ally), _ = manager('Delta: Ninja Thief', 'Crow')
+        effects = char_effects(delta, 0)
+        store = next(e for e in effects if e.get('stat') == 'heal_overcharge_store_atk_pct')
+        boost = next(e for e in effects if e.get('stat') == 'accumulate_max_scale_pct')
+        bm._activate(store, delta, 0)
+        bm._activate(boost, delta, 0)
+        bm.state['hp'][ally] = 15000
+        bm.sync_hp(ally)
+        _restore_hp(bm, delta, 1000, 1, delta)
+        _restore_hp(bm, delta, 1000, 2, delta)
+        cap = 1000 * 1.6528 * 1.2013
+        self.assertAlmostEqual(bm.state['stored_healing_atk'][delta]['인법 IFAK'], cap)
+        # The charge belongs to IFAK, not the excess-HP pool consumed on hit.
+        self.assertNotIn(delta, bm.state.get('stored_healing', {}))
+        kits.hurt_hp(bm, delta, 1000, 3)
+        self.assertAlmostEqual(bm.state['stored_healing_atk'][delta]['인법 IFAK'], cap)
+        bm.tick(4)
+        self.assertAlmostEqual(bm.state['hp'][ally], 15000 + cap)
+        self.assertEqual(bm.state['hp'][delta], bm.effective_max_hp(delta))
+        self.assertNotIn(delta, bm.state['stored_healing_atk'])
+
+    def test_delta_ifak_every_four_seconds_discharge_precedes_next_window(self):
+        bm, (delta, ally), _ = manager('Delta: Ninja Thief', 'Crown')
+        bm.battle_start(0)
+        bm.state['hp'][ally] = 15000
+        bm.sync_hp(ally)
+        bm.tick(4)
+        self.assertTrue(list(kits.active(bm, delta, 'heal_overcharge_store_atk_pct', 4)))
+        _restore_hp(bm, delta, 500, 5, delta)
+        bm.tick(8)
+        self.assertEqual(bm.state['hp'][ally], 15500)
+        self.assertNotIn(delta, bm.state.get('stored_healing_atk', {}))
+        self.assertTrue(list(kits.active(bm, delta, 'heal_overcharge_store_atk_pct', 8)))
+        _restore_hp(bm, delta, 200, 9, delta)
+        bm.tick(12)
+        self.assertEqual(bm.state['hp'][ally], 15700)
 
     def test_winter_guillotine_levels_up_at_each_experience_boundary(self):
         bm, (unit,), _ = manager('Guillotine: Winter Slayer')

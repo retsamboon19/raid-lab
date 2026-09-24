@@ -26,6 +26,7 @@
   </details>
   <label class="check"><input id="healing" type="checkbox"> Require team healing</label>
 <label id="playstyleLabel">Playstyle<select id="playstyle"><option value="auto">Automatic firing & burst priority</option><option value="assisted">Assisted · one burst-gauge tap shooter</option></select></label>
+<label id="bunnyModeLabel" hidden>Bunny mode<select id="bunny_mode"><option value="stance">Stance · attack bonuses</option><option value="engage">Engage · defence-ignoring attacks</option></select><small>For Guilty: Mighty Bunny and Sin: Swift Bunny. Engage uses one opening charge hold to switch both allies. That operator uses full-charge firing.</small></label>
 <details id="practiceBuild" hidden><summary>Practice level</summary><label class="check"><input id="fixed_level" type="checkbox" checked> Use one fixed unit level</label><label>Fixed level<input id="level" type="number" min="1" max="1000" value="400"></label></details>
 <button id="computeSettingsBtn" type="button" aria-haspopup="dialog" aria-controls="computeDialog">Compute settings <span id="computeModeSummary">CPU</span></button>
 <label>Search depth<select id="budget"><option value="3">Short</option><option value="6" selected>Medium</option><option value="12">Long</option></select></label>

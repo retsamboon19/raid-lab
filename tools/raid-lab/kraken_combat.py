@@ -268,6 +268,8 @@ class KrakenRuntime(EncounterRuntime):
         for name,cs in self.char_states.items():
             wc=self.bm.get_weapon_change(name)
             weapon=wc.get('weapon_type',cs.weapon_type) if wc else cs.weapon_type
+            weapon_resolver=getattr(self,'qte_weapon_type',None)
+            if weapon_resolver is not None:weapon=weapon_resolver(name,weapon)
             element=self.squad[name].get('element_code')
             if target.get('weapons') and weapon not in target['weapons']:continue
             if target.get('element') and target['element'] not in self.element_access.get(name,[element]):continue

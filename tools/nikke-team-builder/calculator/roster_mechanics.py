@@ -164,6 +164,18 @@ def remove(bm, ab, t):
 
 def instant(bm, eff, caster, t, value):
     stat = eff.get('stat')
+    if stat == 'heal_overcharge_discharge':
+        # IFAK's stored charge survives its buff expiry until the matching
+        # state_end event distributes that charge to every living ally.
+        charges = bm.state.setdefault('stored_healing_atk', {}).get(caster, {})
+        amount = charges.pop(eff.get('target_effect', ''), 0)
+        if not charges:
+            bm.state['stored_healing_atk'].pop(caster, None)
+        if amount > 0:
+            from calculator.timeline import _restore_hp
+            for name in bm._resolve_target(eff.get('target', 'self'), caster):
+                _restore_hp(bm, name, amount, t, caster)
+        return True
     if stat == 'buff_stack_remove':
         targets = set(bm._resolve_target(eff.get('target', 'self'), caster))
         for ab in list(bm._active):

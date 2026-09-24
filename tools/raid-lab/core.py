@@ -271,7 +271,7 @@ def validate_settings(s):
     out={'teams':number(s.get('teams',1),1,5,'Teams',True), 'duration':number(s.get('duration',180),30,180,'Duration'),
          'def':number(s.get('def',31784),0,1000000,'Enemy defence'), 'core_px':number(s.get('core_px',0),0,500,'Core size'),
          'level':number(s.get('level',400),1,1000,'Fixed level',True), 'budget':number(s.get('budget',6),3,16,'Search budget',True)}
-    for k,choices,default in [('element',['Any']+list(ELEMENT_KO),'Any'),('enemy_element',['Neutral']+list(ELEMENT_KO),'Neutral'),('playstyle',['auto','assisted'],'auto')]:
+    for k,choices,default in [('element',['Any']+list(ELEMENT_KO),'Any'),('enemy_element',['Neutral']+list(ELEMENT_KO),'Neutral'),('playstyle',['auto','assisted'],'auto'),('bunny_mode',['stance','engage'],'stance')]:
         out[k]=s.get(k,default)
         if out[k] not in choices: raise ValueError(f'Invalid {k}.')
     for k in ['cdr','healing','has_parts','fixed_level','require_critical_parts']: out[k]=s.get(k, k=='fixed_level') is True
@@ -331,6 +331,28 @@ def kit_search_attack(char,effects,meta):
     cooldown=max(20.,float(meta.get('burst_cooldown') or 40))
     burst_bonus=min(1.,math.sqrt(1+sum(burst_coefficients)/cooldown/2)-1)
     return attack*(1+burst_bonus)
+
+
+def apply_squad_controls(squad, settings):
+    """Use the same player inputs for search screens and manual simulations."""
+    if settings['playstyle'] == 'assisted':
+        tactics = spec.tactic_overrides('버충', [c['name'] for c in squad])
+        for char in squad:
+            char['control'] = spec.deep_merge(char.get('control', {}),
+                                            tactics.get(char['name'], {}).get('control', {}))
+    if settings.get('bunny_mode', 'stance') != 'engage':
+        return
+    bunnies = [c for c in squad if CAT[c['name']]['resource_id'] in (404, 405)]
+    if not bunnies:
+        return
+    # One charge hold switches both allies. Two holds would switch back again.
+    leader = min(bunnies, key=lambda c: CAT[c['name']]['resource_id'])
+    control = leader.setdefault('control', {})
+    # Tap input can latch before the hold begins and prevent a full charge.
+    # Keep the mode-switch operator on full-charge firing for this run.
+    control.pop('tap_fire', None)
+    control.pop('click', None)
+    control['sequence'] = [{'t': 0.0, 'action': 'hold', 'until': 2.2}]
 
 
 def heuristic(team,roster,s):
@@ -449,7 +471,7 @@ def attach_combat_assessment(entry):
                 {'name':'Element barrier','status':'modeled','detail':'The Electric barrier blocks off-element boss hits while active. Clearing summons removes it; core destruction separately disables subsequent protection waves.'},
                 {'name':'Circle QTE','status':'not applicable','detail':'This Museum variant uses summon clearing and an elemental barrier, not a timed circle QTE.'}]
             entry['mechanics']['summary']='Core timing, summon clearing, barrier damage and survival were simulated. Select the squad checks for the outcomes.'
-        if fight.get('model_id')=='raid-boss-runtime-v1':
+        if fight.get('model_id','').startswith(('raid-boss-runtime-','anomaly-source-runtime-')):
             checks=fight.get('checks',[])
             entry['mechanics']['checks'][:0]=[
                 {'name':'Interruption targets','status':'modeled','detail':f"{sum(c['status']=='passed' for c in checks)} of {len(checks)} observed checks passed using actual weapon hits and deadlines."},
@@ -476,7 +498,7 @@ def elemental_damage_report(entry,settings,catalog):
     total=max(1,entry['damage'])
     ranked=sorted(entry['members'],key=lambda n:entry['breakdown'].get(n,0),reverse=True)
     fight=entry.get('encounter_timeline') or {}
-    if fight.get('model_id')=='raid-boss-runtime-v1':
+    if fight.get('model_id','').startswith(('raid-boss-runtime-','anomaly-source-runtime-')):
         providers=[n for n in ranked if element in catalog[n]['barrier_elements']]
         return dict(element=element,providers=providers,status='modeled barrier access' if providers else 'missing element',assessment='modeled-barrier',
             criterion='Matching element access is required. Actual shots must clear the interruption targets before their deadlines; total team damage share is not substituted for the check.',
@@ -514,9 +536,7 @@ def evaluate_candidate(team,duration,detail,roster,s):
     overrides={n:copy.deepcopy(roster[n]['build']) for n in team}
     for b in overrides.values():b['level']=encounters.unit_level(b,s)
     squad=spec.build_squad(team,chars=overrides,no_layer=set(team))
-    if s['playstyle']=='assisted':
-        tactical=spec.tactic_overrides('버충',team)
-        for c in squad: c['control']=spec.deep_merge(c.get('control',{}),tactical.get(c['name'],{}).get('control',{}))
+    apply_squad_controls(squad,s)
     cfg=spec.build_config(squad,{'duration':duration,'rng_mode':'expected','burst_gauge_mode':'accumulate','burst_switch_delay':.5 if s['playstyle']=='auto' else .1})
     cfg.update(encounters.config(s,duration))
     # Alternating support routes are simulated, with the tested slot order
@@ -989,9 +1009,7 @@ def simulate_manual(ids,by,s):
     start=time.perf_counter(); chars={n:copy.deepcopy(by[n]['build']) for n in ids}
     for b in chars.values():b['level']=encounters.unit_level(b,s)
     squad=spec.build_squad(ids,chars=chars,no_layer=set(ids))
-    if s['playstyle']=='assisted':
-        tactics=spec.tactic_overrides('버충',ids)
-        for c in squad:c['control']=spec.deep_merge(c.get('control',{}),tactics.get(c['name'],{}).get('control',{}))
+    apply_squad_controls(squad,s)
     cfg=spec.build_config(squad,{'duration':s['duration'],'rng_mode':'expected','burst_gauge_mode':'accumulate','burst_switch_delay':.5 if s['playstyle']=='auto' else .1})
     cfg.update(encounters.config(s,s['duration']))
     if cfg.get('encounter_runtime'):cfg['encounter_runtime'].element_access={n:[ELEMENT_KO[x] for x in catalog[n]['barrier_elements']] for n in ids}

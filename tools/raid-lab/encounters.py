@@ -9,7 +9,7 @@ from pathlib import Path
 from bisect import bisect_right
 
 CHECKED = "2026-09-10"
-MODEL_REVISION = "complete-roster-v1"
+MODEL_REVISION = "anomaly-source-runtime-v7"
 MUSEUM_SOURCE = "https://gamewith.jp/nikke/article/show/573385"
 ADVANTAGE = {"Fire":"Wind", "Wind":"Iron", "Iron":"Electric", "Electric":"Water", "Water":"Fire"}
 
@@ -82,11 +82,11 @@ from raid_boss_combat import PROFILES as RAID_PROFILES
 for key in RAID_PROFILES:
     BY_ID[key]['automatic_mechanics']=True
     BY_ID[key]['status']='Automatic fight model'
-    if key.startswith('special-'):
+    if key.startswith(('special-','anomaly-')):
         p=BY_ID[key];data=RAID_PROFILES[key]
         p['enemy_element']={100001:'Fire',200001:'Water',300001:'Wind',400001:'Electric',500001:'Iron'}[data['monster']['ElementId'][0]]
         p['weakness']=next(k for k,v in ADVANTAGE.items() if v==p['enemy_element'])
-        p['checked_at']='2026-09-14'
+        p['checked_at']='2026-09-24' if key.startswith('anomaly-') else '2026-09-14'
         p['facts']={'unmodeled':['Exact spatial movement, projectile travel and incidental part hits','Gameplay calibration'],
                     'qte':'Actual circle HP and deadlines; boss-specific retaliation',
                     'survival':'Finite HP, cover, shields, healing and revival; stops on a squad wipe'}
@@ -122,6 +122,10 @@ GUIDANCE=json.loads((Path(__file__).parent/'boss-guidance.json').read_text(encod
 STATIC_DATA=json.loads((Path(__file__).parent/'boss-static-data.json').read_text(encoding='utf-8'))
 KRAKEN_STATIC=json.loads((Path(__file__).parent/'kraken-static-data.json').read_text(encoding='utf-8'))
 for key,guide in GUIDANCE['profiles'].items():
+    guide=copy.deepcopy(guide)
+    if key.startswith('anomaly-') and key in RAID_PROFILES:
+        guide['vulnerable_element']=BY_ID[key]['weakness']
+        guide['confidence']='Detailed boss simulation; damage and close team rankings remain approximate.'
     BY_ID[key]['guidance']=guide
     if guide.get('barrier_element'):BY_ID[key]['barrier_element']=guide['barrier_element']
 from special_guidance import GUIDES as SPECIAL_GUIDES

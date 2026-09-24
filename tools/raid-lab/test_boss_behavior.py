@@ -32,6 +32,30 @@ class Tests(unittest.TestCase):
         w=World();t=BehaviorTree(node(0,'Repeater',node(1,'Wait',seconds=2),SharedIntcount={'Int32mValue':2}),w)
         for time in [0,2,3,4]:self.assertEqual(t.advance(time),RUNNING)
         self.assertEqual(t.advance(5),SUCCESS)
+    def test_finite_repeater_preserves_last_failure_for_parent_fallback(self):
+        w=World()
+        repeat=node(1,'Repeater',node(2,'Fail'),SharedIntcount={'Int32mValue':2},
+                    SharedBoolendOnFailure={'BooleanmValue':False})
+        t=BehaviorTree(node(0,'Selector',repeat,node(3,'Pass')),w)
+        self.assertEqual(t.advance(0),RUNNING)
+        self.assertEqual(t.advance(1),SUCCESS)
+        self.assertEqual([i for i,_ in w.calls],[2,2,3])
+    def test_finite_repeater_failure_cancels_parallel_phase_guard(self):
+        w=World()
+        repeat=node(2,'Repeater',node(3,'Fail'),SharedIntcount={'Int32mValue':2})
+        t=BehaviorTree(node(0,'Parallel',node(1,'Wait',seconds=999),repeat),w)
+        self.assertEqual(t.advance(0),RUNNING)
+        self.assertEqual(t.advance(1),FAILURE)
+        self.assertEqual(w.cancelled,[1])
+    def test_parallel_complete_preserves_failure_and_cancels_running_child(self):
+        w=World()
+        t=BehaviorTree(node(0,'ParallelComplete',node(1,'Wait',seconds=10),node(2,'Fail')),w)
+        self.assertEqual(t.advance(0),FAILURE)
+        self.assertEqual(w.cancelled,[1])
+    def test_parallel_complete_simultaneous_results_use_authored_child_order(self):
+        for first,second,expected in [('Fail','Pass',FAILURE),('Pass','Fail',SUCCESS)]:
+            t=BehaviorTree(node(0,'ParallelComplete',node(1,first),node(2,second)),World())
+            self.assertEqual(t.advance(0),expected)
     def test_unknown_action_is_never_treated_as_success(self):
         t=BehaviorTree(node(0,'UnresolvedAttack'),StrictWorld())
         with self.assertRaises(UnsupportedBossAction):t.advance(0)

@@ -1,0 +1,3987 @@
+{
+  "schema": 1,
+  "static_record_verification": {
+    "client_version": "152.8.11",
+    "pack_sha256": "A119492898E5E5AEC9E07AE9E52E88F0B483A5F595C9728DCC19A4EF9CCD36F0",
+    "selected_records": 701,
+    "all_selected_records_match": true,
+    "original_profile_source_sha256": "D14690756E7E8D24CF13DF50A7DB62A6C932C28E7A759BA6E731FDFCF1E15A5B",
+    "provenance": "profile extracted from 151 source; selected records reverified against installed 152 pack"
+  },
+  "native_semantics": {
+    "marker_clone_suffix": "strip every trailing (Clone)",
+    "loop_attack_interval": "LoopStart <= marker time < LoopEnd",
+    "move_speed_scale": 0.01,
+    "move_acceleration_scale": 0.01,
+    "combat_zone_default": {
+      "slope": 1.5,
+      "max_z": 40.0,
+      "max_y": 0.5,
+      "predicate": "z > slope*x and z > -slope*x and z < max_z and y < max_y",
+      "native_method": "NK.Spot.Stage.NKCombatZone.IsIn RVA 102234800",
+      "native_constructor": "NK.Spot.Stage.NKCombatZone..ctor RVA 102234880"
+    },
+    "phase_action_terminal_status": "failure",
+    "phase_action_completion": "MonsterPrefabController.IsPlayingTimeLine == false",
+    "phase_current_phase_commit": "MonsterPrefabController.OnMonsterCutSceneEnd",
+    "phase_battle_clock": "Phase scene types 2 and 3 do not enter CampaignProcess play state 7; non-stop-tick phase assets consume ordinary battle time. Ultra directly measured advancing both Spot and Campaign clocks with 122 squad fire callbacks during a 2.992-second phase.",
+    "phase_spot_tick": "MonsterTimeLineControl.Play pauses SpotManagement only when MonsterCutSceneOption.isStopTick is true; only the excluded timeline control continues",
+    "phase_spot_tick_method": "MonsterTimeLineControl.Play RVA 0x62e0000; SpotManagement.UpdateSpot RVA 0x614c380",
+    "phase_combat_control": "BTContext.StopAllBT and MonsterContext.StopMove/StopFire cutscene handlers are guarded by scene type 4 (Dead), not phase types 2/3. Pending phase volleys remain scheduled; isPhaseAction waits for its timeline to finish.",
+    "ordinary_fire": {
+      "weapon_filter": "WeaponObjectEnum equality and WeaponData.IsDestroy == false",
+      "weapon_filter_method": "MonsterAttackLogic.<FireCastingV2>b__4_0 RVA 0x63d59b0",
+      "physical_hit_count": "SkillData.ShotCount * filtered prefab GetMuzzleCount total; recomputed after destroyed-part filtering at attack time",
+      "projectile_hp_divisor": "physical_hit_count",
+      "damage_coefficient": "CommonUtil.DoubleToLong(SkillValue01 / filtered muzzle_count) in Firing",
+      "instant_damage_shot_count": "table ShotCount in CalculateDamage",
+      "projectile_damage_shot_count": "1 in projectile caster data",
+      "sequence_timing": "global physical hit index * DelayTime",
+      "concurrence_timing": "one muzzle group per ShotCount index * DelayTime",
+      "fire_method": "MonsterAttackLogic.<Fire>d__6.MoveNext RVA 0x63d1b90",
+      "sequence_method": "MonsterAttackLogic.<SequenceFire>d__10.MoveNext RVA 0x63d2620",
+      "wait_method": "MonsterAttackLogic.<WaitFire>d__25.MoveNext RVA 0x63d6e40",
+      "parts_type_enum_source": "private/anomaly-audit/shared-source/parts-type-enum-current152.json",
+      "action_completion": "Attack.OnUpdate waits SpotMonster.IsAttack; Fire then waits GetShotTime and GetFireEndAnimTime after its final physical fire",
+      "attack_update_method": "Attack.OnUpdate RVA 0x6532710",
+      "animation_tail_method": "MonsterAttackLogic.<PlayAnimEnd>d__12.MoveNext RVA 0x63d23b0"
+    }
+  },
+  "profiles": {
+    "anomaly-ultra": {
+      "stage_id": 6302008,
+      "wave": {
+        "ground_point_asset": "point_grd_ultra_01",
+        "air_point_asset": "point_fly_ultra_01",
+        "sources": [
+          {
+            "asset": "point_grd_ultra_01",
+            "source": "private/anomaly-audit/shared-source/wave-points/ultra-grd.json"
+          },
+          {
+            "asset": "point_fly_ultra_01",
+            "source": "private/anomaly-audit/shared-source/wave-points/ultra-fly.json"
+          }
+        ]
+      },
+      "monster_speed_raw": 50,
+      "acceleration_time_raw": 400,
+      "points": {
+        "151": {
+          "x": 0.0,
+          "y": 10.0,
+          "z": 75.0
+        },
+        "301": {
+          "x": 0.0,
+          "y": -100.0,
+          "z": 35.0
+        }
+      },
+      "unresolved_point_indices": [],
+      "movement_nodes": [
+        {
+          "node_id": 196,
+          "type": "TeleportTo",
+          "disabled": false,
+          "point_index": 301,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0.1
+        },
+        {
+          "node_id": 204,
+          "type": "TeleportTo",
+          "disabled": false,
+          "point_index": 151,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0.1
+        },
+        {
+          "node_id": 210,
+          "type": "TeleportTo",
+          "disabled": false,
+          "point_index": 151,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0.1
+        },
+        {
+          "node_id": 216,
+          "type": "TeleportTo",
+          "disabled": false,
+          "point_index": 151,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0.1
+        },
+        {
+          "node_id": 222,
+          "type": "TeleportTo",
+          "disabled": false,
+          "point_index": 151,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0.1
+        },
+        {
+          "node_id": 229,
+          "type": "TeleportTo",
+          "disabled": false,
+          "point_index": 151,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0.1
+        }
+      ],
+      "phase": {
+        "model": {
+          "asset": "bbg006_phase02_model",
+          "duration_seconds": 3.0,
+          "duration_mode": 0,
+          "fixed_duration_seconds": 0.0,
+          "clip_end_seconds": [
+            3.0
+          ],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "completion_seconds": 3.0,
+        "stop_spot_tick": false,
+        "option_object": "bbg006_phase02_model",
+        "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json",
+        "runtime_observation": {
+          "client_version": "152.8.11",
+          "fixture": "Isolated client clone with squad HP-damage suppression and QTE-success override; natural boss phase event.",
+          "spot_start": 111.085472,
+          "spot_end": 114.077171,
+          "campaign_start": 110.993484,
+          "campaign_end": 113.985184,
+          "fire_callbacks": 122,
+          "source": "private/anomaly-audit/shared-source/ultra-phase-fire-long-trace.json"
+        }
+      },
+      "phase_nodes": [
+        {
+          "node_id": 171,
+          "timeline_type": "ChangePhase_2"
+        }
+      ],
+      "timelines": {
+        "8": {
+          "skill_id": 510638,
+          "asset": "bbg006_skill_05",
+          "casting_seconds": 0.5,
+          "delay_seconds": 0.5,
+          "duration": 1.7166666666666666,
+          "markers": [],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "4": {
+          "skill_id": 510637,
+          "asset": "bbg006_skill_04",
+          "casting_seconds": 5.5,
+          "delay_seconds": 0.5,
+          "duration": 5.366666666667,
+          "markers": [
+            {
+              "time": 1.0333333333333334,
+              "type": "SpotMonster/LoopStart(Clone)(Clone)",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.033333333333333,
+              "type": "SpotMonster/LoopEnd(Clone)(Clone)",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.466666666666667,
+              "type": "SpotMonster/Attack(Clone)(Clone)",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "1": {
+          "skill_id": 510634,
+          "asset": "bbg006_skill_01",
+          "casting_seconds": 3.0,
+          "delay_seconds": 0.5,
+          "duration": 5.866666666667,
+          "markers": [
+            {
+              "time": 1.3333333333333333,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.3333333333333335,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.8666666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "2": {
+          "skill_id": 510635,
+          "asset": "bbg006_skill_02",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.5,
+          "duration": 7.433333333333334,
+          "markers": [
+            {
+              "time": 1.5,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.8333333333333335,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.9499999999999966,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.183333333333334,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.4,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.583333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.766666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.983333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 5.2,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 5.416666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 5.666666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 5.8666666666666645,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "9": {
+          "skill_id": 510639,
+          "asset": "bbg006_skill_06",
+          "casting_seconds": 2.0,
+          "delay_seconds": 0.5,
+          "duration": 5.866666666666666,
+          "markers": [
+            {
+              "time": 2.85,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 3.066666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 3.283333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 3.5,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 3.716666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 3.933333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.15,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.366666666666666,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.583333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 4.8,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "10": {
+          "skill_id": 510640,
+          "asset": "bbg006_groggy",
+          "casting_seconds": 0.5,
+          "delay_seconds": 0.5,
+          "duration": 6.366666666666666,
+          "markers": [
+            {
+              "time": 1.4666666666666666,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.466666666666667,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "3": {
+          "skill_id": 510636,
+          "asset": "bbg006_skill_03",
+          "casting_seconds": 5.5,
+          "delay_seconds": 0.5,
+          "duration": 5.366666666667,
+          "markers": [
+            {
+              "time": 1.0333333333333334,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.033333333333333,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.466666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        }
+      },
+      "ordinary_fire": {
+        "510631": {
+          "skill_id": 510631,
+          "animation": "Shot05",
+          "actions": [
+            {
+              "node_id": 10,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 78,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 5,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject01",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 4,
+          "physical_hit_count": 20,
+          "last_fire_delay_seconds": 1.9000000000000001,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 2.0,
+          "animation_source": "private/anomaly-audit/bundles/bbg006_zeus_intercept_84f0ac3e6539bca213f97f7330637fdc.bundle",
+          "skill_value01_raw": 6000,
+          "damage_ratio_divisor": 4,
+          "damage_coefficient_raw": 1500,
+          "damage_shot_count": 5,
+          "per_hit_damage_ratio_raw": 300.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "bbg006_cover_ar",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_43",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_42",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_40",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_39",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "510632": {
+          "skill_id": 510632,
+          "animation": "Shot06",
+          "actions": [
+            {
+              "node_id": 243,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 280,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "ProjectileCurve",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.2,
+          "weapon_object": "WeaponObject03",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 10,
+          "physical_hit_count": 10,
+          "last_fire_delay_seconds": 1.8,
+          "shot_tail_seconds": 0.2,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 2.0,
+          "animation_source": "private/anomaly-audit/bundles/bbg006_zeus_intercept_84f0ac3e6539bca213f97f7330637fdc.bundle",
+          "skill_value01_raw": 11000,
+          "damage_ratio_divisor": 10,
+          "damage_coefficient_raw": 1100,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 1100.0,
+          "projectile_hp_ratio_raw": 10000,
+          "projectile_hp_ratio_divisor": 10,
+          "per_projectile_hp_ratio_raw": 1000.0,
+          "weapon_prefabs": [
+            {
+              "name": "bbg006_lpoisoncover_01",
+              "parts_type": 14,
+              "parts_type_enum": "Weapon_02",
+              "parts_type_name": "Weapon02",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_13",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_15",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_09",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_22",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_23",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_17",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_25",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_20",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_14",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_16",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        },
+        "510633": {
+          "skill_id": 510633,
+          "animation": "Shot07",
+          "actions": [
+            {
+              "node_id": 245,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 282,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "ProjectileCurve",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.2,
+          "weapon_object": "WeaponObject04",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 10,
+          "physical_hit_count": 10,
+          "last_fire_delay_seconds": 1.8,
+          "shot_tail_seconds": 0.2,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 2.0,
+          "animation_source": "private/anomaly-audit/bundles/bbg006_zeus_intercept_84f0ac3e6539bca213f97f7330637fdc.bundle",
+          "skill_value01_raw": 11000,
+          "damage_ratio_divisor": 10,
+          "damage_coefficient_raw": 1100,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 1100.0,
+          "projectile_hp_ratio_raw": 10000,
+          "projectile_hp_ratio_divisor": 10,
+          "per_projectile_hp_ratio_raw": 1000.0,
+          "weapon_prefabs": [
+            {
+              "name": "bbg006_rpoisoncover_01",
+              "parts_type": 15,
+              "parts_type_enum": "Weapon_03",
+              "parts_type_name": "Weapon03",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_28",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_11",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_27",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_12",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_29",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_36",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_30",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_35",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_34",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_26",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-bbg006_zeus_intercept-components.json"
+        }
+      },
+      "sources": {
+        "tree": "private/offline-assets/trees/bt_bbg006_InterceptAnomalous.json",
+        "combat_data": "raid-boss-combat-data.json"
+      }
+    },
+    "anomaly-indivilia": {
+      "stage_id": 6302007,
+      "wave": {
+        "ground_point_asset": "point_grd_indivilia_01",
+        "air_point_asset": "point_fly_indivilia_01",
+        "sources": [
+          {
+            "asset": "point_grd_indivilia_01",
+            "source": "private/anomaly-audit/shared-source/wave-points/indivilia-grd.json"
+          },
+          {
+            "asset": "point_fly_indivilia_01",
+            "source": "private/anomaly-audit/shared-source/wave-points/indivilia-fly.json"
+          }
+        ]
+      },
+      "monster_speed_raw": 150,
+      "acceleration_time_raw": 400,
+      "points": {
+        "1317": {
+          "x": 0.0,
+          "y": -5.0,
+          "z": 50.0
+        },
+        "153": {
+          "x": 0.0,
+          "y": 5.6,
+          "z": 60.0
+        },
+        "154": {
+          "x": 0.0,
+          "y": 3.59,
+          "z": 40.0
+        },
+        "301": {
+          "x": 0.0,
+          "y": -200.0,
+          "z": 35.0
+        }
+      },
+      "unresolved_point_indices": [],
+      "movement_nodes": [
+        {
+          "node_id": 45,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 154,
+          "using_axis_y": false,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 1.4,
+          "out_combat_zone_speed_rate": 3,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 166,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 189,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 301,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 196,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 200,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 206,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 301,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 213,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 217,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 223,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 301,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 230,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 234,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 240,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 301,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 247,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 251,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 257,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 301,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 264,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 268,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 274,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 301,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 281,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        },
+        {
+          "node_id": 285,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 1317,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0
+        }
+      ],
+      "jump_animation": {
+        "start_seconds": 0.7666667103767395,
+        "end_seconds": 1.2666668891906738,
+        "source": "private/anomaly-audit/shared-source/indivilia-jump-short-trace.json"
+      },
+      "phase": {
+        "model": {
+          "asset": "ebg003_2phase_intro_model",
+          "duration_seconds": 8.966666666666667,
+          "duration_mode": 0,
+          "fixed_duration_seconds": 0.0,
+          "clip_end_seconds": [
+            2.8333333333333335,
+            8.966666666666667,
+            2.8333333333333335,
+            8.966666666666667,
+            2.8333333333333335,
+            8.966666666666667,
+            1.8166666666666667,
+            8.966666666666667,
+            8.966666666666667,
+            8.966666666666667,
+            8.966666666666667,
+            8.966666666665
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "completion_seconds": 8.966666666666667,
+        "stop_spot_tick": true,
+        "option_object": "ebg003_2phase_intro",
+        "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json",
+        "map": {
+          "asset": "ebg003_1phase_intro_02_map",
+          "duration_seconds": 8.966666666666667,
+          "duration_mode": 0,
+          "fixed_duration_seconds": 0.0,
+          "clip_end_seconds": [
+            2.8,
+            8.966666666666667
+          ],
+          "source": "private/anomaly-audit/shared-source/maps/indivilia-map-components.json"
+        },
+        "runtime_observation": {
+          "client_version": "152.8.11",
+          "fixture": "Isolated client clone with squad HP-damage suppression and QTE-success override; natural boss phase event.",
+          "spot_start": 147.095886,
+          "spot_end": 147.095886,
+          "wall_seconds": 8.784,
+          "fire_callbacks": 2,
+          "boundary_note": "Two queued fire callbacks drained in the initial frozen Spot tick within 11 wall milliseconds; none during the rest of the paused interval. A prior full trace recorded zero boundary callbacks.",
+          "source": "private/anomaly-audit/shared-source/indivilia-native-score-rotation-trace.json"
+        }
+      },
+      "phase_nodes": [
+        {
+          "node_id": 162,
+          "timeline_type": "ChangePhase_2"
+        }
+      ],
+      "timelines": {
+        "11": {
+          "skill_id": 531466,
+          "asset": "ebg003_skill_05",
+          "casting_seconds": 2.0,
+          "delay_seconds": 0.0,
+          "duration": 7.833333333332,
+          "markers": [
+            {
+              "time": 2.6666666666666665,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 5.333333333333333,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 5.733333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "18": {
+          "skill_id": 531473,
+          "asset": "ebg003_anim_2phase_groggy_01",
+          "casting_seconds": 1.5,
+          "delay_seconds": 0.0,
+          "duration": 4.866666666666,
+          "markers": [
+            {
+              "time": 1.2333333333333334,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.8666666666666667,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "9": {
+          "skill_id": 531464,
+          "asset": "ebg003_anim_2phase_skil_02",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.0,
+          "duration": 5.066666666666666,
+          "markers": [
+            {
+              "time": 1.0,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.0,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.6166666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "16": {
+          "skill_id": 531471,
+          "asset": "ebg003_anim_2phase_skil_04",
+          "casting_seconds": 1.0,
+          "delay_seconds": 0.0,
+          "duration": 5.333333333333,
+          "markers": [
+            {
+              "time": 1.2,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.6,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.183333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "10": {
+          "skill_id": 531465,
+          "asset": "ebg003_anim_skill_04",
+          "casting_seconds": 2.0,
+          "delay_seconds": 0.0,
+          "duration": 8.333333333332,
+          "markers": [
+            {
+              "time": 2.6666666666666665,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 5.333333333333333,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 5.766666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "17": {
+          "skill_id": 531472,
+          "asset": "ebg003_anim_groggy",
+          "casting_seconds": 3.0,
+          "delay_seconds": 0.0,
+          "duration": 6.833333333332,
+          "markers": [
+            {
+              "time": 2.0,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 4.0,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "8": {
+          "skill_id": 531463,
+          "asset": "ebg003_anim_skill_03",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.0,
+          "duration": 6.333333333333,
+          "markers": [
+            {
+              "time": 2.0,
+              "type": "SpotMonster/LoopStart(Clone)(Clone)",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 4.0,
+              "type": "SpotMonster/LoopEnd(Clone)(Clone)",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 4.3,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "3": {
+          "skill_id": 531458,
+          "asset": "ebg003_anim_skill_02",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.0,
+          "duration": 6.166666666666667,
+          "markers": [
+            {
+              "time": 1.0,
+              "type": "SpotMonster/LoopStart(Clone)(Clone)",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.000000000000001,
+              "type": "SpotMonster/LoopEnd(Clone)(Clone)",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.3166666666666673,
+              "type": "SpotMonster/Attack(Clone)(Clone)",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "4": {
+          "skill_id": 531459,
+          "asset": "ebg003_anim_2phase_skil_01",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.0,
+          "duration": 4.5999999999989996,
+          "markers": [
+            {
+              "time": 0.9333333333333333,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 1.9333333333333333,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 2.45,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "15": {
+          "skill_id": 531470,
+          "asset": "ebg003_anim_2phase_skil_03",
+          "casting_seconds": 2.0,
+          "delay_seconds": 0.0,
+          "duration": 5.0999999999989996,
+          "markers": [
+            {
+              "time": 1.2,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.2,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.466666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 5
+            },
+            {
+              "time": 3.5833333333333335,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 4
+            },
+            {
+              "time": 3.65,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 3
+            },
+            {
+              "time": 3.85,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 2
+            },
+            {
+              "time": 3.9166666666666665,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 1
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "2": {
+          "skill_id": 531457,
+          "asset": "ebg003_anim_skill_01",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.0,
+          "duration": 6.166666666666667,
+          "markers": [
+            {
+              "time": 1.0,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.0000000000000004,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 3.316666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "12": {
+          "skill_id": 531467,
+          "asset": "ebg003_anim_skill_06",
+          "casting_seconds": 5.0,
+          "delay_seconds": 0.0,
+          "duration": 8.833333333333,
+          "markers": [
+            {
+              "time": 2.6666666666666665,
+              "type": "SpotMonster/LoopStart(Clone)(Clone)",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 5.333333333333333,
+              "type": "SpotMonster/LoopEnd(Clone)(Clone)",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 5.966666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        }
+      },
+      "ordinary_fire": {
+        "531456": {
+          "skill_id": 531456,
+          "animation": "Shot01",
+          "actions": [
+            {
+              "node_id": 47,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 139,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 5,
+          "table_casting_seconds": 0.0,
+          "effective_casting_seconds": 0.800000011920929,
+          "casting_source": "private/anomaly-audit/shared-source/indivilia-jump-short-trace.json",
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject07",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 3,
+          "physical_hit_count": 15,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 1.0,
+          "fire_end_animation_clip": "ebg003_1phase_shot_01",
+          "fire_end_animation_trigger": "TShot_01",
+          "action_completion_seconds": 1.800000011920929,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 1500,
+          "damage_ratio_divisor": 3,
+          "damage_coefficient_raw": 500,
+          "damage_shot_count": 5,
+          "per_hit_damage_ratio_raw": 100.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "ebg003_1phase_vulcan_01",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_06",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_08",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_07",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531460": {
+          "skill_id": 531460,
+          "animation": "Shot05",
+          "actions": [
+            {
+              "node_id": 55,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 62,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 69,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 76,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 83,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 93,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 100,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 107,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 114,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 121,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject07",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 3,
+          "physical_hit_count": 3,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 600,
+          "damage_ratio_divisor": 3,
+          "damage_coefficient_raw": 200,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 200.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "ebg003_1phase_vulcan_01",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_06",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_08",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_07",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531461": {
+          "skill_id": 531461,
+          "animation": "Shot06",
+          "actions": [
+            {
+              "node_id": 56,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 63,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 70,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 77,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 84,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 94,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 101,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 108,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 115,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 122,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject03",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 200,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 200,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 200.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_05",
+              "parts_type": 13,
+              "parts_type_enum": "Weapon_01",
+              "parts_type_name": "Weapon01",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_05",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531462": {
+          "skill_id": 531462,
+          "animation": "Shot07",
+          "actions": [
+            {
+              "node_id": 57,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 64,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 71,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 78,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 85,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 95,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 102,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 109,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 116,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 123,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject02",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 200,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 200,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 200.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_04",
+              "parts_type": 14,
+              "parts_type_enum": "Weapon_02",
+              "parts_type_name": "Weapon02",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_04",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531468": {
+          "skill_id": 531468,
+          "animation": "Shot13",
+          "actions": [
+            {
+              "node_id": 318,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 324,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 330,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 336,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 342,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 351,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 357,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 363,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 369,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 375,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject13",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 3,
+          "physical_hit_count": 3,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 600,
+          "damage_ratio_divisor": 3,
+          "damage_coefficient_raw": 200,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 200.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "ebg003_2phase_body_vulcanl_01",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_22",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_21",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_20",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531469": {
+          "skill_id": 531469,
+          "animation": "Shot14",
+          "actions": [
+            {
+              "node_id": 319,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 325,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 331,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 337,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 343,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 352,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 358,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 364,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 370,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 376,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject14",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 600,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 600,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 600.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_23",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_23",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531474": {
+          "skill_id": 531474,
+          "animation": "Shot19",
+          "actions": [
+            {
+              "node_id": 306,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "ProjectileCurve",
+          "shot_timing": "Sequence",
+          "shot_count": 3,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject10",
+          "weapon_prefab_count": 6,
+          "muzzle_count": 6,
+          "physical_hit_count": 18,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 3000,
+          "damage_ratio_divisor": 6,
+          "damage_coefficient_raw": 500,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 500.0,
+          "projectile_hp_ratio_raw": 300,
+          "projectile_hp_ratio_divisor": 18,
+          "per_projectile_hp_ratio_raw": 16.666666666666668,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_13",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_13",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_muzzle_fire_16",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_16",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_muzzle_fire_11",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_11",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_muzzle_fire_14",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_14",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_muzzle_fire_12",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_12",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_muzzle_fire_15",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_15",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531481": {
+          "skill_id": 531481,
+          "animation": "Shot28",
+          "actions": [
+            {
+              "node_id": 302,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 5,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject13",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 3,
+          "physical_hit_count": 15,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 2000,
+          "damage_ratio_divisor": 3,
+          "damage_coefficient_raw": 667,
+          "damage_shot_count": 5,
+          "per_hit_damage_ratio_raw": 133.4,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "ebg003_2phase_body_vulcanl_01",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_22",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_21",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_20",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        },
+        "531482": {
+          "skill_id": 531482,
+          "animation": "Shot30",
+          "actions": [
+            {
+              "node_id": 180,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 181,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 182,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 183,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 184,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.0,
+          "weapon_object": "WeaponObject13",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 3,
+          "physical_hit_count": 3,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.0,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.0,
+          "animation_source": "private/anomaly-audit/bundles/ebg003_anmi_intercept_2b4bdbe537fa1efccec288d02bd51de1.bundle",
+          "skill_value01_raw": 3000,
+          "damage_ratio_divisor": 3,
+          "damage_coefficient_raw": 1000,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 1000.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "ebg003_2phase_body_vulcanl_01",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_22",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_21",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_20",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-ebg003_anmi_intercept-components.json"
+        }
+      },
+      "sources": {
+        "tree": "private/offline-assets/trees/bt_ebg003_anmi_intercept_2.json",
+        "combat_data": "raid-boss-combat-data.json"
+      }
+    },
+    "anomaly-mirror-container": {
+      "stage_id": 6302006,
+      "wave": {
+        "ground_point_asset": "point_grd_mirrorcontainer_001",
+        "air_point_asset": "point_fly_mirrorcontainer_001",
+        "sources": [
+          {
+            "asset": "point_grd_mirrorcontainer_001",
+            "source": "private/anomaly-audit/shared-source/wave-points/mirror-container-grd.json"
+          },
+          {
+            "asset": "point_fly_mirrorcontainer_001",
+            "source": "private/anomaly-audit/shared-source/wave-points/mirror-container-fly.json"
+          }
+        ]
+      },
+      "monster_speed_raw": 150,
+      "acceleration_time_raw": 400,
+      "points": {
+        "202": {
+          "x": 8.0,
+          "y": -8.0,
+          "z": 55.0
+        },
+        "203": {
+          "x": 8.0,
+          "y": 10.0,
+          "z": 55.0
+        },
+        "204": {
+          "x": -8.0,
+          "y": -8.0,
+          "z": 55.0
+        },
+        "205": {
+          "x": -8.0,
+          "y": 10.0,
+          "z": 55.0
+        },
+        "251": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 65.0
+        },
+        "252": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 55.0
+        },
+        "254": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 75.0
+        },
+        "255": {
+          "x": 0.0,
+          "y": -5.0,
+          "z": 75.0
+        },
+        "264": {
+          "x": 0.0,
+          "y": 130.0,
+          "z": 90.0
+        }
+      },
+      "unresolved_point_indices": [],
+      "movement_nodes": [
+        {
+          "node_id": 4,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 254,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 0.2
+        },
+        {
+          "node_id": 10,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 251,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 2,
+          "out_combat_zone_speed_rate": 3,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 76,
+          "type": "MoveToVer2",
+          "disabled": true,
+          "point_index": 254,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 2,
+          "out_combat_zone_speed_rate": 3,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 91,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 264,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 94,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 97,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 101,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 264,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 104,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 107,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 111,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 264,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 114,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 117,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 121,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 264,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 124,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 127,
+          "type": "TeleportToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": null,
+          "tolerance": null,
+          "in_combat_zone_speed_rate": null,
+          "out_combat_zone_speed_rate": null,
+          "teleport_seconds": 1
+        },
+        {
+          "node_id": 173,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 202,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 5,
+          "out_combat_zone_speed_rate": 5,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 187,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 203,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 5,
+          "out_combat_zone_speed_rate": 5,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 201,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 204,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 5,
+          "out_combat_zone_speed_rate": 5,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 215,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 205,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 5,
+          "out_combat_zone_speed_rate": 5,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 225,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 252,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 4,
+          "out_combat_zone_speed_rate": 4,
+          "teleport_seconds": null
+        },
+        {
+          "node_id": 238,
+          "type": "MoveToVer2",
+          "disabled": false,
+          "point_index": 255,
+          "using_axis_y": true,
+          "tolerance": 1,
+          "in_combat_zone_speed_rate": 5,
+          "out_combat_zone_speed_rate": 5,
+          "teleport_seconds": null
+        }
+      ],
+      "phase": {
+        "model": {
+          "asset": "xba001_skill_03_phase2_model",
+          "duration_seconds": 5.0,
+          "duration_mode": 0,
+          "fixed_duration_seconds": 0.0,
+          "clip_end_seconds": [
+            5.0
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "completion_seconds": 5.0,
+        "stop_spot_tick": false,
+        "option_object": "xba001_phase02",
+        "source": "private/offline-assets/raid-xba001_psid_intercept-components.json",
+        "runtime_observation": {
+          "client_version": "152.8.11",
+          "fixture": "Isolated client clone with squad HP-damage suppression and QTE-success override; natural boss phase event.",
+          "spot_start": 67.481827,
+          "spot_end": 72.466324,
+          "campaign_start": 67.396835,
+          "campaign_end": 72.381332,
+          "fire_callbacks": 186,
+          "source": "private/anomaly-audit/shared-source/mirror-native-phase-score-trace.json"
+        }
+      },
+      "phase_nodes": [
+        {
+          "node_id": 134,
+          "timeline_type": "ChangePhase_2"
+        }
+      ],
+      "timelines": {
+        "24": {
+          "skill_id": 520684,
+          "asset": "xba001_skill_groggy_06",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.0,
+          "duration": 8.666666666666,
+          "markers": [
+            {
+              "time": 2.6666666666666665,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 5.333333333333333,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "12": {
+          "skill_id": 520672,
+          "asset": "xba001_skill_04",
+          "casting_seconds": 5.0,
+          "delay_seconds": 0.1,
+          "duration": 8.499999999999,
+          "markers": [
+            {
+              "time": 2.3333333333333335,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.716666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 3
+            },
+            {
+              "time": 3.1333333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 2
+            },
+            {
+              "time": 3.55,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 5
+            },
+            {
+              "time": 3.9166666666666665,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 1
+            },
+            {
+              "time": 4.299999999999999,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 4
+            },
+            {
+              "time": 4.666666666666667,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "13": {
+          "skill_id": 520673,
+          "asset": "xba001_skill_04",
+          "casting_seconds": 5.0,
+          "delay_seconds": 0.1,
+          "duration": 8.499999999999,
+          "markers": [
+            {
+              "time": 2.3333333333333335,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.716666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 3
+            },
+            {
+              "time": 3.1333333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 2
+            },
+            {
+              "time": 3.55,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 5
+            },
+            {
+              "time": 3.9166666666666665,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 1
+            },
+            {
+              "time": 4.299999999999999,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 4
+            },
+            {
+              "time": 4.666666666666667,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "14": {
+          "skill_id": 520674,
+          "asset": "xba001_skill_04",
+          "casting_seconds": 5.0,
+          "delay_seconds": 0.1,
+          "duration": 8.499999999999,
+          "markers": [
+            {
+              "time": 2.3333333333333335,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.716666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 3
+            },
+            {
+              "time": 3.1333333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 2
+            },
+            {
+              "time": 3.55,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 5
+            },
+            {
+              "time": 3.9166666666666665,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 1
+            },
+            {
+              "time": 4.299999999999999,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 4
+            },
+            {
+              "time": 4.666666666666667,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "15": {
+          "skill_id": 520675,
+          "asset": "xba001_skill_04",
+          "casting_seconds": 5.0,
+          "delay_seconds": 0.1,
+          "duration": 8.499999999999,
+          "markers": [
+            {
+              "time": 2.3333333333333335,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 2.716666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 3
+            },
+            {
+              "time": 3.1333333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 2
+            },
+            {
+              "time": 3.55,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 5
+            },
+            {
+              "time": 3.9166666666666665,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 1
+            },
+            {
+              "time": 4.299999999999999,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 4
+            },
+            {
+              "time": 4.666666666666667,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "9": {
+          "skill_id": 520669,
+          "asset": "xba001_skill_01",
+          "casting_seconds": 3.0,
+          "delay_seconds": 0.5,
+          "duration": 7.166666666666,
+          "markers": [
+            {
+              "time": 1.6666666666666667,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.3333333333333335,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 5.266666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 5.6,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 5.933333333333334,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "10": {
+          "skill_id": 520670,
+          "asset": "xba001_skill_02",
+          "casting_seconds": 3.0,
+          "delay_seconds": 1.0,
+          "duration": 7.166666666666667,
+          "markers": [
+            {
+              "time": 2.0166666666666666,
+              "type": "SpotMonster/LoopStart(Clone)(Clone)(Clone)(Clone)",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 3.6666666666666665,
+              "type": "SpotMonster/LoopEnd(Clone)(Clone)(Clone)(Clone)",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 6.533333333333333,
+              "type": "SpotMonster/Attack(Clone)(Clone)(Clone)(Clone)",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "16": {
+          "skill_id": 520676,
+          "asset": "xba001_skill_05",
+          "casting_seconds": 4.0,
+          "delay_seconds": 1.0,
+          "duration": 10.333333333332,
+          "markers": [
+            {
+              "time": 3.6666666666666665,
+              "type": "SpotMonster/LoopStart(Clone)(Clone)",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 6.0,
+              "type": "SpotMonster/LoopEnd(Clone)(Clone)",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 7.533333333333333,
+              "type": "SpotMonster/Attack(Clone)(Clone)",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 7.85,
+              "type": "SpotMonster/Attack(Clone)(Clone)",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            },
+            {
+              "time": 8.133333333333333,
+              "type": "SpotMonster/Attack(Clone)(Clone)",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        }
+      },
+      "ordinary_fire": {
+        "520661": {
+          "skill_id": 520661,
+          "animation": "Shot01",
+          "actions": [
+            {
+              "node_id": 7,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 79,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "ProjectileCurve",
+          "shot_timing": "ConcurrenceGroup",
+          "shot_count": 5,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject18",
+          "weapon_prefab_count": 2,
+          "muzzle_count": 2,
+          "physical_hit_count": 10,
+          "last_fire_delay_seconds": 0.4,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.7666667103767395,
+          "fire_end_animation_clip": "xba001_shot_01",
+          "fire_end_animation_trigger": "TShot_01",
+          "action_completion_seconds": 1.2666667103767395,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 1200,
+          "damage_ratio_divisor": 2,
+          "damage_coefficient_raw": 600,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 600.0,
+          "projectile_hp_ratio_raw": 10000,
+          "projectile_hp_ratio_divisor": 10,
+          "per_projectile_hp_ratio_raw": 1000.0,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_19",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_19",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_muzzle_fire_18",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_18",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520662": {
+          "skill_id": 520662,
+          "animation": "Shot06",
+          "actions": [
+            {
+              "node_id": 23,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject07",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.1,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_03",
+              "parts_type": 13,
+              "parts_type_enum": "Weapon_01",
+              "parts_type_name": "Weapon01",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_03",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520663": {
+          "skill_id": 520663,
+          "animation": "Shot07",
+          "actions": [
+            {
+              "node_id": 33,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject08",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.1,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_02",
+              "parts_type": 14,
+              "parts_type_enum": "Weapon_02",
+              "parts_type_name": "Weapon02",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_02",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520664": {
+          "skill_id": 520664,
+          "animation": "Shot08",
+          "actions": [
+            {
+              "node_id": 43,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject09",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.1,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_01",
+              "parts_type": 15,
+              "parts_type_enum": "Weapon_03",
+              "parts_type_name": "Weapon03",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_01",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520665": {
+          "skill_id": 520665,
+          "animation": "Shot03",
+          "actions": [
+            {
+              "node_id": 53,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject10",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.1,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_04",
+              "parts_type": 16,
+              "parts_type_enum": "Weapon_04",
+              "parts_type_name": "Weapon04",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_04",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520666": {
+          "skill_id": 520666,
+          "animation": "Shot04",
+          "actions": [
+            {
+              "node_id": 63,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject11",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.1,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_05",
+              "parts_type": 17,
+              "parts_type_enum": "Weapon_05",
+              "parts_type_name": "Weapon05",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_05",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520667": {
+          "skill_id": 520667,
+          "animation": "Shot05",
+          "actions": [
+            {
+              "node_id": 73,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject12",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.1,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_06",
+              "parts_type": 18,
+              "parts_type_enum": "Weapon_06",
+              "parts_type_name": "Weapon06",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_06",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520668": {
+          "skill_id": 520668,
+          "animation": "Shot02",
+          "actions": [
+            {
+              "node_id": 78,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 6,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject17",
+          "weapon_prefab_count": 2,
+          "muzzle_count": 2,
+          "physical_hit_count": 12,
+          "last_fire_delay_seconds": 1.1,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.7333333492279053,
+          "fire_end_animation_clip": "xba001_shot_03",
+          "fire_end_animation_trigger": "TShot_02",
+          "action_completion_seconds": 1.9333333492279055,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 1100,
+          "damage_ratio_divisor": 2,
+          "damage_coefficient_raw": 550,
+          "damage_shot_count": 6,
+          "per_hit_damage_ratio_raw": 91.66666666666667,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_muzzle_fire_21",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_21",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_muzzle_fire_20",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_20",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520677": {
+          "skill_id": 520677,
+          "animation": "Shot17",
+          "actions": [
+            {
+              "node_id": 158,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 227,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 4,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject06",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 4,
+          "last_fire_delay_seconds": 0.30000000000000004,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.4,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 1450,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 1450,
+          "damage_shot_count": 4,
+          "per_hit_damage_ratio_raw": 362.5,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "xba001_head",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_17",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520678": {
+          "skill_id": 520678,
+          "animation": "Shot18",
+          "actions": [
+            {
+              "node_id": 162,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 241,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "ProjectileCurve",
+          "shot_timing": "Concurrence",
+          "shot_count": 1,
+          "delay_seconds": 0.5,
+          "weapon_object": "WeaponObject01",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.5,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.5,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 15000,
+          "projectile_hp_ratio_divisor": 1,
+          "per_projectile_hp_ratio_raw": 15000.0,
+          "weapon_prefabs": [
+            {
+              "name": "xba001_lbarms_rwp_crystal_02",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_11",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        },
+        "520679": {
+          "skill_id": 520679,
+          "animation": "Shot19",
+          "actions": [
+            {
+              "node_id": 165,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 244,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "ProjectileCurve",
+          "shot_timing": "Concurrence",
+          "shot_count": 1,
+          "delay_seconds": 0.5,
+          "weapon_object": "WeaponObject02",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 1,
+          "physical_hit_count": 1,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.5,
+          "fire_end_animation_seconds": 0.0,
+          "fire_end_animation_clip": null,
+          "fire_end_animation_trigger": null,
+          "action_completion_seconds": 0.5,
+          "animation_source": "private/anomaly-audit/bundles/xba001_psid_intercept_116fb3214a9c27c894dcda543f92254f.bundle",
+          "skill_value01_raw": 2160,
+          "damage_ratio_divisor": 1,
+          "damage_coefficient_raw": 2160,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 2160.0,
+          "projectile_hp_ratio_raw": 15000,
+          "projectile_hp_ratio_divisor": 1,
+          "per_projectile_hp_ratio_raw": 15000.0,
+          "weapon_prefabs": [
+            {
+              "name": "xba001_lbarms_lwp_crystal_02",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_12",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-xba001_psid_intercept-components.json"
+        }
+      },
+      "sources": {
+        "tree": "private/offline-assets/trees/bt_xba001_psid_intercept.json",
+        "combat_data": "raid-boss-combat-data.json"
+      }
+    },
+    "anomaly-harvester": {
+      "stage_id": 6302010,
+      "wave": {
+        "ground_point_asset": "point_grd_harvester_01",
+        "air_point_asset": "point_fly_harvester_01",
+        "sources": [
+          {
+            "asset": "point_grd_harvester_01_v2",
+            "source": "private/anomaly-audit/shared-source/wave-points/harvester-grd.json"
+          },
+          {
+            "asset": "point_fly_harvester_01",
+            "source": "private/anomaly-audit/shared-source/wave-points/harvester-fly.json"
+          }
+        ]
+      },
+      "monster_speed_raw": 300,
+      "acceleration_time_raw": 400,
+      "points": {},
+      "unresolved_point_indices": [],
+      "movement_nodes": [],
+      "phase": {
+        "model": {
+          "asset": "bbg001_2phase",
+          "duration_seconds": 0.016666666666666666,
+          "duration_mode": 1,
+          "fixed_duration_seconds": 0.016666666666666666,
+          "clip_end_seconds": [
+            0.08333333333333333
+          ],
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        },
+        "completion_seconds": 0.016666666666666666,
+        "stop_spot_tick": false,
+        "option_object": "bbg001_phase002_appearance_model",
+        "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json",
+        "runtime_observation": {
+          "client_version": "152.8.11",
+          "fixture": "Isolated client clone with squad HP-damage suppression and QTE-success override; natural boss phase event.",
+          "spot_start": 102.425331,
+          "spot_end": 102.425331,
+          "campaign_start": 102.33934,
+          "campaign_end": 102.33934,
+          "wall_seconds": 0.005,
+          "fire_callbacks": 1,
+          "boundary_note": "Authored fixed duration is 1/60 second. Start and end were observed within one Spot tick.",
+          "source": "private/anomaly-audit/shared-source/harvester-native-phase-score-trace.json"
+        }
+      },
+      "phase_nodes": [
+        {
+          "node_id": 14,
+          "timeline_type": "ChangePhase_2"
+        },
+        {
+          "node_id": 134,
+          "timeline_type": "ChangePhase_2"
+        }
+      ],
+      "timelines": {
+        "7": {
+          "skill_id": 510133,
+          "asset": "bbg001_shot_07_leg",
+          "casting_seconds": 3.0,
+          "delay_seconds": 0.5,
+          "duration": 5.966666666666667,
+          "markers": [
+            {
+              "time": 1.0666666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        },
+        "4": {
+          "skill_id": 510134,
+          "asset": "bbg001_shot_07_Laser",
+          "casting_seconds": 3.0,
+          "delay_seconds": 0.5,
+          "duration": 2.466666666666667,
+          "markers": [
+            {
+              "time": 1.2666666666666666,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 1
+            },
+            {
+              "time": 1.3166666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 2
+            },
+            {
+              "time": 1.3666666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 3
+            },
+            {
+              "time": 1.4166666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 4
+            },
+            {
+              "time": 1.4666666666666666,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 5
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        },
+        "6": {
+          "skill_id": 510132,
+          "asset": "bbg001_shot_06_Flash",
+          "casting_seconds": 3.0,
+          "delay_seconds": 0.5,
+          "duration": 9.033333333333333,
+          "markers": [
+            {
+              "time": 4.35,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 0
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        },
+        "5": {
+          "skill_id": 510131,
+          "asset": "bbg001_shot_05_laser",
+          "casting_seconds": 0.0,
+          "delay_seconds": 0.5,
+          "duration": 7.516666666666667,
+          "markers": [
+            {
+              "time": 1.5666666666666667,
+              "type": "SpotMonster/LoopStart",
+              "kind": "LoopStart",
+              "marker_class": "NKSpotMonsterLoopStartMarker"
+            },
+            {
+              "time": 4.966666666666667,
+              "type": "SpotMonster/LoopEnd",
+              "kind": "LoopEnd",
+              "marker_class": "NKSpotMonsterLoopEndMarker"
+            },
+            {
+              "time": 6.216666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 1
+            },
+            {
+              "time": 6.266666666666667,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 2
+            },
+            {
+              "time": 6.316666666666666,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 3
+            },
+            {
+              "time": 6.333333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 4
+            },
+            {
+              "time": 6.383333333333333,
+              "type": "SpotMonster/Attack",
+              "kind": "Attack",
+              "marker_class": "NKSpotMonsterAttackMarker",
+              "target": 5
+            }
+          ],
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        }
+      },
+      "ordinary_fire": {
+        "510128": {
+          "skill_id": 510128,
+          "animation": "Shot01",
+          "actions": [
+            {
+              "node_id": 57,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 113,
+              "action": "AttackV2"
+            },
+            {
+              "node_id": 150,
+              "action": "AttackV2"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Sequence",
+          "shot_count": 5,
+          "delay_seconds": 0.1,
+          "weapon_object": "WeaponObject01",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 3,
+          "physical_hit_count": 15,
+          "last_fire_delay_seconds": 1.4000000000000001,
+          "shot_tail_seconds": 0.1,
+          "fire_end_animation_seconds": 0.4333333671092987,
+          "fire_end_animation_clip": "bbg001_shot_fire_01",
+          "fire_end_animation_trigger": "TShot_01",
+          "action_completion_seconds": 1.933333367109299,
+          "animation_source": "private/anomaly-audit/bundles/bbg001_hsta_intercept_1028dbb3feeebebc4cac0a28ac3ad848.bundle",
+          "skill_value01_raw": 3000,
+          "damage_ratio_divisor": 3,
+          "damage_coefficient_raw": 1000,
+          "damage_shot_count": 5,
+          "per_hit_damage_ratio_raw": 200.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_vulcan",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_01 1",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_02 1",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_03 1",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        },
+        "510129": {
+          "skill_id": 510129,
+          "animation": "Shot02",
+          "actions": [
+            {
+              "node_id": 64,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 116,
+              "action": "AttackV2"
+            }
+          ],
+          "fire_type": "Instant",
+          "shot_timing": "Concurrence",
+          "shot_count": 1,
+          "delay_seconds": 0.5,
+          "weapon_object": "WeaponObject02",
+          "weapon_prefab_count": 1,
+          "muzzle_count": 7,
+          "physical_hit_count": 7,
+          "last_fire_delay_seconds": 0.0,
+          "shot_tail_seconds": 0.5,
+          "fire_end_animation_seconds": 0.6000000238418579,
+          "fire_end_animation_clip": "bbg001_shot_fire_02",
+          "fire_end_animation_trigger": "TShot_02",
+          "action_completion_seconds": 1.100000023841858,
+          "animation_source": "private/anomaly-audit/bundles/bbg001_hsta_intercept_1028dbb3feeebebc4cac0a28ac3ad848.bundle",
+          "skill_value01_raw": 2000,
+          "damage_ratio_divisor": 7,
+          "damage_coefficient_raw": 286,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 286.0,
+          "projectile_hp_ratio_raw": 0,
+          "projectile_hp_ratio_divisor": null,
+          "per_projectile_hp_ratio_raw": null,
+          "weapon_prefabs": [
+            {
+              "name": "socket_laser",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_03 2",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_05",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_06",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_04 1",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_01 2",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_02 2",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_11",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        },
+        "510130": {
+          "skill_id": 510130,
+          "animation": "Shot03",
+          "actions": [
+            {
+              "node_id": 71,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 119,
+              "action": "AttackV2"
+            },
+            {
+              "node_id": 175,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 176,
+              "action": "AttackV3"
+            },
+            {
+              "node_id": 177,
+              "action": "AttackV3"
+            }
+          ],
+          "fire_type": "ProjectileCurve",
+          "shot_timing": "Sequence",
+          "shot_count": 1,
+          "delay_seconds": 0.5,
+          "weapon_object": "WeaponObject03",
+          "weapon_prefab_count": 2,
+          "muzzle_count": 8,
+          "physical_hit_count": 8,
+          "last_fire_delay_seconds": 3.5,
+          "shot_tail_seconds": 0.5,
+          "fire_end_animation_seconds": 0.46666669845581055,
+          "fire_end_animation_clip": "bbg001_shot_fire_03",
+          "fire_end_animation_trigger": "TShot_03",
+          "action_completion_seconds": 4.4666666984558105,
+          "animation_source": "private/anomaly-audit/bundles/bbg001_hsta_intercept_1028dbb3feeebebc4cac0a28ac3ad848.bundle",
+          "skill_value01_raw": 2500,
+          "damage_ratio_divisor": 8,
+          "damage_coefficient_raw": 313,
+          "damage_shot_count": 1,
+          "per_hit_damage_ratio_raw": 313.0,
+          "projectile_hp_ratio_raw": 15000,
+          "projectile_hp_ratio_divisor": 8,
+          "per_projectile_hp_ratio_raw": 1875.0,
+          "weapon_prefabs": [
+            {
+              "name": "socket_luncher1",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_03",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_031",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_04",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_041",
+                  "active": true
+                }
+              ]
+            },
+            {
+              "name": "socket_luncher",
+              "parts_type": 6,
+              "parts_type_enum": "Body",
+              "parts_type_name": "Body",
+              "component_enabled": true,
+              "game_object_active": true,
+              "muzzles": [
+                {
+                  "name": "socket_muzzle_fire_01",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_011",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_02",
+                  "active": true
+                },
+                {
+                  "name": "socket_muzzle_fire_021",
+                  "active": true
+                }
+              ]
+            }
+          ],
+          "all_weapon_components_enabled": true,
+          "all_weapon_gameobjects_active": true,
+          "source": "private/offline-assets/raid-bbg001_hsta_intercept-components.json"
+        }
+      },
+      "sources": {
+        "tree": "private/offline-assets/trees/bt_bbg001_intercept.json",
+        "combat_data": "raid-boss-combat-data.json"
+      }
+    }
+  }
+}
