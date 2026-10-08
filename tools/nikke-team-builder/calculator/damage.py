@@ -42,6 +42,7 @@ hit_type 딕셔너리:
 from __future__ import annotations
 
 import random
+from .recovered_combat import double_to_long
 
 DEFAULT_ENEMY_DEF = 31784.0
 
@@ -331,11 +332,13 @@ def calc_damage(
             f"  ①계수={f1:.4f}%  ②공방차={f2:,.1f}"
             f"  ③보너스={f3:.4f}(크리={f'기대 {crit_frac:.3f}' if expected else is_crit})"
             f"  ④차지={f4:.4f}  ⑤유형={f5:.4f}  ⑥받는={f6:.4f}  ⑦코드={f7:.4f}"
-            f"  → {max(round(damage), 1):,}"
+            f"  → {max(double_to_long(damage), 1):,}"
         )
 
     # 공격력 < 방어력이면 f2=0 → 최소 1 보장
-    return {"damage": max(round(damage), 1), "is_crit": is_crit, "crit_frac": crit_frac}
+    # Original CommonUtil.DoubleToLong (0x06156DA0), checked against the
+    # installed DLL. Python round() incorrectly rounds positive half ties down.
+    return {"damage": max(double_to_long(damage), 1), "is_crit": is_crit, "crit_frac": crit_frac}
 
 
 def calc_damage_avg(

@@ -341,6 +341,7 @@ _BOOL_BUFF_KEYS = frozenset([
 
 # get_buffs 실행 계획의 스텝 종류 (`BuffManager._build_plan` 참고)
 _PLAN_ADD, _PLAN_CRIT, _PLAN_FLAG, _PLAN_LIVE, _PLAN_QUANT, _PLAN_CDMG = 0, 1, 2, 3, 4, 5
+_PLAN_UNTIL = 6
 
 # 계획 캐시 감사 모드. `NIKKE_BUFF_AUDIT=1`이면 매 조회마다 계획을 다시 만들어 캐시와
 # 대조하고, 다르면 즉시 예외를 던진다 (조용히 틀리는 대신 터진다).
@@ -570,7 +571,7 @@ class BuffManager:
         # handler(kind, name, caster, target, t, expires_at)
         self._buff_event_handler: Any = None
 
-        # get_buffs 캐시: (caster, t, _cache_version) → buffs dict
+        # get_buffs cache includes the attacked target's debuffs as well.
         self._buffs_cache: dict = {}
         self._cache_version: int = 0
 
@@ -580,8 +581,11 @@ class BuffManager:
         self._plan_cache: dict = {}
 
         # `_active`를 stat/name으로 되짚는 인덱스. 셋 다 _invalidate_buffs_cache에서 함께 비운다
-        self._stat_index: dict[str, list] = {}
+        self._stat_index: dict[str, list] | None = None
         self._name_index_cache: dict[str, list] = {}
+        # effective_max_hp reads only these four stats but is called per hit and
+        # per tick. Keep their original _active order for floating-point sums.
+        self._hp_size_active: list[ActiveBuff] | None = None
 
         # id(eff) → eff 역참조. _effects는 __init__ 이후 불변이라 1회만 만든다
         self._eff_by_id: dict[int, dict] = {}
@@ -1826,17 +1830,20 @@ class BuffManager:
                     for n in self.squad_names if n != caster
                 ):
                     return False
-            elif cond == "has_burst1_ally":
-                # 자신 제외 스쿼드에 1버스트 캐릭터가 있어야 함
-                burst_stages = self.state.get("burst_stages", {})
-                has = any(burst_stages.get(n) == "1" for n in self.squad_names if n != caster)
-                if not has:
-                    return False
-            elif cond == "no_burst1_ally":
-                # 자신 제외 스쿼드에 1버스트 캐릭터가 없어야 함
-                burst_stages = self.state.get("burst_stages", {})
-                has = any(burst_stages.get(n) == "1" for n in self.squad_names if n != caster)
-                if has:
+            elif cond in ("has_burst1_ally", "no_burst1_ally"):
+                # Formation modes count living regular B1s, not re-entry-only
+                # supports or RH/RRH temporarily filling the first stage.
+                has = any(
+                    n != caster and roster.alive(self, n)
+                    and str(_NIKKE.get(n, {}).get("burst_stage")) == "1"
+                    and not any(
+                        e.get("stat") == "burst_stage_override:reenter1"
+                        and not e.get("trigger", {}).get("condition")
+                        for e in self.char_effects(n)
+                    )
+                    for n in self.squad_names
+                )
+                if has != (cond == "has_burst1_ally"):
                     return False
             elif cond in ("has_defender_ally", "no_defender_ally"):
                 # 자신 제외 스쿼드에 방어형 아군이 있는가. `parsed_nikke["class"]`로 판정한다
@@ -2077,7 +2084,15 @@ class BuffManager:
         base_hp = self.state.get("base_stats", {}).get(name, {}).get("hp", 0.0)
         bonus_pct = 0.0
         bonus_flat = 0.0
-        for ab in self._active:
+        hp_buffs = self._hp_size_active
+        if hp_buffs is None:
+            hp_buffs = self._hp_size_active = [
+                ab for ab in self._active
+                if ab.effect.get("stat", "") in (
+                    "max_hp_pct", "max_hp_only_pct",
+                    "hp_caster_based_pct", "hp_only_caster_based_pct")
+            ]
+        for ab in hp_buffs:
             stat = ab.effect.get("stat", "")
             if name not in (ab.target_chars or []):
                 continue
@@ -2869,8 +2884,9 @@ class BuffManager:
         # 아래 셋은 전부 "`_active`가 그대로인 동안" 유효한 파생물이다. `_active`의
         # 추가·제거는 반드시 이 함수를 거치므로 여기서 한꺼번에 비우면 수명이 맞는다.
         self._plan_cache.clear()
-        self._stat_index.clear()
+        self._stat_index = None
         self._name_index_cache.clear()
+        self._hp_size_active = None
 
     # ── `_active` 인덱스 ──────────────────────────────────────────────────
     #
@@ -2880,12 +2896,14 @@ class BuffManager:
 
     def _by_stat(self, stat: str) -> list:
         """`stat`이 일치하는 활성 버프 목록 (_active 순서 유지)."""
-        out = self._stat_index.get(stat)
-        if out is None:
-            out = self._stat_index[stat] = [
-                ab for ab in self._active if ab.effect.get("stat") == stat
-            ]
-        return out
+        if self._stat_index is None:
+            # Build all stat buckets in one pass, retaining _active order.
+            # Target, expiry, stacks and conditions remain live caller checks.
+            index = {}
+            for ab in self._active:
+                index.setdefault(ab.effect.get("stat"), []).append(ab)
+            self._stat_index = index
+        return self._stat_index.get(stat, [])
 
     def _by_name(self, name: str) -> list:
         """효과 이름이 일치하는 활성 버프 목록 (_active 순서 유지).
@@ -2915,7 +2933,7 @@ class BuffManager:
         return max(expires) if expires else None
 
     @staticmethod
-    def _is_time_invariant(ab: ActiveBuff) -> bool:
+    def _is_time_invariant(ab: ActiveBuff, *, ignore_expiry: bool = False) -> bool:
         """이 버프의 기여가 `_active`가 그대로인 동안 절대 변하지 않는가.
 
         참이면 값을 한 번만 구해 `_build_plan`에 박아 둘 수 있다. **보수적으로 판정한다** —
@@ -2931,7 +2949,8 @@ class BuffManager:
           - `max_stack` != 1     → `_get_value`가 ab.stack을 곱한다
           - duration_bullets     → 발사에 따라 대상·잔량이 줄어든다
         """
-        if ab.expires_at != math.inf:
+        # ignore_expiry is used only with a live _PLAN_UNTIL deadline guard.
+        if not ignore_expiry and ab.expires_at != math.inf:
             return False
         if ab.has_runtime_conditions:
             return False
@@ -3043,12 +3062,22 @@ class BuffManager:
 
         계획은 `_cache_version`이 오르면 `_invalidate_buffs_cache`가 통째로 버린다.
         """
-        plan = [
-            self._plan_step(ab, caster, target, exclude_names)
-            if self._is_time_invariant(ab) else (_PLAN_LIVE, ab, None)
-            for ab in self._active
-        ]
-        plan = [step for step in plan if step is not None]
+        plan = []
+        for ab in self._active:
+            if ab.effect.get("stat", "") not in _STAT_TO_BUFF:
+                continue
+            if self._is_time_invariant(ab, ignore_expiry=True):
+                step = self._plan_step(ab, caster, target, exclude_names)
+                if step is None:
+                    continue
+                if ab.expires_at != math.inf:
+                    # Only expiry varies: retain a live deadline check, while
+                    # reusing the contribution. Keep the ActiveBuff reference
+                    # so duration extensions remain visible without rebuilding.
+                    step = (_PLAN_UNTIL, ab, step)
+            else:
+                step = (_PLAN_LIVE, ab, None)
+            plan.append(step)
         self._plan_cache[(caster, target, exclude_names)] = plan
         return plan
 
@@ -3068,7 +3097,7 @@ class BuffManager:
         보류 발동(`_pending_burst_dmg`)은 계산 시점이 뒤로 밀려 이 순서가 깨지므로
         해당 이름을 여기서 제외한다.
         """
-        cache_key = (caster, t, self._cache_version, exclude_names)
+        cache_key = (caster, target, t, self._cache_version, exclude_names)
         cached = self._buffs_cache.get(cache_key)
         if cached is not None:
             return cached
@@ -3100,6 +3129,10 @@ class BuffManager:
         quant_parts: dict[tuple, float] = {}
 
         for kind, key, pre in plan:
+            if kind == _PLAN_UNTIL:
+                if t >= key.expires_at:
+                    continue
+                kind, key, pre = pre
             # 미리 접어 둔 스텝 — 시간 불변 버프의 기여 (`_build_plan`)
             if kind == _PLAN_ADD:
                 buffs[key] = buffs.get(key, 0.0) + pre
@@ -3962,8 +3995,9 @@ class BuffManager:
         self._trigger_counts.clear()
         self._buffs_cache.clear()
         self._plan_cache.clear()
-        self._stat_index.clear()
+        self._stat_index = None
         self._name_index_cache.clear()
+        self._hp_size_active = None
         self._cache_version = 0
         self._cond_passive_prev.clear()
 

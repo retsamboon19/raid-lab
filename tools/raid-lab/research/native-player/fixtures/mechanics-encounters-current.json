@@ -1,0 +1,1025 @@
+{
+  "schemaVersion": 1,
+  "scope": "current_intercept_special_and_anomaly_only",
+  "installedClientSha256": "2df7134a6a9c3a8dbbde88402fc8d16d1d6c3f4c2d5e262bea78c3d78b96dd02",
+  "source": {
+    "clientPath": "NIKKE/NIKKE/game/GameAssembly.dll",
+    "tableArchivePath": "tools/raid-lab/private/native-current-tables-2df7134a.zip",
+    "tableArchiveSha256": "42611495f81734528e8d9f3b4286ed2f8531ad0d75be087a1fb8ef39f9c32367",
+    "archiveEntriesSha256": {
+      "InterceptSpecialTable.mpk": "3ee6c80a3b2bfc795e74182a7cd4047ab421dcdf85a74830464a77664e13e0a9",
+      "InterceptAnomalousTable.mpk": "ece4dc08985f602c2ef3478a66917c99aab1b14b709568f84a6e8508db43e0de",
+      "WaveDataTable.wave_Intercept_001.mpk": "f902f17b348a464630c7ce64cb21579a7e5da20d83459f693244abdff1965c9b",
+      "MonsterTable.mpk": "67a23c01e9c4db3eaaf82b9ffeb7db27224b56e1fbac70026b16b29f0324f19f",
+      "MonsterModelTable.mpk": "aa8d4325b8b0e64ea0553968ba47e2b7e13fea54a3e43a66af5ab3a9dc73d230"
+    },
+    "typeFactsPath": "client-decompiled/metadata/installed-2df7134a/type-facts/type-facts.jsonl",
+    "typeFactsSha256": "bf1502856469b5788b9807cc3bf28d067beb5d07919931ed4f0762ccb6b160ff",
+    "decoderSourceSha256": "2d405ab1c6711c2895c767e75bb534b9069bd3c75d50801f2b796cde635fc834",
+    "decoderBinarySha256": "3f41c148858babaeb27e02054b47a07c28b9418889b0572c769594de6c424a87"
+  },
+  "nativeEnums": {
+    "NK.Spot.Common.CommonEnum.ManagementType": {
+      "assembly": "NK.Runtime.dll",
+      "class": "NK.Spot.Common.CommonEnum.ManagementType",
+      "literal": "SinglePlay",
+      "value": 0,
+      "classId": "0:21707"
+    },
+    "NK.StaticData.SpotModType": {
+      "assembly": "NK.Runtime.StaticData.dll",
+      "class": "NK.StaticData.SpotModType",
+      "literal": "Intercept",
+      "value": 7,
+      "classId": "2:331"
+    }
+  },
+  "profiles": [
+    {
+      "productId": "special-alteisen",
+      "mode": "special",
+      "tableEntry": "InterceptSpecialTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 1
+      },
+      "tableRowSha256": "af8c5ea365feff30489100154cb7ce28c3d2cc63e3b78c7bf3d4fd765524e61a",
+      "sourceTableRow": {
+        "Id": 1,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_SPECIAL_1_STAGE_NAME",
+        "ShortName": "Locale_System:INTERCEPT_SPECIAL_1_SHORT_NAME",
+        "Description": "Locale_System:INTERCEPT_SPECIAL_1_STAGE_DESC",
+        "Thumbnail": "mon_intercept_mbg001",
+        "MonsterSpine": "mbg001",
+        "MonsterSpineScale": 100,
+        "Order": 1,
+        "CharacterLv": 200,
+        "MonsterStageLv": 287,
+        "DynamicObjectStageLv": 287,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 201,
+        "SpotType": "WaveData",
+        "SpotId": 6302001,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "ConditionRewardGroup": 103101,
+        "PercentConditionRewardGroup": 103111,
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "ResultCharacterResourceId": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302001,
+        "monsterStageLv": 287,
+        "dynamicObjectLv": 287,
+        "raidLvChangeGroup": 201,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302001,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_desertmbg001_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_g_alteisen_01"
+        ],
+        "targetMonsterIds": [
+          3520010133
+        ],
+        "sourceRowSha256": "c49354a7be090187ea64bf20ef9eb9f0f09cf9dbc9c4911560bd3b5f1c5ec22f"
+      },
+      "targets": [
+        {
+          "monsterId": 3520010133,
+          "modelId": 352001,
+          "monsterPrefab": "mbg001",
+          "resourceId": 39,
+          "spotAi": "bt_mbg001_intercept",
+          "monsterRowSha256": "f0eacfd61fd0769e8aae399f27006031790bd8a84c61748650a026092c158d98",
+          "modelRowSha256": "7dd313a4315c964f71b041054574301dcfe7e35b2d0fc659311cebe2af32ad12"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "special-gravedigger",
+      "mode": "special",
+      "tableEntry": "InterceptSpecialTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 2
+      },
+      "tableRowSha256": "6263c4469f48624d41cc5407ea03bb9bfc7388ccae9fbf7dacfd3a4647bb9945",
+      "sourceTableRow": {
+        "Id": 2,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_SPECIAL_2_STAGE_NAME",
+        "ShortName": "Locale_System:INTERCEPT_SPECIAL_2_SHORT_NAME",
+        "Description": "Locale_System:INTERCEPT_SPECIAL_2_STAGE_DESC",
+        "Thumbnail": "mon_intercept_mbg002",
+        "MonsterSpine": "mbg002",
+        "MonsterSpineScale": 75,
+        "Order": 2,
+        "CharacterLv": 200,
+        "MonsterStageLv": 287,
+        "DynamicObjectStageLv": 287,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 202,
+        "SpotType": "WaveData",
+        "SpotId": 6302002,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "ConditionRewardGroup": 103102,
+        "PercentConditionRewardGroup": 103112,
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "ResultCharacterResourceId": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302002,
+        "monsterStageLv": 287,
+        "dynamicObjectLv": 287,
+        "raidLvChangeGroup": 202,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302002,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_gravedigger_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_grd_gravedigger_01"
+        ],
+        "targetMonsterIds": [
+          3520020143
+        ],
+        "sourceRowSha256": "34e90b0293ae3104f5130a5a86e7bdd1c19c149fedf8fd6ea1e5f633808d99ea"
+      },
+      "targets": [
+        {
+          "monsterId": 3520020143,
+          "modelId": 352002,
+          "monsterPrefab": "mbg002",
+          "resourceId": 61,
+          "spotAi": "bt_mbg002_intercept",
+          "monsterRowSha256": "1579254d94634ebc1d684c8fb7f644a8c66b64e9a5c4e79397777cc8e8dc3e5e",
+          "modelRowSha256": "b8a77b8abd6a84690b11a31567c57281d6410f84e4cac85385b5f8609850859e"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "special-blacksmith",
+      "mode": "special",
+      "tableEntry": "InterceptSpecialTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 3
+      },
+      "tableRowSha256": "cb133a43b7e548bff6ac07da781182b0b4f4073ddda73d0f54e6284332312c33",
+      "sourceTableRow": {
+        "Id": 3,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_SPECIAL_3_STAGE_NAME",
+        "ShortName": "Locale_System:INTERCEPT_SPECIAL_3_SHORT_NAME",
+        "Description": "Locale_System:INTERCEPT_SPECIAL_3_STAGE_DESC",
+        "Thumbnail": "mon_intercept_bbg003",
+        "MonsterSpine": "bbg003",
+        "MonsterSpineScale": 65,
+        "Order": 3,
+        "CharacterLv": 200,
+        "MonsterStageLv": 287,
+        "DynamicObjectStageLv": 287,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 203,
+        "SpotType": "WaveData",
+        "SpotId": 6302003,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "ConditionRewardGroup": 103103,
+        "PercentConditionRewardGroup": 103113,
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "ResultCharacterResourceId": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302003,
+        "monsterStageLv": 287,
+        "dynamicObjectLv": 287,
+        "raidLvChangeGroup": 203,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302003,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_cityforestunderbbg003_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_grd_blacksmith_01"
+        ],
+        "targetMonsterIds": [
+          1520030113
+        ],
+        "sourceRowSha256": "c824eda6d05885d1e2c8209c5d6a5b9bbbceb8a516c387418beeda9c43f5cde0"
+      },
+      "targets": [
+        {
+          "monsterId": 1520030113,
+          "modelId": 152003,
+          "monsterPrefab": "bbg003",
+          "resourceId": 62,
+          "spotAi": "bt_bbg003_intercept",
+          "monsterRowSha256": "8bb5b5317039b2a26e8dcaeaf17e3e7ae5374d2eb37d1d7d18811c9a7a571902",
+          "modelRowSha256": "654335b6ada1beb9dc745557c874194c0c2d2ce64968220f8ab22f4b8604d01d"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "special-chatterbox",
+      "mode": "special",
+      "tableEntry": "InterceptSpecialTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 4
+      },
+      "tableRowSha256": "85cf52d8e2e1810246a86e9f11214e9c6567c8be61fdf7412855820dfe893531",
+      "sourceTableRow": {
+        "Id": 4,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_SPECIAL_4_STAGE_NAME",
+        "ShortName": "Locale_System:INTERCEPT_SPECIAL_4_SHORT_NAME",
+        "Description": "Locale_System:INTERCEPT_SPECIAL_4_STAGE_DESC",
+        "Thumbnail": "mon_intercept_bbg002",
+        "MonsterSpine": "bbg002",
+        "MonsterSpineScale": 80,
+        "Order": 4,
+        "CharacterLv": 200,
+        "MonsterStageLv": 287,
+        "DynamicObjectStageLv": 287,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 204,
+        "SpotType": "WaveData",
+        "SpotId": 6302004,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "ConditionRewardGroup": 103104,
+        "PercentConditionRewardGroup": 103114,
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "ResultCharacterResourceId": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302004,
+        "monsterStageLv": 287,
+        "dynamicObjectLv": 287,
+        "raidLvChangeGroup": 204,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302004,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_cityforestunderbbg003_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_grd_talkertive_01"
+        ],
+        "targetMonsterIds": [
+          1520020113
+        ],
+        "sourceRowSha256": "1306611ced4b494bdb05349c689a0c9187d8799c45b380aada4206263c2ebe88"
+      },
+      "targets": [
+        {
+          "monsterId": 1520020113,
+          "modelId": 152002,
+          "monsterPrefab": "bbg002",
+          "resourceId": 63,
+          "spotAi": "bt_bbg002_intercept",
+          "monsterRowSha256": "8fa75e37d97c2dcc1806fd74ca3ad4b32beae09c173ff4ac0e26bc4194e3544f",
+          "modelRowSha256": "b05e14589082a4ea9a5667dea897e864840f33e248bd42889cdf7679e5b1efb4"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "special-modernia",
+      "mode": "special",
+      "tableEntry": "InterceptSpecialTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 5
+      },
+      "tableRowSha256": "8215cb07f22f63efcf8477ba9d325df99e512cf9973942e918b74fa292521513",
+      "sourceTableRow": {
+        "Id": 5,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_SPECIAL_5_STAGE_NAME",
+        "ShortName": "Locale_System:INTERCEPT_SPECIAL_5_SHORT_NAME",
+        "Description": "Locale_System:INTERCEPT_SPECIAL_5_STAGE_DESC",
+        "Thumbnail": "mon_intercept_mbg004",
+        "MonsterSpine": "mbg004",
+        "MonsterSpineScale": 120,
+        "Order": 5,
+        "CharacterLv": 200,
+        "MonsterStageLv": 287,
+        "DynamicObjectStageLv": 287,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 205,
+        "SpotType": "WaveData",
+        "SpotId": 6302005,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "ConditionRewardGroup": 103105,
+        "PercentConditionRewardGroup": 103115,
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "ResultCharacterResourceId": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302005,
+        "monsterStageLv": 287,
+        "dynamicObjectLv": 287,
+        "raidLvChangeGroup": 205,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302005,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_iceland_sky_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_fly_mordernia_01"
+        ],
+        "targetMonsterIds": [
+          3520040153
+        ],
+        "sourceRowSha256": "ec0b40f59a8f3bd574f6a8d7a4bfc585ab7ba63123378da94a4bf385223ffdbc"
+      },
+      "targets": [
+        {
+          "monsterId": 3520040153,
+          "modelId": 352004,
+          "monsterPrefab": "mbg004",
+          "resourceId": 64,
+          "spotAi": "bt_mbg004_intercept_2",
+          "monsterRowSha256": "5cfb703ecb5c0d41e3361dd16eb5a17f2e0e263ae3106c7f5c3b2ce522dec11f",
+          "modelRowSha256": "d2336d3339166e90613f6b78c5709cd473bba5732a214e37313fdda13ec309a9"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "anomaly-mirror-container",
+      "mode": "anomaly",
+      "tableEntry": "InterceptAnomalousTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 1
+      },
+      "tableRowSha256": "063a0ccf93fc8eeb7ffc99121589a02cb95891b830a8c6fadec69bdfc3b6539f",
+      "sourceTableRow": {
+        "Id": 1,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_ANOMALOUS_1_STAGE_NAME",
+        "Description": "Locale_System:INTERCEPT_ANOMALOUS_1_STAGE_DESC",
+        "Thumbnail": "mi_interceptanomalous_xba001_psid",
+        "MonsterSpine": "xba001",
+        "MonsterSpineScale": 100,
+        "Order": 1,
+        "LimitCharacterLv": 400,
+        "MonsterStageLv": 250,
+        "DynamicObjectStageLv": 250,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 206,
+        "SpotType": "WaveData",
+        "SpotId": 6302006,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "RewardInfoIcon": "icn_intercept_module_03",
+        "RewardInfoLocale": "Locale_System:INTERCEPT_ANOMALOUS_1_STAGE_REWARD_INFO",
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "ConditionRewardGroup": 104101,
+        "PercentConditionRewardGroups": [
+          {
+            "PercentConditionRewardGroup": 104111
+          },
+          {
+            "PercentConditionRewardGroup": 104121
+          }
+        ],
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "BgColor": "0468FA",
+        "ResultCharacterResourceId": 0,
+        "RecommendConditionType": "ItemSubType",
+        "RecommendConditionValue": "Module_C",
+        "RecommendConditionCount": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302006,
+        "monsterStageLv": 250,
+        "dynamicObjectLv": 250,
+        "raidLvChangeGroup": 206,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302006,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_cityforestcrystalxba001_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_fly_mirrorcontainer_01"
+        ],
+        "targetMonsterIds": [
+          4510010123
+        ],
+        "sourceRowSha256": "d1e08bf124ceb44a6e5ba6a11fcd68600ec5995ded0d9dbe24f106ba7248aec5"
+      },
+      "targets": [
+        {
+          "monsterId": 4510010123,
+          "modelId": 451011,
+          "monsterPrefab": "xba001_psid_intercept",
+          "resourceId": 156,
+          "spotAi": "bt_xba001_psid_intercept",
+          "monsterRowSha256": "645ec96ecc3ff5607da36ea39220d0edc10b676dad699eac3ae80064d968e132",
+          "modelRowSha256": "a842b353ef19f5d50a60aa99755dab6d85aaeac92efe6d87aca17861514331d2"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "anomaly-indivilia",
+      "mode": "anomaly",
+      "tableEntry": "InterceptAnomalousTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 2
+      },
+      "tableRowSha256": "c191aa3a4e6c2214fb650d744aa291e6b90e164bc61ce74b0ff2508fbeb33d53",
+      "sourceTableRow": {
+        "Id": 2,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_ANOMALOUS_2_STAGE_NAME",
+        "Description": "Locale_System:INTERCEPT_ANOMALOUS_2_STAGE_DESC",
+        "Thumbnail": "mi_interceptanomalous_ebg003_anmi",
+        "MonsterSpine": "ebg003_anmi",
+        "MonsterSpineScale": 100,
+        "Order": 2,
+        "LimitCharacterLv": 400,
+        "MonsterStageLv": 250,
+        "DynamicObjectStageLv": 250,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 207,
+        "SpotType": "WaveData",
+        "SpotId": 6302007,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "RewardInfoIcon": "icn_intercept_module_02",
+        "RewardInfoLocale": "Locale_System:INTERCEPT_ANOMALOUS_2_STAGE_REWARD_INFO",
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "ConditionRewardGroup": 104102,
+        "PercentConditionRewardGroups": [
+          {
+            "PercentConditionRewardGroup": 104112
+          },
+          {
+            "PercentConditionRewardGroup": 104122
+          }
+        ],
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "BgColor": "00D44D",
+        "ResultCharacterResourceId": 0,
+        "RecommendConditionType": "ItemSubType",
+        "RecommendConditionValue": "Module_B",
+        "RecommendConditionCount": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302007,
+        "monsterStageLv": 250,
+        "dynamicObjectLv": 250,
+        "raidLvChangeGroup": 207,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302007,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_desertebg003_custom",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_g_indivilia_01"
+        ],
+        "targetMonsterIds": [
+          2520130133
+        ],
+        "sourceRowSha256": "272fcfa1ac7d50e3d474444c00ab48641c56afde2dcfeb787d8a5c4830406a34"
+      },
+      "targets": [
+        {
+          "monsterId": 2520130133,
+          "modelId": 252013,
+          "monsterPrefab": "ebg003_anmi_intercept",
+          "resourceId": 155,
+          "spotAi": "bt_ebg003_anmi_intercept_2",
+          "monsterRowSha256": "9ab2078e899bf52d82513eb9d37cc7960a4ed94e8cea967bea25cc48e19e8988",
+          "modelRowSha256": "1daff0e23e705361d7be8219544a651c8b8168a1d352a41a67c587593d1b8d9a"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "anomaly-ultra",
+      "mode": "anomaly",
+      "tableEntry": "InterceptAnomalousTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 3
+      },
+      "tableRowSha256": "a80de9f38c687ad37659af01d1a02fe78e66c9b04e36e9ef6b97445b327613a2",
+      "sourceTableRow": {
+        "Id": 3,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_ANOMALOUS_3_STAGE_NAME",
+        "Description": "Locale_System:INTERCEPT_ANOMALOUS_3_STAGE_DESC",
+        "Thumbnail": "mi_interceptanomalous_bbg006_zeus",
+        "MonsterSpine": "bbg006_zeus",
+        "MonsterSpineScale": 100,
+        "Order": 3,
+        "LimitCharacterLv": 400,
+        "MonsterStageLv": 250,
+        "DynamicObjectStageLv": 250,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 208,
+        "SpotType": "WaveData",
+        "SpotId": 6302008,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "RewardInfoIcon": "icn_intercept_module_01",
+        "RewardInfoLocale": "Locale_System:INTERCEPT_ANOMALOUS_3_STAGE_REWARD_INFO",
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "ConditionRewardGroup": 104103,
+        "PercentConditionRewardGroups": [
+          {
+            "PercentConditionRewardGroup": 104113
+          },
+          {
+            "PercentConditionRewardGroup": 104123
+          }
+        ],
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "BgColor": "8633E3",
+        "ResultCharacterResourceId": 0,
+        "RecommendConditionType": "ItemSubType",
+        "RecommendConditionValue": "Module_A",
+        "RecommendConditionCount": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302008,
+        "monsterStageLv": 250,
+        "dynamicObjectLv": 250,
+        "raidLvChangeGroup": 208,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302008,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_desertbbg006_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_g_ultra_01"
+        ],
+        "targetMonsterIds": [
+          1520460146
+        ],
+        "sourceRowSha256": "a2ec4e4f2aff049f4023ba3faa8901f1ca2402ef0a5dd6c252d3656e4fcf621b"
+      },
+      "targets": [
+        {
+          "monsterId": 1520460146,
+          "modelId": 152016,
+          "monsterPrefab": "bbg006_zeus_intercept",
+          "resourceId": 158,
+          "spotAi": "bt_bbg006_InterceptAnomalous",
+          "monsterRowSha256": "7bd4c530b66d100495decf2349375b8c491bb383ad6db1855aa6fbe7da9696c3",
+          "modelRowSha256": "e30705f6a67fff8a74f4dccc0e6ccf3bb7fe26d55db4f0775308c79f29879e95"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "anomaly-kraken",
+      "mode": "anomaly",
+      "tableEntry": "InterceptAnomalousTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 4
+      },
+      "tableRowSha256": "297d5c0c73ddbb382ea2e7e8abe64143f937054608d7839783039a3fcb14730f",
+      "sourceTableRow": {
+        "Id": 4,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_ANOMALOUS_4_STAGE_NAME",
+        "Description": "Locale_System:INTERCEPT_ANOMALOUS_4_STAGE_DESC",
+        "Thumbnail": "mi_interceptanomalous_bbg004_dmtr",
+        "MonsterSpine": "bbg004_dmtr",
+        "MonsterSpineScale": 100,
+        "Order": 5,
+        "LimitCharacterLv": 400,
+        "MonsterStageLv": 250,
+        "DynamicObjectStageLv": 250,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 209,
+        "SpotType": "WaveData",
+        "SpotId": 6302009,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "RewardInfoIcon": "icn_intercept_module_05",
+        "RewardInfoLocale": "Locale_System:INTERCEPT_ANOMALOUS_5_STAGE_REWARD_INFO",
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "ConditionRewardGroup": 104105,
+        "PercentConditionRewardGroups": [
+          {
+            "PercentConditionRewardGroup": 104115
+          },
+          {
+            "PercentConditionRewardGroup": 104125
+          }
+        ],
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "BgColor": "FF8A00",
+        "ResultCharacterResourceId": 0,
+        "RecommendConditionType": "ItemMaterialIDCount",
+        "RecommendConditionValue": "7080001",
+        "RecommendConditionCount": 3
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302009,
+        "monsterStageLv": 250,
+        "dynamicObjectLv": 250,
+        "raidLvChangeGroup": 209,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302009,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_oceanbbg004_001",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_fly_kraken_01"
+        ],
+        "targetMonsterIds": [
+          1520040153
+        ],
+        "sourceRowSha256": "a44ec62401376278ada550468607da687d6cd11723f305cb866bff0571bbc07d"
+      },
+      "targets": [
+        {
+          "monsterId": 1520040153,
+          "modelId": 152044,
+          "monsterPrefab": "bbg004_dmtr_intercept",
+          "resourceId": 154,
+          "spotAi": "bt_bbg004_dmtr_intercept",
+          "monsterRowSha256": "3773b1c7c6366578c6e30f8bf500686a9339d3bee0a59228a40d83bd0d8927bf",
+          "modelRowSha256": "09ed80fd17bedf35e466d9b1f82405699024ef0f8eaeac1ee56f7f4c615635b0"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    },
+    {
+      "productId": "anomaly-harvester",
+      "mode": "anomaly",
+      "tableEntry": "InterceptAnomalousTable.mpk",
+      "tableKey": {
+        "Group": 1,
+        "Id": 5
+      },
+      "tableRowSha256": "77a4d218a9111403ee5345400a6f33f946d31342675626c355573bd2a342e137",
+      "sourceTableRow": {
+        "Id": 5,
+        "Group": 1,
+        "Name": "Locale_System:INTERCEPT_ANOMALOUS_5_STAGE_NAME",
+        "Description": "Locale_System:INTERCEPT_ANOMALOUS_5_STAGE_DESC",
+        "Thumbnail": "mi_interceptanomalous_bbg001_hsta",
+        "MonsterSpine": "bbg001",
+        "MonsterSpineScale": 100,
+        "Order": 4,
+        "LimitCharacterLv": 400,
+        "MonsterStageLv": 250,
+        "DynamicObjectStageLv": 250,
+        "CoverStageLv": 8,
+        "MonsterStageLvChangeGroup": 210,
+        "SpotType": "WaveData",
+        "SpotId": 6302010,
+        "DummySpotId": 0,
+        "AutoChargeId": 20001,
+        "TicketCount": 1,
+        "RewardInfoIcon": "icn_intercept_module_04",
+        "RewardInfoLocale": "Locale_System:INTERCEPT_ANOMALOUS_4_STAGE_REWARD_INFO",
+        "UseRewardPriority": false,
+        "PriorityGrade": 0,
+        "ConditionRewardGroup": 104104,
+        "PercentConditionRewardGroups": [
+          {
+            "PercentConditionRewardGroup": 104114
+          },
+          {
+            "PercentConditionRewardGroup": 104124
+          }
+        ],
+        "UseFixedResult": false,
+        "FixedDamage": 0,
+        "BgColor": "BC0008",
+        "ResultCharacterResourceId": 0,
+        "RecommendConditionType": "ItemSubType",
+        "RecommendConditionValue": "Module_D",
+        "RecommendConditionCount": 0
+      },
+      "encounter": {
+        "managementType": 0,
+        "processType": 7,
+        "timeLimit": 180,
+        "waveId": 6302010,
+        "monsterStageLv": 250,
+        "dynamicObjectLv": 250,
+        "raidLvChangeGroup": 210,
+        "isAuto": true,
+        "tddProcess": false
+      },
+      "encounterProvenance": {
+        "managementType": "installed enum SinglePlay",
+        "processType": "installed enum Intercept",
+        "isAuto": "current diagnostic fixture policy",
+        "tddProcess": "current diagnostic fixture policy",
+        "timeLimit": "WaveDataTable.BattleTime",
+        "waveId": "Intercept table SpotId",
+        "monsterStageLv": "Intercept table MonsterStageLv",
+        "dynamicObjectLv": "Intercept table DynamicObjectStageLv",
+        "raidLvChangeGroup": "Intercept table MonsterStageLvChangeGroup"
+      },
+      "wave": {
+        "stageId": 6302010,
+        "groupId": "wave_Intercept_001",
+        "backgroundKey": "sbg_desert_b_001_01",
+        "battleTimeSeconds": 180,
+        "wavePaths": [
+          "b_g_harvester_01"
+        ],
+        "targetMonsterIds": [
+          1520010113
+        ],
+        "sourceRowSha256": "1b707e7bd6933a28aa98c92bbca28c79891fa262f4e9f56c79078f1fec1878cb"
+      },
+      "targets": [
+        {
+          "monsterId": 1520010113,
+          "modelId": 152011,
+          "monsterPrefab": "bbg001_hsta_intercept",
+          "resourceId": 157,
+          "spotAi": "bt_bbg001_intercept",
+          "monsterRowSha256": "15ea2d400656927fe7ca88f3732b53ca898b956153ce700b2da447d84ce23d19",
+          "modelRowSha256": "c71132819e783b3a9c9a8d268abfe7f78b8d89fb38c46c8c112ffc2bcfaafec0"
+        }
+      ],
+      "unimplementedNativeInputs": {
+        "CoverStageLv": 8,
+        "AutoChargeId": 20001,
+        "DummySpotId": 0,
+        "SpotType": "WaveData",
+        "TicketCount": 1
+      },
+      "status": "table_identity_only_no_native_battle_validation"
+    }
+  ],
+  "limits": [
+    "Only ten current Group 1 Intercept selector rows are registered.",
+    "RandomSeed remains caller-supplied and is range-checked; other encounter fields require exact profile match.",
+    "CoverStageLv, AutoChargeId and other source table fields are recorded but not yet mapped into the native fixture.",
+    "Table identity does not establish resource closure, successful battle initialization, tactical coverage or numerical accuracy."
+  ]
+}

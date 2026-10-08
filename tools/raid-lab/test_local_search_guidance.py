@@ -64,6 +64,37 @@ class LocalGuidanceTests(unittest.TestCase):
         for support in ids[1:]:
             self.assertGreater(g.bonus(support,[ids[0]]),0)
 
+    def test_anis_star_prefers_solo_burst_one_without_excluding_reentry(self):
+        g,ids=self.make(['Anis: Star','Liter','Alice: Wonderland Bunny','Rupee: Winter Shopper',
+                         'Avistar','Tia','Red Hood','Rapi: Red Hood'])
+        anis,liter,*exceptions=ids
+        self.assertEqual(g.anis_star_mode([anis]),'solo')
+        self.assertEqual(g.anis_star_mode([anis,liter]),'reentry')
+        self.assertLess(g.priority(liter,[anis]),g.priority(liter,[]))
+        self.assertLess(g.priority(anis,[liter]),g.priority(anis,[]))
+        self.assertLess(g.score([anis,liter]),2*g.score([anis]))
+        for unit in exceptions:
+            with self.subTest(unit=unit):
+                self.assertEqual(g.anis_star_mode([anis,unit]),'solo')
+                self.assertEqual(g.priority(unit,[anis]),g.priority(unit,[]))
+        self.assertTrue(any(liter in g.alternatives([liter,*exceptions],[anis],iteration)
+                            for iteration in range(3)))
+        self.assertTrue(any('healing and Max HP' in note for note in g.report([anis,liter])['notes']))
+
+    def test_anis_star_reentry_metadata_matches_skill_model(self):
+        data=load_data()
+        model={n for n,effects in core.SKILLS.items()
+               if n!=data['units']['anis-star']['unit_id']
+               and any(e.get('stat')=='burst_stage_override:reenter1' for e in effects)}
+        recorded={data['units'][slug]['unit_id'] for slug in data['reentry_burst1']}
+        self.assertEqual(recorded,model)
+
+    def test_crown_anis_star_healing_pair_requires_reentry(self):
+        g,(crown,anis,liter)=self.make(['Crown','Anis: Star','Liter'])
+        self.assertNotIn(tuple(sorted((crown,anis))),g.pair_values([crown,anis]))
+        self.assertIn(tuple(sorted((crown,anis))),g.pair_values([crown,anis,liter]))
+        self.assertFalse(any('re-entry' in p['reason'] for p in g.report([crown,anis])['pairs']))
+
     def test_runtime_needs_no_network_or_captures(self):
         load_data.cache_clear()
         with patch('socket.socket',side_effect=AssertionError('Network forbidden')):

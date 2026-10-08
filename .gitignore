@@ -134,6 +134,13 @@
 !/tools/raid-lab/test_search_priority.py
 !/tools/raid-lab/test_search_progress.js
 !/tools/raid-lab/test_squad_checks.js
+!/tools/raid-lab/source_provenance.py
+!/tools/raid-lab/test_source_provenance.py
+!/tools/raid-lab/test_anis_formation.py
+!/tools/raid-lab/research/
+/tools/raid-lab/research/*
+!/tools/raid-lab/research/DAMAGE-CALLER-MAPPING.md
+!/tools/raid-lab/research/native-player/
 /tools/nikke-team-builder/*
 !/tools/nikke-team-builder/calculator/
 !/tools/nikke-team-builder/runner/

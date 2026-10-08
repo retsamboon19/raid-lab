@@ -1,0 +1,2353 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Source-bound native staging and smarter-autoplay coverage inventory for every Raid Lab boss selector entry; no accuracy or all-boss validation claim.",
+  "generatedUtc": "2026-10-09",
+  "productSelectorSource": "I:/Raid Lab/tools/raid-lab/encounters.py::BOSSES / MODES / apply_profile",
+  "installedClientSha256": "2df7134a6a9c3a8dbbde88402fc8d16d1d6c3f4c2d5e262bea78c3d78b96dd02",
+  "tableArchive": {
+    "path": "I:\\Nikke offline\\tools\\raid-lab\\private\\native-current-tables-2df7134a.zip",
+    "sha256": "42611495f81734528e8d9f3b4286ed2f8531ad0d75be087a1fb8ef39f9c32367",
+    "manifestPath": "I:\\Nikke offline\\tools\\raid-lab\\private\\native-current-tables-2df7134a.manifest.json",
+    "sourcePackSha256": "a119492898e5e5aec9e07ae9e52e88f0b483a5f595c9728dcc19a4ef9ccd36f0",
+    "selectedEntrySha256": {
+      "InterceptAnomalousTable.mpk": "ece4dc08985f602c2ef3478a66917c99aab1b14b709568f84a6e8508db43e0de",
+      "InterceptSpecialTable.mpk": "3ee6c80a3b2bfc795e74182a7cd4047ab421dcdf85a74830464a77664e13e0a9",
+      "MuseumStageTable.mpk": "f11df44af42dd43707f7f9153946b79e3c3ad4877ebfedb2e68043b7951f0ee8",
+      "MuseumStageModeTable.mpk": "cda2f698f5c5ae06c94eab9fdfff26f7813b6848dbaddd528cb41ea6e22acf7b",
+      "SoloRaidManagerTable.mpk": "400082666ba0836b87f6b438aebffb6949d5dbb74c768c0c1c497bcf367fc45e",
+      "SoloRaidPresetTable.mpk": "5caea652c1d62b2ed29273b1da612dd0306fff0d23cc5bf44f93cf8ffeae59d6",
+      "MonsterTable.mpk": "67a23c01e9c4db3eaaf82b9ffeb7db27224b56e1fbac70026b16b29f0324f19f",
+      "MonsterModelTable.mpk": "aa8d4325b8b0e64ea0553968ba47e2b7e13fea54a3e43a66af5ab3a9dc73d230",
+      "MonsterStageLvChangeTable.mpk": "ad36708ab6007bcb4e2c0d8dbc9926eef52974487b1e6a2e6af3dba2078f2328",
+      "WaveDataTable.wave_Intercept_001.mpk": "f902f17b348a464630c7ce64cb21579a7e5da20d83459f693244abdff1965c9b",
+      "InterceptAnomalousManagerTable.mpk": "344efd57c401ab5134a40cf761ac3ae218d09e800d29a5e24463412972adaeed",
+      "InterceptSpecialManagerTable.mpk": "cd769f4e784f143214acfc33ae07ebc2da14fb56de31e3968eae25bda94e9ef3"
+    },
+    "reader": "tools/raid-lab/offline-reader/bin/Debug/net10.0/OfflineReader.exe",
+    "readerErrors": []
+  },
+  "nativeRouteEvidence": {
+    "SpotLoader.SpotLoad": "RVA 0x064A7B70: reads transporter; selects management and process",
+    "SpotManagement.OnInit": "RVA 0x0614A100: initializes seeded battle management",
+    "WaveContext.OnInit": "RVA 0x064CC530: looks up transporter WaveId",
+    "WaveContext.OnLoadAsync": "RVA 0x064C8280: builds WaveBundlesV2 from wave row",
+    "CampaignProcess.UpdateTick": "RVA 0x064D4140; wave/group scheduling 0x064D4B60 / 0x064D4330",
+    "MonsterPrefabController.OnSpawnMonster": "RVA 0x061CE7E0; native boss prefab spawn"
+  },
+  "coverage": {
+    "selectorEntries": 23,
+    "fixedBossEntries": 21,
+    "nativeCompleteBattleVariant": "anomaly-kraken only, diagnostic synthetic/bare inputs; original-auto baseline plus bounded tactical node 230 / QTE group 212 native trials 120/121, not all Kraken behavior",
+    "otherNativeBattleVariantsValidated": 0,
+    "trainingAndCampaign": "separate non-fixed modes; never count as boss variants"
+  },
+  "bosses": [
+    {
+      "productId": "sr40",
+      "displayName": "Luxurious Spider",
+      "productMode": "solo",
+      "variant": "trial preset",
+      "nativeModeRoutingStatus": "table stage resolved; original transporter management/process selection still requires per-mode verification",
+      "originalTableFields": {
+        "raidNumber": 40,
+        "presetId": 10040008,
+        "presetGroupId": 10040,
+        "managerCandidates": [
+          {
+            "id": 1000041,
+            "monsterPreset": 10040
+          }
+        ],
+        "difficultyType": "Trial",
+        "waveOrder": 8,
+        "levels": {
+          "CharacterLv": 400,
+          "MonsterStageLv": 390,
+          "MonsterStageLvChangeGroup": 904,
+          "DynamicObjectStageLv": 400,
+          "CoverStageLv": 1,
+          "SpotAutocontrol": true
+        },
+        "spotAutocontrol": true,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6704002,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_desertbbg001_rich_001",
+        "firstWavePath": "b_g_harvester_01",
+        "targetMonsters": [
+          {
+            "monsterId": 1520210138,
+            "monsterRowFound": true,
+            "modelId": 152021,
+            "spotAi": "bt_bbg001_rich_singleRaid",
+            "monsterPrefab": "bbg001_rich_anmi",
+            "monsterResourceId": 236,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 1520210138
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 152021
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6704002
+        },
+        "spotMod": "SoloRaidTrial",
+        "groundPointData": "point_grd_harvester_01",
+        "flyPointData": "point_fly_harvester_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "SoloRaidPresetTable.mpk",
+          "rowId": 10040008
+        },
+        {
+          "archiveEntry": "SoloRaidManagerTable.mpk",
+          "rowId": 1000041
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "sr39",
+      "displayName": "Island Eater",
+      "productMode": "solo",
+      "variant": "trial preset",
+      "nativeModeRoutingStatus": "table stage resolved; original transporter management/process selection still requires per-mode verification",
+      "originalTableFields": {
+        "raidNumber": 39,
+        "presetId": 10039008,
+        "presetGroupId": 10039,
+        "managerCandidates": [
+          {
+            "id": 1000040,
+            "monsterPreset": 10039
+          }
+        ],
+        "difficultyType": "Trial",
+        "waveOrder": 8,
+        "levels": {
+          "CharacterLv": 400,
+          "MonsterStageLv": 390,
+          "MonsterStageLvChangeGroup": 904,
+          "DynamicObjectStageLv": 400,
+          "CoverStageLv": 1,
+          "SpotAutocontrol": true
+        },
+        "spotAutocontrol": true,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6703902,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_oceanebg001_001",
+        "firstWavePath": "b_g_islandeater_01",
+        "targetMonsters": [
+          {
+            "monsterId": 2520210148,
+            "monsterRowFound": true,
+            "modelId": 252021,
+            "spotAi": "bt_ebg001_island_zeus_singleRaid",
+            "monsterPrefab": "ebg001_island_zeus",
+            "monsterResourceId": 233,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 2520210148
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 252021
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6703902
+        },
+        "spotMod": "SoloRaidTrial",
+        "groundPointData": "point_grd_islandeater_01",
+        "flyPointData": "point_fly_islandeater_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "SoloRaidPresetTable.mpk",
+          "rowId": 10039008
+        },
+        {
+          "archiveEntry": "SoloRaidManagerTable.mpk",
+          "rowId": 1000040
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "museum-mother-whale",
+      "displayName": "Mother Whale",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 101,
+        "buffId": 80011,
+        "stageMonsterId": 1510011125,
+        "soloRaidManagerId": 1000001,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 1011,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700103,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertbba001_001",
+              "firstWavePath": "b_fly_motherwhale_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1510011125,
+                  "monsterRowFound": true,
+                  "modelId": 151011,
+                  "spotAi": "bt_bba001_singleRaid_Museum",
+                  "monsterPrefab": "bba001_psid_museum",
+                  "monsterResourceId": 186,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1510011125
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 151011
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700103
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_motherwhale_001",
+              "flyPointData": "point_fly_motherwhale_001",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 1011
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 1012,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 250,
+              "MonsterStageLvChangeGroup": 1001,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700104,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertbba001_001",
+              "firstWavePath": "b_fly_motherwhale_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1510011128,
+                  "monsterRowFound": true,
+                  "modelId": 151011,
+                  "spotAi": "bt_bba001_singleRaid_Nolimited",
+                  "monsterPrefab": "bba001_psid_museum",
+                  "monsterResourceId": 186,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1510011128
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 151011
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700104
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_motherwhale_001",
+              "flyPointData": "point_fly_motherwhale_001",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 1012
+            },
+            "stageLvChangeRowsInCurrentTable": 28
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 101
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 1011
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 1012
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-blacksmith",
+      "displayName": "Blacksmith",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 102,
+        "buffId": 80021,
+        "stageMonsterId": 1520031115,
+        "soloRaidManagerId": 1000002,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 1021,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700203,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_cityforestunderbbg003_001",
+              "firstWavePath": "b_grd_blacksmith_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1520031115,
+                  "monsterRowFound": true,
+                  "modelId": 152023,
+                  "spotAi": "bt_bbg003_singleRaid_Museum",
+                  "monsterPrefab": "bbg003_hsta_museum",
+                  "monsterResourceId": 234,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1520031115
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 152023
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700203
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_blacksmith_01",
+              "flyPointData": "point_fly_blacksmith_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 1021
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 1022,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 400,
+              "MonsterStageLvChangeGroup": 1002,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700204,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_cityforestunderbbg003_001",
+              "firstWavePath": "b_grd_blacksmith_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1520031118,
+                  "monsterRowFound": true,
+                  "modelId": 152023,
+                  "spotAi": "bt_bbg003_singleRaid_Nolimited",
+                  "monsterPrefab": "bbg003_hsta_museum",
+                  "monsterResourceId": 234,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1520031118
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 152023
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700204
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_blacksmith_01",
+              "flyPointData": "point_fly_blacksmith_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 1022
+            },
+            "stageLvChangeRowsInCurrentTable": 28
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 102
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 1021
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 1022
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-ultra",
+      "displayName": "Ultra",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 103,
+        "buffId": 80071,
+        "stageMonsterId": 1520461145,
+        "soloRaidManagerId": 1000007,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 1031,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700703,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertbbg006_001",
+              "firstWavePath": "b_g_ultra_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1520461145,
+                  "monsterRowFound": true,
+                  "modelId": 152046,
+                  "spotAi": "bt_bbg006_zeus_singleRaid_Museum",
+                  "monsterPrefab": "bbg006_zeus",
+                  "monsterResourceId": 141,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1520461145
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 152046
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700703
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_ultra_01",
+              "flyPointData": "point_fly_ultra_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 1031
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 1032,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 550,
+              "MonsterStageLvChangeGroup": 1003,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700704,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertbbg006_001",
+              "firstWavePath": "b_g_ultra_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1520461148,
+                  "monsterRowFound": true,
+                  "modelId": 152046,
+                  "spotAi": "bt_bbg006_zeus_singleRaid_Nolimited",
+                  "monsterPrefab": "bbg006_zeus",
+                  "monsterResourceId": 141,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1520461148
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 152046
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700704
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_ultra_01",
+              "flyPointData": "point_fly_ultra_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 1032
+            },
+            "stageLvChangeRowsInCurrentTable": 28
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 103
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 1031
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 1032
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-alteisen",
+      "displayName": "Alteisen",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 201,
+        "buffId": 80041,
+        "stageMonsterId": 3520111125,
+        "soloRaidManagerId": 1000004,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 2011,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700403,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertmbg001_001",
+              "firstWavePath": "b_g_alteisen_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 3520111125,
+                  "monsterRowFound": true,
+                  "modelId": 352011,
+                  "spotAi": "bt_mbg001_psid_singleRaid_Museum",
+                  "monsterPrefab": "mbg001_psid",
+                  "monsterResourceId": 133,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 3520111125
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 352011
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700403
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_alteisen_01",
+              "flyPointData": "point_fly_alteisen_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 2011
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 2012,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 500,
+              "MonsterStageLvChangeGroup": 1004,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700404,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertmbg001_001",
+              "firstWavePath": "b_g_alteisen_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 3520111128,
+                  "monsterRowFound": true,
+                  "modelId": 352011,
+                  "spotAi": "bt_mbg001_psid_singleRaid_Nolimited",
+                  "monsterPrefab": "mbg001_psid",
+                  "monsterResourceId": 133,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 3520111128
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 352011
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700404
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_alteisen_01",
+              "flyPointData": "point_fly_alteisen_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 2012
+            },
+            "stageLvChangeRowsInCurrentTable": 24
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 201
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 2011
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 2012
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-modernia",
+      "displayName": "Modernia",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 202,
+        "buffId": 80061,
+        "stageMonsterId": 3520041155,
+        "soloRaidManagerId": 1000006,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 2021,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700603,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desert_sky_001",
+              "firstWavePath": "b_fly_mordernia_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 3520041155,
+                  "monsterRowFound": true,
+                  "modelId": 352004,
+                  "spotAi": "bt_mbg004_dmtr_singleRaid_Museum",
+                  "monsterPrefab": "mbg004",
+                  "monsterResourceId": 64,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 3520041155
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 352004
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700603
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_mordernia_01",
+              "flyPointData": "point_fly_mordernia_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 2021
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 2022,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 550,
+              "MonsterStageLvChangeGroup": 1005,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700604,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desert_sky_001",
+              "firstWavePath": "b_fly_mordernia_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 3520041158,
+                  "monsterRowFound": true,
+                  "modelId": 352004,
+                  "spotAi": "bt_mbg004_dmtr_singleRaid_Nolimited",
+                  "monsterPrefab": "mbg004",
+                  "monsterResourceId": 64,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 3520041158
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 352004
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700604
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_mordernia_01",
+              "flyPointData": "point_fly_mordernia_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 2022
+            },
+            "stageLvChangeRowsInCurrentTable": 24
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 202
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 2021
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 2022
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-storm-bringer",
+      "displayName": "Storm Bringer",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 203,
+        "buffId": 80111,
+        "stageMonsterId": 2510111135,
+        "soloRaidManagerId": 1000011,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 2031,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6701203,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_greathole_sky_001",
+              "firstWavePath": "b_fly_stormbringer_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 2510111135,
+                  "monsterRowFound": true,
+                  "modelId": 251011,
+                  "spotAi": "bt_eba001_anmi_singleRaid_Museum",
+                  "monsterPrefab": "eba001_anmi",
+                  "monsterResourceId": 145,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 2510111135
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 251011
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6701203
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_stormbringer_01",
+              "flyPointData": "point_fly_stormbringer_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 2031
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 2032,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 650,
+              "MonsterStageLvChangeGroup": 1006,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6701204,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_greathole_sky_001",
+              "firstWavePath": "b_fly_stormbringer_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 2510111138,
+                  "monsterRowFound": true,
+                  "modelId": 251011,
+                  "spotAi": "bt_eba001_anmi_singleRaid_Nolimited",
+                  "monsterPrefab": "eba001_anmi",
+                  "monsterResourceId": 145,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 2510111138
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 251011
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6701204
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_stormbringer_01",
+              "flyPointData": "point_fly_stormbringer_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 2032
+            },
+            "stageLvChangeRowsInCurrentTable": 24
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 203
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 2031
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 2032
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-harvester",
+      "displayName": "Harvester",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 301,
+        "buffId": 80031,
+        "stageMonsterId": 1520111115,
+        "soloRaidManagerId": 1000003,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 3011,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700303,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desert_b_001_01",
+              "firstWavePath": "b_g_harvester_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1520111115,
+                  "monsterRowFound": true,
+                  "modelId": 152031,
+                  "spotAi": "bt_bbg001_singleRaid_Museum",
+                  "monsterPrefab": "bbg001_hsta_museum",
+                  "monsterResourceId": 237,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1520111115
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 152031
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700303
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_harvester_01",
+              "flyPointData": "point_fly_harvester_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 3011
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 3012,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 460,
+              "MonsterStageLvChangeGroup": 1007,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6700304,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desert_b_001_01",
+              "firstWavePath": "b_g_harvester_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 1520111118,
+                  "monsterRowFound": true,
+                  "modelId": 152031,
+                  "spotAi": "bt_bbg001_singleRaid_Nolimited",
+                  "monsterPrefab": "bbg001_hsta_museum",
+                  "monsterResourceId": 237,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 1520111118
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 152031
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6700304
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_harvester_01",
+              "flyPointData": "point_fly_harvester_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 3012
+            },
+            "stageLvChangeRowsInCurrentTable": 20
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 301
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 3011
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 3012
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-crystal-chamber",
+      "displayName": "Crystal Chamber",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 302,
+        "buffId": 80101,
+        "stageMonsterId": 4520011125,
+        "soloRaidManagerId": 1000010,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 3021,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6701003,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_cityforestundercrystalxbg001_001",
+              "firstWavePath": "b_g_crystalchaimber",
+              "targetMonsters": [
+                {
+                  "monsterId": 4520011125,
+                  "monsterRowFound": true,
+                  "modelId": 452001,
+                  "spotAi": "bt_xbg001_psid_singleRaid_Museum",
+                  "monsterPrefab": "xbg001_psid",
+                  "monsterResourceId": 144,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 4520011125
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 452001
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6701003
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_crystalchaimber",
+              "flyPointData": "point_fly_crystalchaimber",
+              "closeMonsterCount": 1
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 3021
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 3022,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 650,
+              "MonsterStageLvChangeGroup": 1008,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6701004,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_cityforestundercrystalxbg001_001",
+              "firstWavePath": "b_g_crystalchaimber",
+              "targetMonsters": [
+                {
+                  "monsterId": 4520011128,
+                  "monsterRowFound": true,
+                  "modelId": 452001,
+                  "spotAi": "bt_xbg001_psid_singleRaid_Nolimited",
+                  "monsterPrefab": "xbg001_psid",
+                  "monsterResourceId": 144,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 4520011128
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 452001
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6701004
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_crystalchaimber",
+              "flyPointData": "point_fly_crystalchaimber",
+              "closeMonsterCount": 1
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 3022
+            },
+            "stageLvChangeRowsInCurrentTable": 20
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 302
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 3021
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 3022
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "museum-indivilia",
+      "displayName": "Indivilia",
+      "productMode": "museum",
+      "variant": "challenge and no-limit are distinct",
+      "nativeModeRoutingStatus": "MuseumStageMode Wave rows resolved; original transporter management/process selection and museum buff application require native verification",
+      "originalTableFields": {
+        "museumStageId": 303,
+        "buffId": 80131,
+        "stageMonsterId": 2520031145,
+        "soloRaidManagerId": 1000013,
+        "modes": {
+          "Challenge": {
+            "modeRowId": 3031,
+            "levels": {
+              "CharacterLv": 400,
+              "MonsterStageLv": 390,
+              "MonsterStageLvChangeGroup": 905,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6701303,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertebg003_custom",
+              "firstWavePath": "b_g_indivilia_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 2520031145,
+                  "monsterRowFound": true,
+                  "modelId": 252003,
+                  "spotAi": "bt_ebg003_singleRaid_Museum",
+                  "monsterPrefab": "ebg003",
+                  "monsterResourceId": 148,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 2520031145
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 252003
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6701303
+              },
+              "spotMod": "SoloRaidMuseum",
+              "groundPointData": "point_grd_indivilia_01",
+              "flyPointData": "point_fly_indivilia_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 3031
+            },
+            "stageLvChangeRowsInCurrentTable": 9
+          },
+          "NoLimit": {
+            "modeRowId": 3032,
+            "levels": {
+              "CharacterLv": 0,
+              "MonsterStageLv": 720,
+              "MonsterStageLvChangeGroup": 1009,
+              "DynamicObjectStageLv": 400,
+              "CoverStageLv": 1,
+              "SpotAutocontrol": true
+            },
+            "wave": {
+              "stageId": 6701304,
+              "foundInCurrentArchive": true,
+              "waveGroup": "wave_Intercept_001",
+              "battleTimeSeconds": 180,
+              "backgroundName": "sbg_desertebg003_custom",
+              "firstWavePath": "b_g_indivilia_01",
+              "targetMonsters": [
+                {
+                  "monsterId": 2520031148,
+                  "monsterRowFound": true,
+                  "modelId": 252003,
+                  "spotAi": "bt_ebg003_singleRaid_Nolimited",
+                  "monsterPrefab": "ebg003",
+                  "monsterResourceId": 148,
+                  "modelRowFound": true,
+                  "sources": [
+                    {
+                      "archiveEntry": "MonsterTable.mpk",
+                      "rowId": 2520031148
+                    },
+                    {
+                      "archiveEntry": "MonsterModelTable.mpk",
+                      "rowId": 252003
+                    }
+                  ]
+                }
+              ],
+              "source": {
+                "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+                "rowId": 6701304
+              },
+              "spotMod": "SoloRaidMuseumNolimit",
+              "groundPointData": "point_grd_indivilia_01",
+              "flyPointData": "point_fly_indivilia_01",
+              "closeMonsterCount": 0
+            },
+            "source": {
+              "archiveEntry": "MuseumStageModeTable.mpk",
+              "rowId": 3032
+            },
+            "stageLvChangeRowsInCurrentTable": 20
+          }
+        }
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "MuseumStageTable.mpk",
+          "rowId": 303
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 3031
+        },
+        {
+          "archiveEntry": "MuseumStageModeTable.mpk",
+          "rowId": 3032
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for both variants",
+        "museum buff runtime application and original manager/process route unverified",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on either variant"
+      ]
+    },
+    {
+      "productId": "special-alteisen",
+      "displayName": "Alteisen",
+      "productMode": "special",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 1,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302001,
+        "levels": {
+          "CharacterLv": 200,
+          "MonsterStageLv": 287,
+          "MonsterStageLvChangeGroup": 201,
+          "DynamicObjectStageLv": 287,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302001,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_desertmbg001_001",
+        "firstWavePath": "b_g_alteisen_01",
+        "targetMonsters": [
+          {
+            "monsterId": 3520010133,
+            "monsterRowFound": true,
+            "modelId": 352001,
+            "spotAi": "bt_mbg001_intercept",
+            "monsterPrefab": "mbg001",
+            "monsterResourceId": 39,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 3520010133
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 352001
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302001
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_alteisen_01",
+        "flyPointData": "point_fly_alteisen_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptSpecialTable.mpk",
+          "rowId": 1
+        },
+        {
+          "archiveEntry": "InterceptSpecialManagerTable.mpk",
+          "rowId": 101,
+          "scope": "one group-1 manager row; live rotation manager selection not inferred"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "special-gravedigger",
+      "displayName": "Grave Digger",
+      "productMode": "special",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 2,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302002,
+        "levels": {
+          "CharacterLv": 200,
+          "MonsterStageLv": 287,
+          "MonsterStageLvChangeGroup": 202,
+          "DynamicObjectStageLv": 287,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302002,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_gravedigger_001",
+        "firstWavePath": "b_grd_gravedigger_01",
+        "targetMonsters": [
+          {
+            "monsterId": 3520020143,
+            "monsterRowFound": true,
+            "modelId": 352002,
+            "spotAi": "bt_mbg002_intercept",
+            "monsterPrefab": "mbg002",
+            "monsterResourceId": 61,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 3520020143
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 352002
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302002
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_gravedigger_01",
+        "flyPointData": "point_fly_gravedigger_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptSpecialTable.mpk",
+          "rowId": 2
+        },
+        {
+          "archiveEntry": "InterceptSpecialManagerTable.mpk",
+          "rowId": 101,
+          "scope": "one group-1 manager row; live rotation manager selection not inferred"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "special-blacksmith",
+      "displayName": "Blacksmith",
+      "productMode": "special",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 3,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302003,
+        "levels": {
+          "CharacterLv": 200,
+          "MonsterStageLv": 287,
+          "MonsterStageLvChangeGroup": 203,
+          "DynamicObjectStageLv": 287,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302003,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_cityforestunderbbg003_001",
+        "firstWavePath": "b_grd_blacksmith_01",
+        "targetMonsters": [
+          {
+            "monsterId": 1520030113,
+            "monsterRowFound": true,
+            "modelId": 152003,
+            "spotAi": "bt_bbg003_intercept",
+            "monsterPrefab": "bbg003",
+            "monsterResourceId": 62,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 1520030113
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 152003
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302003
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_blacksmith_01",
+        "flyPointData": "point_fly_blacksmith_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptSpecialTable.mpk",
+          "rowId": 3
+        },
+        {
+          "archiveEntry": "InterceptSpecialManagerTable.mpk",
+          "rowId": 101,
+          "scope": "one group-1 manager row; live rotation manager selection not inferred"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "special-chatterbox",
+      "displayName": "Chatterbox",
+      "productMode": "special",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 4,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302004,
+        "levels": {
+          "CharacterLv": 200,
+          "MonsterStageLv": 287,
+          "MonsterStageLvChangeGroup": 204,
+          "DynamicObjectStageLv": 287,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302004,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_cityforestunderbbg003_001",
+        "firstWavePath": "b_grd_talkertive_01",
+        "targetMonsters": [
+          {
+            "monsterId": 1520020113,
+            "monsterRowFound": true,
+            "modelId": 152002,
+            "spotAi": "bt_bbg002_intercept",
+            "monsterPrefab": "bbg002",
+            "monsterResourceId": 63,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 1520020113
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 152002
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302004
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_talkertive_01",
+        "flyPointData": "point_fly_talkertive_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptSpecialTable.mpk",
+          "rowId": 4
+        },
+        {
+          "archiveEntry": "InterceptSpecialManagerTable.mpk",
+          "rowId": 101,
+          "scope": "one group-1 manager row; live rotation manager selection not inferred"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "special-modernia",
+      "displayName": "Modernia",
+      "productMode": "special",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 5,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302005,
+        "levels": {
+          "CharacterLv": 200,
+          "MonsterStageLv": 287,
+          "MonsterStageLvChangeGroup": 205,
+          "DynamicObjectStageLv": 287,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302005,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_iceland_sky_001",
+        "firstWavePath": "b_fly_mordernia_01",
+        "targetMonsters": [
+          {
+            "monsterId": 3520040153,
+            "monsterRowFound": true,
+            "modelId": 352004,
+            "spotAi": "bt_mbg004_intercept_2",
+            "monsterPrefab": "mbg004",
+            "monsterResourceId": 64,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 3520040153
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 352004
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302005
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_mordernia_01",
+        "flyPointData": "point_fly_mordernia_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptSpecialTable.mpk",
+          "rowId": 5
+        },
+        {
+          "archiveEntry": "InterceptSpecialManagerTable.mpk",
+          "rowId": 101,
+          "scope": "one group-1 manager row; live rotation manager selection not inferred"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "anomaly-ultra",
+      "displayName": "Ultra",
+      "productMode": "anomaly",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 3,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302008,
+        "levels": {
+          "LimitCharacterLv": 400,
+          "MonsterStageLv": 250,
+          "MonsterStageLvChangeGroup": 208,
+          "DynamicObjectStageLv": 250,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302008,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_desertbbg006_001",
+        "firstWavePath": "b_g_ultra_01",
+        "targetMonsters": [
+          {
+            "monsterId": 1520460146,
+            "monsterRowFound": true,
+            "modelId": 152016,
+            "spotAi": "bt_bbg006_InterceptAnomalous",
+            "monsterPrefab": "bbg006_zeus_intercept",
+            "monsterResourceId": 158,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 1520460146
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 152016
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302008
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_ultra_01",
+        "flyPointData": "point_fly_ultra_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptAnomalousTable.mpk",
+          "rowId": 3
+        },
+        {
+          "archiveEntry": "InterceptAnomalousManagerTable.mpk",
+          "rowId": 105,
+          "scope": "current interval 2026-10-09 selects group 1; runtime clock/rotation still needs verification"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "anomaly-mirror-container",
+      "displayName": "Mirror Container",
+      "productMode": "anomaly",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 1,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302006,
+        "levels": {
+          "LimitCharacterLv": 400,
+          "MonsterStageLv": 250,
+          "MonsterStageLvChangeGroup": 206,
+          "DynamicObjectStageLv": 250,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302006,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_cityforestcrystalxba001_001",
+        "firstWavePath": "b_fly_mirrorcontainer_01",
+        "targetMonsters": [
+          {
+            "monsterId": 4510010123,
+            "monsterRowFound": true,
+            "modelId": 451011,
+            "spotAi": "bt_xba001_psid_intercept",
+            "monsterPrefab": "xba001_psid_intercept",
+            "monsterResourceId": 156,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 4510010123
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 451011
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302006
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_mirrorcontainer_001",
+        "flyPointData": "point_fly_mirrorcontainer_001",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptAnomalousTable.mpk",
+          "rowId": 1
+        },
+        {
+          "archiveEntry": "InterceptAnomalousManagerTable.mpk",
+          "rowId": 105,
+          "scope": "current interval 2026-10-09 selects group 1; runtime clock/rotation still needs verification"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "anomaly-kraken",
+      "displayName": "Kraken",
+      "productMode": "anomaly",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 4,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302009,
+        "levels": {
+          "LimitCharacterLv": 400,
+          "MonsterStageLv": 250,
+          "MonsterStageLvChangeGroup": 209,
+          "DynamicObjectStageLv": 250,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302009,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_oceanbbg004_001",
+        "firstWavePath": "b_fly_kraken_01",
+        "targetMonsters": [
+          {
+            "monsterId": 1520040153,
+            "monsterRowFound": true,
+            "modelId": 152044,
+            "spotAi": "bt_bbg004_dmtr_intercept",
+            "monsterPrefab": "bbg004_dmtr_intercept",
+            "monsterResourceId": 154,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 1520040153
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 152044
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302009
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_kraken",
+        "flyPointData": "point_fly_kraken",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptAnomalousTable.mpk",
+          "rowId": 4
+        },
+        {
+          "archiveEntry": "InterceptAnomalousManagerTable.mpk",
+          "rowId": 105,
+          "scope": "current interval 2026-10-09 selects group 1; runtime clock/rotation still needs verification"
+        }
+      ],
+      "unresolved": [
+        "Combined tactical node 230 cover + QTE group 212 validated only on diagnostic five-unit fixture in native trials 120/121; other Kraken attacks, repeat episodes, builds and boss seeds unvalidated",
+        "user build to native input conversion incomplete",
+        "normal-game parity and production wiring unvalidated"
+      ]
+    },
+    {
+      "productId": "anomaly-harvester",
+      "displayName": "Harvester",
+      "productMode": "anomaly",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 5,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302010,
+        "levels": {
+          "LimitCharacterLv": 400,
+          "MonsterStageLv": 250,
+          "MonsterStageLvChangeGroup": 210,
+          "DynamicObjectStageLv": 250,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302010,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_desert_b_001_01",
+        "firstWavePath": "b_g_harvester_01",
+        "targetMonsters": [
+          {
+            "monsterId": 1520010113,
+            "monsterRowFound": true,
+            "modelId": 152011,
+            "spotAi": "bt_bbg001_intercept",
+            "monsterPrefab": "bbg001_hsta_intercept",
+            "monsterResourceId": 157,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 1520010113
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 152011
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302010
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_harvester_01",
+        "flyPointData": "point_fly_harvester_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptAnomalousTable.mpk",
+          "rowId": 5
+        },
+        {
+          "archiveEntry": "InterceptAnomalousManagerTable.mpk",
+          "rowId": 105,
+          "scope": "current interval 2026-10-09 selects group 1; runtime clock/rotation still needs verification"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "anomaly-indivilia",
+      "displayName": "Indivilia",
+      "productMode": "anomaly",
+      "variant": "group 1 original fight",
+      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "originalTableFields": {
+        "interceptRowId": 2,
+        "group": 1,
+        "spotType": "WaveData",
+        "spotId": 6302007,
+        "levels": {
+          "LimitCharacterLv": 400,
+          "MonsterStageLv": 250,
+          "MonsterStageLvChangeGroup": 207,
+          "DynamicObjectStageLv": 250,
+          "CoverStageLv": 8
+        },
+        "autoChargeId": 20001,
+        "stageLvChangeRowsInCurrentTable": 9
+      },
+      "wave": {
+        "stageId": 6302007,
+        "foundInCurrentArchive": true,
+        "waveGroup": "wave_Intercept_001",
+        "battleTimeSeconds": 180,
+        "backgroundName": "sbg_desertebg003_custom",
+        "firstWavePath": "b_g_indivilia_01",
+        "targetMonsters": [
+          {
+            "monsterId": 2520130133,
+            "monsterRowFound": true,
+            "modelId": 252013,
+            "spotAi": "bt_ebg003_anmi_intercept_2",
+            "monsterPrefab": "ebg003_anmi_intercept",
+            "monsterResourceId": 155,
+            "modelRowFound": true,
+            "sources": [
+              {
+                "archiveEntry": "MonsterTable.mpk",
+                "rowId": 2520130133
+              },
+              {
+                "archiveEntry": "MonsterModelTable.mpk",
+                "rowId": 252013
+              }
+            ]
+          }
+        ],
+        "source": {
+          "archiveEntry": "WaveDataTable.wave_Intercept_001.mpk",
+          "rowId": 6302007
+        },
+        "spotMod": "Intercept",
+        "groundPointData": "point_grd_indivilia_01",
+        "flyPointData": "point_fly_indivilia_01",
+        "closeMonsterCount": 0
+      },
+      "sourceRows": [
+        {
+          "archiveEntry": "InterceptAnomalousTable.mpk",
+          "rowId": 2
+        },
+        {
+          "archiveEntry": "InterceptAnomalousManagerTable.mpk",
+          "rowId": 105,
+          "scope": "current interval 2026-10-09 selects group 1; runtime clock/rotation still needs verification"
+        }
+      ],
+      "unresolved": [
+        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
+        "native original fight result and hit/skill/QTE/phase trace absent",
+        "smarter automatic action policy not validated on this variant"
+      ]
+    },
+    {
+      "productId": "training",
+      "displayName": "Training target",
+      "productMode": "practice",
+      "variant": "user-defined / generic",
+      "nativeModeRoutingStatus": "not a fixed installed boss selection",
+      "originalTableFields": {},
+      "sourceRows": [
+        {
+          "productFile": "I:/Raid Lab/tools/raid-lab/encounters.py",
+          "symbol": "BOSSES"
+        }
+      ],
+      "unresolved": [
+        "request-specific original stage/wave or training-target definition is not supplied by this product selector; no fixed boss asset inventory possible"
+      ]
+    },
+    {
+      "productId": "campaign",
+      "displayName": "Non-boss stage",
+      "productMode": "campaign",
+      "variant": "user-defined / generic",
+      "nativeModeRoutingStatus": "not a fixed installed boss selection",
+      "originalTableFields": {},
+      "sourceRows": [
+        {
+          "productFile": "I:/Raid Lab/tools/raid-lab/encounters.py",
+          "symbol": "BOSSES"
+        }
+      ],
+      "unresolved": [
+        "request-specific original stage/wave or training-target definition is not supplied by this product selector; no fixed boss asset inventory possible"
+      ]
+    }
+  ],
+  "commonPrerequisites": [
+    "exact per-mode transporter fields (management type, SpotModType, WaveId, levels, seed, result mode) and original process lifecycle",
+    "Current WaveData row plus its original SpotMod, target MonsterTable / MonsterModelTable, ground/fly point-map data, background, wave path, and mechanically relevant assets.",
+    "original monster prefab with Animator/controller, collider/hitbox, behavior tree, part/QTE/projectile/summon dependencies and original tick/frame cadence",
+    "request-bound original five-character build conversion, skills/equipment/gear provenance, plus result receipt",
+    "passive action/telegraph observations and live native action ownership before a smarter automatic policy can be validated"
+  ],
+  "historicalDataLimit": "I:/Raid Lab/tools/raid-lab/raid-boss-combat-data.json and boss-static-data.json use historical client/source SHA D1469075..., so their approximate Python profiles are not current native validation; current MonsterTable, MonsterModelTable, SoloRaidPresetTable and wave bytes differ from old transfer/catalog-input.zip.",
+  "nextCandidate": {
+    "productId": "anomaly-mirror-container",
+    "reason": "QTE precision is explicitly marked in product selector, making it a discriminating next policy and geometry test after Kraken; its current group-1 table routes to WaveData 6302006 with target 4510010123 and current prefab xba001_psid_intercept.",
+    "exactGaps": [
+      "stage original target prefab resource 156 and dependency closure, colliders/parts/QTE data, ground point_grd_mirrorcontainer_001, fly point_fly_mirrorcontainer_001, background sbg_cityforestcrystalxba001_001, and wave path b_fly_mirrorcontainer_01 for stage 6302006",
+      "verify original transporter fields and InterceptProcess initialization for row 1 in isolated private host",
+      "record baseline original-auto fight, QTE/part event timing, action ownership, result and repeatability before smarter targeting",
+      "validate user build conversion separately; no approximate profile or Kraken fixture substitution"
+    ]
+  },
+  "managerRows": {
+    "anomaly": [
+      {
+        "id": 101,
+        "group": 1,
+        "startDate": "2000-01-01T00:00:00",
+        "endDate": "2025-03-31T20:00:00"
+      },
+      {
+        "id": 102,
+        "group": 2,
+        "startDate": "2025-03-31T20:00:00",
+        "endDate": "2025-04-01T20:00:00"
+      },
+      {
+        "id": 103,
+        "group": 1,
+        "startDate": "2025-04-01T20:00:00",
+        "endDate": "2026-03-31T20:00:00"
+      },
+      {
+        "id": 104,
+        "group": 2,
+        "startDate": "2026-03-31T20:00:00",
+        "endDate": "2026-04-01T20:00:00"
+      },
+      {
+        "id": 105,
+        "group": 1,
+        "startDate": "2026-04-01T20:00:00",
+        "endDate": "2999-01-01T00:00:00"
+      }
+    ],
+    "special": [
+      {
+        "id": 101,
+        "group": 1,
+        "startId": 1
+      },
+      {
+        "id": 201,
+        "group": 2,
+        "startId": 201
+      },
+      {
+        "id": 301,
+        "group": 1,
+        "startId": 5
+      },
+      {
+        "id": 401,
+        "group": 2,
+        "startId": 201
+      },
+      {
+        "id": 501,
+        "group": 1,
+        "startId": 4
+      },
+      {
+        "id": 601,
+        "group": 2,
+        "startId": 201
+      },
+      {
+        "id": 701,
+        "group": 1,
+        "startId": 3
+      }
+    ],
+    "note": "Manager rows select groups/rotation, not a verified native transporter management enum. Group-1 fight rows used below; group-2 holiday mini-game rows are deliberately excluded."
+  }
+}

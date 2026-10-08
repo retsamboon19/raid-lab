@@ -2,6 +2,12 @@
   "version": 2,
   "checked_at": "2026-09-11",
   "weight_origin": "Local proposal preferences; not damage multipliers.",
+  "reentry_burst1": [
+    "alice-wonderland-bunny",
+    "winter-shopper-rupee",
+    "avistar",
+    "tia"
+  ],
   "units": {
     "2b": {
       "name": "2B",
@@ -8069,6 +8075,7 @@
         "crown",
         "anis-star"
       ],
+      "anis_star_mode": "reentry",
       "reason": "Healing during re-entry can enable Crown’s buff.",
       "weight": 0.7
     },

@@ -48,4 +48,6 @@ To update, extract a fresh copy, copy your old `tools/raid-lab/private` folder i
 
 App: `tools/raid-lab`. Vendored engine: `tools/nikke-team-builder`. All runtime paths are relative. `launch.ps1 -PrepareOnly` prepares dependencies without launching a browser or making a shortcut.
 
+**Native battle-engine progress:** the [research checkpoint](tools/raid-lab/research/native-player/README.md) contains the original-engine adapters, smarter-input policies, tests, and validation status. The app still runs its Python simulation. The native controller has passed a Kraken diagnostic; all-boss validation and production integration remain in progress.
+
 See [third-party notices](THIRD_PARTY_NOTICES.md). NIKKE and its characters belong to their respective rights holders. This is an unofficial fan tool.

@@ -42,7 +42,9 @@ class PrioritySearchTests(unittest.TestCase):
         self.assertEqual([n for n in selected if core.CAT[n]['burst']=='3'],desired[2:])
         self.assertIn((selected,180),seen)
         audit=result['selection']['screening_checks']
-        self.assertTrue(any(set(r['members'])==set(selected) and r['full_duration_promoted'] for r in audit))
+        # The winner may already emerge from earlier package or rotation checks;
+        # neighborhood screening must still promote Anis alternatives.
+        self.assertTrue(any(anis in r['members'] and r['full_duration_promoted'] for r in audit))
         self.assertTrue(result['selection']['survival_model_stops'])
         self.assertTrue(any('Ranking is sensitive' in w for w in result['warnings']))
 

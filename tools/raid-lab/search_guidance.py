@@ -19,6 +19,11 @@ class SearchGuidance:
         self.data = load_data() if data is None else data
         self.roster, self.catalog, self.settings, self.weights = roster, catalog, settings, weights
         self.units = self.data['units']
+        self.anis_star = self.resolve('anis-star')
+        # These Burst I units re-enter the stage rather than taking Anis: Star
+        # out of her solo mode. All-stage RH and Burst III RRH are excluded by
+        # the catalog's Burst stage below.
+        self.reentry_burst1 = {self.resolve(slug) for slug in self.data.get('reentry_burst1', [])}
         self.edges = []
         for rule in self.data['pairs']:
             anchor, *partners = rule['units']
@@ -83,6 +88,7 @@ class SearchGuidance:
 
     def applies(self, rule, team):
         if not self.context(rule): return False
+        if rule.get('anis_star_mode') and rule['anis_star_mode'] != self.anis_star_mode(team): return False
         if any(not self.resolve(slug) or self.resolve(slug) not in team for slug in rule.get('requires', [])): return False
         any_of = rule.get('requires_any', [])
         return not any_of or any(self.resolve(slug) in team for slug in any_of)
@@ -118,8 +124,21 @@ class SearchGuidance:
     def bonus(self, n, team):
         return max(-2., min(2., sum(v for pair,v in self.pair_values([*team,n]).items() if n in pair)))
 
+    def anis_star_mode(self, team):
+        if self.anis_star is None or self.anis_star not in team:
+            return None
+        return ('reentry' if any(n != self.anis_star and n not in self.reentry_burst1
+                                 and self.catalog[n]['burst'] == '1' for n in team)
+                else 'solo')
+
+    def role_preference(self, team):
+        # Proposal prior only. Healing, Crown activation, and actual damage are
+        # resolved by combat simulation, so re-entry remains eligible to win.
+        return -.6 if self.anis_star_mode(team) == 'reentry' else 0.
+
     def priority(self, n, team):
-        return math.log(max(self.weights[n], 1)) + self.bonus(n, team)
+        return (math.log(max(self.weights[n], 1)) + self.bonus(n, team)
+                + self.role_preference([*team,n]) - self.role_preference(team))
 
     def alternatives(self, options, team, iteration=0):
         ranked = sorted(options, key=lambda n:self.priority(n,team), reverse=True)
@@ -136,7 +155,7 @@ class SearchGuidance:
         for rule in self.data['dependencies']:
             if self.resolve(rule['unit']) in team and not any(self.resolve(s) in team for s in rule['any_of']):
                 bonus -= .6
-        return sum(self.weights[n] for n in team) * math.exp(max(-1., min(1.5, bonus)))
+        return sum(self.weights[n] for n in team) * math.exp(max(-1., min(1.5, bonus + self.role_preference(team))))
 
     def order_score(self, team):
         score = 0.
@@ -182,8 +201,11 @@ class SearchGuidance:
                 if key in seen: continue
                 seen.add(key)
                 pairs.append({'members':[a,b], 'weight':weight, 'reason':rule['reason']})
+        mode=self.anis_star_mode(team)
+        mode_note=({'solo':'Anis: Star is the sole regular Burst I: prioritize her cooldown reduction, caster-ATK buff, and personal damage.',
+                    'reentry':'Anis: Star re-enters Burst I: healing and Max HP can help survival or trigger Crown, while her solo cooldown reduction, caster-ATK buff, and personal damage buffs are inactive.'}.get(mode))
         return {'kind':'local_search_preferences', 'pairs':pairs,
                 'burst_priority':{stage:[n for n in team if self.catalog[n]['burst']==stage] for stage in ('1','2','3','A')},
-                'notes':[r['reason'] for r in self.data['orders'] if self.applies(r,team)
+                'notes':([mode_note] if mode_note else []) + [r['reason'] for r in self.data['orders'] if self.applies(r,team)
                          and any(self.resolve(x) in team for x in r.get('offburst', []) + r.get('requires', []) + [r.get('first'),r.get('second')])],
                 'scope':'Local proposal preferences; final order and team are verified by simulation.'}

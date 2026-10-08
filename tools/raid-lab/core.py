@@ -23,6 +23,7 @@ from kit_dependencies import KitDependencies
 import pairing_search
 import burst_rotation
 import rotation_search
+import source_provenance
 from candidate_ranking import score as candidate_score
 from parallel_compute import CandidateExecutor, worker_limit
 
@@ -196,7 +197,17 @@ def import_roster(data):
         if CAT[key]['supported']:
             notes=[n for n in notes if n != 'Skill kit not supported; excluded from simulations.']
         else: notes.append('Skill kit not supported; excluded from simulations.')
-        result.append({'id':key,'build':b,'enabled':r.get('enabled',True) is not False,'assumptions':list(dict.fromkeys(str(n) for n in notes))})
+        result_row={'id':key,'build':b,'enabled':r.get('enabled',True) is not False,
+                    'assumptions':list(dict.fromkeys(str(n) for n in notes))}
+        if 'sourceProvenance' in r:
+            retained=source_provenance.bound_source(r['sourceProvenance'],b,
+                CAT[key]['name_code'])
+            if retained is None:
+                result_row['assumptions']=list(dict.fromkeys(result_row['assumptions']+[
+                    'Exact equipment source was invalidated because the character, build or source record changed.']))
+            else:
+                result_row['sourceProvenance']=retained
+        result.append(result_row)
     if not result: raise ValueError('No matching owned units found. Import the character-data export, not accounts or a blank character template.')
     return {'roster':result,'warnings':warnings,'source':kind}
 
@@ -249,7 +260,14 @@ def import_account_export(data):
         else:notes.append('Research data missing; research bonuses set to zero.')
         notes.extend(local_warnings);warnings.extend(local_warnings)
         if not CAT[name]['supported']:notes.append('Skill kit not supported; excluded from simulations.')
-        rows.append({'id':name,'build':validate_build(b),'enabled':True,'assumptions':notes})
+        normalized=validate_build(b)
+        row={'id':name,'build':normalized,'enabled':True,'assumptions':notes}
+        try:
+            row['sourceProvenance']=source_provenance.from_account_detail(
+                detail,opt,effects,normalized,int(code))
+        except (KeyError, ValueError):
+            notes.append('Exact equipment source is incomplete in this export; normalized calculator build was retained.')
+        rows.append(row)
     warnings=list(dict.fromkeys(warnings))
     if unsynced:warnings.append(f'{unsynced} owned units are level 1/outside the synchro squad. They remain owned; fixed-level mode recalculates their level, not their investment.')
     return {'roster':rows,'warnings':warnings,'source':'BlaBlaLink account · '+str(data.get('captured_at','unknown date'))[:10],

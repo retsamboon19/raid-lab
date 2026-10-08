@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "purpose": "diagnostic_synthetic_input",
+  "installedClientSha256": "2df7134a6a9c3a8dbbde88402fc8d16d1d6c3f4c2d5e262bea78c3d78b96dd02",
+  "characters": [
+    {"nameCode": 5065, "level": 400, "grade": 0, "core": 0, "skillLevels": {"1": 10, "2": 10, "3": 10}, "stats": {"HealthPoint": 1000000, "Attack": 100000, "Defense": 10000, "EnergyResist": 0, "MetalResist": 0, "BioResist": 0, "CriticalRatio": {"source": "installed_character_table"}, "CriticalDamage": {"source": "installed_character_table"}, "HPRatio": 10000}},
+    {"nameCode": 5011, "level": 400, "grade": 0, "core": 0, "skillLevels": {"1": 10, "2": 10, "3": 10}, "stats": {"HealthPoint": 1000000, "Attack": 100000, "Defense": 10000, "EnergyResist": 0, "MetalResist": 0, "BioResist": 0, "CriticalRatio": {"source": "installed_character_table"}, "CriticalDamage": {"source": "installed_character_table"}, "HPRatio": 10000}},
+    {"nameCode": 5105, "level": 400, "grade": 0, "core": 0, "skillLevels": {"1": 10, "2": 10, "3": 10}, "stats": {"HealthPoint": 1000000, "Attack": 100000, "Defense": 10000, "EnergyResist": 0, "MetalResist": 0, "BioResist": 0, "CriticalRatio": {"source": "installed_character_table"}, "CriticalDamage": {"source": "installed_character_table"}, "HPRatio": 10000}},
+    {"nameCode": 5004, "level": 400, "grade": 0, "core": 0, "skillLevels": {"1": 10, "2": 10, "3": 10}, "stats": {"HealthPoint": 1000000, "Attack": 100000, "Defense": 10000, "EnergyResist": 0, "MetalResist": 0, "BioResist": 0, "CriticalRatio": {"source": "installed_character_table"}, "CriticalDamage": {"source": "installed_character_table"}, "HPRatio": 10000}},
+    {"nameCode": 5099, "level": 400, "grade": 0, "core": 0, "skillLevels": {"1": 10, "2": 10, "3": 10}, "stats": {"HealthPoint": 1000000, "Attack": 100000, "Defense": 10000, "EnergyResist": 0, "MetalResist": 0, "BioResist": 0, "CriticalRatio": {"source": "installed_character_table"}, "CriticalDamage": {"source": "installed_character_table"}, "HPRatio": 10000}}
+  ],
+  "encounter": {"managementType": 0, "processType": 7, "timeLimit": 180, "waveId": 6302009, "monsterStageLv": 250, "dynamicObjectLv": 250, "raidLvChangeGroup": 209, "randomSeed": 1, "isAuto": true, "tddProcess": false}
+}
