@@ -115,3 +115,20 @@ source assets are staged and schema2 encounter input prepared, but no native
 Mirror fight has run. Next124. Publication snapshot is
 `tools/raid-lab/research/native-player`; it is research source, not the production
 backend. The user requests pushing all progress to the existing GitHub main branch.
+
+
+Latest native autoplay checkpoint (October9,149): source-only research snapshot
+is published under tools/raid-lab/research/native-player; resume its
+SMART-AUTOPLAY-IMPLEMENTATION.md and source-index.json. Four bare fixtures
+execute original battles. Kraken123 bounded tactical sequence passes; Chatter148
+first node6/skill510209 cover5/impact87/release198/resume203 passes strict native
+verifier, but later attacks and full policy remain unvalidated. Mirror149 proves
+original ImmuneOtherElement110 active with weak-element mismatch; next live
+eligible shooter selection and native positive Break damage/HP/interruption.
+Do not repeat arithmetic diagnosis or bypass immunity.147 unmasked native bool
+readback is invalid: native bool returns require low-byte AL masking.145 exact
+method overload selection and146 nested callsite pointer fixes are preserved.
+Ultra139 baseline completes but3Break episodes fail. No further graphics work.
+Production search remains Python; full parity/equipped builds/native integration
+remain incomplete. User instruction: stop engineering at5% main usage remaining,
+push and verify GitHub main, then normal PC shutdown without /f.

@@ -30,6 +30,10 @@ OUTPUT = HERE / "mirror-geometry-source.json"
 SANDBOX = PRIVATE / "native-player-20261008a"
 CHUNK_RECEIPT = SANDBOX / "resource-chunks.json"
 STAGE_RECEIPT = SANDBOX / "mirror-asset-staging-receipt.json"
+OBSERVED_EFFECT = "effect-spot-monster_library_assets_fx_m_blue_lastdead_c61458257a4bf148468465f92b158bdf.bundle"
+OBSERVED_EFFECT_HASH = "43015207e502d1ba8b882ddd58ad6ff9"
+EFFECT_SOURCE = HERE / "mirror-dynamic-effect-source.json"
+EFFECT_STAGE_RECEIPT = SANDBOX / "mirror-dynamic-effect-staging-receipt.json"
 CLIENT_SHA = "2df7134a6a9c3a8dbbde88402fc8d16d1d6c3f4c2d5e262bea78c3d78b96dd02"
 WAVE_ID = 6302006
 MONSTER_ID = 4510010123
@@ -180,7 +184,10 @@ def prepare(output: Path) -> None:
     }
     entries = {role: selected_entry(catalog, key, quality=quality, main_contains=main)
                for role, (key, quality, main) in roles.items()}
-    bundle_names = sorted({name for entry in entries.values() for name in entry["bundles"]})
+    # Trial 125 proved this original on-init request is dynamic: it is absent
+    # from the static Addressables dependency closure of the monster prefab.
+    bundle_names = sorted({name for entry in entries.values() for name in entry["bundles"]}
+                          | {OBSERVED_EFFECT})
     verified, builtins, unavailable = {}, {}, {}
     decoder = zstandard.ZstdDecompressor()
     with source_store.open("rb") as stream:
@@ -246,6 +253,8 @@ def prepare(output: Path) -> None:
                               ("Id", "MonsterId", "QtePrefab", "GroupId", "ElementId")}
                              for row in sorted(qte_rows, key=lambda row: row["Id"])],
         "asset_entries": entries, "bundles": bundles,
+        "runtime_observed_bundles": [{"name": OBSERVED_EFFECT, "native_trial": 125,
+                                      "source": "original_management_on_init runtime load"}],
         "client_sha256": CLIENT_SHA,
         "installed_patch_root": str(CORE.parent),
         "sandbox_patch_root_suffix": "profile/AppData/LocalLow/com_proximabeta/NIKKE/com.shiftup.patch",
@@ -275,6 +284,8 @@ def stage(source_path: Path, expected_before: str) -> None:
     source = json.loads(source_path.read_text(encoding="utf-8"))
     if source.get("profile", {}).get("id") != "anomaly-mirror-container" or not source.get("ready_for_chunk_staging"):
         raise ValueError("Mirror source evidence is incomplete")
+    if OBSERVED_EFFECT not in source.get("verified_bundles", {}):
+        raise ValueError("Mirror source omits the trial-125 runtime effect; use the observed-effect repair evidence")
     if STAGE_RECEIPT.exists():
         raise ValueError("Refusing to overwrite existing Mirror stage receipt")
     before = sha(CHUNK_RECEIPT)
@@ -296,6 +307,94 @@ def stage(source_path: Path, expected_before: str) -> None:
     print(json.dumps({"stage_receipt": str(STAGE_RECEIPT), "sha256": sha(STAGE_RECEIPT)}))
 
 
+def repair_observed_effect(expected_before: str) -> None:
+    """Stage the exact trial-125 dynamic load missing from static prefab closure."""
+    if EFFECT_SOURCE.exists() or EFFECT_STAGE_RECEIPT.exists():
+        raise ValueError("Refusing to overwrite observed-effect source or stage evidence")
+    before = sha(CHUNK_RECEIPT)
+    if before != expected_before.lower():
+        raise ValueError("Scratch resource receipt changed since effect repair handoff")
+    mirror = json.loads(OUTPUT.read_text(encoding="utf-8"))
+    if (mirror.get("profile", {}).get("id") != "anomaly-mirror-container" or
+            not mirror.get("ready_for_chunk_staging") or
+            OBSERVED_EFFECT in mirror.get("verified_bundles", {}) or
+            OBSERVED_EFFECT in mirror.get("built_in_bundles", {})):
+        raise ValueError("Original Mirror source closure differs from trial-125 diagnosis")
+    if sha(ROOT / "NIKKE/NIKKE/game/GameAssembly.dll") != CLIENT_SHA:
+        raise ValueError("Installed client differs from observed native trial")
+    patch_path = CORE / "catalog.ndb"
+    if sha(patch_path) != mirror["catalog_sha256"]:
+        raise ValueError("Installed patch catalog differs from Mirror source")
+    patch = database(patch_path)
+    raw_hash, raw_ext = patch.execute(
+        "select hash,extension from files_rawtype where key='catalog.db'").fetchone()
+    raw_path = CORE / "raw" / (raw_hash.hex() + raw_ext)
+    if sha(raw_path) != mirror["source"]["addressables_catalog_sha256"]:
+        raise ValueError("Installed Addressables catalog differs from Mirror source")
+    catalog = database(raw_path)
+    count = catalog.execute("select count(*) from internal_ids where internal_id=?",
+                            (OBSERVED_EFFECT,)).fetchone()[0]
+    if count != 1:
+        raise ValueError(f"Observed runtime bundle has {count} installed catalog identities")
+    index_path = CORE / "chunk/store.cdb.idx"
+    if sha(index_path) != mirror["index_sha256"]:
+        raise ValueError("Installed index differs from Mirror source")
+    source_store = CORE / "chunk/store.cdb"
+    with source_store.open("rb") as stream:
+        verified = verify_bundle(patch, decode_index(index_path.read_bytes()),
+                                 OBSERVED_EFFECT, source_store, stream,
+                                 zstandard.ZstdDecompressor())
+    first = verified["chunks"][0]
+    if (verified["source"] != "patch_chunk_store" or
+            first["hash"] != OBSERVED_EFFECT_HASH or first["store_offset"] != 581070014 or
+            first["compressed_bytes"] != 7679 or first["decoded_bytes"] != 99403):
+        raise ValueError("Observed trial-125 chunk no longer maps to verified installed source")
+    evidence = {"schema_version": 1, "status": "static_catalog_mapping_only",
+                "profile": mirror["profile"], "installed_client_sha256": CLIENT_SHA,
+                "source_mirror_path": str(OUTPUT), "source_mirror_sha256": sha(OUTPUT),
+                "observed_trial": 125, "observed_missing_bundle": OBSERVED_EFFECT,
+                "catalog_sha256": mirror["catalog_sha256"],
+                "index_sha256": mirror["index_sha256"],
+                "sandbox_patch_root_suffix": mirror["sandbox_patch_root_suffix"],
+                "core_chunk_store": mirror["core_chunk_store"],
+                "core_bootstrap_files": mirror["core_bootstrap_files"],
+                "bundle_scope": [OBSERVED_EFFECT],
+                "verified_bundles": {OBSERVED_EFFECT: verified},
+                "limit": "One original runtime-requested bundle; no native outcome claimed."}
+    EFFECT_SOURCE.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
+    command = [sys.executable, str(HERE / "stage_resource_chunks.py"),
+               "--evidence", str(EFFECT_SOURCE)]
+    completed = subprocess.run(command, check=True, capture_output=True, text=True)
+    receipt = json.loads(CHUNK_RECEIPT.read_text(encoding="utf-8"))
+    if OBSERVED_EFFECT not in receipt["bundles"]:
+        raise ValueError("Updated scratch receipt lacks observed bundle")
+    expected_hashes = [item["hash"] for item in verified["chunks"]]
+    if receipt["bundles"][OBSERVED_EFFECT] != expected_hashes:
+        raise ValueError("Updated scratch receipt has different observed-bundle chunks")
+    staged_path = SANDBOX / mirror["sandbox_patch_root_suffix"] / "core/chunk/store.cdb"
+    original_path = CORE / "chunk/store.cdb"
+    with staged_path.open("rb") as staged, original_path.open("rb") as original:
+        for item in verified["chunks"]:
+            original.seek(item["store_offset"])
+            staged.seek(item["store_offset"])
+            if staged.read(item["compressed_bytes"]) != original.read(item["compressed_bytes"]):
+                raise ValueError(f"Observed bundle chunk differs in scratch: {item['hash']}")
+    report = {"schema_version": 1, "status": "observed_dynamic_bundle_source_staged",
+              "observed_trial": 125, "bundle": OBSERVED_EFFECT,
+              "first_chunk_hash": OBSERVED_EFFECT_HASH,
+              "source_evidence_path": str(EFFECT_SOURCE),
+              "source_evidence_sha256": sha(EFFECT_SOURCE),
+              "before_resource_receipt_sha256": before,
+              "after_resource_receipt_sha256": sha(CHUNK_RECEIPT),
+              "source_bundle_decoded_sha256": verified["verified_decoded"]["decodedSha256"],
+              "chunk_count": len(verified["chunks"]), "staging_command": command,
+              "staging_result": completed.stdout.strip(),
+              "limit": "Chunk repair only; no native battle rerun or result validation."}
+    EFFECT_STAGE_RECEIPT.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"stage_receipt": str(EFFECT_STAGE_RECEIPT),
+                      "sha256": sha(EFFECT_STAGE_RECEIPT), "chunks": len(verified["chunks"])}))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -304,11 +403,15 @@ def main() -> None:
     stage_parser = sub.add_parser("stage")
     stage_parser.add_argument("--source", type=Path, default=OUTPUT)
     stage_parser.add_argument("--expected-before-receipt-sha256", required=True)
+    effect_parser = sub.add_parser("repair-observed-effect")
+    effect_parser.add_argument("--expected-before-receipt-sha256", required=True)
     args = parser.parse_args()
     if args.command == "prepare":
         prepare(args.output)
-    else:
+    elif args.command == "stage":
         stage(args.source, args.expected_before_receipt_sha256)
+    else:
+        repair_observed_effect(args.expected_before_receipt_sha256)
 
 
 if __name__ == "__main__":

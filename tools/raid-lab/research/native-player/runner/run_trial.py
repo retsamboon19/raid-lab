@@ -125,6 +125,8 @@ def main():
                           'kraken-cover-probe': ['verify_kraken_cover_trial.py'],
                           'kraken-tactical': ['verify_kraken_qte_trial.py',
                                              'verify_kraken_cover_trial.py']}.get(control_binding['mode'], [])
+            if control_binding['mode'] == 'boss-tactical' and request.get('encounter', {}).get('waveId') == 6302004:
+                validators.append('verify_chatterbox_cover_trial.py')
             for validator in validators:
                 verified = subprocess.run([sys.executable, str(HERE / validator), str(output)])
                 if verified.returncode:

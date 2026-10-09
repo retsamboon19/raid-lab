@@ -23,11 +23,18 @@ PYTHON_TESTS = (
     "test_mechanics_encounter_requests.py",
     "test_verify_tactical_trial.py",
     "test_verify_boss_tactical_trial.py",
+    "test_verify_chatterbox_cover_trial.py",
 )
 NODE_TESTS = (
     "test_qte_policy.js",
     "test_cover_policy.js",
     "test_threat_observer.js",
+    "test_breakable_observer.js",
+    "test_break_policy.js",
+    "test_breakable_controller.js",
+    "test_tactical_input_priority.js",
+    "test_chatterbox_cover_probe.js",
+    "test_headless_startup_context.js",
 )
 HEX64 = re.compile(r"[0-9a-f]{64}\Z")
 
@@ -46,7 +53,8 @@ def verify() -> tuple[dict, list[tuple[Path, Path]]]:
     if index.get("schemaVersion") != 1 or index.get("kind") != "research_source_snapshot":
         raise ValueError("Unexpected source-index schema")
     rows = index.get("files")
-    if not isinstance(rows, list) or len(rows) != 74:
+    if (not isinstance(rows, list) or type(index.get("fileCount")) is not int or
+            len(rows) != index["fileCount"] or not 74 <= len(rows) <= 150):
         raise ValueError("Snapshot source file count changed")
     seen_snapshot, seen_original, mapped = set(), set(), []
     for row in rows:
@@ -93,7 +101,7 @@ def verify() -> tuple[dict, list[tuple[Path, Path]]]:
 def run_contracts(mapped: list[tuple[Path, Path]]) -> None:
     node = shutil.which("node")
     if node is None:
-        raise RuntimeError("Node.js is required for the three optional policy contracts")
+        raise RuntimeError("Node.js is required for the optional policy contracts")
     with TemporaryDirectory(prefix="raid-lab-source-snapshot-") as directory:
         temp = Path(directory).resolve()
         for source, relative in mapped:

@@ -170,20 +170,79 @@ const onMain = block => {
     record({phase:"schedule_error",status:"first_failure",delivery:mainDelivery,
       error:String(error)});
   };
-  void Il2Cpp.perform(() => {
-    if (mainDelivery==="bridge_bootstrap") {
-      // Never return/await this Promise from perform(...,"free"): that
-      // retains its attached worker through asynchronous main-thread work.
-      void Il2Cpp.mainThread.schedule(runMainBlock).catch(queueFailure);
-      return;
-    }
-    invokeChecked(mainPost,null,[mainPostAction.handle,mainPostPhase]);
-  }, "free").catch(queueFailure);
+  if (mainDelivery==="bridge_bootstrap") {
+    // The bridge can see il2cpp_get_corlib before Unity installs the main
+    // thread's SynchronizationContext. Its schedule getter throws before Post,
+    // so only that exact early-readiness failure may be retried. Keep each
+    // perform(...,"free") synchronous and preserve the original work block.
+    const earlyContext="couldn't find the synchronization context of the main thread";
+    const waitLimitMs=15000, retryMs=200;
+    let waitingLogged=false;
+    const retryFailure=error => {
+      if (pendingMainBlock===block && mainDelivery==="bridge_bootstrap" &&
+          String(error).includes(earlyContext) &&
+          Date.now()-mainWork.queuedAt<waitLimitMs) {
+        if (!waitingLogged) {
+          waitingLogged=true;
+          record({phase:"main_context_pending",delivery:mainDelivery,
+            queuedAt:mainWork.queuedAt,retryMs,waitLimitMs});
+        }
+        setTimeout(trySchedule,retryMs);
+        return;
+      }
+      queueFailure(error);
+    };
+    const trySchedule=() => {
+      if (pendingMainBlock!==block || mainDelivery!=="bridge_bootstrap") return;
+      // Do not return/await schedule's Promise from perform(...,"free"):
+      // retaining its attached worker through async work breaks shutdown.
+      void Il2Cpp.perform(() => {
+        void Il2Cpp.mainThread.schedule(runMainBlock).catch(retryFailure);
+      },"free").catch(retryFailure);
+    };
+    trySchedule();
+  } else {
+    void Il2Cpp.perform(() => {
+      invokeChecked(mainPost,null,[mainPostAction.handle,mainPostPhase]);
+    },"free").catch(queueFailure);
+  }
   return true;
 };
 
 const startManagedProbe = () => Il2Cpp.perform(() => {
   const runtime = Il2Cpp.domain.assembly("NK.Runtime").image;
+  // Trial142 main-thread samples identify original signed-file hashing as the
+  // startup wait. Observe only its file paths/duration; never replace verification
+  // or read/log public-key bytes, signatures, or file contents.
+  const signatureMethod=Il2Cpp.domain.assembly("Shiftup.Libsodium.Runtime").image
+    .class("Shiftup.Libsodium.Utility.SignUtility").method("VerifySignature",3);
+  if (!signatureMethod.virtualAddress.equals(
+      Process.getModuleByName("GameAssembly.dll").base.add(0x07776A60)))
+    throw new Error("Installed signed-file verifier address changed");
+  let signatureObservations=0;
+  const boundedPath=pointer=>{
+    if (pointer.isNull()) return null;
+    const length=pointer.add(0x10).readS32();
+    if (length<0 || length>4096) throw new Error("Signature path length outside bound");
+    return pointer.add(0x14).readUtf16String(length);
+  };
+  Interceptor.attach(signatureMethod.virtualAddress,{
+    onEnter(args) {
+      this.signatureObservation=null;
+      if (signatureObservations>=24) return;
+      try {
+        this.signatureObservation={ordinal:++signatureObservations,
+          contentPath:boundedPath(args[0]),signaturePath:boundedPath(args[1]),
+          startedAt:Date.now(),threadId:Process.getCurrentThreadId()};
+        record({phase:"original_signature_verification_started",...this.signatureObservation});
+      } catch(error) {record({phase:"signature_observation_error",error:String(error)});}
+    },
+    onLeave(retval) {
+      if (!this.signatureObservation) return;
+      record({phase:"original_signature_verification_finished",...this.signatureObservation,
+        elapsedMs:Date.now()-this.signatureObservation.startedAt,verified:retval.toInt32()!==0});
+    }
+  });
   // Park only the application's lobby/login bootstrap. Combat classes and
   // Unity's player loop stay original; no backend or lobby initialization starts.
   const splash = runtime.class("NK.Splash.SplashSceneControl").method("Start",0);
@@ -220,12 +279,14 @@ const startManagedProbe = () => Il2Cpp.perform(() => {
   const app = unity.class("UnityEngine.Application");
   const roots = [];
   let taskBox = null, patchTask = null, settingsCatalog = null, finishing = false;
-  let catalogStarted=0, catalogSnapshot=false;
-  let tablePollStage="not_polled", tablePolls=0, stalledMainLogged=false;
+  let catalogStarted=0, catalogSnapshot=false, catalogLastPollAt=0;
+  let catalogGapLogged=false;
+  let tablePollStage="not_polled", tablePolls=0, lastStalledQueue=0;
   let interval = null, deadline = null;
   const watchdog=setInterval(()=>{
-    if (!pendingMain || stalledMainLogged || Date.now()-mainWork.queuedAt<5000) return;
-    stalledMainLogged=true;
+    if (!pendingMain || lastStalledQueue===mainWork.queuedAt ||
+        Date.now()-mainWork.queuedAt<5000) return;
+    lastStalledQueue=mainWork.queuedAt;
     record({phase:"main_work_stalled",mainWork:{...mainWork},tablePollStage,tablePolls});
     try {
       const thread=Process.enumerateThreads().find(t=>t.id===mainWork.threadId);
@@ -302,11 +363,22 @@ const startManagedProbe = () => Il2Cpp.perform(() => {
           const method=addressables.method("InitializeAsync").overload("System.Boolean","System.Boolean");
           const no=Memory.alloc(1); no.writeU8(0);
           settingsCatalog=invokeChecked(method,null,[no,no]);
-          catalogStarted=Date.now(); roots.push(settingsCatalog.ref(true));
+          catalogStarted=Date.now(); catalogLastPollAt=catalogStarted;
+          roots.push(settingsCatalog.ref(true));
           record({phase:"original_mechanics_catalog_started",dependency:"SpotSetting.Load"});
           return;
         }
         if (settingsCatalog) {
+          const pollAt=Date.now();
+          if (!catalogGapLogged && pollAt-catalogLastPollAt>3000) {
+            catalogGapLogged=true;
+            record({phase:"mechanics_catalog_poll_gap",
+              elapsedSinceCatalogStartMs:pollAt-catalogStarted,
+              pollGapMs:pollAt-catalogLastPollAt,
+              mainQueueWaitMs:mainWork.enteredAt-mainWork.queuedAt,
+              tablePollStage,tablePolls});
+          }
+          catalogLastPollAt=pollAt;
           const handle=settingsCatalog.unbox();
           if (!handle.method("get_IsDone").invoke()) {
             if (!catalogSnapshot && Date.now()-catalogStarted>3000) {

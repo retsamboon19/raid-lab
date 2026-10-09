@@ -112,7 +112,9 @@ function createMechanicsThreatObserver(runtime, management, emit, configuration)
       throw new Error("Original threat playtime invalid");
     return {tick,nativePlaytime};
   };
-  const maxLogs=200,maxActive=64,maxCasters=32;
+  const maxLogs=options.maxEventLogs===undefined?200:positive(options.maxEventLogs,"maxEventLogs");
+  if (maxLogs>2048) throw new Error("Threat event log bound exceeds 2048");
+  const maxActive=64,maxCasters=32;
   let fault=null,sequence=0,logs=0,droppedLogs=0,lastSnapshotTick=-1,pending=null;
   let linked=0,unlinkedCreates=0,unknownSpawns=0,unmatchedDespawns=0;
   let unclassifiedCreates=0,historyDropped=0;

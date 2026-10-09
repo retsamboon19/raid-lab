@@ -318,7 +318,7 @@ function createMechanicsTacticalObserver(runtime, management, team, pin, emit, e
     "NK.Spot.Event.Monster.MonsterBreakableTimeEndEvent").nested("EReason"),
     ["TimeOver","TargetCompleted","Cancelled"]);
   let fault=null,total=0,emitted=0,lastSnapshotTick=-1;
-  const counts=new Map(),latest=new Map(),conditions=new Map(),maxEmitted=256;
+  const counts=new Map(),latest=new Map(),conditions=new Map(),maxEmitted=extended?1024:256;
   const latch=(stage,error)=>{
     if (fault===null) fault=stage+": "+(error&&error.stack?error.stack:String(error));
   };

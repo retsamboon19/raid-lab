@@ -37,9 +37,15 @@
   "coverage": {
     "selectorEntries": 23,
     "fixedBossEntries": 21,
-    "nativeCompleteBattleVariant": "anomaly-kraken only, diagnostic synthetic/bare inputs; original-auto baseline plus bounded tactical node 230 / QTE group 212 native trials 120/121, not all Kraken behavior",
+    "nativeCompleteBattleVariant": "anomaly-kraken, anomaly-mirror-container, special-chatterbox, anomaly-ultra; bare fixtures only; completed original execution does not imply boss kill or tactical success",
     "otherNativeBattleVariantsValidated": 0,
-    "trainingAndCampaign": "separate non-fixed modes; never count as boss variants"
+    "trainingAndCampaign": "separate non-fixed modes; never count as boss variants",
+    "completedOriginalExecutionVariants": 4,
+    "nativeTacticalValidatedVariants": 1,
+    "latestNativeCheckpoint": 149,
+    "additionalDiagnosticCoverage": {
+      "special-chatterbox": "trial148 first node6/skill510209 cover interception and resume PASS; not full fight policy"
+    }
   },
   "bosses": [
     {
@@ -1705,7 +1711,7 @@
       "displayName": "Chatterbox",
       "productMode": "special",
       "variant": "group 1 original fight",
-      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "nativeModeRoutingStatus": "exact request-bound native bare-fixture execution recorded; not full build or normal-game parity",
       "originalTableFields": {
         "interceptRowId": 4,
         "group": 1,
@@ -1770,10 +1776,25 @@
         }
       ],
       "unresolved": [
-        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
-        "native original fight result and hit/skill/QTE/phase trace absent",
-        "smarter automatic action policy not validated on this variant"
-      ]
+        "complete native build conversion and normal-game mechanics parity remain unverified",
+        "source-bound tactical targeting and cover/resume not yet validated for this variant"
+      ],
+      "nativeExecutionCheckpoint": {
+        "trial": 148,
+        "originalExecutionComplete": true,
+        "inputReadbacksPassed": true,
+        "nativeErrors": 0,
+        "cleanPrivateExit": true,
+        "bossKilled": false,
+        "survivors": 0,
+        "nativeTacticalValidated": false,
+        "productionNativeIntegration": false,
+        "nextDiscriminator": "promote proven first node6 cover episode to source-scoped recurring controller and validate later attacks",
+        "firstAttackCoverInterceptionPassed": true,
+        "coverTick": 5,
+        "fireTick": 87,
+        "releaseTick": 198
+      }
     },
     {
       "productId": "special-modernia",
@@ -1855,7 +1876,7 @@
       "displayName": "Ultra",
       "productMode": "anomaly",
       "variant": "group 1 original fight",
-      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "nativeModeRoutingStatus": "exact request-bound native bare-fixture execution recorded; not full build or normal-game parity",
       "originalTableFields": {
         "interceptRowId": 3,
         "group": 1,
@@ -1920,17 +1941,29 @@
         }
       ],
       "unresolved": [
-        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
-        "native original fight result and hit/skill/QTE/phase trace absent",
-        "smarter automatic action policy not validated on this variant"
-      ]
+        "native required-part targeting/cover rules not validated",
+        "full equipped build conversion and normal-game mechanics parity remain unverified"
+      ],
+      "nativeExecutionCheckpoint": {
+        "trial": 139,
+        "originalExecutionComplete": true,
+        "inputReadbacksPassed": true,
+        "nativeErrors": 0,
+        "cleanPrivateExit": true,
+        "bossKilled": false,
+        "survivors": 0,
+        "nativeTacticalValidated": false,
+        "productionNativeIntegration": false,
+        "observedBreakEpisodes": 3,
+        "observedQteEpisodes": 0
+      }
     },
     {
       "productId": "anomaly-mirror-container",
       "displayName": "Mirror Container",
       "productMode": "anomaly",
       "variant": "group 1 original fight",
-      "nativeModeRoutingStatus": "table SpotType=WaveData; exact native transporter/process validated only for Kraken",
+      "nativeModeRoutingStatus": "exact request-bound native bare-fixture execution recorded; not full build or normal-game parity",
       "originalTableFields": {
         "interceptRowId": 1,
         "group": 1,
@@ -1995,10 +2028,21 @@
         }
       ],
       "unresolved": [
-        "mechanics-required prefab/collider/behavior-tree asset closure not staged and validated for this variant",
-        "native original fight result and hit/skill/QTE/phase trace absent",
-        "smarter automatic action policy not validated on this variant"
-      ]
+        "complete native build conversion and normal-game mechanics parity remain unverified",
+        "source-bound tactical targeting and cover/resume not yet validated for this variant"
+      ],
+      "nativeExecutionCheckpoint": {
+        "trial": 149,
+        "originalExecutionComplete": true,
+        "inputReadbacksPassed": true,
+        "nativeErrors": 0,
+        "cleanPrivateExit": true,
+        "bossKilled": false,
+        "survivors": 0,
+        "nativeTacticalValidated": false,
+        "productionNativeIntegration": false,
+        "nextDiscriminator": "original ImmuneOtherElement110 is active on weak mismatch; implement live eligible shooter selection, then verify actual Break HP loss/interruption"
+      }
     },
     {
       "productId": "anomaly-kraken",
@@ -2272,10 +2316,10 @@
     "productId": "anomaly-mirror-container",
     "reason": "QTE precision is explicitly marked in product selector, making it a discriminating next policy and geometry test after Kraken; its current group-1 table routes to WaveData 6302006 with target 4510010123 and current prefab xba001_psid_intercept.",
     "exactGaps": [
-      "stage original target prefab resource 156 and dependency closure, colliders/parts/QTE data, ground point_grd_mirrorcontainer_001, fly point_fly_mirrorcontainer_001, background sbg_cityforestcrystalxba001_001, and wave path b_fly_mirrorcontainer_01 for stage 6302006",
-      "verify original transporter fields and InterceptProcess initialization for row 1 in isolated private host",
-      "record baseline original-auto fight, QTE/part event timing, action ownership, result and repeatability before smarter targeting",
-      "validate user build conversion separately; no approximate profile or Kraken fixture substitution"
+      "Mirror current resources/transporter and baseline original fight already pass; do not repeat staging.",
+      "Confirm native immunity branch with correct boolean ABI readback, then implement eligible shooter selection through original inputs and validate positive Break damage/HP decrement/interruption.",
+      "Chatterbox first heavy attack cover/resume passes148; recurring whole-fight tactics remain unverified.",
+      "Complete equipped native build conversion and normal-game parity separately."
     ]
   },
   "managerRows": {

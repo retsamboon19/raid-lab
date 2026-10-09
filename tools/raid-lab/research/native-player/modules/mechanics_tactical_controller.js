@@ -1,12 +1,15 @@
 // Private native observations, bounded input proof, and explicitly selected
 // Kraken policies. Original-auto stays separate. The fixed probe sequence is
 // evidence for input routes, not the adaptive boss controller.
-function createMechanicsTacticalController(mode, management, observer, actions, actors, emit, threats=null) {
+function createMechanicsTacticalController(mode, management, observer, actions, actors, emit, threats=null, breakables=null) {
   const generic=mode==="boss-tactical"||mode==="boss-observe";
   if (!["observe","probe","kraken-qte","kraken-cover-probe","kraken-tactical","boss-tactical","boss-observe"].includes(mode) || !observer || (!["observe","boss-observe"].includes(mode) && !actions))
     throw new Error("Invalid private tactical controller dependencies");
+  if (generic && !breakables) throw new Error("Generic boss observation needs original break observer");
   let samples=0, transitions=0, lastNativeTick=-1, lastSignature=null;
   let latest=null, selectedId=null, originalFocus=null, originalAuto=null, commands=0;
+  let breakSamples=0, breakTransitions=0, lastBreakSignature=null, latestBreak=null;
+  const maxTransitions=generic?256:96,maxBreakTransitions=256;
   let completed=false;
   let trackedPart=null;
   const checkpoints=[];
@@ -15,6 +18,17 @@ function createMechanicsTacticalController(mode, management, observer, actions, 
   const coverProbe=["kraken-cover-probe","kraken-tactical"].includes(mode) ? createMechanicsKrakenCoverProbe(actions,emit) : null;
   const coverPolicy=mode==="boss-tactical"?createMechanicsCoverPolicy(actions,emit,
     mechanicsVerifiedCoverRules(),globalThis.MECHANICS_REQUEST.encounter.waveId):null;
+  const emitBreakDecision=row=>{
+    if (row.action==="aim_live_break") {
+      if (!latestBreak) throw new Error("Break action requires an original observed snapshot");
+      emit({...latestBreak,status:"original_break_action_observation",
+        decisionTick:row.tick,actorId:row.actorId,ownerId:row.ownerId,
+        colliderId:row.colliderId});
+    }
+    emit(row);
+  };
+  const breakPolicy=mode==="boss-tactical"&&globalThis.MECHANICS_REQUEST.encounter.waveId===6302006?
+    createMechanicsBreakPolicy(actions,emitBreakDecision,{waveId:6302006}):null;
   let latestThreat=null;
   const compact = state => ({
     qte:state.qte && {supported:state.qte.supported,reason:state.qte.reason,
@@ -26,6 +40,12 @@ function createMechanicsTacticalController(mode, management, observer, actions, 
       id:state.monster.targetMonsterId,parts:(state.monster.parts||[]).map(p=>p.partsType)},
     squad:state.squad && {supported:state.squad.supported,reason:state.squad.reason}
   });
+  const compactBreak=state=>({supported:state.supported,fault:state.fault,
+    monsters:(state.monsters||[]).map(m=>({supported:m.supported,reason:m.reason,
+      entityId:m.entityId,tableId:m.tableId,playing:m.playing,
+      nativeIsAllBreak:m.nativeIsAllBreak,
+      colliders:(m.colliders||[]).map(c=>[c.colliderId,c.name,c.type.value,
+        c.hp,c.maxHp,c.unityLive,c.enabled,c.liveBreakTarget])}))});
   function checkpoint(label,tick) {
     const state=actions.snapshot();
     const row={label,tick,nativeTick:Number(management.field("_tickCount").value),state};
@@ -40,15 +60,27 @@ function createMechanicsTacticalController(mode, management, observer, actions, 
   function beforeTick(tick) {
     observer.checkFault();
     if (threats) threats.checkFault();
+    if (breakables) breakables.checkFault();
     if (generic) {
       if (!policy||!latest) return;
       const intent=coverPolicy.inspect(tick,latest,latestThreat);
       const hadQteOwnership=policy.summary().owned;
+      // Release a required-part input lease before QTE or cover can acquire it.
+      // Preserve the native battle/QTE state; these calls only arbitrate input.
+      const qtePriority=latest.qte&&latest.qte.active===true;
+      if (breakPolicy&&(intent.wantsCover||coverPolicy.summary().covered||qtePriority))
+        breakPolicy.suspend(tick,qtePriority?"original_qte_active":"source_scoped_dangerous_attack");
       if (intent.wantsCover) policy.suspend(tick,"source_scoped_dangerous_attack");
       coverPolicy.step(tick,latest,latestThreat,{qteSuspended:hadQteOwnership});
       if (!coverPolicy.summary().covered&&!intent.wantsCover) policy.resume(tick);
       policy.step(tick,latest);
       policy.checkFault();
+      if (breakPolicy&&latestBreak) {
+        if (!coverPolicy.summary().covered&&!intent.wantsCover&&!qtePriority&&!policy.summary().owned)
+          breakPolicy.resume(tick);
+        breakPolicy.step(tick,latestBreak,latest);
+        breakPolicy.checkFault();
+      }
       return;
     }
     if (coverProbe) {
@@ -118,11 +150,23 @@ function createMechanicsTacticalController(mode, management, observer, actions, 
       latestThreat=threats.snapshot(nativeTick);
       threats.checkFault();
     }
+    if (breakables) {
+      latestBreak=breakables.snapshot(nativeTick);
+      breakSamples++;
+      breakables.checkFault();
+      const breakSignature=JSON.stringify(compactBreak(latestBreak));
+      if (breakSignature!==lastBreakSignature) {
+        lastBreakSignature=breakSignature; breakTransitions++;
+        if (breakTransitions<=maxBreakTransitions)
+          emit({...latestBreak,status:"original_break_observation_change",
+            driverTick:tick,ordinal:breakTransitions});
+      }
+    }
     observer.checkFault();
     const signature=JSON.stringify(compact(latest));
     if (signature!==lastSignature) {
       lastSignature=signature; transitions++;
-      if (transitions<=96) emit({...latest,status:"original_tactical_observation_change",
+      if (transitions<=maxTransitions) emit({...latest,status:"original_tactical_observation_change",
         driverTick:tick,ordinal:transitions});
     }
   }
@@ -131,10 +175,14 @@ function createMechanicsTacticalController(mode, management, observer, actions, 
         coverProbe ? "kraken-cover-probe-v1" : policy ? "kraken-qte-v2" :
         mode==="probe" ? "native-input-proof-v1" : "original-auto-v1",samples,transitions,commands,
       inputSequenceCompleted:completed,checkpoints,
-      observationTransitionsTruncated:transitions>96,
+      observationTransitionsTruncated:transitions>maxTransitions,
       adaptiveBossPolicyImplemented:policy!==null,
       policy:policy ? policy.summary() : null,
-      ...(generic?{coverPolicy:coverPolicy?coverPolicy.summary():null}:{}),
+      ...(generic?{coverPolicy:coverPolicy?coverPolicy.summary():null,
+        breakPolicy:breakPolicy?breakPolicy.summary():null}:{}),
+      ...(generic?{breakSamples,breakTransitions,
+        breakObservationTransitionsTruncated:breakTransitions>maxBreakTransitions,
+        breakObservation:breakables?breakables.summary():null}:{}),
       coverProbe:coverProbe ? coverProbe.summary() : null};
   }
   return {beforeTick,afterTick,summary};

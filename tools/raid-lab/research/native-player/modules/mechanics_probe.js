@@ -19,6 +19,10 @@ function runMechanicsLifecycleProbe(record, done, originalManagerLifecycle=false
   let skillEventObserver=null;
   let skillGateObserver=null;
   let tacticalObserver=null;
+  let breakableObserver=null;
+  let breakDamageProbe=null;
+  let chatterboxCoverProbe=null;
+  let chatterboxLastNativeTick=-1;
   let threatObserver=null;
   let tacticalController=null;
   const controlMode=globalThis.MECHANICS_CONTROL_MODE || "original";
@@ -72,6 +76,9 @@ function runMechanicsLifecycleProbe(record, done, originalManagerLifecycle=false
       skillEventOccurrence:skillEventObserver ? skillEventObserver.snapshot() : null,
       skillTimelineGate:skillGateObserver ? skillGateObserver.snapshot() : null,
       tacticalObservation:tacticalObserver ? tacticalObserver.summary() : null,
+      breakableObservation:breakableObserver ? breakableObserver.summary() : null,
+      breakDamageDiagnostic:breakDamageProbe ? breakDamageProbe.snapshot() : null,
+      chatterboxCoverDiagnostic:chatterboxCoverProbe ? chatterboxCoverProbe.summary() : null,
       threatObservation:threatObserver ? threatObserver.summary() : null,
       tacticalControl:tacticalController ? tacticalController.summary() : null,
       ...detail });
@@ -132,7 +139,7 @@ function runMechanicsLifecycleProbe(record, done, originalManagerLifecycle=false
       Interceptor.attach(managementClass.method("SendEventDefault",1).virtualAddress,{
         onEnter(args) {
           if (args[1].isNull()) return;
-          if (damageTrace || tacticalObserver) {
+          if (damageTrace || tacticalObserver || breakableObserver) {
             try {
               const event=new Il2Cpp.Object(args[1]);
               if (damageTrace) damageTrace.observeSendEvent(event);
@@ -140,6 +147,8 @@ function runMechanicsLifecycleProbe(record, done, originalManagerLifecycle=false
               if (skillEventObserver) skillEventObserver.observeSendEvent(event);
               if (skillGateObserver) skillGateObserver.observeSendEvent(event);
               if (tacticalObserver) tacticalObserver.observeSendEvent(event);
+              if (breakableObserver) breakableObserver.observeSendEvent(event);
+              if (chatterboxCoverProbe) chatterboxCoverProbe.observeSendEvent(event);
               if (threatObserver) threatObserver.observeSendEvent(event);
             }
             catch(error) {
@@ -366,15 +375,31 @@ function runMechanicsLifecycleProbe(record, done, originalManagerLifecycle=false
               stage="native_tactical_binding";
               const generic=controlMode.startsWith("boss-");
               tacticalObserver=createMechanicsTacticalObserver(runtime,management,loadedTeam,pin,emit,generic);
+              if (generic) breakableObserver=createMechanicsBreakableObserver(
+                runtime,management,pin,emit);
+              if (controlMode==="boss-tactical"&&globalThis.MECHANICS_REQUEST.encounter.waveId===6302006)
+                breakDamageProbe=installMechanicsBreakResultGapProbe(runtime,management,emit,
+                  {firstTick:1124,lastTick:1132,targetId:8192});
               const watchNodes=generic?mechanicsVerifiedCoverRules()
                 .filter(r=>r.waveId===globalThis.MECHANICS_REQUEST.encounter.waveId)
                 .map(r=>r.attackNodeId):[];
               threatObserver=createMechanicsThreatObserver(runtime,management,emit,
-                generic?{mode:"monster",watchAttackNodes:watchNodes}:undefined);
+                generic?{mode:"monster",watchAttackNodes:watchNodes,maxEventLogs:1024}:undefined);
               const actions=!["observe","boss-observe"].includes(controlMode) ? createMechanicsTacticalActions(
                 runtime,management,loadedTeam,geometry,aimBinding,pin,emit) : null;
+              if (controlMode==="boss-tactical"&&globalThis.MECHANICS_REQUEST.encounter.waveId===6302004)
+                chatterboxCoverProbe=createMechanicsChatterboxCoverProbe(runtime,management,actions,row=>{
+                  if (["original_chatterbox_diagnostic_cover_on","original_chatterbox_diagnostic_cover_off"].includes(row.status)) {
+                    const nativeTick=Number(management.field("_tickCount").value);
+                    const squad=tacticalObserver.snapshot(nativeTick).squad;
+                    emit({...row,squadObservationTick:nativeTick,
+                      ...(row.status==="original_chatterbox_diagnostic_cover_on"?
+                        {squadBefore:squad}:{squadAfter:squad})});
+                    tacticalObserver.checkFault();
+                  } else emit(row);
+                });
               tacticalController=createMechanicsTacticalController(controlMode,management,
-                tacticalObserver,actions,geometry.live.actors,emit,threatObserver);
+                tacticalObserver,actions,geometry.live.actors,emit,threatObserver,breakableObserver);
             }
             stage="original_battle_ticks";
             const captureTerminal=installMechanicsResultCapture(runtime,
@@ -430,6 +455,8 @@ function runMechanicsLifecycleProbe(record, done, originalManagerLifecycle=false
               {onSample:diagnostics ? sampleEncounter : undefined,batchSize:1,maxWallMs:35000,
                 beforeTick:diagnostics || tacticalController ? tick=>{
                   if (tacticalController) tacticalController.beforeTick(tick);
+                  if (chatterboxCoverProbe) chatterboxCoverProbe.beforeTick(
+                    Number(management.field("_tickCount").value)+1);
                   if (!diagnostics) return;
                   if (tick<20) startupObserver.sample(tick,"before");
                   clockObserver.sample("before",tick+1);
@@ -437,6 +464,16 @@ function runMechanicsLifecycleProbe(record, done, originalManagerLifecycle=false
                 } : undefined,
                 afterTick:diagnostics || tacticalController ? tick=>{
                   if (tacticalController) tacticalController.afterTick(tick);
+                  if (chatterboxCoverProbe) {
+                    const nativeTick=Number(management.field("_tickCount").value);
+                    if (nativeTick!==chatterboxLastNativeTick) {
+                      chatterboxCoverProbe.afterTick(nativeTick);
+                      chatterboxLastNativeTick=nativeTick;
+                    }
+                    chatterboxCoverProbe.checkFault();
+                  }
+                  if (breakDamageProbe&&breakDamageProbe.checkFault())
+                    throw new Error("Original break damage observation failed: "+breakDamageProbe.checkFault());
                   if (!diagnostics) return;
                   if (tick<=20) startupObserver.sample(tick,"after");
                   clockObserver.sample("after",tick);

@@ -125,6 +125,104 @@ def with_cover():
     return finalize(rows)
 
 
+def with_mirror_break(collider_id=3, collider_name="break_col_03"):
+    rows = base()
+    transporter = next(r for r in rows if r["status"] ==
+                       "synthetic_kraken_transporter_prepared")
+    transporter.update(status="original_encounter_transporter_prepared",
+                       waveId=6302006,
+                       encounterProfileId="anomaly-mirror-container",
+                       requestSha256="a" * 64, roster=[101, 102, 103, 104, 105],
+                       staticFieldInstalled=False, battleStarted=False,
+                       resultCaptured=False)
+    rows.append({"status": "original_current_wave_targets",
+                 "targetIds": ["4510010123"]})
+    rows.extend({"status": "original_aim_state", "requestSha256": "a" * 64,
+                 "nameCode": 101 + i, "entityId": 4100 + i}
+                for i in range(5))
+    target = {"colliderId": collider_id, "name": collider_name,
+              "type": {"value": 3, "name": "Break"},
+              "hp": "100", "maxHp": "100", "unityLive": True,
+              "enabled": True, "liveBreakTarget": True,
+              "aimPointBasis": "UnityEngine.Collider.bounds.center",
+              "worldAimPoint": [1.0, 2.0, 3.0]}
+    def snapshot(tick, hp):
+        item = copy.deepcopy(target)
+        item["hp"] = hp
+        return {"status": "original_break_observation_change", "tick": tick,
+                "monsters": [{"supported": True, "entityId": 8192,
+                              "tableId": "4510010123", "playing": True,
+                              "nativeIsAllBreak": False, "colliders": [item]}]}
+    def event(kind, tick, **extra):
+        return {"status": "original_break_transition", "kind": kind,
+                "ownerId": 8192, "tick": tick, **extra}
+    def decision(action, tick, **extra):
+        return {"status": "original_mirror_break_decision", "action": action,
+                "tick": tick, "policyVersion": "mirror-live-break-candidate-v2",
+                **extra}
+    rows += [
+        event("MonsterBreakColliderActiveStart", 9),
+        event("MonsterBreakColliderActiveStarted", 9),
+        snapshot(10, "100"),
+        decision("observed_live_break_episode", 10, ownerId=8192),
+        decision("take_manual_control", 11, actorId=4100),
+        decision("aim_live_break", 11, actorId=4100, ownerId=8192,
+                 colliderId=collider_id, targetKey=f"8192:{collider_id}",
+                 sourceSkillLinkVerified=False),
+        {"phase": "mechanics_tactical_actions", "action": "press"},
+        event("MonsterBreakColliderHurt", 15, colliderId=collider_id, damage="30"),
+        snapshot(15, "70"),
+        event("MonsterAllBreakCollider", 16, isBreak=True,
+              lastBrokenColliderId=collider_id),
+        event("MonsterSkillInterruptionEvent", 17, isInterrupt=True),
+        decision("release_manual_control", 18, actorId=4100),
+    ]
+    stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+    stop["breakableObservation"] = {"eventTransitionsTruncated": False,
+        "fault": None, "totalEvents": 5, "emittedEvents": 5}
+    stop["tacticalControl"].update(
+        breakSamples=2, breakTransitions=2,
+        breakObservationTransitionsTruncated=False,
+        breakPolicy={"version": "mirror-live-break-candidate-v2",
+            "waveId": 6302006, "monsterTableId": "4510010123",
+            "candidateSourceSkillIds": [520669, 520676],
+            "expectedSourceSkillId": None,
+            "sourceSkillLinkVerified": False, "nativeCancellationVerified": False,
+            "aimpointHitVerified": False, "owned": False, "fault": None,
+            "unsupported": [], "decisionsTruncated": False,
+            "targetsSelected": 1})
+    return finalize(rows)
+
+
+def with_bound_mirror_reselection():
+    """Sparse transition log, but the decision carries its exact sampled state."""
+    rows = with_mirror_break(819201, "break_col_01")
+    start = next(r for r in rows if r.get("kind") ==
+                 "MonsterBreakColliderActiveStart")
+    start["sequence"] = 1
+    for row in rows:
+        if row.get("status") == "original_mirror_break_decision" and row["tick"] >= 11:
+            row["tick"] += 1144
+        elif row.get("status") == "original_break_transition" and row["tick"] >= 15:
+            row["tick"] += 1144
+        elif row.get("status") == "original_break_observation_change" and row["tick"] == 15:
+            row["tick"] += 1144
+    choice = next(r for r in rows if r.get("action") == "aim_live_break")
+    choice.update(name="break_col_01", hp="100", maxHp="100",
+                  aimPointBasis="UnityEngine.Collider.bounds.center")
+    choice_index = next(i for i, row in enumerate(rows) if row.get("action") ==
+                        "aim_live_break")
+    bound = copy.deepcopy(next(r for r in rows if r.get("status") ==
+                               "original_break_observation_change" and r["tick"] == 10))
+    bound.update(status="original_break_action_observation", supported=True,
+                 tick=1155,
+                 decisionTick=1155, actorId=4100, ownerId=8192,
+                 colliderId=819201, latestEpisodes=[{"ownerId": 8192,
+                     "startSequence": 1, "startTick": 9, "started": True}])
+    rows.insert(choice_index, bound)
+    return rows
+
+
 class BossTacticalReceiptTests(unittest.TestCase):
     def test_unexercised_is_explicit_not_pass_for_mechanic(self):
         report = subject.verify(base(), SCENE)
@@ -179,6 +277,265 @@ class BossTacticalReceiptTests(unittest.TestCase):
         bad = with_qte()
         next(r for r in bad if r.get("kind") == "QuickTimeStart")["tick"] = None
         self.assertEqual(subject.verify(bad, SCENE)["qte"]["status"], "FAIL")
+
+    def test_mirror_break_reports_targeting_and_unassociated_native_outcome(self):
+        report = subject.verify(with_mirror_break(), SCENE)
+        self.assertTrue(report["passed"], report["errors"])
+        self.assertEqual(report["break"]["targeting"], "PASS")
+        self.assertEqual(report["break"]["interruption"], "OBSERVED_UNASSOCIATED")
+        self.assertFalse(report["break"]["sourceSkillAssociationVerified"])
+        self.assertEqual(report["break"]["matchedOriginalHits"][0]["afterHp"], "70")
+
+    def test_mirror_initial_phase_source_pair_is_eligible_without_skill_claim(self):
+        for collider_id, name in ((819201, "break_col_01"),
+                                  (819202, "break_col_02")):
+            rows = with_mirror_break(collider_id, name)
+            report = subject.verify(rows, SCENE)
+            self.assertTrue(report["passed"], (name, report["break"]["errors"]))
+            self.assertEqual(report["break"]["matchedOriginalHits"][0]
+                             ["colliderId"], collider_id)
+            self.assertFalse(report["break"]["sourceSkillAssociationVerified"])
+
+    def test_mirror_bound_native_state_validates_sparse_later_selection(self):
+        rows = with_bound_mirror_reselection()
+        report = subject.verify(rows, SCENE)
+        self.assertTrue(report["passed"], report["break"]["errors"])
+        for field, bad in (("decisionTick", 1156), ("actorId", 4099),
+                           ("colliderId", 819202), ("tick", 1150)):
+            altered = copy.deepcopy(rows)
+            bound = next(r for r in altered if r.get("status") ==
+                         "original_break_action_observation")
+            bound[field] = bad
+            self.assertEqual(subject.verify(altered, SCENE)["break"]["status"],
+                             "FAIL", field)
+        altered = copy.deepcopy(rows)
+        bound = next(r for r in altered if r.get("status") ==
+                     "original_break_action_observation")
+        bound["latestEpisodes"][0]["startSequence"] = 2
+        self.assertEqual(subject.verify(altered, SCENE)["break"]["status"], "FAIL")
+        altered = copy.deepcopy(rows)
+        next(r for r in altered if r.get("kind") ==
+             "MonsterBreakColliderHurt")["damage"] = "0"
+        self.assertEqual(subject.verify(altered, SCENE)["break"]["targeting"], "FAIL")
+        altered = copy.deepcopy(rows)
+        later = next(r for r in altered if r.get("status") ==
+                     "original_break_observation_change" and r["tick"] == 1159)
+        later["monsters"][0]["colliders"][0]["hp"] = "100"
+        self.assertEqual(subject.verify(altered, SCENE)["break"]["targeting"], "FAIL")
+
+    def test_mirror_pre_activation_empty_state_is_not_a_false_fault(self):
+        rows = with_mirror_break()
+        first_start = next(i for i, row in enumerate(rows) if row.get("kind") ==
+                           "MonsterBreakColliderActiveStart")
+        rows.insert(first_start, {"status": "original_break_observation_change",
+                                  "tick": 6,
+                                  "monsters": [{"entityId": 8192,
+                                                "tableId": "4510010123",
+                                                "playing": False,
+                                                "nativeIsAllBreak": True,
+                                                "colliders": []}]})
+        stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+        stop["tacticalControl"]["breakTransitions"] = 3
+        self.assertTrue(subject.verify(rows, SCENE)["passed"])
+
+    def test_mirror_no_break_episode_is_not_exercised_and_not_a_pass(self):
+        rows = with_mirror_break()
+        rows[:] = [r for r in rows if r.get("status") not in {
+            "original_mirror_break_decision", "original_break_observation_change",
+            "original_break_transition"}]
+        stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+        stop["breakableObservation"].update(totalEvents=0, emittedEvents=0)
+        stop["tacticalControl"].update(breakTransitions=0)
+        report = subject.verify(rows, SCENE)
+        self.assertEqual(report["break"]["status"], "NOT_EXERCISED")
+        self.assertFalse(report["passed"])
+
+    def test_mirror_intent_without_native_hurt_press_or_hp_drop_fails(self):
+        for change in ("hurt", "press", "hp"):
+            rows = with_mirror_break()
+            if change == "hurt":
+                rows[:] = [r for r in rows if r.get("kind") !=
+                           "MonsterBreakColliderHurt"]
+                stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+                stop["breakableObservation"].update(totalEvents=4, emittedEvents=4)
+            elif change == "press":
+                rows[:] = [r for r in rows if not (r.get("phase") ==
+                    "mechanics_tactical_actions" and r.get("action") == "press")]
+            else:
+                next(r for r in rows if r.get("status") ==
+                     "original_break_observation_change" and r["tick"] == 15)\
+                    ["monsters"][0]["colliders"][0]["hp"] = "100"
+            report = subject.verify(rows, SCENE)
+            self.assertEqual(report["break"]["targeting"], "FAIL", change)
+            self.assertFalse(report["passed"], change)
+
+    def test_mirror_wrong_owner_counter_and_stale_state_fail_closed(self):
+        for change in ("owner", "counter", "stale"):
+            rows = with_mirror_break()
+            if change == "owner":
+                next(r for r in rows if r.get("kind") ==
+                     "MonsterBreakColliderHurt")["ownerId"] = 8193
+            elif change == "counter":
+                for row in rows:
+                    if row.get("status") == "original_break_observation_change":
+                        row["monsters"][0]["colliders"][0]["type"]["name"] = "Counter"
+            else:
+                next(r for r in rows if r.get("status") ==
+                     "original_mirror_break_decision" and
+                     r.get("action") == "aim_live_break")["tick"] = 14
+            report = subject.verify(rows, SCENE)
+            self.assertEqual(report["break"]["status"], "FAIL", change)
+
+    def test_mirror_unsafe_counter_health_and_missing_input_lease_fail(self):
+        rows = with_mirror_break()
+        for row in rows:
+            if row.get("status") == "original_break_observation_change":
+                unsafe = copy.deepcopy(row["monsters"][0]["colliders"][0])
+                unsafe.update(colliderId=4, name="counter_col",
+                              type={"value": 4, "name": "Counter"},
+                              hp="10" if row["tick"] == 10 else "9",
+                              liveBreakTarget=False)
+                row["monsters"][0]["colliders"].append(unsafe)
+        report = subject.verify(rows, SCENE)
+        self.assertEqual(report["break"]["status"], "FAIL")
+        self.assertTrue(any("Counter/Choice" in e for e in report["break"]["errors"]))
+        rows = with_mirror_break()
+        rows[:] = [r for r in rows if not (r.get("status") ==
+            "original_mirror_break_decision" and r.get("action") ==
+            "take_manual_control")]
+        self.assertEqual(subject.verify(rows, SCENE)["break"]["targeting"], "FAIL")
+
+    def test_mirror_rearmed_episode_allows_new_type_and_counter_hp_reset(self):
+        rows = with_mirror_break()
+        old = next(r for r in rows if r.get("status") ==
+                   "original_break_observation_change" and r["tick"] == 15)
+        first_counter = copy.deepcopy(old["monsters"][0]["colliders"][0])
+        first_counter.update(colliderId=4, name="counter_col",
+                             type={"value": 4, "name": "Counter"},
+                             hp="10", liveBreakTarget=False)
+        old["monsters"][0]["colliders"].append(first_counter)
+        rearmed = copy.deepcopy(old)
+        rearmed["tick"] = 25
+        rearmed["monsters"][0]["colliders"][0].update(
+            type={"value": 4, "name": "Counter"}, hp="100",
+            liveBreakTarget=False)
+        rearmed["monsters"][0]["colliders"][1]["hp"] = "20"
+        rows.extend([
+            {"status": "original_break_transition", "kind":
+             "MonsterBreakColliderActiveStart", "ownerId": 8192,
+             "tick": 25, "sequence": 6},
+            {"status": "original_break_transition", "kind":
+             "MonsterBreakColliderActiveStarted", "ownerId": 8192,
+             "tick": 25, "sequence": 7},
+            rearmed,
+        ])
+        stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+        stop["breakableObservation"].update(totalEvents=7, emittedEvents=7)
+        stop["tacticalControl"]["breakTransitions"] = 3
+        report = subject.verify(rows, SCENE)
+        self.assertTrue(report["passed"], report["break"]["errors"])
+        self.assertEqual(report["break"]["targeting"], "PASS")
+        self.assertEqual(report["break"]["matchedOriginalHits"][0]["episodeStartTick"], 9)
+
+    def test_mirror_counter_hurt_within_episode_is_unsafe(self):
+        rows = with_mirror_break()
+        for row in rows:
+            if row.get("status") == "original_break_observation_change":
+                unsafe = copy.deepcopy(row["monsters"][0]["colliders"][0])
+                unsafe.update(colliderId=4, name="counter_col",
+                              type={"value": 4, "name": "Counter"},
+                              hp="10", liveBreakTarget=False)
+                row["monsters"][0]["colliders"].append(unsafe)
+        rows.append({"status": "original_break_transition", "kind":
+                     "MonsterBreakColliderHurt", "ownerId": 8192,
+                     "colliderId": 4, "damage": "1", "tick": 16})
+        stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+        stop["breakableObservation"].update(totalEvents=6, emittedEvents=6)
+        report = subject.verify(rows, SCENE)
+        self.assertEqual(report["break"]["status"], "FAIL")
+        self.assertTrue(any("Counter/Choice or unknown" in e
+                            for e in report["break"]["errors"]))
+
+    def test_mirror_release_or_reacquisition_before_hurt_breaks_pairing(self):
+        for action in ("release_manual_control", "take_manual_control", "suspended"):
+            rows = with_mirror_break()
+            hurt_index = next(i for i, row in enumerate(rows) if row.get("kind") ==
+                              "MonsterBreakColliderHurt")
+            rows.insert(hurt_index, {"status": "original_mirror_break_decision",
+                                     "action": action, "tick": 14,
+                                     "actorId": 4100,
+                                     "policyVersion": "mirror-live-break-candidate-v2"})
+            report = subject.verify(rows, SCENE)
+            self.assertEqual(report["break"]["targeting"], "FAIL", action)
+            self.assertTrue(any("lost input lease" in e
+                                for e in report["break"]["errors"]), action)
+        rows = with_mirror_break()
+        hurt_index = next(i for i, row in enumerate(rows) if row.get("kind") ==
+                          "MonsterBreakColliderHurt")
+        rows.insert(hurt_index, {"phase": "mechanics_tactical_actions",
+                                 "action": "release"})
+        self.assertEqual(subject.verify(rows, SCENE)["break"]["targeting"], "FAIL")
+
+    def test_mirror_same_tick_rearm_cannot_supply_prior_episode_hit(self):
+        rows = with_mirror_break()
+        hurt_index = next(i for i, row in enumerate(rows) if row.get("kind") ==
+                          "MonsterBreakColliderHurt")
+        rows[hurt_index:hurt_index] = [
+            {"status": "original_break_transition", "kind":
+             "MonsterBreakColliderActiveStart", "ownerId": 8192,
+             "tick": 15, "sequence": 4},
+            {"status": "original_break_transition", "kind":
+             "MonsterBreakColliderActiveStarted", "ownerId": 8192,
+             "tick": 15, "sequence": 5},
+        ]
+        stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+        stop["breakableObservation"].update(totalEvents=7, emittedEvents=7)
+        report = subject.verify(rows, SCENE)
+        self.assertEqual(report["break"]["targeting"], "FAIL")
+        self.assertEqual(report["break"]["interruption"], "UNVERIFIED")
+
+    def test_mirror_missing_outcome_keeps_hit_proof_separate(self):
+        for missing in ("MonsterAllBreakCollider", "MonsterSkillInterruptionEvent"):
+            rows = with_mirror_break()
+            rows[:] = [r for r in rows if r.get("kind") != missing]
+            stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+            stop["breakableObservation"].update(totalEvents=4, emittedEvents=4)
+            report = subject.verify(rows, SCENE)
+            self.assertEqual(report["break"]["targeting"], "PASS")
+            self.assertEqual(report["break"]["interruption"], "UNVERIFIED")
+            self.assertFalse(report["passed"])
+
+    def test_mirror_rejects_truncation_ownership_and_wrong_source_identity(self):
+        for change in ("truncation", "ownership", "profile", "request", "target",
+                       "live_actor"):
+            rows = with_mirror_break()
+            stop = next(r for r in rows if r["status"] == "original_tick_driver_stopped")
+            transporter = next(r for r in rows if r["status"] ==
+                               "original_encounter_transporter_prepared")
+            if change == "truncation":
+                stop["breakableObservation"]["eventTransitionsTruncated"] = True
+            elif change == "ownership":
+                stop["tacticalControl"]["breakPolicy"]["owned"] = True
+            elif change == "profile":
+                transporter["encounterProfileId"] = "other"
+            elif change == "request":
+                transporter["requestSha256"] = "bad"
+            elif change == "live_actor":
+                next(r for r in rows if r["status"] == "original_aim_state")\
+                    ["requestSha256"] = "b" * 64
+            else:
+                next(r for r in rows if r["status"] ==
+                     "original_current_wave_targets")["targetIds"] = ["other"]
+            self.assertFalse(subject.verify(rows, SCENE)["passed"], change)
+
+    def test_non_mirror_break_events_do_not_claim_mirror_mechanic(self):
+        rows = base()
+        rows.append({"status": "original_break_transition",
+                     "kind": "MonsterBreakColliderActiveStart",
+                     "ownerId": 8192, "tick": 5})
+        report = subject.verify(rows, SCENE)
+        self.assertEqual(report["break"]["status"], "NOT_EXERCISED")
+        self.assertTrue(report["passed"], report["errors"])
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 
 
@@ -257,12 +258,282 @@ def _cover(rows: list[dict], stop: dict | None, wave_id: int | None) -> dict:
         "safetyScope": "Only exact Kraken node 230, bounded original threat logs and five-unit readbacks"}
 
 
+def _break(rows: list[dict], stop: dict | None, wave_id: int | None) -> dict:
+    """Mirror native break input, damage and interruption are separate claims."""
+    errors: list[str] = []
+    decisions = [r for r in rows if r.get("status") == "original_mirror_break_decision"]
+    states = [r for r in rows if r.get("status") == "original_break_observation_change"]
+    events = [r for r in rows if r.get("status") == "original_break_transition"]
+    selected = [r for r in decisions if r.get("action") == "aim_live_break"]
+    bound_indices = [i for i, r in enumerate(rows) if r.get("status") ==
+                     "original_break_action_observation"]
+    if bound_indices and (len(bound_indices) != len(selected) or any(
+            i + 1 >= len(rows) or
+            rows[i + 1].get("status") != "original_mirror_break_decision" or
+            rows[i + 1].get("action") != "aim_live_break" for i in bound_indices)):
+        errors.append("decision-bound original break observations are missing or unpaired")
+    mirror_states = []
+    for state_index, state in enumerate(rows):
+        if state.get("status") not in ("original_break_observation_change",
+                                        "original_break_action_observation"):
+            continue
+        if not _int(state.get("tick")):
+            errors.append("break snapshot has no original tick")
+            continue
+        for monster in state.get("monsters") or []:
+            if monster.get("tableId") == "4510010123":
+                mirror_states.append((state_index, state["tick"], monster))
+    if wave_id != 6302006 and not decisions and not mirror_states:
+        return {"status": "NOT_EXERCISED", "errors": [],
+                "targeting": "NOT_EXERCISED", "interruption": "NOT_EXERCISED",
+                "sourceSkillAssociationVerified": False}
+    if not decisions and not events and not mirror_states:
+        return {"status": "NOT_EXERCISED", "errors": errors,
+                "targeting": "NOT_EXERCISED", "interruption": "NOT_EXERCISED",
+                "sourceSkillAssociationVerified": False}
+    if wave_id != 6302006:
+        errors.append("Mirror break evidence belongs only to wave 6302006")
+    policy = _summary(stop, "breakPolicy")
+    if (policy.get("version") != "mirror-live-break-candidate-v2" or
+        policy.get("waveId") != 6302006 or
+        policy.get("monsterTableId") != "4510010123" or
+        policy.get("candidateSourceSkillIds") != [520669, 520676] or
+        policy.get("expectedSourceSkillId") is not None or
+        policy.get("sourceSkillLinkVerified") is not False or
+        policy.get("nativeCancellationVerified") is not False or
+        policy.get("aimpointHitVerified") is not False or
+        policy.get("owned") is not False or policy.get("fault") is not None or
+        policy.get("unsupported") != [] or
+        policy.get("decisionsTruncated") is not False or
+        policy.get("targetsSelected") != len(selected)):
+        errors.append("Mirror break policy summary absent, faulted, truncated or retains input")
+    if any(r.get("policyVersion") != "mirror-live-break-candidate-v2" for r in decisions):
+        errors.append("Mirror break decision version differs from source-bound policy")
+    if any(r.get("action") == "unsupported" for r in decisions):
+        errors.append("Mirror break policy reached an unsupported state")
+    observer = (stop or {}).get("breakableObservation") or {}
+    control = (stop or {}).get("tacticalControl") or {}
+    if (observer.get("eventTransitionsTruncated") is not False or
+        observer.get("fault") is not None or
+        observer.get("totalEvents") != observer.get("emittedEvents") or
+        observer.get("emittedEvents") != len(events) or
+        control.get("breakObservationTransitionsTruncated") is not False or
+        control.get("breakTransitions") != len(states) or
+        not _int(control.get("breakSamples"), 1)):
+        errors.append("original break observation incomplete, faulted or truncated")
+    starts = [(i, r) for i, r in enumerate(rows) if r.get("status") ==
+              "original_break_transition" and r.get("kind") ==
+              "MonsterBreakColliderActiveStart"]
+    started = [(i, r) for i, r in enumerate(rows) if r.get("status") ==
+               "original_break_transition" and r.get("kind") ==
+               "MonsterBreakColliderActiveStarted"]
+    hurts = [(i, r) for i, r in enumerate(rows) if r.get("status") ==
+             "original_break_transition" and r.get("kind") ==
+             "MonsterBreakColliderHurt"]
+    all_break = [(i, r) for i, r in enumerate(rows) if r.get("status") ==
+                 "original_break_transition" and r.get("kind") ==
+                 "MonsterAllBreakCollider"]
+    interruptions = [(i, r) for i, r in enumerate(rows) if r.get("status") ==
+                     "original_break_transition" and r.get("kind") ==
+                     "MonsterSkillInterruptionEvent"]
+    def episode_at(owner: int, row_index: int):
+        """Use the original event stream order, including same-tick rearming."""
+        prior = [(i, r) for i, r in starts if r.get("ownerId") == owner and
+                 i < row_index]
+        if not prior:
+            return None
+        start_index, start = prior[-1]
+        end_index = next((i for i, r in starts if r.get("ownerId") == owner and
+                          i > start_index), len(rows))
+        return start_index, end_index, start
+    if not selected:
+        errors.append("no Mirror break target selected under original input")
+    if not starts or not started:
+        errors.append("original Mirror break activation/start chain not observed")
+    # A change log omits unchanged frames by design. Only a recent state before
+    # each selection can establish eligibility. The original Hurt event and a
+    # later lower native HP are both required; a policy aim alone proves neither.
+    hit_matches = []
+    used_hurts: set[int] = set()
+    for choice in selected:
+        tick, owner, collider = (choice.get("tick"), choice.get("ownerId"),
+                                 choice.get("colliderId"))
+        if (not _int(tick) or not _int(owner, 1) or not _int(collider) or
+            choice.get("targetKey") != f"{owner}:{collider}" or
+            choice.get("sourceSkillLinkVerified") is not False):
+            errors.append("selected Mirror target lacks exact original identity")
+            continue
+        row_index = next(i for i, row in enumerate(rows) if row is choice)
+        episode = episode_at(owner, row_index)
+        if episode is None:
+            errors.append(f"selected Mirror collider {collider} lacks original activation")
+            continue
+        start_index, end_index, start = episode
+        bound = rows[row_index - 1] if row_index else {}
+        if bound.get("status") == "original_break_action_observation":
+            # This is the unchanged original observer snapshot passed into
+            # policy.step, emitted immediately before its aim decision.
+            bound_episode = next((e for e in bound.get("latestEpisodes") or []
+                                  if e.get("ownerId") == owner), {})
+            if (bound.get("decisionTick") != tick or
+                bound.get("actorId") != choice.get("actorId") or
+                bound.get("ownerId") != owner or
+                bound.get("colliderId") != collider or
+                bound.get("supported") is not True or
+                bound_episode.get("startSequence") != start.get("sequence") or
+                bound_episode.get("startTick") != start.get("tick") or
+                bound_episode.get("started") is not True or
+                not _int(bound_episode.get("startSequence"), 1)):
+                errors.append(f"selected Mirror collider {collider} bound observation differs from original episode or decision")
+                continue
+            previous = next(((i, t, m) for i, t, m in reversed(mirror_states)
+                             if i == row_index - 1 and m.get("entityId") == owner), None)
+        else:
+            previous = next(((i, t, m) for i, t, m in reversed(mirror_states)
+                             if start_index < i < row_index and t <= tick and
+                             rows[i].get("status") == "original_break_observation_change" and
+                             m.get("entityId") == owner), None)
+        if (previous is None or previous[0] <= start_index or
+                previous[1] > tick or tick - previous[1] > 3):
+            errors.append(f"selected Mirror collider {collider} lacks recent native state")
+            continue
+        current_monster = previous[2]
+        current = [c for c in current_monster.get("colliders") or []
+                   if c.get("colliderId") == collider]
+        target = current[0] if len(current) == 1 else {}
+        if bound.get("status") == "original_break_action_observation" and (
+                target.get("name") != choice.get("name") or
+                target.get("hp") != choice.get("hp") or
+                target.get("maxHp") != choice.get("maxHp") or
+                target.get("aimPointBasis") != choice.get("aimPointBasis")):
+            errors.append(f"selected Mirror collider {collider} does not match bound native collider")
+            continue
+        hp = _number(target.get("hp"))
+        if (current_monster.get("playing") is not True or
+            current_monster.get("nativeIsAllBreak") is not False or
+            target.get("type", {}).get("name") != "Break" or
+            target.get("name") not in {"break_col_01", "break_col_02",
+                                       "break_col_03", "break_col_04",
+                                       "break_col_05", "break_col_06"} or
+            target.get("enabled") is not True or
+            target.get("unityLive") is not True or
+            target.get("liveBreakTarget") is not True or
+            target.get("aimPointBasis") != "UnityEngine.Collider.bounds.center" or
+            hp is None or hp <= 0 or
+            not isinstance(target.get("worldAimPoint"), list) or
+            len(target["worldAimPoint"]) != 3 or
+            any(type(x) not in (int, float) or not math.isfinite(x)
+                for x in target["worldAimPoint"])):
+            errors.append(f"selected Mirror collider {collider} was not eligible in live native state")
+            continue
+        if not any(start_index < i < row_index and e.get("ownerId") == owner
+                   for i, e in started):
+            errors.append(f"selected Mirror collider {collider} lacks original activation")
+            continue
+        lease = next((r for r in reversed(rows[start_index:row_index]) if
+                      r.get("status") == "original_mirror_break_decision" and
+                      r.get("action") in ("take_manual_control",
+                                          "release_manual_control")), None)
+        if (lease is None or lease.get("action") != "take_manual_control" or
+                lease.get("actorId") != choice.get("actorId")):
+            errors.append(f"selected Mirror collider {collider} lacks policy input lease")
+            continue
+        press_index = next((i for i in range(row_index + 1, end_index)
+                            if rows[i].get("phase") == "mechanics_tactical_actions" and
+                            rows[i].get("action") == "press"), None)
+        hurt = next(((i, e) for i, e in hurts if i not in used_hurts and
+                     press_index is not None and press_index < i < end_index and
+                     e.get("ownerId") == owner and e.get("colliderId") == collider and
+                     _int(e.get("tick")) and e["tick"] >= tick and
+                     (_number(e.get("damage")) or 0) > 0), None)
+        if (press_index is None or hurt is None or
+                any(r.get("status") == "original_mirror_break_decision" and
+                    r.get("action") in ("release_manual_control", "suspended",
+                                        "take_manual_control")
+                    for r in rows[row_index + 1:press_index])):
+            errors.append(f"selected Mirror collider {collider} lacks subsequent original press/Hurt")
+            continue
+        hurt_index, hurt_event = hurt
+        if any((r.get("status") == "original_mirror_break_decision" and
+                r.get("action") in ("release_manual_control", "suspended",
+                                    "take_manual_control")) or
+               (r.get("phase") == "mechanics_tactical_actions" and
+                r.get("action") in ("release", "set_auto_aim"))
+               for r in rows[press_index + 1:hurt_index]):
+            errors.append(f"selected Mirror collider {collider} lost input lease before native Hurt")
+            continue
+        used_hurts.add(hurt_index)
+        later = [(_number(c.get("hp")), t) for i, t, m in mirror_states
+                 if hurt_index < i < end_index and
+                 m.get("entityId") == owner
+                 for c in m.get("colliders") or [] if c.get("colliderId") == collider]
+        if not any(value is not None and value < hp for value, _ in later):
+            errors.append(f"selected Mirror collider {collider} lacks original HP decrement")
+            continue
+        hit_matches.append({"ownerId": owner, "colliderId": collider,
+                            "episodeStartTick": start.get("tick"),
+                            "episodeStartSequence": start.get("sequence"),
+                            "episodeStartRowIndex": start_index,
+                            "episodeEndRowIndex": end_index,
+                            "hurtRowIndex": hurt_index,
+                            "selectionTick": tick, "hurtTick": hurt_event["tick"],
+                            "beforeHp": str(hp),
+                            "afterHp": str(min(v for v, _ in later if v is not None))})
+    # Counter/Choice health and original hurt events remain separate safety
+    # checks. These sampled bounds cannot certify every unsampled native frame.
+    types: dict[tuple[int, int, int], str] = {}
+    unsafe_hp: dict[tuple[int, int, int], set[str]] = {}
+    for state_index, _, monster in mirror_states:
+        owner = monster.get("entityId")
+        episode = episode_at(owner, state_index)
+        if episode is None:
+            if monster.get("playing") is True or monster.get("colliders"):
+                errors.append("original Mirror active collider state predates activation")
+            continue
+        for item in monster.get("colliders") or []:
+            key = (episode[0], owner, item.get("colliderId"))
+            kind = (item.get("type") or {}).get("name")
+            if key in types and types[key] != kind:
+                errors.append("original break collider identity changed type")
+            types[key] = kind
+            if kind in ("Counter", "Choice"):
+                unsafe_hp.setdefault(key, set()).add(item.get("hp"))
+    if any(len(hps) != 1 or None in hps for hps in unsafe_hp.values()):
+        errors.append("sampled Counter/Choice break-collider HP changed")
+    mirror_owner_ids = {m.get("entityId") for _, _, m in mirror_states}
+    if any((episode_at(h.get("ownerId"), i) is None or
+            types.get((episode_at(h.get("ownerId"), i)[0],
+                       h.get("ownerId"), h.get("colliderId"))) != "Break")
+           for i, h in hurts if h.get("ownerId") in mirror_owner_ids):
+        errors.append("original Hurt reached Counter/Choice or unknown break collider")
+    targeting = "PASS" if selected and len(hit_matches) == len(selected) and not errors else "FAIL"
+    # Original AllBreak and SkillInterruption report native outcomes, but the
+    # Event payloads do not identify which of rows 520669/520676 was active.
+    outcome = "OBSERVED_UNASSOCIATED" if any(
+        any(a.get("ownerId") == h["ownerId"] and a.get("isBreak") is True and
+            h["hurtRowIndex"] < ai < h["episodeEndRowIndex"] for ai, a in all_break) and
+        any(e.get("ownerId") == h["ownerId"] and e.get("isInterrupt") is True and
+            h["hurtRowIndex"] < ei < h["episodeEndRowIndex"]
+            for ei, e in interruptions) for h in hit_matches) else "UNVERIFIED"
+    if selected and outcome != "OBSERVED_UNASSOCIATED":
+        errors.append("original AllBreak plus SkillInterruption outcome not both observed")
+    return {"status": "FAIL" if errors else "PASS", "errors": errors,
+        "targeting": targeting, "interruption": outcome,
+        "selected": len(selected), "matchedOriginalHits": hit_matches,
+        "originalAllBreakEvents": len(all_break),
+        "originalSkillInterruptionEvents": len(interruptions),
+        "sampledUnsafeColliderIds": sorted({key[2] for key in unsafe_hp}),
+        "sourceSkillAssociationVerified": False,
+        "safetyScope": "Sampled original Mirror collider HP and original Hurt events; no 520669/520676 attribution"}
+
+
 def verify(rows: list[dict], scene: dict | None = None) -> dict:
     """Return a report; scene evidence is required for an overall PASS."""
     errors: list[str] = []
     if not isinstance(rows, list) or any(not isinstance(r, dict) for r in rows):
         return {"passed": False, "errors": ["events must be JSON objects"],
-                "qte": {"status": "NOT_EXERCISED"}, "cover": {"status": "NOT_EXERCISED"}}
+                "qte": {"status": "NOT_EXERCISED"}, "cover": {"status": "NOT_EXERCISED"},
+                "break": {"status": "NOT_EXERCISED"}}
     mode = _one(rows, "native_control_mode_selected", errors)
     stop = _one(rows, "original_tick_driver_stopped", errors)
     terminal = _one(rows, "original_terminal_result", errors)
@@ -313,8 +584,43 @@ def verify(rows: list[dict], scene: dict | None = None) -> dict:
         cover_summary.get("covered") is not False or cover_summary.get("pending") != []):
         errors.append("cover policy unsupported, truncated, or unresolved at terminal")
     transporter = [r for r in rows if r.get("status") in
-                   ("synthetic_kraken_transporter_prepared", "original_transporter_prepared")]
+                   ("synthetic_kraken_transporter_prepared", "original_transporter_prepared",
+                    "original_encounter_transporter_prepared")]
     wave_id = transporter[0].get("waveId") if len(transporter) == 1 else None
+    if len(transporter) != 1 or not _int(wave_id, 1):
+        errors.append("exactly one source-bound original transporter/wave identity required")
+    if len(transporter) == 1 and transporter[0].get("status") == \
+            "original_encounter_transporter_prepared":
+        bound = transporter[0]
+        request_sha = bound.get("requestSha256")
+        if (not isinstance(request_sha, str) or len(request_sha) != 64 or
+            any(c not in "0123456789abcdef" for c in request_sha.lower()) or
+            not isinstance(bound.get("encounterProfileId"), str) or
+            not bound["encounterProfileId"] or
+            not isinstance(bound.get("roster"), list) or
+            len(bound["roster"]) != 5 or
+            bound.get("staticFieldInstalled") is not False or
+            bound.get("battleStarted") is not False or
+            bound.get("resultCaptured") is not False):
+            errors.append("schema-2 encounter transporter lacks exact request/profile/roster readback")
+        aim_rows = [r for r in rows if r.get("status") == "original_aim_state"]
+        if (len(aim_rows) != 5 or
+            not isinstance(bound.get("roster"), list) or
+            any(not _int(code, 1) for code in bound["roster"]) or
+            any(not _int(r.get("nameCode"), 1) or
+                not _int(r.get("entityId"), 1) for r in aim_rows) or
+            any(r.get("requestSha256") != request_sha for r in aim_rows) or
+            sorted(r.get("nameCode") for r in aim_rows) !=
+                sorted(bound.get("roster") or []) or
+            len({r.get("entityId") for r in aim_rows}) != 5):
+            errors.append("schema-2 original live actor/request identities differ from transporter")
+        if wave_id == 6302006:
+            if bound.get("encounterProfileId") != "anomaly-mirror-container":
+                errors.append("Mirror transporter profile identity differs from current source")
+            targets = [r for r in rows if r.get("status") == "original_current_wave_targets"]
+            if (len(targets) != 1 or not isinstance(targets[0].get("targetIds"), list) or
+                "4510010123" not in targets[0]["targetIds"]):
+                errors.append("original Mirror wave target 4510010123 not read back")
     try:
         qte = _qte(rows, stop)
     except (KeyError, TypeError, ValueError, AttributeError, OverflowError) as exc:
@@ -323,13 +629,22 @@ def verify(rows: list[dict], scene: dict | None = None) -> dict:
         cover = _cover(rows, stop, wave_id)
     except (KeyError, TypeError, ValueError, AttributeError, OverflowError) as exc:
         cover = {"status": "FAIL", "errors": [f"malformed cover evidence: {exc}"]}
+    try:
+        break_result = _break(rows, stop, wave_id)
+    except (KeyError, TypeError, ValueError, AttributeError, OverflowError, StopIteration) as exc:
+        break_result = {"status": "FAIL", "errors": [f"malformed break evidence: {exc}"],
+                        "targeting": "FAIL", "interruption": "UNVERIFIED",
+                        "sourceSkillAssociationVerified": False}
     errors.extend("QTE: " + error for error in qte["errors"])
     errors.extend("cover: " + error for error in cover["errors"])
+    errors.extend("break: " + error for error in break_result["errors"])
+    if wave_id == 6302006 and break_result["status"] == "NOT_EXERCISED":
+        errors.append("Mirror break mechanic not exercised; native targeting/cancellation unverified")
     return {"schemaVersion": 1, "passed": not errors, "errors": errors,
         "nativeResult": {"advancedTicks": (terminal or {}).get("advancedTicks"),
             "targetMaxHp": (terminal or {}).get("targetMaxHp"),
             "originalResult": (terminal or {}).get("originalResult")},
-        "qte": qte, "cover": cover, "waveId": wave_id,
+        "qte": qte, "cover": cover, "break": break_result, "waveId": wave_id,
         "fullAccuracyVerified": False, "allBossTacticalCoverageVerified": False,
         "scope": "One source-bound native diagnostic; unexercised mechanics remain unverified"}
 

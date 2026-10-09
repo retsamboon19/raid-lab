@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import sys
 from mechanics_request import load_request, encounter_profile
+from mechanics_profile_binding import geometry_source_for_profile
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
@@ -37,19 +38,7 @@ if scenario == 'mechanics':
     request_path = Path(sys.argv[4]) if len(sys.argv) > 4 else HERE/'mechanics_request_fixture.json'
     request, request_hash = load_request(request_path)
     profile = encounter_profile(request)
-    if profile is not None and profile['productId'] != 'anomaly-kraken':
-        if profile['productId'] != 'anomaly-mirror-container':
-            raise ValueError('Registered encounter still needs source-bound mechanical asset staging')
-        geometry_source = HERE / 'mirror-geometry-source.json'
-        if sha(geometry_source) != 'd1c334def34ae73ed4344c4f79e1f00431f35df49e1fc7eefc562b0c1095f306':
-            raise ValueError('Mirror mechanical geometry source changed')
-        geometry = json.loads(geometry_source.read_text(encoding='utf-8'))
-        receipt = json.loads((SANDBOX/'mirror-asset-staging-receipt.json').read_text(encoding='utf-8'))
-        if receipt['source_sha256'] != sha(geometry_source) or \
-                geometry['profile']['wave_id'] != request['encounter']['waveId'] or \
-                geometry['wave_current_row']['BackgroundName'] != profile['wave']['backgroundKey'] or \
-                geometry['wave_current_row']['TargetList'] != profile['wave']['targetMonsterIds']:
-            raise ValueError('Mirror source/staging/profile binding mismatch')
+    geometry_source = geometry_source_for_profile(profile)
 for name in ('nikkeBase.dll', 'OfflineNetwork.dll'):
     build = HERE / 'build'
     if scenario == 'mechanics' and name == 'nikkeBase.dll':
@@ -98,10 +87,10 @@ sources = (['mechanics_bare_stats_probe.js', 'mechanics_snapshot_probe.js', 'mec
             'mechanics_projectile_observer.js',
             'mechanics_skill_event_observer.js', 'mechanics_skill_gate_observer.js',
             'mechanics_startup_state_observer.js',
-            'mechanics_tactical_observer.js', 'mechanics_threat_observer.js', 'mechanics_virtual_pointer.js',
+            'mechanics_tactical_observer.js', 'mechanics_threat_observer.js', 'mechanics_breakable_observer.js', 'mechanics_break_damage_probe.js', 'mechanics_break_shot_gap_probe.js', 'mechanics_break_result_gap_probe.js', 'mechanics_virtual_pointer.js',
             'mechanics_tactical_actions.js', 'mechanics_kraken_qte_policy.js',
             'mechanics_kraken_cover_probe.js', 'mechanics_qte_policy.js',
-            'mechanics_cover_policy.js', 'mechanics_tactical_controller.js',
+            'mechanics_cover_policy.js', 'mechanics_break_policy.js', 'mechanics_chatterbox_cover_probe.js', 'mechanics_tactical_controller.js',
             'mechanics_tick_runner.js', 'mechanics_frame_scheduler.js', 'mechanics_clock_observer.js', 'mechanics_probe.js'] if scenario == 'mechanics' else
            ['skill_probe.js'] if scenario == 'skill' else ['battle_observer.js', 'battle_probe.js'])
 if scenario == 'mechanics':

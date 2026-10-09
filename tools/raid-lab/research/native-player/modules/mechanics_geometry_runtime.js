@@ -12,22 +12,28 @@ function startMechanicsGeometryRuntime(management, pin, emit, done) {
   const receipt = globalThis.MECHANICS_GEOMETRY_SOURCE_SHA256;
   const client = "2df7134a6a9c3a8dbbde88402fc8d16d1d6c3f4c2d5e262bea78c3d78b96dd02";
   const profile=globalThis.MECHANICS_ENCOUNTER_PROFILE||null;
-  const mirror=profile&&profile.productId==="anomaly-mirror-container";
-  const expectedReceipt = mirror?
-    "d1c334def34ae73ed4344c4f79e1f00431f35df49e1fc7eefc562b0c1095f306":
-    "fabe414859d5ed3d7486b3ab6b2bc979847c01fa56c793b0832f2c35e33bf2fc";
+  const commonReceipt="fabe414859d5ed3d7486b3ab6b2bc979847c01fa56c793b0832f2c35e33bf2fc";
+  const reviewedReceipts={
+    "anomaly-kraken":commonReceipt,
+    "anomaly-mirror-container":"d1c334def34ae73ed4344c4f79e1f00431f35df49e1fc7eefc562b0c1095f306",
+    "anomaly-ultra":"39049233dbf1bed5b98145c214791e59a59f1c3d7707a260233bec144723f77c",
+    "special-chatterbox":"b91fcdccf7b7c229e091cadb6a4acea6810aca31b81d8ec042953cb5b106c63b"
+  };
+  const encounterGeometry=profile&&profile.productId!=="anomaly-kraken";
+  const expectedReceipt=profile?reviewedReceipts[profile.productId]:commonReceipt;
   const present = x => x != null && !x.isNull();
   const requireRef = (x, name) => { if (!present(x)) throw new Error(name + " is null"); return x; };
   const call = (method, instance = null, args = []) => invokeChecked(method, instance, args);
   if (!source || source.installed_client_sha256 !== client ||
-      receipt !== expectedReceipt) {
+      !expectedReceipt || receipt !== expectedReceipt ||
+      (encounterGeometry&&source.source.common_geometry_sha256!==commonReceipt)) {
     throw new Error("Original geometry fixture/client receipt mismatch");
   }
-  const backgroundRole=mirror?source.profile.background_role:"kraken_background_hd";
+  const backgroundRole=encounterGeometry?source.profile.background_role:"kraken_background_hd";
   const backgroundKey=profile?profile.wave.backgroundKey:"sbg_oceanbbg004_001";
   if (!source.bundles||!source.bundles[backgroundRole]||
       source.bundles[backgroundRole].catalog_key!==backgroundKey||
-      (mirror&&(source.profile.id!==profile.productId||
+      (encounterGeometry&&(source.profile.id!==profile.productId||
         source.profile.wave_id!==profile.encounter.waveId)))
     throw new Error("Registered installed-catalog geometry key mismatch");
   if (!present(management) || typeof pin !== "function" ||
@@ -42,6 +48,7 @@ function startMechanicsGeometryRuntime(management, pin, emit, done) {
     [Il2Cpp.string("RaidLab.OriginalMechanicsPresentation").handle]);
   management.field("PresentationRoot").value = gameObject;
   const state = { gameObject, management, sourceReceiptSha256: receipt,
+    commonGeometryReceiptSha256:encounterGeometry?source.source.common_geometry_sha256:receipt,
     backgroundKey,
     clientSha256: client, status: "loading", startedAt: Date.now(),
     instances: {}, index: 0, task: null, awaiter: null };

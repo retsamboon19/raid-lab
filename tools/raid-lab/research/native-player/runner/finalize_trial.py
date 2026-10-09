@@ -96,6 +96,14 @@ def finalize(trial):
     summary['error_count']=len(errors)
     summary['errors']=[{'status':row.get('status',row['phase']),
         'detail':str(row.get('error',row.get('detail','')))[:500]} for row in errors[:3]]
+    # One original load can fail concurrently for several resources. Preserve
+    # the compact summary while exposing every distinct requested bundle up to
+    # this bound, instead of encouraging a retry for just the first exception.
+    failed_bundles=sorted({key for row in errors for key in re.findall(
+        r"key='([^']+\.bundle)'", str(row.get('error',row.get('detail',''))))})
+    if failed_bundles:
+        summary['failed_bundle_keys']=failed_bundles[:32]
+        summary['failed_bundle_keys_truncated']=len(failed_bundles)>32
     print(json.dumps(summary,indent=2))
     return report
 

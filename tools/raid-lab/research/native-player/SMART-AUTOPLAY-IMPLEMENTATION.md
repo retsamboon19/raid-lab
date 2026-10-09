@@ -131,3 +131,139 @@ Final tests:9request tests,7input-verifier tests,7QTE-policy tests (including MG
 Continue from combined121, not the earlier input feasibility or missing-pointer hypotheses. The node230 missile/follow-up-cast cover is now native-tested. Do not release solely on missile despawn:117 proved that unsafe,118–121 verified waiting through FireCasting until Idle. Original cover consumes HP and can be destroyed; no invulnerability or reset is injected. Independent per-character cover is not a proven player control. The separate break-collider event at79.332seconds is not this telegraph.
 
 Other QTE groups, charged weapons, unsafe spread/overlap cases, target-preservation rules, other boss staging, complete equipped-build conversion, omitted mechanical dependencies, normal-game parity, and native production search remain incomplete. Do not relabel a passing group-212 test as a complete all-boss controller. Speed remains secondary to reliability.
+
+## Current continuation — all bosses, October9, through127
+
+This supersedes the121 next step above. The user requires all Raid Lab boss fights,
+results only, with original battle mechanics and smarter required-part/QTE/cover
+inputs. Kraken is the first validated case. Production search remains Python.
+
+Generic `boss-tactical-v1` passed native123 on Kraken after failed122 exposed
+zero-based collider IDs, preset/group identity, attack-history cursor and original
+condition timestamp issues. Result equals120 exactly; all7Breaks, cover4695–5055,
+resume and five survivors pass. Exact receipts remain in probe-output-123.
+Public GitHub main checkpoint cd9d652 contains source progress through123.
+
+Source inventory is BOSS-AUTOPLAY-COVERAGE.json; the current ten Intercept profile
+registry is source-verified, not ten validated native fights. Prepared requests
+are Mirror/Ultra level400 and Special Chatterbox level200. Three reviewed manifests
+can use the shared mechanical hierarchy, with exact profile/geometry/chunk binding
+in mechanics_profile_binding.py; other profiles still fail the staging gate.
+
+Mirror original-auto observation attempts124–127 are all failed precombat trials:
+124 exposed an obsolete Kraken-only FX geometry guard (fixed with exact common
+hierarchy plus encounter hashes);125 a dynamic death-effect bundle omitted from
+static Addressables closure (source-verified staged32chunks);126 exact monster
+SpotEffect and per-skill serialized references (source closure staged213chunks);
+127 four concurrent shared default Energy skill resources. The latter loader
+fallback closure is the current repair. Do not rerun unchanged127 or describe it
+as a completed fight. Exact commands/results/hashes are in FULL-ACCURACY-WORKLOG.md,
+MIRROR-DYNAMIC-EFFECT-TRIAL125.md and MONSTER-RESOURCE-CLOSURE-TRIAL126.md.
+
+Generic modes now observe original SpotMonsterBreak collider state and events.
+Candidate Mirror policy uses live enabled positive-HP Break colliders only,
+original input commands and bounded reaction time; QTE/cover have priority and
+release the required-part input lease first. Native targeting/cancellation is
+unverified. Ledger/controller/policy/priority synthetic checks pass; the native
+verifier requires actual press, Hurt and HP decrement, with interruption reported
+separately and no unsupported skill520676 attribution. Do not treat mock tests or
+source-backed collider centers as proof that shots hit.
+
+INTERCEPT-MECHANICAL-INPUT-AUDIT.md found no missing battle setter for CoverStageLv
+or AutoChargeId. Original cover uses constructed character level and its native
+cover table; Special requests already match original level200. Full account
+snapshot correction, Anomaly below-cap parity and equipped builds remain pending.
+The unrelated existing user game PID18840 must not be attached to or stopped.
+
+## Current continuation through133
+
+This supersedes the127 load failure. Mirror128 original-auto and129/133 candidate
+tactical fights complete in the original engine. Candidate shots reach Break01,
+but all observed Liter/Crown Break damage is zero and HP stays350000; tactical
+verification FAILS. Correction after133: positive inner GetDamage samples hit
+different, non-Break colliders; no post-calculator zeroing was established.
+MainHP immunity is false for sampled inner hits. Correlate the outer GetDamage
+call and original early-return gates with the same Break collider; do not guess from boss
+element or retry the same firing policy unchanged. Positive Hurt and HP decrement
+remain mandatory. New decision-bound snapshots fixed stale-state evidence pairing;
+21 verifier regressions pass;123 remains a read-only passing control.
+
+Chatterbox130/131 missing mechanical skill dependencies are source-staged and132
+completes an original fight with all five native input readbacks and clean exit.
+It wipes in34.1885s; the first hit87 precedes first MonsterAttack197. Earliest
+FireCasting4 plus original TimelineSkill branch is the next cover discriminator.
+See CHATTERBOX-TACTICAL-RULES-TRIAL132.md; cover interception is not yet proven.
+Ultra static/monster closure is prepared for its first observation trial134.
+No installed game/account changes. Production Raid Lab remains Python.
+
+User stop boundary: at5% main allowance remaining, stop engineering and agents,
+update/verify GitHub main, then shut down PC without force-closing applications.
+Latest checked23% remaining before134; preserve enough allowance for publication.
+
+
+## Cross-boss checkpoint through140
+
+Four bare fixtures now complete original-engine executions: Kraken, Mirror,
+Chatterbox and Ultra. Only the recorded Kraken sequence has passing tactical
+coverage. Ultra139 has0nativeerrors, valid inputs and clean exit:2322ticks,
+76.5273s battle,14.639s tick wall,0survivors. Three original Break episodes fail;
+first is three live280000HP Break04/05/06 targets. See ULTRA-FIRST-BREAK-TRIAL139.md.
+Do not count absent QTE phases or baseline execution as tactical success.
+
+Mirror138 paired same-call inner/outer damage now confirms positive damage for
+actual Break819201, while the later event remains0. Source constructor and
+processing need object-identity tracing; the earlier133 post-calculator inference
+was unsupported and remains corrected.141 will trace the three result stages.
+
+Chatter137 failed an observer assumption (one nested skill getter observation).
+Source-backed retained skill-list read now replaces that assumption, with native
+node/skill/pass-time checks and5mock tests.140 expired during earlier startup,
+BEFORE this observer was installed, so it cannot judge the repair or coverability.
+Exact entry/release squad HP and resumed-ammo captures plus strict verifier are
+implemented; real cover interception is still unverified. Startup context-race
+repair has4behavioral regression tests; unrelated errors are never retried.
+
+The user cutoff remains5% main allowance remaining: stop, publish verified
+GitHub main checkpoint, then request normal PC shutdown. Production search still
+uses Python; full equipped builds, complete boss tactics and parity are unfinished.
+
+
+## Checkpoint through trial149 (October9)
+
+Chatterbox148 passes the strict first-attack cover verifier: original node6 /
+skill510209 at4, cover5, impact87 hits cover268587008 while target4098 HP474573
+remains unchanged, original PlayEnd197, release198, firing resumed203. Original
+1741tick result, five input readbacks,0nativeerrors and clean exit24.067s. This
+is one diagnostic episode only: team still wipes; no full Chatterbox policy or
+boss-win claim.146 had fixed the shared-variable path but failed a nested-hook
+assumption;148 binds GetSkill to original return RVA0x0654892A and retains a
+copied pointer. All earlier failed reports remain immutable. Six probe mocks
+and seven strict-verifier mocks pass.
+
+Mirror149 completes1339ticks/inputPASS/0nativeerrors/cleanexit27.235s, while
+required-part tactical verification still FAILS. Correct low-byte native bool
+readback now establishes original ImmuneDamage37=false and
+ImmuneOtherElement110=true on weak-element mismatch [500001] versus[200001],
+with original immunity tuple[0,1,1]. At1127/1129/1131 these coincide with the
+three retained Break819201 results changing11525 to0 in CommonHurtEvent.Send.
+Weak-element match[400001] at1132 yields tuple[0,0,1].115/115 condition rows and
+21/21 result rows retained, no fault or active hook stack. This establishes the
+active original elemental immunity branch. Next implement shooter eligibility
+using live original element/function observations, then prove positive damage,
+BreakHP loss and interruption. Do not bypass immunity or hard-code a boss-wide
+element rule.147's unmasked HasFunction booleans were invalid high-register
+bits; preserve its report and correction, never cite those booleans as evidence.
+Native bool hooks must read AL, not treat the whole return register as boolean.
+
+Exact final commands (workspace root):
+`python tools/raid-lab/native-player/run_trial.py 148 mechanics --request tools/raid-lab/native-player/mechanics_request_chatterbox.json --trace-mode results --control-mode boss-tactical`
+`python tools/raid-lab/native-player/run_trial.py 149 mechanics --request tools/raid-lab/native-player/mechanics_request_mirror.json --trace-mode results --control-mode boss-tactical`
+149 plan8e1da5187cf4ecdeaa152bb3eb4d00bb4b16328c02f65bc889b54d5be15da65c,
+bundle1e7bdc9d1ba9cf6ce7b78ded04952b918aa1ee154cf98b32a472139209a9654c;
+148 plan6a2db20a4dae5b70a9f49fb5647322f750371cde079d0d41e896e9a05d9e50e6,
+bundleb3c80ec8d73eea742e9a25dc380c34398db9c9a0765b97a6ac95487642e33058.
+Source-only GitHub checkpoint includes successes and explicit failures; actual
+native receipts/resources remain private and hash-referenced. Four bare boss
+execution fixtures, one Kraken tactical sequence and one Chatterbox opening
+cover episode do not prove all-boss tactics or full mechanics parity. Production
+Raid Lab search remains Python; native equipped builds and integration incomplete.

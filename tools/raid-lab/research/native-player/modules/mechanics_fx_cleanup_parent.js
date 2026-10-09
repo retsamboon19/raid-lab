@@ -5,7 +5,9 @@ function installMechanicsFxCleanupParent(state, pin, emit) {
   const client = "2df7134a6a9c3a8dbbde88402fc8d16d1d6c3f4c2d5e262bea78c3d78b96dd02";
   const receipt = "fabe414859d5ed3d7486b3ab6b2bc979847c01fa56c793b0832f2c35e33bf2fc";
   if (!state || state.status !== "ready" || state.clientSha256 !== client ||
-      state.sourceReceiptSha256 !== receipt || Process.pointerSize !== 8)
+      state.commonGeometryReceiptSha256 !== receipt ||
+      state.sourceReceiptSha256 !== globalThis.MECHANICS_GEOMETRY_SOURCE_SHA256 ||
+      Process.pointerSize !== 8)
     throw new Error("FX parent requires the verified original geometry hierarchy");
   const root = state.instances.prefab_root;
   if (!root || root.isNull()) throw new Error("Original PrefabControl is absent");
@@ -90,7 +92,8 @@ function installMechanicsFxCleanupParent(state, pin, emit) {
     }));
   }
   emit({ status: "mechanics_fx_cleanup_parent_installed", installedClientSha256: client,
-    sourceReceiptSha256: receipt, patchRva: "0x06159260", originalBytes: original,
+    sourceReceiptSha256: state.sourceReceiptSha256, commonGeometryReceiptSha256:receipt,
+    patchRva: "0x06159260", originalBytes: original,
     patchedBytes: patched, parentAssetKey: "PrefabControl",
     parentAssetGuid: "9022068b08512344181fc634755eff39",
     parentPointer: parent.handle.toString(), parentType: parent.class.type.name,

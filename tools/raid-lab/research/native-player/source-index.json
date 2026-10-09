@@ -8,8 +8,8 @@
     {
       "snapshotPath": "modules/headless_driver.js",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/headless_driver.js",
-      "sha256": "23b38caa4aa8daa4027e1d824c025418f4dc7f0a7f7c6437fb394d0bca03fc4b",
-      "bytes": 21939
+      "sha256": "acaf49703036e416f93fcbaeaa3c6ca1412902aa852df7cfc96852041b5ec0e9",
+      "bytes": 25451
     },
     {
       "snapshotPath": "modules/mechanics_bare_stats_probe.js",
@@ -50,8 +50,8 @@
     {
       "snapshotPath": "modules/mechanics_fx_cleanup_parent.js",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_fx_cleanup_parent.js",
-      "sha256": "f0fb175b4de105ebfe75662f4ef97e31dc77f017df51b5e591d3fdde58d7889d",
-      "bytes": 5317
+      "sha256": "6aa16987f210ca98369da072608591a2abf099d79efc3a359dcc1b302558f66d",
+      "bytes": 5473
     },
     {
       "snapshotPath": "modules/mechanics_audio_boundary.js",
@@ -62,8 +62,8 @@
     {
       "snapshotPath": "modules/mechanics_geometry_runtime.js",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_geometry_runtime.js",
-      "sha256": "20bc34e3d79b21fbac5062de4b91aa55a478cbd9ffe6a5a626ab884fd56aa4be",
-      "bytes": 24167
+      "sha256": "36af5f7d61635b539cf3eace16d17ec0ba8afde925884269b0abe92f8ea1c2e9",
+      "bytes": 24731
     },
     {
       "snapshotPath": "modules/mechanics_aim_binding.js",
@@ -122,14 +122,14 @@
     {
       "snapshotPath": "modules/mechanics_tactical_observer.js",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_tactical_observer.js",
-      "sha256": "c7e5ac7c175bdbe6f193a5dee1cd9e414137a0b2769212e86d20cf8cbe40e6ed",
-      "bytes": 24815
+      "sha256": "105029f266ca28dbb3811bb4417de05e11cb553d904cd82556219240181491d4",
+      "bytes": 24829
     },
     {
       "snapshotPath": "modules/mechanics_threat_observer.js",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_threat_observer.js",
-      "sha256": "05c194b03e7fe04fabf777707c2bc1da8195857867440ec7335a2bddc25f6b4d",
-      "bytes": 17620
+      "sha256": "6f36f9001240da6ef9a3b9d860b69ede93a389426ce702cafcf5881b26145313",
+      "bytes": 17784
     },
     {
       "snapshotPath": "modules/mechanics_virtual_pointer.js",
@@ -170,8 +170,8 @@
     {
       "snapshotPath": "modules/mechanics_tactical_controller.js",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_tactical_controller.js",
-      "sha256": "a7d06ca86abd1c563c49d63190a1ed4f4d88109ace6830cb809199414b137b26",
-      "bytes": 7581
+      "sha256": "5806d8bd4fd66c7e360d8bebd6528bc75e7bdeb03a65057c98ef1e37da080d97",
+      "bytes": 10334
     },
     {
       "snapshotPath": "modules/mechanics_tick_runner.js",
@@ -194,26 +194,26 @@
     {
       "snapshotPath": "modules/mechanics_probe.js",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_probe.js",
-      "sha256": "d37de55633fbe0d03cc084905e183176955d3985b08aa01d80a8727a9e878f0f",
-      "bytes": 30786
+      "sha256": "d8d3458f3b7d4e0d7ee26f353f39618dcc85e9529c412d3d27a28e9c185f0da1",
+      "bytes": 33360
     },
     {
       "snapshotPath": "runner/stage_probe.py",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/stage_probe.py",
-      "sha256": "6a4035c4141dd141fa5e2097e02034587c920cdce2dbff4afb100e4b3a579681",
-      "bytes": 10299
+      "sha256": "cadd8bc25f5aca2254fb4b8a5b74c861f024f107f13e7465c2a7349b85731133",
+      "bytes": 9547
     },
     {
       "snapshotPath": "runner/run_trial.py",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/run_trial.py",
-      "sha256": "e694f5fb21b90abf71f21431ac50a54dbbe7486009773fb426411ae96c877188",
-      "bytes": 8765
+      "sha256": "8a75de8a3aa0d75537cb1bc6d52d9566f3cad26f240d980adc7b0a8896493074",
+      "bytes": 8952
     },
     {
       "snapshotPath": "runner/finalize_trial.py",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/finalize_trial.py",
-      "sha256": "572a43fce8a7165898ebfdbfde76ed2bb70dd1d8b999ed3b984b8155d7617704",
-      "bytes": 6489
+      "sha256": "78fbf65142350d2edf2878bf02259c181f54ec2cd6abdbfb1cf8752d012a2175",
+      "bytes": 7029
     },
     {
       "snapshotPath": "runner/mechanics_request.py",
@@ -230,8 +230,8 @@
     {
       "snapshotPath": "runner/mechanics_encounter_assets.py",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_encounter_assets.py",
-      "sha256": "1c81cb9ca7a69b5b5b6acd5365db84de1d23fdc61c8073076d8e13d0877f3180",
-      "bytes": 17633
+      "sha256": "fb3cae565720e2e3df072fc17dd2d462ce97053cc788ea0c356e0f7d372fbf04",
+      "bytes": 24592
     },
     {
       "snapshotPath": "runner/mechanics_geometry_source.py",
@@ -266,8 +266,8 @@
     {
       "snapshotPath": "runner/verify_boss_tactical_trial.py",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/verify_boss_tactical_trial.py",
-      "sha256": "87451b21aa9bee6441caa9f314facf12df29bc5038dc015b08047eef5a41c1a3",
-      "bytes": 21421
+      "sha256": "afbbc67dddd8295813b8f48fcbb7459bfe46a2a0e86f88591b63681c97843abd",
+      "bytes": 41280
     },
     {
       "snapshotPath": "runner/verify_tactical_trial.py",
@@ -290,8 +290,8 @@
     {
       "snapshotPath": "tests/test_verify_boss_tactical_trial.py",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_verify_boss_tactical_trial.py",
-      "sha256": "7032b0618b71529f9d28a330ece641b05a5b0d40f6f28b6ea8504e8ea86e7fc0",
-      "bytes": 9690
+      "sha256": "22b1b21def02f10a49efd6f99e2c53202c654b8a1d1d6bd6c0e8cb0ef9b1b84e",
+      "bytes": 29805
     },
     {
       "snapshotPath": "tests/test_verify_tactical_trial.py",
@@ -404,8 +404,8 @@
     {
       "snapshotPath": "evidence/BOSS-AUTOPLAY-COVERAGE.json",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/BOSS-AUTOPLAY-COVERAGE.json",
-      "sha256": "9d90f68b72734b1782aed6646fed69ec9b8f82b38a672c13c0dd8aaec8ac2927",
-      "bytes": 86978
+      "sha256": "a9c2c7032a5865980f13a568152ab724ad5abe28f7b4994212cc771933a41333",
+      "bytes": 88536
     },
     {
       "snapshotPath": "evidence/BOSS-TACTICAL-SOURCE-RULES.json",
@@ -446,8 +446,206 @@
     {
       "snapshotPath": "SMART-AUTOPLAY-IMPLEMENTATION.md",
       "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/SMART-AUTOPLAY-IMPLEMENTATION.md",
-      "sha256": "6138704a845cac9ec5c5919c9b8859f63000f3cc19a1768c14ea5f6924bf785f",
-      "bytes": 16692
+      "sha256": "585ea3f5a727cefa83f742cd64e037be1698e179ceef7bf6b4941c4e9d020ed4",
+      "bytes": 25759
+    },
+    {
+      "snapshotPath": "modules/mechanics_breakable_observer.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_breakable_observer.js",
+      "sha256": "e6522dce9163135f2aa445cd875140f6381406ef9c091b3878d40909d49722bf",
+      "bytes": 16081
+    },
+    {
+      "snapshotPath": "modules/mechanics_break_policy.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_break_policy.js",
+      "sha256": "c3437d179fe39abe3a5637d2f4896634cd6e572692c916ada2470235a05723c3",
+      "bytes": 11976
+    },
+    {
+      "snapshotPath": "modules/mechanics_break_damage_probe.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_break_damage_probe.js",
+      "sha256": "8d51dfcf3e29a96321de8b11d2505a4264f6ea8657683d79844fd9e8b2382cd7",
+      "bytes": 6493
+    },
+    {
+      "snapshotPath": "modules/mechanics_break_shot_gap_probe.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_break_shot_gap_probe.js",
+      "sha256": "65bdceb1f82ea25fed87a9dfe534bfa2f76cc5e73ee86e6a55c68e1471d4665f",
+      "bytes": 4735
+    },
+    {
+      "snapshotPath": "modules/mechanics_chatterbox_cover_probe.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_chatterbox_cover_probe.js",
+      "sha256": "f9bbed6b7aaf34e9f6bfe2d810f6d7a160474ed82578aabd17569d2fda50465c",
+      "bytes": 16571
+    },
+    {
+      "snapshotPath": "modules/mechanics_break_result_gap_probe.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_break_result_gap_probe.js",
+      "sha256": "14ceefc1d2cb4a81686d3413f434e52bec88590f43c959ad60f7076285a7089e",
+      "bytes": 11719
+    },
+    {
+      "snapshotPath": "runner/mechanics_profile_binding.py",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_profile_binding.py",
+      "sha256": "bb7b408a0a54a6fd54cd26d88872443b404cc51874cffaf4c85a7233e1502da6",
+      "bytes": 7912
+    },
+    {
+      "snapshotPath": "runner/mechanics_profile_assets.py",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_profile_assets.py",
+      "sha256": "1e2745c7080bf64b54bebf7d7e34c492214913079b323083690ea6d1e741c9f5",
+      "bytes": 19631
+    },
+    {
+      "snapshotPath": "runner/mechanics_monster_resource_closure.py",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_monster_resource_closure.py",
+      "sha256": "623d8eb085de420299758d022c238f785f1448e86d1544ceed98a7d4d3270d95",
+      "bytes": 26549
+    },
+    {
+      "snapshotPath": "runner/mechanics_observed_effect_closure.py",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_observed_effect_closure.py",
+      "sha256": "83814befc2040ff2d1e0cff0d5073f721d86329ec42d2fbc5199bd738054b4c9",
+      "bytes": 10093
+    },
+    {
+      "snapshotPath": "runner/verify_chatterbox_cover_trial.py",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/verify_chatterbox_cover_trial.py",
+      "sha256": "ad45310073b4692327d3abb2ff6724899a7dc530b3692eeb696c8a36d88f60c4",
+      "bytes": 12506
+    },
+    {
+      "snapshotPath": "tests/test_breakable_observer.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_breakable_observer.js",
+      "sha256": "15a362fbab55e25e3e575a6cb6e274946d4c9d3dd781c395682d36c799fc2f69",
+      "bytes": 2367
+    },
+    {
+      "snapshotPath": "tests/test_break_policy.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_break_policy.js",
+      "sha256": "312b992ca77acb69d18f9a229d68533516e50c1447715d4c6ffb1f3da4a29d9c",
+      "bytes": 6837
+    },
+    {
+      "snapshotPath": "tests/test_breakable_controller.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_breakable_controller.js",
+      "sha256": "911b0d6840f0a46a34b8e5ef565e267eb34d93d38344dc72f1c6e8501d48e079",
+      "bytes": 2265
+    },
+    {
+      "snapshotPath": "tests/test_tactical_input_priority.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_tactical_input_priority.js",
+      "sha256": "4dfd56c95daae4ea82ee96300ed8b7641252824cdf394f9d44446f5ab7169c64",
+      "bytes": 3648
+    },
+    {
+      "snapshotPath": "tests/test_chatterbox_cover_probe.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_chatterbox_cover_probe.js",
+      "sha256": "ea4d78216887329f7f465d1f43d9e7a4372ea27147ab0a04efe7ef58a60be0eb",
+      "bytes": 11025
+    },
+    {
+      "snapshotPath": "tests/test_headless_startup_context.js",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_headless_startup_context.js",
+      "sha256": "18f4611f335955e063a6c9550840010bbf0d8f3c7fec06c9411579bee9d85fe4",
+      "bytes": 6996
+    },
+    {
+      "snapshotPath": "tests/test_verify_chatterbox_cover_trial.py",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/test_verify_chatterbox_cover_trial.py",
+      "sha256": "4bf5961e6f395247cdd382f0e998bfa8aeb36ef512af0802b673fe13f72afc1c",
+      "bytes": 8033
+    },
+    {
+      "snapshotPath": "fixtures/mechanics_request_chatterbox.json",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_request_chatterbox.json",
+      "sha256": "be170ec1716b29033655dfa3f105cd36ed0041b011a4de21e57a0df380822024",
+      "bytes": 2349
+    },
+    {
+      "snapshotPath": "fixtures/mechanics_request_ultra.json",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/mechanics_request_ultra.json",
+      "sha256": "7649ae1435c5cab180783fd5fac39c0c1964fd660a683ee6c8df9c68ecb820fb",
+      "bytes": 2344
+    },
+    {
+      "snapshotPath": "MIRROR-RESULT-CONTRACT-TRIAL128.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/MIRROR-RESULT-CONTRACT-TRIAL128.md",
+      "sha256": "46f33ee540fc1772d816004ba6fea44645f155aec033643bdaa4a081a7b6d1ed",
+      "bytes": 4358
+    },
+    {
+      "snapshotPath": "MIRROR-BREAK-DAMAGE-TRIAL129.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/MIRROR-BREAK-DAMAGE-TRIAL129.md",
+      "sha256": "74aa06bfd35b284405c04827ba59989a04e575ac40664b031817d59e96d7525e",
+      "bytes": 19579
+    },
+    {
+      "snapshotPath": "CHATTERBOX-RED-DEATH-TRIAL130.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/CHATTERBOX-RED-DEATH-TRIAL130.md",
+      "sha256": "2fb9df439ed1b4c21d59bf877a3ec6df9d56fd2ccb9b710956e73188a6c0ae38",
+      "bytes": 4029
+    },
+    {
+      "snapshotPath": "CHATTERBOX-TACTICAL-RULES-TRIAL132.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/CHATTERBOX-TACTICAL-RULES-TRIAL132.md",
+      "sha256": "9c51243e2877bbeb98489ff72fbb1030748b28c8053badc382ed96e5f5153c27",
+      "bytes": 5784
+    },
+    {
+      "snapshotPath": "MECHANICS-PROFILE-ASSETS.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/MECHANICS-PROFILE-ASSETS.md",
+      "sha256": "a20f48ada717d89ad59098f1480ee60e58b1bfea28755ee70ae870eb9578be99",
+      "bytes": 3111
+    },
+    {
+      "snapshotPath": "STARTUP-CONTEXT-TRIAL136.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/STARTUP-CONTEXT-TRIAL136.md",
+      "sha256": "6b100ec376114fb3337523853cc25a69affeff56a5fdc70c1556185974bc8c20",
+      "bytes": 2956
+    },
+    {
+      "snapshotPath": "INTERCEPT-MECHANICAL-INPUT-AUDIT.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/INTERCEPT-MECHANICAL-INPUT-AUDIT.md",
+      "sha256": "314cb6d34745763f78b458fcada1ca35e7a54f0ac0b9351cd5d1df55e0a44bcb",
+      "bytes": 6055
+    },
+    {
+      "snapshotPath": "ULTRA-SPOTSKILL-CATALOG-IDENTITY.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/ULTRA-SPOTSKILL-CATALOG-IDENTITY.md",
+      "sha256": "9ee4befd3c954a07ea0004607e2ea348034641aa9db68009ff2533b59507731b",
+      "bytes": 2597
+    },
+    {
+      "snapshotPath": "MIRROR-DYNAMIC-EFFECT-TRIAL125.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/MIRROR-DYNAMIC-EFFECT-TRIAL125.md",
+      "sha256": "f9ab46e4fafc42e31fe10dd041dfc8daa2942763000852ecb0dbfaf9fa9d1e86",
+      "bytes": 3355
+    },
+    {
+      "snapshotPath": "MONSTER-RESOURCE-CLOSURE-TRIAL126.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/MONSTER-RESOURCE-CLOSURE-TRIAL126.md",
+      "sha256": "66b632817e2cfdcfd83236db4411c8e28ac9779942108b97fddfd42d64edd14a",
+      "bytes": 4239
+    },
+    {
+      "snapshotPath": "MIRROR-DEFAULT-SPOTSKILL-TRIAL127.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/MIRROR-DEFAULT-SPOTSKILL-TRIAL127.md",
+      "sha256": "e232e0c7b0215e39e867b6fb9b6fc09dafe9468f6ecba40c2cf6050aa56539d9",
+      "bytes": 4432
+    },
+    {
+      "snapshotPath": "ULTRA-FIRST-BREAK-TRIAL139.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/ULTRA-FIRST-BREAK-TRIAL139.md",
+      "sha256": "e0411a245326cb410e4020a6b6ccc83cc03d29a5f013b66917f6843a1575d976",
+      "bytes": 2874
+    },
+    {
+      "snapshotPath": "TRIAL140-STARTUP-DELAY.md",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/native-player/TRIAL140-STARTUP-DELAY.md",
+      "sha256": "2a278c6dede90298d48156dca04cf1255ddbf97594abf84448b714e561dc6db6",
+      "bytes": 9976
     }
   ],
   "excluded": [
@@ -480,20 +678,152 @@
       "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/mirror-asset-staging-receipt.json",
       "sha256": "fe659cba0e38f478d13201c40560c3a7c9ae6bb055d1b9765aec436bf39b5040",
       "included": false
+    },
+    {
+      "label": "trial128Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-128/scene-verification.json",
+      "sha256": "abd48c08c9953ecb9b16c3689fe91bd11dbc75e5bcf11ee16ed1ab4479d4157c",
+      "included": false
+    },
+    {
+      "label": "trial129Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-129/scene-verification.json",
+      "sha256": "414a8aee151b99f88f915c0a6a375a6398783726af370850f7e840ff086bc583",
+      "included": false
+    },
+    {
+      "label": "trial132Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-132/scene-verification.json",
+      "sha256": "265daaf55a8a26160dc53b0c5d2f662c65186a6c9476b288f47b9ec66a76b20f",
+      "included": false
+    },
+    {
+      "label": "trial133Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-133/scene-verification.json",
+      "sha256": "f4eb8a622412e6a2c9c3beff6828b11553f3fe7b4d8a96035ea02b7a091df604",
+      "included": false
+    },
+    {
+      "label": "trial134Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-134/scene-verification.json",
+      "sha256": "6d352fdc170fa1c07fc2cf1322ee5e2e737db45afb719fce1a8c5a33fdad6a93",
+      "included": false
+    },
+    {
+      "label": "trial135Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-135/scene-verification.json",
+      "sha256": "a82bb8f5521b51454d26a1f489426754f41775f90a39507aa4230db34ff07056",
+      "included": false
+    },
+    {
+      "label": "trial136Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-136/scene-verification.json",
+      "sha256": "c2b8f1883361b32aa1280382274fa1746dadb3b3e5713a4d570e7be7a514bbc2",
+      "included": false
+    },
+    {
+      "label": "trial137Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-137/scene-verification.json",
+      "sha256": "660c4bd3feee92d91a1aefaab31dfc2440abeca73468c0e56eca5307a0a6cc33",
+      "included": false
+    },
+    {
+      "label": "trial138Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-138/scene-verification.json",
+      "sha256": "76e1c860ef2f2fbe6c06eb9bfe4227e2aaf4e3090bf6a46d38388cf95a9aaf2d",
+      "included": false
+    },
+    {
+      "label": "trial139Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-139/scene-verification.json",
+      "sha256": "3be9e296d8fa995f16e9e970c56aefb37d214ea6f8bbdf17093e16389bf1400a",
+      "included": false
+    },
+    {
+      "label": "trial140Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-140/scene-verification.json",
+      "sha256": "afe0137391a1099c28bcd6f89477d7cdc16b77314fe0c4e573f6dc0256a806ee",
+      "included": false
+    },
+    {
+      "label": "trial141Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-141/scene-verification.json",
+      "sha256": "ddbe298d7011f80504661ba5854fc204d25327df258a4c6f609ccf9c5e95f323",
+      "included": false
+    },
+    {
+      "label": "trial142Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-142/scene-verification.json",
+      "sha256": "95c51be0b457f0d72c45e5b207590caacdd09d29bf7a1df8cff899afea7a40ea",
+      "included": false
+    },
+    {
+      "label": "trial143Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-143/scene-verification.json",
+      "sha256": "2e47d4da3ddeb21d6eb91fb9b51cd182eae816bfa275cfb85efa635e8b238de4",
+      "included": false
+    },
+    {
+      "label": "trial144Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-144/scene-verification.json",
+      "sha256": "d514f65b0fdf80eecfc06e467b09709589a8f0cac02123ca9c330a7fabf2bc72",
+      "included": false
+    },
+    {
+      "label": "trial145Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-145/scene-verification.json",
+      "sha256": "eb533e66ded79f5cc2a232715c2488b4aec239febadaabc904ea95b32512e754",
+      "included": false
+    },
+    {
+      "label": "trial146Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-146/scene-verification.json",
+      "sha256": "4aeeed15827ae9c76ecc32b0211f14b62178233f96c16b7f975d88b210e32e56",
+      "included": false
+    },
+    {
+      "label": "trial147Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-147/scene-verification.json",
+      "sha256": "aa5a82e7309ac0e5f467aecf09f0b6dae095223286a5d01df63036d03fbbf00e",
+      "included": false
+    },
+    {
+      "label": "trial148Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-148/scene-verification.json",
+      "sha256": "e3906124508a0171d2153a7a0d4425da4e36614ce7b73e2a91e1e2ae45346068",
+      "included": false
+    },
+    {
+      "label": "trial149Scene",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-149/scene-verification.json",
+      "sha256": "3abf852c448b63c4a3d31e10dd22c22b3e3ebe45f09a05e0b3cfbf418f03457a",
+      "included": false
+    },
+    {
+      "label": "trial148ChatterboxCover",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-148/chatterbox-cover-verification.json",
+      "sha256": "e443a5cc36d97cc1dcc692caf8a246811191311ed1cc86a26f21af6a2731c036",
+      "included": false
+    },
+    {
+      "label": "trial149BossTactical",
+      "sourceWorkspaceRelativePath": "tools/raid-lab/private/native-player-20261008a/probe-output-149/boss-tactical-verification.json",
+      "sha256": "75149d7371dec93f48d0425ac3d4cb2afd2eb7d6637939d6e41e931107ed9c12",
+      "included": false
     }
   ],
   "packagingFiles": [
     {
       "snapshotPath": "README.md",
       "kind": "authored_snapshot_packaging_not_copied_source",
-      "sha256": "761de180985c279479433928bebb7d213cd9c284672d24e9af8cb5b74787e81d",
-      "bytes": 3529
+      "sha256": "782a7c0e817ff813c3aa395cbe24f87a4ddbac62816559ebb1fb17f71ebd1826",
+      "bytes": 4045
     },
     {
       "snapshotPath": ".gitignore",
       "kind": "authored_snapshot_packaging_not_copied_source",
-      "sha256": "77b1be4fc3a654da993483301e7aba8c21f8d396b3ad685274dc6fc1d15e5623",
-      "bytes": 2966
+      "sha256": "a08215612a77d262cd1246e5694ae2f1748c2660af1418d04134d998736ad2ff",
+      "bytes": 4120
     },
     {
       "snapshotPath": ".gitattributes",
@@ -504,8 +834,10 @@
     {
       "snapshotPath": "verify_snapshot.py",
       "kind": "authored_snapshot_packaging_not_copied_source",
-      "sha256": "0cbc2c7b57458499f991036e0e9e4732873126a48204467d5f9c29150a118413",
-      "bytes": 5810
+      "sha256": "7b03d28a9d87ebf19f5c98337cc47b121edee7229383303b70cfc6ad99f6b0e4",
+      "bytes": 6167
     }
-  ]
+  ],
+  "fileCount": 107,
+  "sourceBytes": 1767272
 }
