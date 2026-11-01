@@ -1,5 +1,211 @@
 # Repository rules
 
+## Current native checkpoint — November 1, 2026
+
+Supersedes the native19/pending20 notes below. Native20/21/22 completed original
+90-second practice battles and passed full shared-RNG, frozen-input/resource,
+original packet and independent decoder gates. Actual/native totals:
+1013203602/1010931464, 1031870235/1030291390, 1034199644/991714359.
+Differences -0.224%, -0.153%, -4.108%; combined -1.505%. User requires dependable
+comparisons, not bit-exact output or fitted damage corrections. Three samples
+do not establish a statistical margin of error or general team accuracy.
+Fixed native release is enabled locally and proved through actual broker and
+HTTP jobs. Five native runs of reference1 produced 1010931464 four times and
+1007303396 once. Default calculator/search remains its existing engine; native
+page supports only the frozen practice fixture. 21 app and 13 page lifecycle
+checks pass; actual browser interaction remains unverified.
+
+Kraken actual mock run PID35944 completed at 1632818679 damage, phase5, displayed
+01:28, all5 defeated; selected existing preset03, no manual aiming/cover inputs.
+Game closed normally; collector exit0 and terminal crash:null. Frozen capture
+6eb15119046723b0d124d83030d8035625036ba77d8fec650e1667b75a9c6c1b.
+Current153 Kraken process/fixture/tactical helpers are separate preparation,
+not integrated or native-validated. Actual squad/build capture must be reused;
+old152 synthetic Kraken proof is historical only. Compare same auto controls
+first; smart targeting is a separate control-policy experiment.
+Resume private BATTLE-ENGINE-20261101.md and offline native153/kraken153.
+No completed current153 simulated Kraken comparison or general dependability claim.
+
+## Native simulator parity goal — November 1, 2026 — IN PROGRESS
+LATEST19: the ORIGINAL shared RNG state now matches the captured reference at
+BOTH OnStart entry/return, all56 array elements and scalar fields, no mismatches.
+No RNG writes/discards or replacement damage formulas. Original playing controls
+reached. Earlier15 missing-draw diagnosis is resolved by the original loading,
+popup and localization lifecycle; do not restart that investigation.
+
+Native19 nevertheless FAILED after319updates: original UpdateTick requested
+missing Locale_Monster. No completed90s score/packet. Verification
+262fc7b4b9ed9e56b8bfee78209f43d7c58b1599d166f3f907558ec91398ce14;
+PID40408/15.994s/exit0/no timeout. All frozen inputs, preferences and resource
+witnesses pass. Full archive RNG gate correctly stays failed without the final
+battle snapshot. Do not label startup-boundary parity as full battle parity.
+
+Next20: additive COMPLETE original locale-table closure from the known current153
+SAUS catalog:30tables+30signed sidecars,60files168169587bytes; union unchanged
+base5 is63files173104641bytes. Original native initializer already enumerates
+canonical peer files. Preserve runtimeJS/base5/binding/proof6; add a source-bound
+copy receipt and pre/post guard. No broad scan/download or invented strings.
+Current corrected queue callers e013e7f2/6d26af5d retry ordinary main-slot busy,
+retain genuine faults/main-thread cleanup and stop after quit. Native18 had
+already passed original locale readiness/System+FontCollection signatures.
+
+Original three real scores1013203602/1031870235/1034199644 are unchanged. Latest
+actual diagnostic6 completed992299315 and responded normally; normal Alt+F4 was
+requested, gameexit3/collector0 retained separately. No installed game running.
+Native14 completed994979763 but predates the full-RNG gate and is not full parity.
+App native API/broker remain disabled/unpublished pending complete validated run.
+Resume I:/Raid Lab/tools/raid-lab/BATTLE-ENGINE-20261101.md and offline
+transfer/battle-parity-20261101/native153. Earlier checkpoints below are historical.
+Live observer1 PID5524: full90s result977682812, normal UI exit, collector retained
+to process termination. Original shared count0->1 during preload but public RNG
+methods saw0calls. RandomSelect.GetRandom inlines counter/underlying Next; new
+passive wrapper/getter caller probe2 prepared, independent review then freshPID.
+No15/16 or production change. See current battle worklog and PRELOAD-SHARED-RNG-SOURCE.md.
+
+
+RNG refinement: real OnInit LEAVE isDrawCount0. Both seed branches reset shared
+and Unity RNG identically; missing draw occurs during preload beforeOnStart.
+Trace original consumer, not seed-selection patch/discard. Full-state read-only
+gate is in preparation. Stat-function counts are maxHP clamp accounting; no
+clockbug established and no damage/counter change justified.
+
+CRITICAL next step: reference RNG fullstate is captured and DrawCount1; native14
+has0 with same seed. Real OnInit transporter seed0 becomes nonzero by OnStart;
+fixture currently installs OnStart seed before OnInit. Exact startup-path audit
+takes priority before more runs. No state/counter forcing or arbitrary discard.
+No15/16 yet; see latest BATTLE-ENGINE-20261101.md.
+
+LATEST main14 original native90s battle/export/decode PASS8ef165e6. Score994979763
+repeats13;53612-byte raw packet7964a026 preserved. Comparison9e3ba0df shows exact
+compared character build and auto controls, -1.798635% score versus reference1,
+with combat-event differences. Preparing source-bound seeds2/3, no15/16 yet.
+Capture-input/stat-function audits underway; no parity or production switch.
+
+Main13 score getter equivalence is now source-confirmed (auditcb4ca706). Binary
+export candidate uses original protobuf ToByteArray, avoiding unavailable JSON
+reflection metadata. Candidateaa86f713/writerd5f8a88f mock-tested, unrun; decoder
+and full output-contract review pending. No production switch/parity claim yet.
+
+LATEST main13 completes original90s battle, captures original native statistics
+(squadTotal994979763) and typed DTO before cleanup. JSON ToString export fails;
+no full packet/parity/production switch yet. Original monster color paths run
+without patches; preferences/resources unchanged. Resume latest worklog and
+offline practice-output13 (failed export archivec2aa37c4). Partial comparison
+35ee9d88 is not submitted-score equivalence or a parity certificate.
+
+Main12 stopped before combat: stale fixture callback receipt schema rejects the
+new pre-cleanup capture contract. Preserve failed offline practice-output12;
+repair producer/consumer predicate and add cross-boundary regression next.
+Normal/private prefs unchanged. No packet or production engine switch yet.
+
+LATEST main11 completes original 90-second battle to native Clear8. Original
+auto initialization passes; normal preferences unchanged/private preferences1/1.
+Result collection fails after SpotFinish cleanup releases monster Data/Movement.
+Exact153 source places original packet creation inside OnBattleFinish before
+OnDestroy; correcting that capture timing next. No packet/damage parity or
+production switch yet. Main12 passive monster observer is working-only/unrun.
+Resume BATTLE-ENGINE-20261101.md and offline practice-output11.
+
+LATEST main10 reaches original PLAYING with real skeletons and correct RNG seed.
+It stops at input verification: autoAim/autoBurstfalse versus referencefullauto.
+Source-bound original control initialization is next; no direct bool/counter
+writes. No full native result/parity or production switch yet. Resume latest
+BATTLE-ENGINE-20261101.md and offline practice-output10.
+
+LATEST: missing private DP catalog was the cause of null character skeletons.
+Complete original DP store is verified; dp-loader2 passes native original signed
+registration and all ten actual aim/cover SkeletonDataAsset loads. Original DP
+registration is integrated in working probe, main10 pending. Resume latest
+BATTLE-ENGINE-20261101.md; no full battle/parity/production engine switch yet.
+
+Diagnostic8 identifies native skeleton null-call0786713B but exited0xE06D7363.
+Do not reuse the exception-helper hook; it may disrupt native C++ unwinding.
+Working probe has removed it; preserve its failed evidence and inspect only
+the captured native stub. No full original battle or production switch yet.
+
+Latest practice7 passed fifteen original controls and original graphics lifecycle;
+obsolete cleanup parent patch removed. New first failure is original
+CombatSkeletonCharacterController.SetupSkeletonSetAsync before Playing. Preserve
+practice-output7; exact current153 skeleton dependency audit is next. Full native
+battle/parity and production engine switch remain pending.
+
+Latest practice6 passed fourteen original controls and timeline singleton/flags.
+Four observed original PreloadSkillDirectorPool calls had nonnull timeline/skill
+arguments and FX getter results and returned normally. New first failure is
+ProjectilePrefabController.<OnLoading>d__10.MoveNext before Playing; preserve
+practice-output6. Native battle/parity and production integration remain pending.
+
+LATEST native step: complete current core store byte-verified in private153
+clone, eliminating missing chunks. Practice5 reached original skill loading,
+then NullReference in SpotSkillLogic.PreloadSkillDirectorPool before Playing.
+Resume BATTLE-ENGINE-20261101.md and offline native153/BOUNDARY-PORT.md. Do not
+skip SkillDirector or repeat sparse-resource probes. Full fight/parity and
+production integration are still pending; captured input readbacks already pass.
+
+Three actual installed153 Fire/Short90s reference battles now complete:
+1013203602 /1031870235 /1034199644, fixed Anis:Star/Trina/Drake/Alice/Scarlet388,
+fullauto.210/210 original native input/resultstat checks match; currentnative
+snapshot reconstruction and ShootingRangeProcess integration are in progress.
+FPS60 verified from native enum; old30FPS/Intercept assumptions are not valid.
+Resume latest BATTLE-ENGINE-20261101.md. Native simulator parity still pending.
+
+Private current153 fixture-readback-output2 now passes original settings,
+five snapshot conversions, original async practice wave, five flat-team outputs
+and all61 transporter field readbacks (376B; PID7840,6.616s,exit0). UI/output
+callbacks explicitly adapted; original UI replay false. No full native fight
+or production engine switch yet. Preserve failed public-enum trial: native
+field_set_value_object writes a reference; use field_set_value typed payload
+for public value fields. Original UpdateTick and automatic OnInit loading chain
+must own the real lifecycle; no manual OnStart or inner UpdateSpot bypass.
+
+Resume `tools/raid-lab/BATTLE-ENGINE-20261101.md` and research
+`I:/Nikke offline/transfer/battle-parity-20261101/`. Latest user requires the REAL
+original NIKKE combat system, not Python emulation or fitted damage formulas.
+Python may orchestrate native execution only. First establish three fixed-setup
+installed153 1:30 practice battle references, then native simulator data parity.
+Reverse engineering and Sol subagents authorized. Current production still uses
+Python; do not describe source metadata/partial native ports as integration.
+User authorized offline Computer Use and local union membership for practice.
+Historical152 native evidence cannot certify153. Preserve roster/search edits.
+Current153 transporter is376bytes; actual practice has its own original snapshot
+conversion. Fresh native metadata/boundary candidates exist; actual runs pending.
+
+## Complete Raid Lab roster checkpoint — October31,2026
+
+All206 installed153 visible resource IDs now have production Python simulator
+kits. Belorta: Pumpkin Witch(63/5184), Marian: Queen(19/5185) and Rapunzel:
+Sanctuary(473/5187) are implemented alongside Scarlet: Goddeath(472/5186).
+Resume I:/Raid Lab/tools/raid-lab/CHARACTER-UPDATE-20261030.md and its private
+missing-three-verification.json. Earlier203-entry/missing-three notes below are
+historical. Full-roster fixture/regression prevents pickup-only scope mistakes.
+All10skill levels,1,875 new source assertions,9,000 new base-stat values, final
+unit suite,33unchanged snapshots,doclint and isolated real HTTP/search pass.
+Model revision anomaly-source-runtime-v9-roster153. No installed offline/account
+or historicalnative edits. Exact153 full-native parity remains unverified;
+Marian timing/phase/counter and Goddeath collision/counter limits are disclosed.
+Normal PC shutdown was requested as the final action; use no forced-app-close.
+
+## Character update — October 31, 2026
+
+Scope correction from user's roster recheck: installed153 has206 distinct visible
+characters, but Raid Lab has203. Missing kits are Belorta: Pumpkin Witch
+(63/5184), Marian: Queen(19/5185), Rapunzel: Sanctuary(473/5187). Full evidence is
+in `tools/raid-lab/private/character-update-20261030/roster-audit-20261031`.
+Scarlet: Goddeath remains implemented; the entire new-character update is NOT
+complete. Resource63's old hidden exclusion is stale. Compare the full visible
+roster for future updates. These are data identities, not live release dates.
+
+Scarlet: Goddeath (홍련 : 신살, resource472/namecode5186) is implemented in the
+production Python simulator. Resume `tools/raid-lab/CHARACTER-UPDATE-20261030.md`.
+All ten skill levels and both weapons were cross-checked against installed153
+MPK data (354 checks).83 app regressions,33 unchanged damage snapshots, doclint
+and bundled-runtime catalogue API pass.203 catalogue entries; existing kits and
+saved rosters unchanged. Model revision `anomaly-source-runtime-v8-goddeath`.
+Exact153 InstantBox multi-part contacts and critical-counter gating while the
+burst marker is active remain unverified and are disclosed on affected reports.
+Do not use historical152 native receipts as proof for this new character or
+resume the unrelated old battle-host next steps solely for this addition.
+
 - Never create a new branch for GitHub work. Make commits and push updates on the existing branch (currently `main`). Do not create feature branches, temporary branches, or branches for pull requests.
 
 ## Raid Lab objective — user clarification, October 8, 2026
@@ -132,3 +338,60 @@ Ultra139 baseline completes but3Break episodes fail. No further graphics work.
 Production search remains Python; full parity/equipped builds/native integration
 remain incomplete. User instruction: stop engineering at5% main usage remaining,
 push and verify GitHub main, then normal PC shutdown without /f.
+
+### November 1 native20/21 complete original battles; output parity not established
+Original locale table closure (63 independent files, 173104641 bytes) resolved19's
+missing Locale_Monster without runtime mechanic changes. Native20 and21 each
+completed90 game seconds in ~36 wall seconds, normal private process exit0,
+no timeout/native errors. Full shared RNG, original protobuf, independent decoder,
+frozen source, preference and resource gates PASS. Immutable verification hashes:
+20=0500de21ed0945d073c3e167c53beec195eb7d0b815e3c91c29789c731a55784;
+21=e703ece059d0773c481ea05420567fac3daf138cd0e4f9c9a295e9878049eb83.
+Paired scores20/reference1:1010931464/1013203602 (-0.224253%);
+21/reference2:1030291390/1031870235 (-0.153008%). These are native getters,
+not fitted calculations. Individual normal attack damage differs materially:
+Scarlet +8.28%/+7.79%, other four negative; all5 EndMaxHp +531849 in both.
+Same builds/controls and35monster identities; clock/Unity.Random/full outputs
+not proven equal. Do not claim output parity from aggregate cancellation.
+Results and independent per-unit audits under transfer/battle-parity-20261101/results.
+Candidate22 uses reference3; only bounded staging/continuity/proof changes,
+unchanged native runtime, currently reviewed and awaiting one private run.
+Prepared native20 immutable local release has418files/86runtime pins, manifest
+c45541a07930dbb8b7343080cd657a07df42ebae21586ab5a0051d405dd02e6d.
+No app registry/broker job/HTTP publication yet. Root must establish authoritative
+shared-artifact ledger under canonical lease from final closed diagnostic first.
+Latest usage89%used/11%remaining; continue to user's5%remaining boundary then
+source-only push existing GitHub main and normal shutdown without /f.
+### Native22 third paired original battle — completed, larger score difference
+Native22/reference3 completed with unchanged runtime,5604updates,36.094s,
+PID45392exit0/no timeout/nativeErrors0. All fullsharedRNG/source/preference/
+resource/packet/independentdecode gates PASS. Verification:
+7144fcb693f65794aac192e7746b9c3f4f2c2338b1f32b88d8d02cd01bc997b7.
+Native score991714359 versus actual1034199644: -42485285 (~-4.11%).
+All compared builds/controls equal. This larger third delta prevents generalizing
+firsttwo close totals; exact output parity remains FALSE. Comparison63da7f64.
+HP audit f563d389: all10 initialHP pairs match, endMaxHp+531849all5 in20/21;
+original synchronous precleanup capture ordering matches. Live modifier state
+versus stale HPData.LastMaxHp remains unresolved. Next discriminator is same
+original finish live MaxHP StatValue vs statistics/DTO and original modifier
+apply/remove evidence; bind ABI first, do not fit a numeric correction.
+Prepared HTTP harness run_native_service_http1.py reviewed350334f8, will execute
+actual app Handler on owned loopback18766 and wait for owned native worker.
+Broker direct trial must pass before app registry publication/HTTP trial.
+### Native service integrated; browser verification blocked
+First real brokerjob20261101d1ec700000000001 completed90s, full shared RNG/packet/
+decoder/source/preferences/resources PASS. Score1007303396, verificationffdcf19d.
+Registry enabled locally (b881e4d4), exactmanifestc455/broker969. Real appHTTP
+job9bbb191319d847f4ba61922f returned202→done, score1010931464, verification
+ d6886bc1a2b5c612cf3344c593c16f914392f91b0d26641c0b58d546a9b32c1e;
+newpacket01947b48 (not cached20packet). Original native engine executed viaapp,
+no Pythoncombatfallback. OwnedHTTPserver/worker closed. Appnative unit21PASS.
+New native-practice.html/js linkedfromhome, fixedfixtureonly;13JS lifecycle
+controlsPASS includinglostPOSTrecovery/terminalfailure/cancel/Int64export.
+No visual/run-button proof: WindowsComputerUse couldnot establish currentOpera
+URL confidently and explicitlystoppedthisturn. No further UI actions permitted.
+TemporaryUIreviewserver stopped viaownedstdin, no userappforcedclose.
+Goal remainsunfinished: arbitrarybuilds/search and exactperunit/data parity.
+Usage90%used/10%remaining; no reset redeemed,5%boundary not reached; no shutdown.
+Source-only snapshot preparedresearch/native153, but README/app-testcopies need
+latestHTTP/status updatesbeforeeventualGitHubpublication; no gitcommit/pushyet.

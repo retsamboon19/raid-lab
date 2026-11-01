@@ -5,3 +5,5 @@
 *.js text eol=lf
 *.json text eol=lf
 *.md text eol=lf
+# Keep hash-bound research source copies byte-identical to their reviewed inputs.
+tools/raid-lab/research/native153/** -text whitespace=-blank-at-eof,cr-at-eol

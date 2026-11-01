@@ -13,6 +13,7 @@ import browser_connection
 import report_history
 import feedback
 import accounts
+import native_practice
 
 ROOT=Path(__file__).resolve().parent
 JOBS={}
@@ -25,8 +26,13 @@ def history_store(account_id=None):
     directory = accounts.account_dir(account_id) if account_id else ROOT/'private'
     return report_history.ReportHistory(directory, core.CAT)
 
-def worker(payload,kind,events,cancel):
+def worker(payload,kind,events,cancel,job_id=None):
     try:
+        if kind=='native_practice':
+            result=native_practice.run_fixed_practice(payload,
+                lambda **kw:events.put({'status':'running',**kw}),cancel.is_set,job_id=job_id)
+            events.put({'status':'done','result':result})
+            return
         result=core.manual(payload) if kind=='manual' else core.search(payload,lambda **kw:events.put({'status':'running',**kw}),cancel.is_set)
         if payload.get('roster'):
             result['feedback_context']={'owned_units':core.import_roster({'roster':payload['roster']})['roster']}
@@ -37,6 +43,11 @@ def worker(payload,kind,events,cancel):
             # read-only or unavailable. This must never turn a successful run into an error.
             result['history_error']='This recommendation could not be saved to history. Export the report to keep a copy.'
         events.put({'status':'done','result':result})
+    except native_practice.NativePracticeCancelled as error:
+        events.put({'status':'cancelled','code':'cancelled','message':str(error),
+                    'nativeJobId':error.job_id,'nativeEvidence':error.evidence})
+    except native_practice.NativePracticeError as error:
+        events.put({'status':'error','code':error.code,'error':str(error)})
     except InterruptedError as error:events.put({'status':'cancelled','message':str(error)})
     except BaseException as e:events.put({'status':'error','error':str(e) or type(e).__name__})
 
@@ -91,6 +102,14 @@ class Handler(SimpleHTTPRequestHandler):
             from parallel_compute import worker_count, available_cpus, worker_limit
             return self.send_json({'cpu_workers':worker_count(),'cpu_available':available_cpus(),'cpu_worker_limit':worker_limit(),'gpu':device_info()})
         if path=='/api/health':return self.send_json({'app':'Raid Lab','version':1})
+        if path=='/api/native/practice/status':
+            with LOCK:
+                latest=next(((token,job) for token,job in reversed(list(JOBS.items()))
+                    if job.get('kind')=='native_practice'),None)
+                if latest:
+                    token,job=latest;state=collect(job)
+                    return self.send_json({'job':{'id':token,'status':state['status'],'phase':state.get('phase')}})
+            return self.send_json({'job':None})
         if path=='/api/local-roster':
             seed=ROOT/'private'/'roster.json'
             saved=core.read(seed) if seed.exists() else {'roster':[]}
@@ -137,6 +156,17 @@ class Handler(SimpleHTTPRequestHandler):
             if self.path=='/api/account-cancel':
                 browser_connection.cancel(body['job']);return self.send_json({'ok':True})
             if self.path=='/api/import':return self.send_json(core.import_roster(body))
+            if self.path=='/api/native/practice':
+                body=native_practice.validate_request(body)
+                with LOCK:
+                    for job in JOBS.values():
+                        if collect(job)['status']=='running':return self.send_json({'error':'A simulation is already running. Cancel it or wait for completion.'},409)
+                    while len(JOBS)>=8:JOBS.pop(next(iter(JOBS)))
+                    token=secrets.token_hex(12);events=mp.Queue();cancel=mp.Event()
+                    p=mp.Process(target=worker,args=(body,'native_practice',events,cancel,token),daemon=False)
+                    p.start();JOBS[token]={'process':p,'queue':events,'cancel':cancel,'kind':'native_practice',
+                        'state':{'status':'running','phase':'Preparing original native practice','nativeJobId':token}}
+                return self.send_json({'id':token},202)
             if self.path in ('/api/search','/api/manual'):
                 if body.get('account_id'):accounts.read(body['account_id'])
                 core.validate_settings(body.get('settings',{}));core.import_roster({'roster':body.get('roster',[])})
@@ -154,9 +184,11 @@ class Handler(SimpleHTTPRequestHandler):
                     job=JOBS.get(self.path.rsplit('/',1)[1])
                     if job:
                         job['cancel'].set()
-                        job['state'].update(phase='Stopping workers and keeping completed recommendations…')
+                        job['state'].update(phase='Cancellation requested; waiting for the current battle to finish.'
+                            if job.get('kind')=='native_practice' else 'Stopping workers and keeping completed recommendations…')
                 return self.send_json({'status':'cancelling'})
             return self.send_json({'error':'Not found.'},404)
+        except native_practice.NativePracticeError as e:return self.send_json({'error':str(e),'code':e.code},e.http_status)
         except (ValueError,TypeError,KeyError,AttributeError) as e:return self.send_json({'error':str(e)},400)
 
 if __name__=='__main__':

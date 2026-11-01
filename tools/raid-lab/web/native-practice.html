@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Original engine practice — Raid Lab</title>
+  <link rel="stylesheet" href="/style.css?v=accounts-1">
+  <script src="/native-practice.js" defer></script>
+  <style>
+    main { max-width: 900px; margin: 3rem auto; padding: 0 1.5rem; }
+    .native-panel { padding: 1.5rem; margin: 1.5rem 0; }
+    .native-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+    #native-status { min-height: 1.5em; margin: 1rem 0; }
+    #native-score { font-size: 2rem; font-variant-numeric: tabular-nums; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: .75rem .3rem; border-bottom: 1px solid #353b48; }
+    td:last-child, th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+    a { color: inherit; } #native-error { color: #ffb6ad; }
+  </style>
+</head>
+<body>
+<header><a class="brand" href="/">R/ RAID LAB</a><span class="version">ORIGINAL ENGINE · PREVIEW</span></header>
+<main>
+  <p class="eyebrow">90-SECOND PRACTICE</p>
+  <h1>Run the original battle engine.</h1>
+  <p>This local preview runs NIKKE 153 with one recorded squad and build. It returns damage after the battle finishes. Allow about a minute.</p>
+  <section class="panel native-panel" aria-labelledby="setup-title">
+    <h2 id="setup-title">Captured Fire range setup</h2>
+    <p>Anis: Star · Trina · Drake · Alice · Scarlet</p>
+    <p>90 seconds · automatic aim and burst · fixed equipment and skills</p>
+    <p class="muted">Custom teams and search are not supported here yet. Comparison with three game runs still shows damage differences; this preview does not certify exact parity.</p>
+    <div class="native-actions">
+      <button class="primary" id="native-run" type="button">Run original engine</button>
+      <button id="native-cancel" type="button" hidden>Cancel</button>
+    </div>
+    <p id="native-status" role="status" aria-live="polite">Ready to run on this offline installation.</p>
+    <p id="native-error" role="alert"></p>
+  </section>
+  <section class="panel native-panel" id="native-result" hidden aria-labelledby="result-title">
+    <h2 id="result-title">Original battle result</h2>
+    <p id="native-score"></p>
+    <table><thead><tr><th scope="col">Character</th><th scope="col">Damage</th></tr></thead><tbody id="native-characters"></tbody></table>
+    <p class="muted">Damage values come from the original game's statistics. The total uses its original squad score.</p>
+    <button id="native-export" type="button">Download result</button>
+  </section>
+  <a href="/">Back to team builder</a>
+</main>
+</body>
+</html>

@@ -1,0 +1,179 @@
+// Current153 practice scheduler candidate: native runtime validation pending.
+// One original combat tick in each real Unity Update phase. Unity retains its
+// Animator, physics, Cinemachine and LateUpdate lifecycle; there are no manual
+// pose/physics steps. FRAME-SCHEDULING-PLAN.md records the exact source binding.
+// Keep the original loading animation and combat ticks at the captured frame
+// preference until original OnStart and its input/RNG checks have completed.
+// This controls wall pacing only: it never supplies elapsed time or tick counts.
+function createPracticeStartupPacing(frameRate, acceleratedRate, canAccelerate, readRate, writeRate, emit) {
+  if(frameRate!==60 || typeof canAccelerate!=='function')
+    throw new Error('Captured startup frame rate and original combat readiness predicate required');
+  let accelerated=false;
+  function setAndVerify(value) {
+    writeRate(value);
+    if(readRate()!==value)throw new Error('Original Application target frame rate readback differs');
+  }
+  setAndVerify(frameRate);
+  emit({status:'original_practice_startup_wall_pacing',targetFrameRate:frameRate,
+    source:'captured FPS60 preference',fixedStartupDuration:false,combatTicksWritten:false});
+  return function beforeFrame() {
+    if(accelerated)return;
+    const ready=canAccelerate();
+    if(typeof ready!=='boolean')throw new Error('Original combat readiness must be an explicit boolean');
+    if(!ready)return;
+    setAndVerify(acceleratedRate);
+    accelerated=true;
+    emit({status:'original_practice_combat_wall_pacing',targetFrameRate:acceleratedRate,
+      originalOnStartAndInputGuardsCompleted:true,captureClockReset:false,combatTicksWritten:false});
+  };
+}
+function createPracticeFrameScheduler(pin, emit, wallFrameRate = -1, canAccelerate) {
+  const simulationFrameRate=globalThis.PRACTICE_SETTINGS_INPUT?.frameRate;
+  if (simulationFrameRate!==60 || globalThis.PRACTICE_SETTINGS_INPUT?.frameRateBinding?.literal!=='FPS60')
+    throw new Error('Require captured native FPS60 preference binding');
+  if (!Number.isInteger(wallFrameRate) || (wallFrameRate !== -1 &&
+      (wallFrameRate < 160 || wallFrameRate > 1000)))
+    throw new Error("Unsupported bounded wall frame rate");
+  const core = Il2Cpp.domain.assembly("UnityEngine.CoreModule").image;
+  const time = core.class("UnityEngine.Time");
+  const app = core.class("UnityEngine.Application");
+  const call = (method, self = null, args = []) => invokeChecked(method, self, args);
+  const int = (klass, name) => call(klass.method(name, 0)).unbox().handle.readS32();
+  const float = name => call(time.method(name, 0)).unbox().handle.readFloat();
+  const game = Process.getModuleByName("GameAssembly.dll");
+  const targetRateGet=app.method('get_targetFrameRate',0);
+  const targetRateSet=app.method('set_targetFrameRate',1);
+  if(typeof canAccelerate!=='function' ||
+      !targetRateGet.virtualAddress.equals(game.base.add(0x084D4350)) ||
+      !targetRateSet.virtualAddress.equals(game.base.add(0x084D4990)))
+    throw new Error('Original startup pacing callback/Application binding changed');
+  const readTargetRate=()=>call(targetRateGet).unbox().handle.readS32();
+  const writeTargetRate=value=>call(targetRateSet,null,[intArg(value)]);
+  const cine = Il2Cpp.domain.assembly("Cinemachine").image.class("Cinemachine.CinemachineCore");
+  const cineTime = cine.method("get_CurrentTime", 0);
+  const cineOverride = cine.field("CurrentTimeOverride");
+  if (!cineTime.virtualAddress.equals(game.base.add(0x009BB3E0)) ||
+      !cineOverride.isStatic || cineOverride.offset !== 0x24)
+    throw new Error("Original Cinemachine clock contract changed");
+  const staticGet = new NativeFunction(game.getExportByName("il2cpp_field_static_get_value"),
+    "void", ["pointer", "pointer"]);
+  const staticSet = new NativeFunction(game.getExportByName("il2cpp_field_static_set_value"),
+    "void", ["pointer", "pointer"]);
+  const cineValue = Memory.alloc(4);
+  staticGet(cineOverride.handle, cineValue);
+  const priorCineTime = cineValue.readFloat();
+  if (priorCineTime !== -1) throw new Error("Unexpected preexisting Cinemachine time override");
+  const setCineTime = value => {
+    cineValue.writeFloat(value);
+    staticSet(cineOverride.handle, cineValue);
+    staticGet(cineOverride.handle, cineValue);
+    if (cineValue.readFloat() !== value) throw new Error("Cinemachine clock readback failed");
+  };
+  const resolve = new NativeFunction(game.getExportByName("il2cpp_resolve_icall"),
+    "pointer", ["pointer"]);
+  const icall = name => {
+    const pointer = resolve(Memory.allocUtf8String("UnityEngine.Time::" + name));
+    const module = pointer.isNull() ? null : Process.findModuleByAddress(pointer);
+    if (!module || module.name.toLowerCase() !== "unityplayer.dll")
+      throw new Error("Original Unity capture-time binding unavailable: " + name);
+    return pointer;
+  };
+  const getCapture = new NativeFunction(icall("get_captureDeltaTime"), "float", []);
+  const setCapture = new NativeFunction(icall("set_captureDeltaTime"), "void", ["float"]);
+  const prior = { captureDeltaTime: getCapture(), targetFrameRate: int(app, "get_targetFrameRate"),
+    fixedDeltaTime: float("get_fixedDeltaTime"),
+    timeScale: float("get_timeScale"), cinemachineCurrentTimeOverride: priorCineTime };
+  if (prior.timeScale !== 1) throw new Error("Original battle Unity timeScale is not 1");
+  const dt = Math.fround(1/simulationFrameRate);
+  // Trial71: actual normalized pose advancement follows speed*captureDelta,
+  // even in Animator mode2, while Time.unscaledDeltaTime remains wall time.
+  // Preserve the original speed adjustment but use that actual evaluation dt.
+  const animatorClock = game.base.add(0x06486AF5);
+  const originalClockBytes = "e816830a02", capturedClockBytes = "e8d6800a02";
+  const clockBytes = () => Array.from(new Uint8Array(animatorClock.readByteArray(5)),
+    x => x.toString(16).padStart(2, "0")).join("");
+  const writeClock = hex => {
+    Memory.patchCode(animatorClock, 5, writable => writable.writeByteArray(
+      hex.match(/../g).map(x => parseInt(x, 16))));
+    if (clockBytes() !== hex) throw new Error("Animator clock callsite readback failed");
+  };
+  if (globalThis.PRACTICE_SETTINGS_INPUT.clientSha256 !==
+      "d39896d3770888039c728a1908448c3db5efa7cdf874c90d56f46d8d566428d2" ||
+      clockBytes() !== originalClockBytes)
+    throw new Error("Original Animator clock callsite changed");
+  let clockPatched = false, beforePacedFrame=null;
+  const restore = () => {
+    if (clockPatched) { writeClock(originalClockBytes); clockPatched = false; }
+    setCineTime(priorCineTime);
+    setCapture(prior.captureDeltaTime);
+    writeTargetRate(prior.targetFrameRate);
+    if (getCapture() !== prior.captureDeltaTime || readTargetRate()!==prior.targetFrameRate)
+      throw new Error("Capture time/target frame rate restoration failed");
+  };
+  try {
+    setCapture(dt);
+    // Original Perlin initializes phase from CurrentTime * frequency. Trials
+    // 80/81 had identical RNG offsets but different phase from loading time.
+    // Keep original sway, seeds, gains and update methods; control only its
+    // documented clock input with an explicit simulation origin of zero.
+    setCineTime(0);
+    beforePacedFrame=createPracticeStartupPacing(simulationFrameRate,wallFrameRate,
+      canAccelerate,readTargetRate,writeTargetRate,emit);
+    if (getCapture() !== dt) throw new Error("Original Unity capture-time readback failed");
+    clockPatched = true;
+    writeClock(capturedClockBytes);
+    emit({status:"original_animator_capture_clock_adapted", callsiteRva:"0x06486AF5",
+      originalBytes:originalClockBytes, patchedBytes:capturedClockBytes,
+      originalGetterRva:"0x0852EE10", capturedGetterRva:"0x0852EBD0",
+      originalAnimatorLifecyclePreserved:true, captureDeltaTime:dt});
+  } catch (error) { restore(); throw error; }
+  try {
+  const uni = Il2Cpp.domain.assembly("UniTask").image;
+  const post = uni.class("Cysharp.Threading.Tasks.UniTask").method("Post", 2);
+  if (!post.virtualAddress.equals(game.base.add(0x081CF660))) {
+    restore(); throw new Error("Original UniTask.Post method changed");
+  }
+  const phase = uni.class("Cysharp.Threading.Tasks.PlayerLoopTiming").field("Update").value;
+  const phaseNumber = typeof phase === "number" ? phase : Number(phase.field("value__").value);
+  const phaseArg = intArg(phaseNumber);
+  let started = false;
+  return function schedule(runTick, fail) {
+    if (started) throw new Error("Frame scheduler cannot be reused without a reset");
+    started = true;
+    let active = true, frames = 0, lastFrame = int(time, "get_frameCount");
+    const cancel = () => {
+      if (!active) return;
+      active = false;
+      restore();
+      emit({ status: "original_unity_frame_scheduler_stopped", frames,
+        lastFrame, restored: true });
+    };
+    const action = pin(Il2Cpp.delegate(Il2Cpp.corlib.class("System.Action"), () => {
+      if (!active) return;
+      try {
+        beforePacedFrame();
+        const frame = int(time, "get_frameCount");
+        if (frame <= lastFrame) throw new Error("Combat callback repeated within one Unity frame");
+        const delta = float("get_deltaTime");
+        if (Math.abs(delta-dt) > 0.000001)
+          throw new Error("Unity frame delta differs from requested battle delta: " + delta);
+        lastFrame = frame; frames++;
+        setCineTime(Math.fround(frames * dt));
+        runTick(delta);
+        if (active) call(post, null, [action.handle, phaseArg]);
+      } catch (error) { fail(error); }
+    }));
+    emit({ status: "original_unity_frame_scheduler_started", phase: "Update",
+      phaseNumber, captureDeltaTime: dt, batchSize: 1, prior,
+      wallFrameRate, configuredFrameRate:simulationFrameRate,
+      startupWallFrameRate:simulationFrameRate,accelerationRequiresOriginalCombatInputGuards:true,
+      exactLiveFrameSequence:false,
+      cameraClockOriginSeconds:0, cameraClockGetterRva:"0x009BB3E0",
+      cameraSwayAndRandomStreamsPreserved:true,
+      originalPlayerLoopPreserved: true, fullAccuracyVerified: false });
+    try { call(post, null, [action.handle, phaseArg]); }
+    catch (error) { cancel(); throw error; }
+    return { cancel };
+  };
+  } catch (error) { restore(); throw error; }
+}

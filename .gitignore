@@ -161,3 +161,8 @@
 **/.browser-runtime/
 **/.gpu-runtime/
 **/.git/
+!/tools/raid-lab/native_practice.py
+!/tools/raid-lab/test_native_practice.py
+!/tools/raid-lab/test_native_practice_server.py
+!/tools/raid-lab/test_native_practice_web.js
+!/tools/raid-lab/research/native153/

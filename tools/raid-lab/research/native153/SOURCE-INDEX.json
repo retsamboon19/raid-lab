@@ -1,0 +1,927 @@
+{
+  "schema": "native153-authored-source-index-v1",
+  "snapshotDate": "2026-11-01",
+  "sourceRoots": {
+    "offline": "Nikke offline workspace",
+    "app": "Raid Lab active app workspace"
+  },
+  "copyPolicy": "Explicit allowlist; exact source bytes; source-only; no recursive directory copy",
+  "files": [
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_aim_binding.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_aim_binding.js",
+      "sha256": "aa4f550882ffdc0466dcbe99974841ecc0fb02f452addb9882ddf4e3c43b0d0f",
+      "bytes": 11970
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_auto_preferences.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_auto_preferences.js",
+      "sha256": "b86de78f235fc4884ba63775560ab1e2549ef094d194cefdbed4f71fdbdd599a",
+      "bytes": 4643
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_dp_registration.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_dp_registration.js",
+      "sha256": "b0176aad27305e9fc92b08a82e8ea231b71dc09e125f022d57e430467e8bd7e6",
+      "bytes": 3105
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_frame_scheduler.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_frame_scheduler.js",
+      "sha256": "5ee060ef400f44b509bcbedaeef6819695eb9d9543cb6f9bc09a49c65bd005f5",
+      "bytes": 10235
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_fx_cleanup_observer.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_fx_cleanup_observer.js",
+      "sha256": "6c04cd33424b4fb9f6e8379ed8143a854d31d92aa21bfb9767d20f677538cf5c",
+      "bytes": 4668
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_geometry.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_geometry.js",
+      "sha256": "9120bdd08675e001d763bcdecd4e4e3d12d9d2e944a8ba561686c77316c77af0",
+      "bytes": 43337
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_host_callbacks.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_host_callbacks.js",
+      "sha256": "9cb1b8028286611ec4ebff2f9d7ac0d6fb40541e4f61c25e7604d35970214167",
+      "bytes": 5558
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_localization.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_localization.js",
+      "sha256": "6d26af5d439d4d1dce86e6e1a7242ae8ca46aea3746f61f576cc8a4bf0d4ab14",
+      "bytes": 7719
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_mode.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_mode.js",
+      "sha256": "7800cb1aeb398b47e621cb84b3ff95ae5f68001a40bc8eb4f1d45c3086b5909e",
+      "bytes": 16725
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_monster_color_observer.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_monster_color_observer.js",
+      "sha256": "a367d70ef891e6836320a508dd41a2770f24e6c6446aab194b55d8c26e793913",
+      "bytes": 5749
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_monster_color_readiness.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_monster_color_readiness.js",
+      "sha256": "d9006ee9ab97271ebc1e883b374c440b14d339bf992ab4c3d96c173c4f552784",
+      "bytes": 10673
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_overlay_bootstrap.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_overlay_bootstrap.js",
+      "sha256": "e013e7f207f6f6355d2a68f38722b35f9a62049b69909cd18b58def3662d8b5b",
+      "bytes": 9619
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_packet_export.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_packet_export.js",
+      "sha256": "aa86f7133d927d0f16eb4d19532193fa276b9196ad0a1397e554a608d3c36d8e",
+      "bytes": 13645
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_probe.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_probe.js",
+      "sha256": "a446c7e7ae6ce5799e23bea8fe85483a633dc5a7aeac699d40bc982c8e705730",
+      "bytes": 22892
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_result_capture.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_result_capture.js",
+      "sha256": "3f80897ba4612ba34ca447300a8b74e39db40a2b2252e163a4702e9d02feb877",
+      "bytes": 10071
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_rng_state_verifier.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_rng_state_verifier.js",
+      "sha256": "2794e0e47fb0f85b8cc6ec36dac96461a9452a74820e528acb0e17370bcdcde2",
+      "bytes": 7333
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_settings.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_settings.js",
+      "sha256": "e4b20b9a4058fe3aa6cf71f70509618b4f24720cb578d8cffce218cce8c21789",
+      "bytes": 4334
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_skeleton_setup_observer.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_skeleton_setup_observer.js",
+      "sha256": "6bb5ed7b24e4ccb1b45d0498cc1ad0e8e6b7a3e3e1ff2a6a7aaf7f58392818f0",
+      "bytes": 6775
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_skeleton_source_observer.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_skeleton_source_observer.js",
+      "sha256": "5fdd99e8b4cd43076bc6ce239d882421175aba6010efec70892ba0e0f083720b",
+      "bytes": 8685
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_skill_pool_observer.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_skill_pool_observer.js",
+      "sha256": "835ac986ee2d3ae0e50e55ee384c69903fec57bb5fd51dcd4cd5c3f7e75e2d43",
+      "bytes": 6570
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/practice_tick_runner.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/practice_tick_runner.js",
+      "sha256": "dcb46e4017536f046c7af2696687e556fc86501d5824a52656695aefb8a62df3",
+      "bytes": 8323
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_practice153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_practice153.py",
+      "sha256": "96124a5b7e38fb163f25fd047bd36a93d55d7eec26d9e94d3193e56ed55a342b",
+      "bytes": 105713
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/archive_practice153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/archive_practice153.py",
+      "sha256": "2dbfd56e1ba2c4d65768113653ea2f44c0a72af1c9af73f4473bb2bbc2ff6619",
+      "bytes": 14484
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/check_auto_preferences153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/check_auto_preferences153.py",
+      "sha256": "587a40b57ef365111112f754a8c8f30f3d9783c80114f89e086f5bc1c5b62b0d",
+      "bytes": 6105
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/check_auto_preferences_continuity153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/check_auto_preferences_continuity153.py",
+      "sha256": "a9d56a45fa89e8fb164baffc40e4e86f2dd30b970a586287cc9c9f48240705c7",
+      "bytes": 4825
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/matched_reference_selection153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/matched_reference_selection153.py",
+      "sha256": "fa94e7d270bf105b1c5ee13befd5dd26584e829c0e9ee5c174002e6528f9851d",
+      "bytes": 10136
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/matched_reference_inputs153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/matched_reference_inputs153.py",
+      "sha256": "5a116a4bccef2e7b30787769ce6f2fe9072ca8d6fd43d64ec4f256499c83b0f6",
+      "bytes": 10554
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/prepare_native20_release153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/prepare_native20_release153.py",
+      "sha256": "21717c955ac4c92fdba24155ab1cea98c152f6b5c195a4d73addf5918e967f62",
+      "bytes": 11557
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/run_reviewed_practice20.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/run_reviewed_practice20.py",
+      "sha256": "e374cff0a32a84568dea82e545410c82b207d7ec6fcd6089156b6bb7d08c78f1",
+      "bytes": 12284
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/run_reviewed_practice21.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/run_reviewed_practice21.py",
+      "sha256": "6973f1a983ae6af353bc792e34f6bfa3516f5742e8e67a8ff5ab94f772c56cf8",
+      "bytes": 12265
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/run_reviewed_practice22.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/run_reviewed_practice22.py",
+      "sha256": "cfd26c52f85c43322141285eccb2a54091add3d3d20c1dbc37333bef95e6ca0b",
+      "bytes": 12485
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/run_native_service_http1.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/run_native_service_http1.py",
+      "sha256": "350334f83caf357d3ada98fba68a5ff84a222a4022ba082ee57caa90ba8f8ada",
+      "bytes": 3517
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/prepare_sandbox153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/prepare_sandbox153.py",
+      "sha256": "3f763fed67dda35164990e12e17f11469c33db593958f0da5717c8d38d50d15d",
+      "bytes": 6932
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_table_bootstrap153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_table_bootstrap153.py",
+      "sha256": "90575631207276a7e3650b64e7263b0fd4c6078d2744f878fcb2978c1292d4a7",
+      "bytes": 6664
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_catalog_bootstrap153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_catalog_bootstrap153.py",
+      "sha256": "1edde3b8ca3aaa1cd23f1a48414948cef217780ef7fecff70a6494118d867fe4",
+      "bytes": 5612
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_catalog153_resources.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_catalog153_resources.py",
+      "sha256": "afe5cc3512f9403ab3a763c04b2bde75b5536362584a6a576306061201d5255e",
+      "bytes": 8100
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_shared153_resources.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_shared153_resources.py",
+      "sha256": "43e0672ea72100bdf9a1ff525f85d1c974bd461eb83c6de890db0baa82c8caed",
+      "bytes": 5790
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_logged153_resources.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_logged153_resources.py",
+      "sha256": "449bc9cc34c13e1947120ca01a9614caea396b8665521ed29a11f906fa590bb4",
+      "bytes": 8672
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_practice153_resources.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_practice153_resources.py",
+      "sha256": "028bfcca47b95e9c783ea09eff4bd91757258b9f9180cdbc50272da574afa9d5",
+      "bytes": 13263
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_practice153_dp_resources.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_practice153_dp_resources.py",
+      "sha256": "6e090f340971db4cf4cc36f6c70cf45bc8378238e3c1b962889689c1f7dd4f04",
+      "bytes": 7930
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_local_locale153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_local_locale153.py",
+      "sha256": "081ff464819a55710e1bdd1f6c2cabcba737491f021a3b648b32d3aef6c5e908",
+      "bytes": 8300
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_locale_table_closure153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_locale_table_closure153.py",
+      "sha256": "f32a2649417213d9c3f72110f4978dbb842ff4b8e264c467b101e99feb819af2",
+      "bytes": 11964
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_snapshot153_readback.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_snapshot153_readback.py",
+      "sha256": "5d71bc4f34e2c412ea3d3376d38806aef05b273b35483b2a2e9d238173d5392d",
+      "bytes": 7808
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/stage_fixture153_readback.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/stage_fixture153_readback.py",
+      "sha256": "7c3e4c6955480216c28c174aa5ca09c304877cd57ecb207e8046759ad5698898",
+      "bytes": 10211
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/build_practice_aim.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/build_practice_aim.py",
+      "sha256": "16a7821b000be13599f28271ffea2c4df8c713adfb68480327521e05b3abdd73",
+      "bytes": 5078
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/build_practice_geometry.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/build_practice_geometry.py",
+      "sha256": "5f191a270663002739715df560886d9dfe8586be24415bc98e4060f4ecc75359",
+      "bytes": 5696
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/build_cutscene_binding153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/build_cutscene_binding153.py",
+      "sha256": "d8050a330bbf5f30b1cf4008e70172cfafa33ac2b6b30c0df9fd37f824ad00cc",
+      "bytes": 6091
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/build_intro_integration153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/build_intro_integration153.py",
+      "sha256": "b43863d0af4984e010ae66897db23fc5bc7b4077b6a4cb2c50d529baf6fc3669",
+      "bytes": 3776
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/build_overlay_integration153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/build_overlay_integration153.py",
+      "sha256": "0451af9280941140ef584c417e4d98955f2160ae972fc23c91edc1aa7b118ae7",
+      "bytes": 4998
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/build_practice19_integration153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/build_practice19_integration153.py",
+      "sha256": "96887efb0fa77ad63d028da90c8f0604fa4656eeef2945ab83712e5cf93f2d56",
+      "bytes": 5456
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/build_practice22_integration153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/build_practice22_integration153.py",
+      "sha256": "5e3e80739f16923fa6e88c6e45c3f65f4676e627135887ece11cb07ba49cc700",
+      "bytes": 4383
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/verify_practice_geometry_containers153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/verify_practice_geometry_containers153.py",
+      "sha256": "f72415acb37a287fa215381e7fbd96d32ee0d31068ab9f8be673bc912cbe1674",
+      "bytes": 3125
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_archive_frozen_aliases153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_archive_frozen_aliases153.py",
+      "sha256": "289322d4cfcbda0c438e304207874c134fbab5f34ff24c4ed5dde10a94dc1c28",
+      "bytes": 6336
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_auto_preference_continuity.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_auto_preference_continuity.py",
+      "sha256": "dbc4084252417970df82d2cc3c6912b8ec49deb0347645926293c12ebe48b5c0",
+      "bytes": 882
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_auto_preference_witness.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_auto_preference_witness.py",
+      "sha256": "b012e19b8bee6bb0e4533914498277703b4a96823af7d898df3926a84de3b272",
+      "bytes": 1443
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_cutscene_evidence_paths.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_cutscene_evidence_paths.py",
+      "sha256": "80414ec67a9918b634e83519c41e0f57c8db48b0af341a027eaefaf50b5fb312",
+      "bytes": 1736
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_guard153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_guard153.py",
+      "sha256": "80a80a79a42a7b70c09f556d18f04aed936118a434073acdfbdffc751aa7aa64",
+      "bytes": 4751
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_matched_reference_selection153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_matched_reference_selection153.py",
+      "sha256": "df53348ed59177c83c5882b74b87a477d8b9c7401204ac16a4f34e615f869e30",
+      "bytes": 5795
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_overlay_prepared_proof_transition.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_overlay_prepared_proof_transition.py",
+      "sha256": "ca77d8891bf0728187bf8023169e05d0e045e70048a6857a1f28bd8e1f397cef",
+      "bytes": 3361
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_callback_fixture_boundary.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_callback_fixture_boundary.js",
+      "sha256": "752e96bdeb360aa2a439f37fa7ebeccc62219a6086e49649e560d6da9279e84a",
+      "bytes": 5367
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_cutscene_boundary.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_cutscene_boundary.js",
+      "sha256": "fca4f9c2cc694695bb47e229dc39778c0251503cbe25014f318947741dc0980e",
+      "bytes": 4163
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_host_callbacks.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_host_callbacks.js",
+      "sha256": "d93799106f639928fc2a146031134e09af7067a274e9509a6a4981f1b298840f",
+      "bytes": 6587
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_intro_boundary.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_intro_boundary.js",
+      "sha256": "f9871c0f023f96ac3e471a20d720ba3401772e2879e7134a0d6fcbf9d138459d",
+      "bytes": 3006
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_localization.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_localization.js",
+      "sha256": "653097ec9343fe538dedab3acaac954f90c367c055d999573a8ff0e6e0b4d208",
+      "bytes": 13556
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_mode.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_mode.js",
+      "sha256": "1b0f02c8d5a7fff763ef4fab94c4cadc288ee9808c860fedba5123701362a731",
+      "bytes": 7464
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_overlay_bootstrap.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_overlay_bootstrap.js",
+      "sha256": "99b3ecfe75de1fb2e4917625b6be6924d981fb758e1c43686163e81d0bd0f252",
+      "bytes": 15835
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_packet_export.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_packet_export.js",
+      "sha256": "4abbd72ce12b6a68638c0e1db9a4749766a86ea7a457b2e3c22b49419b3f2e10",
+      "bytes": 6016
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_packet_writer.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_packet_writer.js",
+      "sha256": "6603bae2bb7bc3b71469cb78584759975b48d307fe4e7f5d52fd61c78fc9758c",
+      "bytes": 5760
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_popup_control.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_popup_control.js",
+      "sha256": "1c663a6026203cdfd2e2e20b98589220ea36ede218e7fc63ace1cff5213aaafe",
+      "bytes": 2394
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_result_lifetime.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_result_lifetime.js",
+      "sha256": "cbeb419a6a092925c4b9b77eb258d9bd85f587065b8bdc2623f8822b78b2699d",
+      "bytes": 9881
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_rng_probe_boundary.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_rng_probe_boundary.js",
+      "sha256": "2365598f15030b5eb7d5a19a44b3496c8ca002de4d0fa17426407653a5cd68c5",
+      "bytes": 5353
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_rng_state_verifier.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_rng_state_verifier.js",
+      "sha256": "22ebdf1c2138c800745755ee09d4a8b980ab5239effdd4218d88c7d7fa2b3f37",
+      "bytes": 5920
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_startup_pacing.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_startup_pacing.js",
+      "sha256": "ae39a0f80b669ee26968546e313037722cd8a2bca876a13dd40b6f7ba91a1473",
+      "bytes": 5739
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_practice_tick_runner.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_practice_tick_runner.js",
+      "sha256": "f8b59f7145f3fff01c6ab220b78cffb180b313271afbe010175777a5be0e0277",
+      "bytes": 7470
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_stage_complete_locale153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_stage_complete_locale153.py",
+      "sha256": "2d69075464ca99ecfc6895a60a54e04cd1e493df9c4409dac5c1f41c7a9de3d2",
+      "bytes": 5298
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_stage_cutscene_resources.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_stage_cutscene_resources.py",
+      "sha256": "9ac9eb8f02ea5aa4f7bef32575e62bb9361f85f70ff0db6f79368af13a11b236",
+      "bytes": 3052
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_stage_localization153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_stage_localization153.py",
+      "sha256": "6fd381c24aa7b98a3d73dde33c174ba7c3ea21098d5e3a7163205ae45c2b0a2a",
+      "bytes": 7681
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_stage_matched_reference_selection.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_stage_matched_reference_selection.py",
+      "sha256": "7168e4830e179d35e7b79a307dee671a78f33820a1cc823cd8bc851cb817490a",
+      "bytes": 8163
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_stage_overlay_resources.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_stage_overlay_resources.py",
+      "sha256": "ca3688ca8e8b190176b47b592ffb426b5e663047b99fdcc4814efb094678335d",
+      "bytes": 5061
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_stage_practice19_transition.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_stage_practice19_transition.py",
+      "sha256": "f98d43433ebb82e01db9645f2a97397545d535e0e7d3844c66be5ff2b8e52a7c",
+      "bytes": 5772
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/test_stage_practice22_transition.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/test_stage_practice22_transition.py",
+      "sha256": "4d195eb36b70add4dff798f1969730429ba2d9c7665bb67ef1f94dff95a66257",
+      "bytes": 3924
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/candidate-modules/headless_driver.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/candidate-modules/headless_driver.js",
+      "sha256": "78acb16d2b93b7f139ad189ea76e574c520f650b5c3e932566bf1316ac558cd2",
+      "bytes": 25789
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/candidate-modules/mechanics_audio_boundary.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/candidate-modules/mechanics_audio_boundary.js",
+      "sha256": "6e331d8fc7d47eff102747871749bd1b6716d1196f4e059f3802ad619cbc87bb",
+      "bytes": 2063
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/candidate-modules/mechanics_frame_scheduler.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/candidate-modules/mechanics_frame_scheduler.js",
+      "sha256": "369f67932191ad6f1f734a9d3a18482247118d523b0a7ab1e36895ce4e99bbf0",
+      "bytes": 7726
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/replay-input/practice_wave_resolver.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/replay-input/practice_wave_resolver.js",
+      "sha256": "4c55163dac03ac9f3a3f3a99ec6b65514a311c2ad16b5cbc13880dfd53837ec3",
+      "bytes": 4280
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/replay-input/prepare_practice_fixture.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/replay-input/prepare_practice_fixture.js",
+      "sha256": "ddca076c8275023add2963f1119e8da4db53af44f5659f096791b67bb9a1d61c",
+      "bytes": 16774
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/replay-input/reconstruct_snapshots.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/replay-input/reconstruct_snapshots.js",
+      "sha256": "9ec4d55cba0dd58afb33a12c2ad83ba8855a0aa193beddb88d9cc18031d3f16b",
+      "bytes": 14414
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/replay-input/extract_fixture_input.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/replay-input/extract_fixture_input.py",
+      "sha256": "4adf753f331ade177e7dd2c3bd00601d6dd97a0506bdca6e58d048825a7da5c6",
+      "bytes": 7660
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/replay-input/extract_snapshot_inputs.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/replay-input/extract_snapshot_inputs.py",
+      "sha256": "447a7c510d1eaeb1e0c62048b55cdbe190954ec1a068a4cff1e400c478ba4279",
+      "bytes": 7754
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/replay-input/test_fixture_inputs.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/replay-input/test_fixture_inputs.py",
+      "sha256": "bc7efde40af39a2a5225d494403d4de4496374d39fd1411704e64ca236fef060",
+      "bytes": 4001
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/replay-input/test_snapshot_inputs.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/replay-input/test_snapshot_inputs.py",
+      "sha256": "70a19e87764b010be57e723e9a68cb7a62d737d3f4889a53ef2d1ba1515249df",
+      "bytes": 3485
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/rng-state/archive_gate.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/rng-state/archive_gate.py",
+      "sha256": "e4f6efdb9100abc1e6f64f297b442fc7485371b0e35898cdd02d2e88b9257c7d",
+      "bytes": 4074
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/rng-state/test_archive_gate.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/rng-state/test_archive_gate.py",
+      "sha256": "b45355986adf82712227bffb39454e320bfcba7c6d462d59f2bdefeff69652f5",
+      "bytes": 3293
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/rng-state/extract_expected_states.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/rng-state/extract_expected_states.py",
+      "sha256": "2f63d6799a614ec4fd3cef6cf76474113efde2cf4e786846f04c7cc5fd2bb23a",
+      "bytes": 4786
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/packet-decoder/Program.cs",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/packet-decoder/Program.cs",
+      "sha256": "9e6f8290b071afe68cda10d91ecf24c008f5490b7188cce851615649ac4424ae",
+      "bytes": 16302
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/packet-decoder/PacketDecoder.csproj",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/packet-decoder/PacketDecoder.csproj",
+      "sha256": "c1e63673ecbc76608bc1c050c097a7df83890b55ff54593e41b77271088a34d2",
+      "bytes": 642
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/packet-decoder/archive_decode.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/packet-decoder/archive_decode.py",
+      "sha256": "80246542b7376c0e2080814fabc019839749d0be6466a8fda281e5c2f3a75f63",
+      "bytes": 5883
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/packet-decoder/build_and_check.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/packet-decoder/build_and_check.py",
+      "sha256": "660cee4c2ce6b6d2a01547cc38de1ad6c2266adb4f07a6a0a174caf117eba710",
+      "bytes": 3062
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/packet-decoder/test_archive_decode.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/packet-decoder/test_archive_decode.py",
+      "sha256": "83eb7ee7e97b543c775da846876923f56f4d020228fe7d10637fb0e5723d8b4d",
+      "bytes": 2761
+    },
+    {
+      "path": "offline/tools/raid-lab/native_practice_job.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "tools/raid-lab/native_practice_job.py",
+      "sha256": "969a954f4599e495ff9c98fd5dce0a870a2187ec76a905315b14798d00aaf0ec",
+      "bytes": 43573
+    },
+    {
+      "path": "offline/tools/raid-lab/test_native_practice_job.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "tools/raid-lab/test_native_practice_job.py",
+      "sha256": "90b2d9958ad8d91eed64991f1ba732c0c9a8ee14e905862e1e57ce562ca8296f",
+      "bytes": 22855
+    },
+    {
+      "path": "offline/tools/raid-lab/native_runner_lease.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "tools/raid-lab/native_runner_lease.py",
+      "sha256": "a019f95b599fa1194dcd59b36d0bfb05530829e60d7c85e025437a991b3d37ca",
+      "bytes": 2837
+    },
+    {
+      "path": "offline/tools/raid-lab/test_native_runner_lease.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "tools/raid-lab/test_native_runner_lease.py",
+      "sha256": "f759c4258a0f2c2f2041682d33683fb8ff1aa4cc5204fa0f603776248471ab40",
+      "bytes": 2594
+    },
+    {
+      "path": "offline/tools/raid-lab/native_player_host.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "tools/raid-lab/native_player_host.py",
+      "sha256": "d0ea48a3a8e30045a957da6a82bc37ef4c65e4377bfe4625cefc437633720328",
+      "bytes": 19885
+    },
+    {
+      "path": "offline/tools/raid-lab/test_native_player_host.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "tools/raid-lab/test_native_player_host.py",
+      "sha256": "3e483fb0e259edbe27ef8babb0a40484a9c520df7947609a4dd3d038ea57da3a",
+      "bytes": 8313
+    },
+    {
+      "path": "offline/event-selector/first-anniversary/catalog-repair/isolated_desktop.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "event-selector/first-anniversary/catalog-repair/isolated_desktop.py",
+      "sha256": "891e5652cb1d9c5d4faf46aa9ceff49cb7ad52b2b10e846d24e643b56d055a78",
+      "bytes": 13555
+    },
+    {
+      "path": "app/tools/raid-lab/native_practice.py",
+      "sourceRoot": "app",
+      "sourceRelativePath": "tools/raid-lab/native_practice.py",
+      "sha256": "f180d0597599b13bcb19ebb7e5b45607d235074fc1eb3bc1a8c66fdb3dd16ce6",
+      "bytes": 22950
+    },
+    {
+      "path": "app/tools/raid-lab/test_native_practice.py",
+      "sourceRoot": "app",
+      "sourceRelativePath": "tools/raid-lab/test_native_practice.py",
+      "sha256": "efb6b0c11b860bfa6f5af44831a8213903fba1318079d154d652c3c5b21dbbd0",
+      "bytes": 15982
+    },
+    {
+      "path": "app/tools/raid-lab/test_native_practice_server.py",
+      "sourceRoot": "app",
+      "sourceRelativePath": "tools/raid-lab/test_native_practice_server.py",
+      "sha256": "66243f42071655242a3a27e15964213d4ad4f86c4d1c013bcdba3797ba35a837",
+      "bytes": 7702
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/bootstrap_native22_shared_artifacts153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/bootstrap_native22_shared_artifacts153.py",
+      "sha256": "be847e0584ede2898a6806dfcd8469520717a700439347354b532ee3b1f713d2",
+      "bytes": 7101
+    },
+    {
+      "path": "app/tools/raid-lab/web/native-practice.js",
+      "sourceRoot": "app",
+      "sourceRelativePath": "tools/raid-lab/web/native-practice.js",
+      "sha256": "e841b11a779187be89725ff1ae8ca5c6eb7d64b8e569506b50a1b78426da1c11",
+      "bytes": 7195
+    },
+    {
+      "path": "app/tools/raid-lab/web/native-practice.html",
+      "sourceRoot": "app",
+      "sourceRelativePath": "tools/raid-lab/web/native-practice.html",
+      "sha256": "c34c462338d2f61a6bd46886c16a42a3b3fd638c2a9c47b10d31fe2f0b1291f2",
+      "bytes": 2711
+    },
+    {
+      "path": "app/tools/raid-lab/test_native_practice_web.js",
+      "sourceRoot": "app",
+      "sourceRelativePath": "tools/raid-lab/test_native_practice_web.js",
+      "sha256": "ad4e04db1a50c51adbd0914049c7e733f6f18dc3b44c3ce51056c0bbf494de8e",
+      "bytes": 8442
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/build_kraken_binding153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/build_kraken_binding153.py",
+      "sha256": "f2d26126d03489fac73960abc7975e6dea2eb4d6eaf81e1ee49dc0af101bf98e",
+      "bytes": 3185
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/kraken_mode153.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/kraken_mode153.js",
+      "sha256": "d543fb55218d76f14a7dbe7f378636d7586ac35be64db5de3c3ae9e3da24db66",
+      "bytes": 8019
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/prepare_kraken_fixture153.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/prepare_kraken_fixture153.js",
+      "sha256": "4c08bb0e6e28e0335f56e0cab3ea48e332fda4020eb39ddeeeaed5ca95a83d91",
+      "bytes": 5749
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/test_kraken_helpers153.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/test_kraken_helpers153.js",
+      "sha256": "9e4b373ce8931011abcb0ee2991692db482ded28fa10b580e241903934dcff69",
+      "bytes": 11776
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/README.md",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/README.md",
+      "sha256": "e2a49857b47ff61aaad8f8ded406bd3c8e9e47d3b91c216baa3e4529e5ef1e22",
+      "bytes": 3837
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/kraken153_binding.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/kraken153_binding.js",
+      "sha256": "25a52fc7f3537b7dfb0b8a91671c3e1e683dc2a71f5bb63bd7f2d3c104bbd90d",
+      "bytes": 2508
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/mechanics_tactical_actions.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/mechanics_tactical_actions.js",
+      "sha256": "c1f2a8e56bf8e00ce9cdf709fe58d8a08d5088cf74c225567275eac5aadebb9a",
+      "bytes": 13685
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/mechanics_tactical_controller.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/mechanics_tactical_controller.js",
+      "sha256": "d3146d13712cfc77d5850e7de71cb0da8108efd65c846fb03f310ce182476ebe",
+      "bytes": 3697
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/mechanics_virtual_pointer.js",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/mechanics_virtual_pointer.js",
+      "sha256": "cf9899cc539b84d436c84ee9125d96302ef5730d517855b7eeaa61506390e7ce",
+      "bytes": 2449
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/prepare_bindings.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/prepare_bindings.py",
+      "sha256": "86ea43b102303819edfd3f7a5aafd27515a54103578a4c9b4eec471862290dda",
+      "bytes": 8990
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/prepare_modules.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/prepare_modules.py",
+      "sha256": "cb7b101dc806476fb37677b483b70e2bba5b9aba2623e490da0d702c21175bc2",
+      "bytes": 10130
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/synthetic_gate_fixture.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/synthetic_gate_fixture.py",
+      "sha256": "10461a38fb522c13a89ec714d8f108c1b45bb3d75f249d01b64114f4e3a882c1",
+      "bytes": 6320
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/test_strict_gate.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/test_strict_gate.py",
+      "sha256": "824a16157048839eca98103362a8a79ff7eaeea49b85e277ccd596862ffa141d",
+      "bytes": 5110
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/verify_kraken_tactical153.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/verify_kraken_tactical153.py",
+      "sha256": "549cbaf7b3268041e3256689e1d4737b42b6f5695bd2cc1f027796e11b46e541",
+      "bytes": 6180
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/verify_tactical_parts.py",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/verify_tactical_parts.py",
+      "sha256": "428d88f859be8b90723ce815a27e7b482e026f5598648de5e46af99f8afd7916",
+      "bytes": 15432
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/kraken153/tactical/TACTICAL-HANDOFF.md",
+      "sourceRoot": "offline",
+      "sourceRelativePath": "transfer/battle-parity-20261101/native153/kraken153/tactical/TACTICAL-HANDOFF.md",
+      "sha256": "ccfa656eb9871e661d323232abe4096f9d6e57dafef7ae824fcf7c3cf9369c3a",
+      "bytes": 4062
+    }
+  ],
+  "sourceFileCount": 129,
+  "sourceBytes": 1165742,
+  "excludedCategories": [
+    "captures and raw logs",
+    "all replay input/expected-state fixtures",
+    "accounts and inventory data",
+    "result packets",
+    "proofs and raw evidence JSON",
+    "metadata and decompiled/disassembled bodies",
+    "catalogs and resources",
+    "native binaries and generated/build outputs",
+    "private native releases"
+  ]
+}
