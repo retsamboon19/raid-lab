@@ -283,6 +283,11 @@ class RaidWorld(PartWorld):
                     impacts=[time+at for at in schedule['impacts']];end=time+schedule['end']
                     state['impact_events']=schedule['impact_events']
                     interrupt=time+(schedule['loop']['start'] if schedule['loop'] else 0)
+                    if r.key=='anomaly-ultra' and skill['Id'] in (510634,510635):
+                        # Native cover starts at the authored LoopEnd, after
+                        # the casting loop has finished (not 0.25s before hit).
+                        loop=schedule['loop']
+                        state['native_cover_start']=time+loop['end']+loop['shift_seconds']
                 else:
                     markers=timeline['markers'];starts=[m['time'] for m in markers if m['type'].endswith('/LoopStart')];ends=[m['time'] for m in markers if m['type'].endswith('/LoopEnd')]
                     shift=cast-(ends[0]-starts[0]) if starts and ends else 0.
@@ -356,6 +361,11 @@ class RaidBossRuntime(EncounterRuntime):
         self.skills={int(allskills[s['SkillId']]['SkillAniNumber'][4:]):allskills[s['SkillId']] for s in self.data['monster']['SkillData'] if s['SkillId']}
         self.functions={f['Id']:f for f in self.data['functions']};self.effects={};self.part_immune={};self.part_hits={};self.debuff_effects={}
         self.world=RaidWorld(self);self.tree=BehaviorTree(self.data['trees'][self.mode],self.world,seed)
+        # The main monster owns finite HP; berserk stat changes do not create
+        # a fresh HP pool. Keep overkill statistics separate from HP removed.
+        self.boss_max_hp=next(p['max_hp'] for n,p in self.world.parts.parts.items()
+                             if self.world.rows[n]['IsMainPart'])
+        self.boss_defeated_at=None
         self.bm=None;self.cover={};self.cover_max={};self.cover_def={};self.covered=set();self.incoming=[];self.pending_shots=[];self.adds=[];self.pending=[]
         self.choices=[];self.normal_by_unit={};self.aim_id=None;self.aim_ready=0.;self.part_cursor=0;self.stop_reason=None;self.damage_to_parts=0.;self.damage_to_adds=0.;self.barrier_damage_by_unit={};self.barrier_windows=[];self.barrier=False
         self.first_part_deadlines={};self.first_breaks={};self.unhandled=set();self.dot_ticks=[];self.cover_windows=[];self.projectiles=[];self.cover_threats=[];self.cover_open={}
@@ -442,6 +452,10 @@ class RaidBossRuntime(EncounterRuntime):
     def stat(self,monster=None):return self.stat_rows[((monster or self.data['monster'])['StatenhanceId'],self.stage()['MonsterStageLv'])]
     def bind(self,bm,squad,char_states):
         self.bm=bm;self.squad={c['name']:c for c in squad};self.char_states=char_states
+        # Match the native input policy by original kit identity, not a team
+        # fixture or damage threshold (mechanics_mirror_policy.js). The
+        # calculator's canonical name maps to native NameCode 5169.
+        self.mirror_core_pressure='아니스 : 스타' in self.squad
         bm.state['encounter_runtime']=self
         if self.key in TIMING_DATA['profiles']:
             # Distance selectors need a real slot origin even for bosses
@@ -599,8 +613,8 @@ class RaidBossRuntime(EncounterRuntime):
         self.log('boss skill activated',shot=skill['SkillAniNumber'])
 
     def advance(self,t,state=None):
-        self.time=t;self.frame=state or {};self.covered=set()
         if self.stopped:return
+        self.time=t;self.frame=state or {};self.covered=set()
         if t>=self.duration-1e-9:self.stopped=True;return
         self.update_cover(t)
         self.tree.advance(t)
@@ -661,14 +675,16 @@ class RaidBossRuntime(EncounterRuntime):
     def attack_targets(self,skill,node):
         if not self.bm:return []
         if '_locked_targets' in node:return [n for n in node['_locked_targets'] if n in self.squad and self.bm.state['hp'].get(n,0)>0]
-        names=unit_combat.targetable(self,[n for n in self.squad if self.bm.state['hp'][n]>0])
+        names=[n for n in self.squad if self.bm.state['hp'][n]>0]
         if not names:return []
         position=node.get('ECharacterPosition_targetPosition',node.get('ECharacterPosition_positionType','None'))
         if position.startswith('Player'):
             index=int(position.removeprefix('Player'))-1
             slots=list(self.squad)
-            return [slots[index]] if 0<=index<len(slots) and slots[index] in names else []
+            return [slots[index]] if 0<=index<len(slots) and slots[index] in unit_combat.targetable(self,names) else []
         if 'All' in skill['FireType'] or skill.get('TargetCount')==5:return names
+        names=unit_combat.targetable(self,names)
+        if not names:return []
         taunters=[n for n in names if self.protection(n,'taunt')]
         if taunters:return [taunters[0]]
         if skill['PreferTarget']=='HighAttack':return [max(names,key=self.bm._effective_atk)]
@@ -679,12 +695,19 @@ class RaidBossRuntime(EncounterRuntime):
         for a in self.world.attacks.values():
             if a['impacts'] and not a.get('cover_registered'):
                 a['cover_registered']=True
-                self.cover_threats.append(dict(start=min(a['impacts'])-.25,end=a['cover_until'],skill=self.skills[a['shot']],targets=a['targets'],parts=a['parts']))
+                if self.key=='anomaly-ultra' and 'native_cover_start' not in a:continue
+                self.cover_threats.append(dict(start=a.get('native_cover_start',min(a['impacts'])-.25),end=a['cover_until'],skill=self.skills[a['shot']],targets=a['targets'],parts=a['parts']))
         reasons={}
         for threat in self.cover_threats:
             if not threat['start']<=t<threat['end']:continue
             skill=threat['skill']
             if threat['parts'] and any(not self.world.parts.alive(p) for p in threat['parts']):continue
+            if self.key=='anomaly-ultra':
+                living=[n for n,hp in self.bm.state['hp'].items() if hp>0]
+                if living and all(self.bm.has_shield(n) for n in living):continue
+                for n in living:
+                    if self.cover.get(n,0)>0:reasons[n]='Native Ultra attack timeline'
+                continue
             poison='ultra' in self.key and skill['SkillAniNumber']=='Shot02'
             harmful=poison or any(f['FunctionType']=='Stun' or f['FunctionType'] in ('Damage','CurrentHpRatioDamage') and f['DurationValue']>0 for f in self.hurt_functions(skill))
             for n in threat['targets']:
@@ -715,7 +738,7 @@ class RaidBossRuntime(EncounterRuntime):
         boost=sum(v/10000 for ident,(end,v) in self.effects.items() if ident in self.functions and end>t and self.functions[ident]['FunctionType']=='StatAtk')
         attack=unit_combat.enemy_attack(self,stat['LevelAttack']*monster['AttackRatio']/10000*(1+boost))
         amount=self.hurt_function_damage(item['function'],name,attack,stat)
-        unit_combat.hurt(self,name,amount)
+        unit_combat.hurt(self,name,amount,direct=False)
         self.incoming.append(dict(time=round(t,3),source='Damage over time',shot=item['function']['Id'],target=name,damage=round(amount),blocked_by=None,hp=round(hp[name]),cover=round(self.cover[name])))
         unit_combat.check_defeat(self)
 
@@ -741,7 +764,16 @@ class RaidBossRuntime(EncounterRuntime):
         preferred=self.anomaly_hook('preferred_part',caster,pierce)
         if preferred and self.world.parts.alive(preferred) and self.part_immune.get(preferred,0)<=self.time:return preferred
         if not controlled:return None
+        # Same target priorities as the original153 improved-input controller.
+        # Ultra keeps the centerline after its core breaks; Anis: Star Mirror
+        # teams use core pressure instead of suppressing allies for slippers.
+        if self.key=='anomaly-ultra':return None
+        if self.key=='anomaly-mirror-container' and getattr(self,'mirror_core_pressure',False):return None
         alive=[n for n,p in self.world.rows.items() if not p['IsMainPart'] and p['IsPartsDamageAble'] and self.world.parts.alive(n) and self.part_immune.get(n,0)<=self.time and self.anomaly_hook('part_targetable',n,self.time) is not False]
+        if self.key=='anomaly-indivilia':
+            alive=[p for p in alive if p not in ('Weapon_01','Weapon_02')]
+        if self.key=='anomaly-harvester':
+            return 'Head' if 'Head' in alive else None
         if self.key=='museum-modernia' and self.part_policy=='safe':
             # Preserve one wing to avoid forcing the repeat teleport route.
             wings=[n for n in ('Weapon_01','Weapon_02') if n in alive]
@@ -861,6 +893,27 @@ class RaidBossRuntime(EncounterRuntime):
         result.update(damage=0,collision_hits=len(contacts),part_hits=0,core_hits=0,body_hits=0)
         return result
 
+    def enemy_aim_target(self,caster):
+        """Current aimed monster owner for explicit NearAim skill selectors.
+
+        Reuse the normal route's live aim policy without applying an attack or
+        consulting its historical recipient. Projectile/Break colliders are
+        separate entities; the enemy skill selects the aimed monster owner.
+        """
+        controlled=self.follows_aim(caster,getattr(self,'aim_controller',caster))
+        adds=self.living_adds()
+        if controlled and not self.active:
+            element=getattr(self,'squad',{}).get(caster,{}).get('element_code')
+            fighter=getattr(self,'char_states',{}).get(caster)
+            weapon=getattr(fighter,'weapon_type','SR')
+            extra=self.anomaly_hook('resolve_target',caster,element,weapon,True)
+            if extra is not None:
+                return extra['id'] if any(a['id']==extra['id'] for a in adds) else '__boss__'
+        part=self.select_part(caster)
+        if adds and controlled and not self.active and (self.barrier or not part):
+            return adds[0]['id']
+        return '__boss__'
+
     def select_enemy_effect_targets(self,effect,caster,time):
         if self.key not in TIMING_DATA['profiles']:return None
         return select_enemy_effect_targets(self,effect,caster,time)
@@ -908,6 +961,20 @@ class RaidBossRuntime(EncounterRuntime):
         return result
 
     def resolve(self,caster,element,weapon,hit_type,calculate,args):
+        if self.stopped:
+            result=calculate(**args)
+            result.update(damage=0,collision_hits=0,part_hits=0,core_hits=0,body_hits=0,
+                          crit_frac=0,is_crit=False)
+            return result
+        result=self._resolve_active(caster,element,weapon,hit_type,calculate,args)
+        if self.damage>=self.boss_max_hp and self.boss_defeated_at is None:
+            self.boss_defeated_at=self.time
+            self.stop_reason='Boss defeated'
+            self.stopped=True
+            self.log('boss defeated',damage=self.damage,max_hp=self.boss_max_hp)
+        return result
+
+    def _resolve_active(self,caster,element,weapon,hit_type,calculate,args):
         normal=hit_type.get('is_normal_atk') or hit_type.get('is_weapon_mode_skill')
         source_profile=self.key in TIMING_DATA['profiles']
         if source_profile and not hit_type.get('_enemy_target_selected'):
@@ -1162,7 +1229,10 @@ class RaidBossRuntime(EncounterRuntime):
         if kind=='CurrentHpRatioDamage':return math.floor(max(0,(self.cover[name] if cover else self.bm.state['hp'][name])*value/10000)+.5)
         if kind=='Damage':
             defence=unit_combat.cover_defence(self,name) if cover else self.bm._effective_def(name)
-            amount=incoming_hit(attack,defence,value,stat['LevelStatdamageratio'])
+            # Original Function Damage uses a neutral stat-damage multiplier.
+            # LevelStatdamageratio belongs to monster weapon hits, not attached
+            # functions (native153 formula traces: 1999539/1999540/1999250).
+            amount=incoming_hit(attack,defence,value,10000)
             return math.floor((amount if cover else amount*max(0,1+self.active_stat(name,'received_dmg_pct')/100))+.5)
         return 0
 
@@ -1192,11 +1262,15 @@ class RaidBossRuntime(EncounterRuntime):
             critical_deadlines=self.part_deadlines.report(self.time),critical_deadlines_supported=any(s['ControlParts'] and s['CancelType'].startswith('BrokenParts') for s in self.skills.values()),
             incoming=self.incoming,parts=copy.deepcopy(self.world.parts.parts),choices=self.choices,cover_windows=self.cover_windows,projectiles=[{k:v for k,v in p.items() if k not in ('skill','node')} for p in self.projectiles],summons=[{k:v for k,v in a.items() if k!='skill'} for a in self.adds],
             barrier_windows=self.barrier_windows,barrier_damage_by_unit=self.barrier_damage_by_unit,damage_to_parts=round(self.damage_to_parts),damage_to_adds=round(self.damage_to_adds),
-            part_break_damage=round(self.part_break_damage),part_break_events=copy.deepcopy(self.part_break_events),boss_hp_damage=round(self.damage),
-            stop_reason=self.stop_reason,survival='failed' if self.stop_reason else 'survived modeled attacks',
+            part_break_damage=round(self.part_break_damage),part_break_events=copy.deepcopy(self.part_break_events),
+            boss_hp_damage=round(min(self.boss_max_hp,self.damage)),boss_damage_total=round(self.damage),
+            boss_max_hp=self.boss_max_hp,boss_remaining_hp=round(max(0,self.boss_max_hp-self.damage)),
+            boss_defeated_at=self.boss_defeated_at,
+            stop_reason=self.stop_reason,survival='boss defeated' if self.boss_defeated_at is not None else 'failed' if self.stop_reason else 'survived modeled attacks',
             policy=dict(target=self.part_policy,attack_choice=self.choice_policy,auto_cover=self.auto_cover),
             assumptions=list(ASSUMPTIONS)+(['Unmodeled recovered effect types: '+', '.join(sorted(self.unhandled))] if self.unhandled else []))
         report.update(unit_combat.report(self))
+        if self.boss_defeated_at is not None:report['survival']='boss defeated'
         detail=self.anomaly_hook('report')
         if detail:
             report['boss_mechanics']=detail

@@ -22,7 +22,7 @@ def elemental_reduction_percent(runtime, name, element):
 
 def targetable(runtime, names):
     available = [n for n in names if not runtime.protection(n, 'stealth')]
-    return available or names
+    return available
 
 
 def hit_shield(runtime, name, amount):
@@ -41,8 +41,8 @@ def broadcast(runtime, event):
                 runtime.bm.notify('enemy_death', runtime.time, name)
 
 
-def hurt(runtime, name, amount):
-    return kits.hurt_hp(runtime.bm, name, amount, runtime.time)
+def hurt(runtime, name, amount, *, direct=True):
+    return kits.hurt_hp(runtime.bm, name, amount, runtime.time, direct=direct)
 
 
 def check_defeat(runtime):

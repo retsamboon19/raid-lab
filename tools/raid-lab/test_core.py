@@ -19,7 +19,7 @@ class RosterTests(unittest.TestCase):
         self.assertGreaterEqual(len(demo),25)
         self.assertEqual(core.import_roster({'roster':demo})['roster'],demo)
     def test_complete_real_catalog_and_repeatable_import(self):
-        self.assertEqual(len(core.CATALOG),202)
+        self.assertEqual(len(core.CATALOG),206)
         self.assertTrue(all(c['supported'] for c in core.CATALOG))
         self.assertFalse(any(c['id'].startswith('test_') for c in core.CATALOG))
         n=core.NAME_MAP['crow']

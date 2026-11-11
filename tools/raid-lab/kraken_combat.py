@@ -346,6 +346,7 @@ class KrakenRuntime(EncounterRuntime):
         names=[n for n in self.squad if hp[n]>0]
         if not names: return
         visible=unit_combat.targetable(self,names)
+        if not visible and shot not in (6,7,16):return
         taunters=[n for n in visible if self.protection(n,'taunt')]
         targets=names if shot in (6,7,16) else [self.rng.choice(taunters or visible) for _ in range(skill.get('ShotCount',1))]
         for name in targets:

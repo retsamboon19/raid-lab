@@ -1,0 +1,183 @@
+{
+  "schema": "authored-source-only-v1",
+  "files": [
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/custom-team/compose_native_battle153.py",
+      "sha256": "95ff20c808c6cbac964d0175e8e708098c247ebf0117c1b251ec0e6b22c3bb61",
+      "bytes": 59842
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/custom-team/build_inputs153.py",
+      "sha256": "7d97b6e1de806ee28c5e77a15f863ad71be86a7c157320938505772785913eff",
+      "bytes": 28250
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/custom-team/native_build153.js",
+      "sha256": "d1847c8bb1b9567f8a6afe9ff3855067298768b27302e9e6b980af06e9a67bc1",
+      "bytes": 23715
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/custom-team/native_rng_observer153.js",
+      "sha256": "2c33fb83de322dc8537f55e5b340e2031fc14870c1881b344061854b51229ced",
+      "bytes": 3810
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/custom-team/build_binding153.py",
+      "sha256": "877d0fd5c5e70f2fd47f5a692d934df1b7d7cd6d386c95454090bdfca7b07bfd",
+      "bytes": 5040
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/select_encounter153.py",
+      "sha256": "f68b4e2b4461f74062f5f16cdfc142c0154498c88151d7b0007466393c0f9e09",
+      "bytes": 12663
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/encounter_mode153.js",
+      "sha256": "91bbb3975b9c93c64ee24a17c0e41d6f0002c325d6b541f3f6eb79f6837cddf3",
+      "bytes": 18459
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/encounter_team153.js",
+      "sha256": "36c653e56ed8c43a047e286a28e1fc7204703ff189ed179f29e6e78cb60fcb4e",
+      "bytes": 10445
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/native_campaign153.js",
+      "sha256": "02fd566fececd5c7542b62f76120838074b1e166ac1ea63c547be175c2cb417b",
+      "bytes": 9758
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/geometry_inputs153.py",
+      "sha256": "671531dd347a1034a82220185a3925a91862b7568f7c132dbcd9602deb6fb0cf",
+      "bytes": 3957
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/native153_tactical_binding.js",
+      "sha256": "7e63e6c8f49f066279f8a395f8c766e63275d5bb1f1601a71e75db02bf63e819",
+      "bytes": 2571
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_virtual_pointer.js",
+      "sha256": "cf9899cc539b84d436c84ee9125d96302ef5730d517855b7eeaa61506390e7ce",
+      "bytes": 2449
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_tactical_actions.js",
+      "sha256": "8aafa464337be6e69514584527ce9e49cbdc7a6bef644d9d2aaf545d52e2342f",
+      "bytes": 42389
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_tactical_observer.js",
+      "sha256": "74fee0325612f525b1873accedd5dac03c2faab2392b5e873e13980dac72cdfb",
+      "bytes": 39392
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_threat_observer.js",
+      "sha256": "52aad9c9f6a398190c2d85c5e5f24d506f96bf7126d44b4086b7971643f55394",
+      "bytes": 20333
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_breakable_observer.js",
+      "sha256": "686cbc25bc14330524cf5637a7c45e6518be44f104c9fc244acd3fd0be81a19c",
+      "bytes": 16380
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_qte_policy.js",
+      "sha256": "7b8b3ec5194cb51a3cbea7e0381f16960d4b842be46742e318da6e059d73023b",
+      "bytes": 31237
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_cover_policy.js",
+      "sha256": "6064bd20a250ac7e8f0cf68d9e97ec3df72696da379e2d867d30ee153c538e36",
+      "bytes": 14463
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/native153_tactical_controller.js",
+      "sha256": "fb9a3aa0537594f27d6e1e89410383ffdfdfd1c572a8c1ad1e7429141e2ce128",
+      "bytes": 112036
+    },
+    {
+      "path": "offline/tools/raid-lab/native_realtime_host.py",
+      "sha256": "14b54dc44a3f312de052222e5812bae311c683f47ba70c7a8a34bdad1b1ad036",
+      "bytes": 21648
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/custom-team/native_real_time_scheduler153.js",
+      "sha256": "dceaeac95aaca1e15c0633e058aed9931f3462dc5a05a3a32fbbacc86b6b9d51",
+      "bytes": 111632
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/kraken_part_priority.js",
+      "sha256": "74c611a0d3f5207cc9cf5e294b08baaef6b34ab889d63a6ebbe55cfade799959",
+      "bytes": 2431
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_firing_policy.js",
+      "sha256": "e08790dce67ce6e4e12e51683a5066db40de0ad97de7427127609f94a25ecc10",
+      "bytes": 3157
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_timeline_cover_observer.js",
+      "sha256": "8f62f7e94bbf598b00411ec77620312f527e2029690cf3683650b85aafac21f9",
+      "bytes": 10425
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/kraken_core_observer.js",
+      "sha256": "a22e9260f538d2dd777b032a222793f9e1cbb6c4cbe57fa13ef695ca5f6ab4a2",
+      "bytes": 11879
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_interception_policy.js",
+      "sha256": "787f0cb3c2acee0f1438c662a9689bd6a1fc9b76a9e526aa26fcaa0626d34416",
+      "bytes": 15507
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_interception_threat_targets.js",
+      "sha256": "940574158bb64cde3d495298a2915188805f3bb2aed82b8c44462fbfc2859b70",
+      "bytes": 14375
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_mirror_policy.js",
+      "sha256": "7260618c50fdc51abd65e3577c00a48262c9e74ac59896e0b407292fef3fdaa7",
+      "bytes": 17251
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_indivilia_cover.js",
+      "sha256": "32482c344983d1f91a6844814104acea47e3266c3c659d5c4663f4d8b13bf82a",
+      "bytes": 1590
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_mirror_exposure.js",
+      "sha256": "bef56ff8de18d3621ce28c88f568646da5cd86ac7c5241e588dbe54ef593cf43",
+      "bytes": 7573
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/original_ui_score153.js",
+      "sha256": "9dbabb42c3792d86ef8d1b5125e3de4366a2c1409b9921c29b5d3d59479b0d8d",
+      "bytes": 3391
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_qte_actor_evidence.js",
+      "sha256": "4b6ff553a372bb3c14bc2b8e68c2ee2e537d24a3cab091aa72571167b5def8a1",
+      "bytes": 9284
+    },
+    {
+      "path": "offline/transfer/battle-parity-20261101/native153/encounters153/tactical/mechanics_harvester_target_cover.js",
+      "sha256": "c8bc98267b889cb027df3de47fd7b78c61bb72a497da7fa19255f8b067f0c4ac",
+      "bytes": 4691
+    },
+    {
+      "path": "offline/tools/raid-lab/native_battle_job.py",
+      "sha256": "7159c7c882d5717e1f2b795848c124fa12a91168fadf0fedebb1a62599bc7786",
+      "bytes": 55214
+    }
+  ],
+  "excluded": [
+    "game binaries",
+    "game tables and assets",
+    "private bindings",
+    "account builds",
+    "battle logs and packets"
+  ],
+  "native_engine_changed": false
+}

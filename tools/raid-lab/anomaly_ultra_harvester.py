@@ -28,6 +28,8 @@ For Ultra or Harvester it returns an object with these optional hooks:
 """
 
 import math
+import json
+from pathlib import Path
 
 from anomaly_timing import ordinary_fire_schedule
 from anomaly_projectiles import (FORMATION_AIM, HIDE_TRANSLATION,
@@ -39,6 +41,9 @@ HARVESTER_ID = 1520010113
 HARVESTER_PROJECTILE_SKILL = 510130
 HARVESTER_OBJECT_SKILL = 510133
 ULTRA_PROJECTILE_SKILLS = frozenset((510632, 510633, 510636, 510637))
+ULTRA_WEAPON_OBJECTS = {510632: '3', 510633: '4', 510636: '6', 510637: '5'}
+ULTRA_LAUNCHERS = json.loads((Path(__file__).parent /
+    'anomaly-ultra-launchers.json').read_text())['weapon_objects']
 
 # Native legacy Fire and TimeLineProjectileCurve both emit ShotCount times the
 # selected prefab muzzle count, by different code paths.  All listed prefab
@@ -196,7 +201,7 @@ class _BaseMechanics:
     def _flight_source(self):
         return 'DetectorCenter / ProjectileSpeed proxy'
 
-    def _projectile_geometry(self, projectile_index=0):
+    def _projectile_geometry(self, projectile_index=0, skill=None):
         return {}
 
     def _owner_defence(self, skill, stat):
@@ -285,7 +290,7 @@ class _BaseMechanics:
             'flight_seconds': flight,
             'timing_source': self._flight_source(),
         }
-        projectile.update(self._projectile_geometry(geometry_index))
+        projectile.update(self._projectile_geometry(geometry_index, skill=skill))
         self.runtime.projectiles.append(projectile)
         if projectile['status'] == 'active':
             self._activate_projectile(projectile)
@@ -417,12 +422,46 @@ class UltraMechanics(_BaseMechanics):
     @property
     def assumptions(self):
         return [
-            'Ultra projectile flight uses DetectorCenter / ProjectileSpeed because '
-            'the extracted skill record has speed but no resolved target path.',
+            'Ultra projectile flight uses original prefab bind-pose muzzles, current '
+            'boss position, formation target stance and native speed scaling. '
+            'Animated muzzle displacement and curved collision remain approximate.',
             'Ultra core-to-both-chambers pierce overlap is backed by the installed '
             'bind-pose capsule geometry and the exact Anomaly Ultra guide. Animated '
             'per-character ray traces remain unavailable.',
         ]
+
+    def _flight_seconds(self, skill, monster=None, projectile_index=0):
+        speed=skill.get('ProjectileSpeed',0)*NATIVE_SPEED_SCALE
+        geometry=self._projectile_geometry(projectile_index,skill)
+        return math.dist(geometry['launcher_position'],FORMATION_AIM[2])/speed if speed>0 else 0.
+
+    def _flight_source(self):
+        return 'native endpoint distance / scaled ProjectileSpeed; bind-pose muzzle'
+
+    def _projectile_geometry(self, projectile_index=0, skill=None):
+        local=ULTRA_LAUNCHERS[ULTRA_WEAPON_OBJECTS[skill['Id']]][projectile_index]
+        coordinates=self.runtime.world.coordinates
+        boss=tuple(coordinates[axis] for axis in ('x','y','z'))
+        return dict(launcher_bind_position=local,boss_position=boss,
+                    launcher_position=tuple(boss[i]+local[i] for i in range(3)))
+
+    def _activate_projectile(self, projectile):
+        targets=projectile['node'].get('_locked_targets',())
+        target=targets[0] if targets else None
+        # Same native character-head/stance endpoint model as Harvester.
+        position,source=HarvesterMechanics._projectile_target_position(self,target)
+        geometry=self._projectile_geometry(0,projectile['source_skill'])
+        boss=geometry['boss_position'];local=projectile['launcher_bind_position']
+        launcher=tuple(boss[i]+local[i] for i in range(3))
+        distance=math.dist(launcher,position)
+        speed=projectile['source_skill']['ProjectileSpeed']*NATIVE_SPEED_SCALE
+        flight=distance/speed if speed>0 else 0.
+        projectile.update(target=target,target_position=position,target_position_source=source,
+                          boss_position=boss,launcher_position=launcher,endpoint_distance=distance,
+                          native_speed=speed,flight_seconds=flight,
+                          deadline=projectile['launch_at']+flight,
+                          geometry_status='bind-pose launcher + current formation endpoint')
+        return super()._activate_projectile(projectile)
 
     def core_probability(self, caster, part, pierce):
         r = self.runtime
@@ -464,6 +503,8 @@ class UltraMechanics(_BaseMechanics):
         # Ultra Shot06/07 use legacy AttackV2/V3 with ten selected muzzles;
         # timeline Shot03/04 each use one prefab with one muzzle.
         if skill.get('Id') in ULTRA_PROJECTILE_SKILLS:
+            if '_locked_targets' not in node and self.runtime.bm:
+                node=dict(node,_locked_targets=self.runtime.attack_targets(skill,node))
             self._launch_physical_projectiles(skill, node, destroyable=False)
             return True
         return False
@@ -580,7 +621,7 @@ class HarvesterMechanics(_BaseMechanics):
     def _flight_source(self):
         return 'native endpoint distance / scaled ProjectileSpeed'
 
-    def _projectile_geometry(self, projectile_index=0):
+    def _projectile_geometry(self, projectile_index=0, skill=None):
         local = HARVESTER_LAUNCHERS[projectile_index]
         launch = tuple(HARVESTER_BOSS_POINT[i] + local[i] for i in range(3))
         return {

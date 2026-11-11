@@ -367,10 +367,16 @@ def shield_hit(bm, name, amount, t):
     return None, 0.0
 
 
-def hurt_hp(bm, name, amount, t, *, share=True):
+def hurt_hp(bm, name, amount, t, *, share=True, direct=True):
     """Apply HP damage once; shared damage cannot recursively redistribute."""
     if not alive(bm, name) or any(active(bm, name, 'invincible', t)):
         return 0.0
+    # Hide breaks on a hit to its wearer, not damage transferred from an ally
+    # or a periodic damage tick. Covers/shields intercept before this entry.
+    if direct and amount > 0:
+        for ab in list(active(bm, name, 'stealth', t)):
+            if ab.effect.get('remove_on_direct_hit'):
+                remove(bm, ab, t)
     if share:
         for stat in ('damage_share_weighted', 'damage_share'):
             group = next(active(bm, name, stat, t), None)
@@ -383,7 +389,7 @@ def hurt_hp(bm, name, amount, t, *, share=True):
                 denom = sum(weights.values()) + (131.0 if cover else 0)
                 if cover:
                     runtime.cover[group.caster] = max(0, runtime.cover[group.caster] - amount * 131 / denom)
-                return sum(hurt_hp(bm, n, amount * weight / denom, t, share=False) for n, weight in weights.items())
+                return sum(hurt_hp(bm, n, amount * weight / denom, t, share=False, direct=False) for n, weight in weights.items())
     hp = bm.state['hp']
     before = hp[name]
     if amount >= before:

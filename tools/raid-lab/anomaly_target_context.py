@@ -76,6 +76,9 @@ def _native_skill_row(effect: Mapping[str, Any], caster: str) -> Mapping[str, An
 
 def native_skill_target_condition(effect: Mapping[str, Any], caster: str) -> str | None:
     """Return an authored CharacterSkill condition only for a proven skill."""
+    supplied = effect.get("native_target_condition")
+    if supplied in _PREFERENCE_VALUES:
+        return supplied
     row = _native_skill_row(effect, caster)
     return row["condition"] if row else None
 
@@ -334,6 +337,10 @@ def select_enemy_effect_targets(runtime: Any, effect: Mapping[str, Any],
     if not _enemy_selector(selector):
         return None
     entities = _enemy_entities(runtime, caster)
+    required_state = effect.get("required_target_state")
+    if required_state:
+        eligible = set(_named_effect_targets(runtime, str(required_state), now))
+        entities = [entity for entity in entities if entity["id"] in eligible]
     if not entities:
         return []
     by_id = {entity["id"]: entity for entity in entities}
@@ -380,7 +387,13 @@ def select_enemy_effect_targets(runtime: Any, effect: Mapping[str, Any],
             entities, min(count, len(entities)))]
 
     count = _count_suffix(selector)
-    if selector.startswith("enemies_nearest"):
+    if selector.startswith("enemies_nearest_aim:"):
+        # The crosshair's current enemy comes from the encounter's live aim
+        # policy. A previous attack recipient is not a current aim observation.
+        provider = getattr(runtime, "enemy_aim_target", None)
+        aimed = provider(caster) if provider is not None else "__boss__"
+        ordered = sorted(entities, key=lambda entity: (entity["id"] != aimed, all_ids.index(entity["id"])))
+    elif selector.startswith("enemies_nearest"):
         candidates = (_ranged_candidates(runtime, effect, caster, selector, entities)
                       if selector.startswith("enemies_nearest_in_range") else entities)
         ordered = sorted(candidates, key=lambda entity: (
@@ -450,7 +463,7 @@ def direct_skill_enemy_targets(runtime: Any, caster: str,
     if hit_type.get("hits_parts"):
         remember(["__boss__"])
         return None
-    if selector == "all_enemies" and not hit_type.get("is_split"):
+    if selector == "all_enemies" and not hit_type.get("is_split") and not hit_type.get("required_target_state"):
         selected = [entity["id"] for entity in _enemy_entities(runtime, caster)
                     if all_monster_targetable(runtime, entity)]
         remember(selected)
@@ -467,7 +480,9 @@ def direct_skill_enemy_targets(runtime: Any, caster: str,
     selected = select_enemy_effect_targets(
         runtime, {"target": selector,
                   "source": hit_type.get("effect_source"),
-                  "native_skill_id": hit_type.get("native_skill_id")},
+                  "native_skill_id": hit_type.get("native_skill_id"),
+                  "native_target_condition": hit_type.get("native_target_condition"),
+                  "required_target_state": hit_type.get("required_target_state")},
         caster, now)
     remember(list(selected or ()))
     return selected

@@ -35,6 +35,13 @@
 !/tools/raid-lab/test_character_update.py
 !/tools/raid-lab/test_ade_optimal_range.py
 !/tools/raid-lab/CHARACTER-UPDATE-2026-09.md
+!/tools/raid-lab/CHARACTER-UPDATE-20261030.md
+!/tools/raid-lab/test_goddeath.py
+!/tools/raid-lab/test_marian_queen.py
+!/tools/raid-lab/test_belorta_witch.py
+!/tools/raid-lab/test_rapunzel_sanctuary.py
+!/tools/raid-lab/test_current_roster.py
+!/tools/raid-lab/current-roster.json
 !/tools/raid-lab/validate_roster.py
 !/tools/raid-lab/KIT-COVERAGE.md
 !/tools/raid-lab/core.py
@@ -136,17 +143,40 @@
 !/tools/raid-lab/test_squad_checks.js
 !/tools/raid-lab/source_provenance.py
 !/tools/raid-lab/test_source_provenance.py
+!/tools/raid-lab/native_practice.py
+!/tools/raid-lab/native_battle.py
+!/tools/raid-lab/native_search.py
+!/tools/raid-lab/test_native_search.py
+!/tools/raid-lab/test_native_search_ui.js
+!/tools/raid-lab/test_native_function_damage.py
+!/tools/raid-lab/test_python_native_semantics.py
+!/tools/raid-lab/anomaly-ultra-launchers.json
+!/tools/raid-lab/test_native_practice.py
+!/tools/raid-lab/test_native_practice_server.py
+!/tools/raid-lab/test_native_practice_web.js
 !/tools/raid-lab/test_anis_formation.py
 !/tools/raid-lab/research/
 /tools/raid-lab/research/*
 !/tools/raid-lab/research/DAMAGE-CALLER-MAPPING.md
 !/tools/raid-lab/research/native-player/
+!/tools/raid-lab/research/native153/
 /tools/nikke-team-builder/*
 !/tools/nikke-team-builder/calculator/
 !/tools/nikke-team-builder/runner/
 !/tools/nikke-team-builder/data/
+!/tools/nikke-team-builder/baseline/
+/tools/nikke-team-builder/baseline/*
+!/tools/nikke-team-builder/baseline/S40_퀸유키코.json
 !/tools/nikke-team-builder/scraper/
 !/tools/nikke-team-builder/LICENSE
+!/tools/nikke-team-builder/docs/
+/tools/nikke-team-builder/docs/*
+!/tools/nikke-team-builder/docs/scenarios/
+/tools/nikke-team-builder/docs/scenarios/*
+!/tools/nikke-team-builder/docs/scenarios/벨로타 _ 펌킨 위치.md
+!/tools/nikke-team-builder/docs/scenarios/마리안 _ 퀸.md
+!/tools/nikke-team-builder/docs/scenarios/라푼젤 _ 생츄어리.md
+!/tools/nikke-team-builder/docs/scenarios/홍련 _ 신살.md
 /tools/nikke-team-builder/scraper/*
 !/tools/nikke-team-builder/scraper/nikke_scraped.json
 !/tools/nikke-team-builder/scraper/profile_fetch.py
@@ -161,8 +191,3 @@
 **/.browser-runtime/
 **/.gpu-runtime/
 **/.git/
-!/tools/raid-lab/native_practice.py
-!/tools/raid-lab/test_native_practice.py
-!/tools/raid-lab/test_native_practice_server.py
-!/tools/raid-lab/test_native_practice_web.js
-!/tools/raid-lab/research/native153/

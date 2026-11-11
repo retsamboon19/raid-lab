@@ -11,25 +11,26 @@ PARTS = (("head", "머리"), ("torso", "몸통"), ("arm", "팔"), ("leg", "다�
 SOURCE = "BlaBlaLink Game/GetUserCharacterDetails"
 
 
+def _browser_number_form(value):
+    if type(value) is float and math.isfinite(value) and value.is_integer():
+        return int(value)
+    if isinstance(value, dict):
+        return {key: _browser_number_form(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_browser_number_form(item) for item in value]
+    return value
+
+
 def build_digest(build: dict) -> str:
-    canonical = json.dumps(build, ensure_ascii=False, sort_keys=True,
+    canonical = json.dumps(_browser_number_form(build), ensure_ascii=False, sort_keys=True,
                            separators=(",", ":"), allow_nan=False).encode("utf-8")
     return hashlib.sha256(canonical).hexdigest()
 
 
 def _content_digest(source: dict) -> str:
-    def browser_number_form(value):
-        if type(value) is float and math.isfinite(value) and value.is_integer():
-            return int(value)
-        if isinstance(value, dict):
-            return {key: browser_number_form(item) for key, item in value.items()}
-        if isinstance(value, list):
-            return [browser_number_form(item) for item in value]
-        return value
-
     payload = {key: value for key, value in source.items()
                if key != "sourceContentSha256"}
-    canonical = json.dumps(browser_number_form(payload), ensure_ascii=False, sort_keys=True,
+    canonical = json.dumps(_browser_number_form(payload), ensure_ascii=False, sort_keys=True,
                            separators=(",", ":"), allow_nan=False).encode("utf-8")
     return hashlib.sha256(canonical).hexdigest()
 
@@ -107,6 +108,16 @@ def from_account_detail(detail: dict, options: dict, effects: list[dict],
 def bound_source(source: object, normalized_build: dict,
                  expected_name_code: int) -> dict | None:
     """Retain a source only while its unit, build and payload all match."""
+    # Existing imports used Python's integral-float spelling before browser
+    # normalization was added. Accept that exact old schema digest while the
+    # unchanged gear/effect content remains independently bound below.
+    legacy_build = copy.deepcopy(normalized_build)
+    if isinstance(legacy_build.get('equip_skills'), dict):
+        legacy_build['equip_skills'] = {
+            key: [float(item) for item in value] if isinstance(value, list) else float(value)
+            for key, value in legacy_build['equip_skills'].items()}
+    legacy_digest = hashlib.sha256(json.dumps(legacy_build, ensure_ascii=False,
+        sort_keys=True, separators=(',', ':'), allow_nan=False).encode('utf-8')).hexdigest()
     if not isinstance(source, dict) or set(source) != {
             "schemaVersion", "source", "nameCode", "normalizedBuildSha256",
             "sourceContentSha256", "gearSlots"} or \
@@ -114,7 +125,7 @@ def bound_source(source: object, normalized_build: dict,
             source["schemaVersion"] != 1 or source["source"] != SOURCE or \
             type(source["nameCode"]) is not int or \
             source["nameCode"] != expected_name_code or \
-            source["normalizedBuildSha256"] != build_digest(normalized_build):
+            source["normalizedBuildSha256"] not in {build_digest(normalized_build), legacy_digest}:
         return None
     slots = source["gearSlots"]
     if not isinstance(slots, dict) or set(slots) != {part for _, part in PARTS}:

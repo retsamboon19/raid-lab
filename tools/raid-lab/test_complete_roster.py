@@ -33,7 +33,7 @@ def buff(stat, target='self', value=10.0, **kw):
 
 class CompleteRosterTests(unittest.TestCase):
     def test_every_real_character_has_all_three_base_skills(self):
-        self.assertEqual(len(core.CATALOG), 202)
+        self.assertEqual(len(core.CATALOG), 206)
         for c in core.CATALOG:
             with self.subTest(character=c['name']):
                 self.assertTrue(c['supported'])

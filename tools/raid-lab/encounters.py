@@ -9,7 +9,7 @@ from pathlib import Path
 from bisect import bisect_right
 
 CHECKED = "2026-09-10"
-MODEL_REVISION = "anomaly-source-runtime-v7"
+MODEL_REVISION = "anomaly-source-runtime-v9-roster153"
 MUSEUM_SOURCE = "https://gamewith.jp/nikke/article/show/573385"
 ADVANTAGE = {"Fire":"Wind", "Wind":"Iron", "Iron":"Electric", "Electric":"Water", "Water":"Fire"}
 

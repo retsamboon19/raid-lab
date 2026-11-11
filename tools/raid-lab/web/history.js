@@ -105,6 +105,10 @@ const RaidHistory = (() => {
   }
   function renderDetail(data) {
    const report = data.report, summary = data.summary, settings = report.settings || {}, teams = report.teams || [];
+   if (report.schema === 'native-search-v1') {
+    el('historyDetail').innerHTML = '<div class="history-detail-toolbar"><button data-history-back class="quiet">← Back to history</button><button data-history-export>Export report</button></div><h2 id="historyDetailTitle" tabindex="-1">Saved native search</h2>' + RaidNativeSearch.render(report, getCatalog(), false);
+    return;
+   }
    const snapshots = Object.fromEntries((summary.teams || []).flatMap(t => t.members).map(m => [m.id,m]));
    const catalog = getCatalog();
    const unit = id => ({...(catalog[id] || {}), ...(snapshots[id] || {}), name:snapshots[id]?.name || catalog[id]?.name || id});

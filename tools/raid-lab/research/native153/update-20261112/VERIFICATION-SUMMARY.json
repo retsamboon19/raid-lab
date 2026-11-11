@@ -1,0 +1,82 @@
+{
+  "status": "Verified bounded fixes; Python parity NOT achieved",
+  "rosterCount": 206,
+  "reference": "Official roster CDN and read-only installed legitimate client version 153.6.10; DLL and seven catalogs match offline",
+  "comparison": "Same four fixed reference squads, orders and builds; unchanged native-engine results from earlier November 12 runs reused",
+  "rows": [
+    {
+      "boss": "indivilia",
+      "pythonAggregate": 3163333913,
+      "pythonBossHpDamage": 3201045525,
+      "nativeAggregate": 3323593844,
+      "nativeUiDamage": "3286675605",
+      "aggregateDifferencePercent": -4.821886744353954,
+      "pythonWallSeconds": 14.961975600017468,
+      "pythonStop": "Squad defeated",
+      "pythonBossDefeatedAt": null,
+      "nativeDurationMs": 180000,
+      "nativeReferenceReused": true
+    },
+    {
+      "boss": "ultra",
+      "pythonAggregate": 1211430963,
+      "pythonBossHpDamage": 1229430963,
+      "nativeAggregate": 1857887270,
+      "nativeUiDamage": "1857887270",
+      "aggregateDifferencePercent": -34.79523851842744,
+      "pythonWallSeconds": 4.770059099973878,
+      "pythonStop": "Squad defeated",
+      "pythonBossDefeatedAt": null,
+      "nativeDurationMs": 180000,
+      "nativeReferenceReused": true
+    },
+    {
+      "boss": "harvester",
+      "pythonAggregate": 5737156354,
+      "pythonBossHpDamage": 5735000000,
+      "nativeAggregate": 5820815452,
+      "nativeUiDamage": "5342309301",
+      "aggregateDifferencePercent": -1.4372401717572925,
+      "pythonWallSeconds": 6.501713000005111,
+      "pythonStop": "Boss defeated",
+      "pythonBossDefeatedAt": 156.70000000001684,
+      "nativeDurationMs": 180000,
+      "nativeReferenceReused": true,
+      "comparisonLimit": "Python clears at 156.7s while native runs 180s without clearing; aggregate closeness is not parity."
+    },
+    {
+      "boss": "mirror-container",
+      "pythonAggregate": 2590945523,
+      "pythonBossHpDamage": 2590945523,
+      "nativeAggregate": 3497344287,
+      "nativeUiDamage": "3467212775",
+      "aggregateDifferencePercent": -25.91677254564786,
+      "pythonWallSeconds": 4.791469000017969,
+      "pythonStop": "Squad defeated",
+      "pythonBossDefeatedAt": null,
+      "nativeDurationMs": 180000,
+      "nativeReferenceReused": true
+    }
+  ],
+  "remaining": [
+    "Boss coroutine and animation scheduling",
+    "Animated projectile/collider contact and core-hit rates",
+    "Complete native skill-trigger order and resulting survival"
+  ],
+  "tests": {
+    "focusedPassed": 125,
+    "optionalNativeSkipped": 4,
+    "snapshotSquadsPassed": 33,
+    "doclint": "PASS"
+  },
+  "usageLastObservedRemainingPercent": 90,
+  "memory": {
+    "strategy": "InitializeMinimumAsync with original demand loading",
+    "sharedMasterHeap": false,
+    "measuredPrivateRamSavedMiB": 534.2890625,
+    "measuredPrivateRamSavedPercent": 22.497,
+    "matchedSingleRunSecondsSaved": 6.081717252731323,
+    "matchedSingleRunUiDamageDifferencePercent": 3.169784760987704,
+    "limit": "One matched run per strategy; not proof of statistical result equivalence or ten-worker RAM savings."
+  }
+}

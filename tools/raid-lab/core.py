@@ -458,6 +458,19 @@ def membership_shortlist(screened,limit):
     return selected
 
 def attach_combat_assessment(entry):
+    if '마리안 : 퀸' in entry.get('members', ()):
+        note = ('Marian: Queen uses the current game skill values. Sequential-hit timing, '
+                'recurring-attack timing across burst changes, and attack-counter resets '
+                'have not yet been compared with the original client.')
+        warnings = entry.setdefault('warnings', [])
+        if note not in warnings:
+            warnings.append(note)
+    if '홍련 : 신살' in entry.get('members', ()):
+        note = ('Scarlet: Goddeath\'s wider piercing attacks are modeled against the selected target. '
+                'Extra part hits and critical-hit counting across burst transitions are not yet validated.')
+        warnings = entry.setdefault('warnings', [])
+        if note not in warnings:
+            warnings.append(note)
     fight=entry.get("encounter_timeline")
     if fight and 'part_break_damage' in fight:
         add_by=fight.get('add_damage_by_unit',{})

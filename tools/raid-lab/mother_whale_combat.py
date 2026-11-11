@@ -336,6 +336,7 @@ class MotherWhaleRuntime(EncounterRuntime):
         visible=unit_combat.targetable(self,names)
         taunters=[n for n in visible if self.protection(n,'taunt')]
         count=max(1,skill['ShotCount']);all_targets=skill.get('TargetCount')==5
+        if not visible and not all_targets:return
         targets=names if all_targets else [self.rng.choice(taunters or visible) for _ in range(count)]
         for name in targets:
             roll=self.rng.random()*100

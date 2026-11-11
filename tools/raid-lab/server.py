@@ -14,6 +14,8 @@ import report_history
 import feedback
 import accounts
 import native_practice
+import native_battle
+import native_search
 
 ROOT=Path(__file__).resolve().parent
 JOBS={}
@@ -26,27 +28,33 @@ def history_store(account_id=None):
     directory = accounts.account_dir(account_id) if account_id else ROOT/'private'
     return report_history.ReportHistory(directory, core.CAT)
 
-def worker(payload,kind,events,cancel,job_id=None):
+def worker(payload,kind,events,cancel,job_id=None,accepted_at=None):
     try:
         if kind=='native_practice':
             result=native_practice.run_fixed_practice(payload,
                 lambda **kw:events.put({'status':'running',**kw}),cancel.is_set,job_id=job_id)
             events.put({'status':'done','result':result})
             return
-        result=core.manual(payload) if kind=='manual' else core.search(payload,lambda **kw:events.put({'status':'running',**kw}),cancel.is_set)
-        if payload.get('roster'):
-            result['feedback_context']={'owned_units':core.import_roster({'roster':payload['roster']})['roster']}
-        try:
-            result['history']=history_store(payload.get('account_id')).save(result,kind)
-        except Exception:
-            # The computed result remains usable even if private storage is full,
-            # read-only or unavailable. This must never turn a successful run into an error.
-            result['history_error']='This recommendation could not be saved to history. Export the report to keep a copy.'
-        events.put({'status':'done','result':result})
-    except native_practice.NativePracticeCancelled as error:
+        if kind=='manual':
+            result=native_battle.run_battle(payload,
+                lambda **kw:events.put({'status':'running',**kw}),cancel.is_set,job_id=job_id)
+            result['requestedInputs']=payload
+            result['requestTiming']={'acceptedWallMs':round(accepted_at[0]*1000) if accepted_at is not None else None,'verifiedWallMs':round(time.time()*1000),'acceptedToVerifiedSeconds':round(time.monotonic()-accepted_at[1],3) if accepted_at is not None else None,'scope':'API acceptance through original result and archive verification, including validation and worker startup'}
+            events.put({'status':'done','result':result})
+            return
+        if kind=='search':
+            result=native_search.run_search(payload,
+                lambda **kw:events.put({'status':'running',**kw}),cancel.is_set)
+            result['requestTiming']={'acceptedWallMs':round(accepted_at[0]*1000) if accepted_at is not None else None,'verifiedWallMs':round(time.time()*1000),'acceptedToVerifiedSeconds':round(time.monotonic()-accepted_at[1],3) if accepted_at is not None else None,'scope':'API acceptance through completed search and verified candidate archives'}
+            try:result['history']=history_store(payload.get('account_id')).save(result,'search')
+            except Exception:result['history_error']='Results are ready, but saving recommendation history failed. Export this report to keep it.'
+            events.put({'status':'done','result':result})
+            return
+        raise ValueError('Unknown simulation job type.')
+    except (native_practice.NativePracticeCancelled,native_battle.NativeBattleCancelled) as error:
         events.put({'status':'cancelled','code':'cancelled','message':str(error),
                     'nativeJobId':error.job_id,'nativeEvidence':error.evidence})
-    except native_practice.NativePracticeError as error:
+    except (native_practice.NativePracticeError,native_battle.NativeBattleError) as error:
         events.put({'status':'error','code':error.code,'error':str(error)})
     except InterruptedError as error:events.put({'status':'cancelled','message':str(error)})
     except BaseException as e:events.put({'status':'error','error':str(e) or type(e).__name__})
@@ -63,6 +71,10 @@ def collect(job):
 
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*a,**kw):super().__init__(*a,directory=str(ROOT/'web'),**kw)
+    def translate_path(self,path):
+        page=urlsplit(path).path
+        if page in ('/','/roster.html'):path='/index.html'
+        return super().translate_path(path)
     def log_message(self,*a):pass
     def send_json(self,data,status=200):
         raw=json.dumps(data,ensure_ascii=False,allow_nan=False).encode()
@@ -101,7 +113,10 @@ class Handler(SimpleHTTPRequestHandler):
             from gpu_search import device_info
             from parallel_compute import worker_count, available_cpus, worker_limit
             return self.send_json({'cpu_workers':worker_count(),'cpu_available':available_cpus(),'cpu_worker_limit':worker_limit(),'gpu':device_info()})
-        if path=='/api/health':return self.send_json({'app':'Raid Lab','version':1})
+        if path=='/api/health':return self.send_json({'app':'Raid Lab','version':1,'battleEngine':native_battle.ENGINE,'nativeOnly':False,'nativeResultsOnly':True,'pythonScreening':True,'minimumTables':True,'customTeams':True,'nativeSearch':True,'acceleratedPreview':True,'acceleratedPreviewVersion':2})
+        if path=='/api/native/encounters':
+            try:return self.send_json(native_battle.encounter_catalog())
+            except native_battle.NativeBattleError as error:return self.send_json({'error':str(error),'code':error.code},error.http_status)
         if path=='/api/native/practice/status':
             with LOCK:
                 latest=next(((token,job) for token,job in reversed(list(JOBS.items()))
@@ -127,6 +142,7 @@ class Handler(SimpleHTTPRequestHandler):
         if path.startswith('/api/'):return self.send_json({'error':'Not found.'},404)
         super().do_GET()
     def do_POST(self):
+        accepted_at=(time.time(),time.monotonic())
         if not self.allowed():return self.send_json({'error':'Local access only.'},403)
         if self.headers.get('Content-Type','').split(';')[0]!='application/json':return self.send_json({'error':'JSON required.'},415)
         try:
@@ -167,17 +183,28 @@ class Handler(SimpleHTTPRequestHandler):
                     p.start();JOBS[token]={'process':p,'queue':events,'cancel':cancel,'kind':'native_practice',
                         'state':{'status':'running','phase':'Preparing original native practice','nativeJobId':token}}
                 return self.send_json({'id':token},202)
-            if self.path in ('/api/search','/api/manual'):
-                if body.get('account_id'):accounts.read(body['account_id'])
-                core.validate_settings(body.get('settings',{}));core.import_roster({'roster':body.get('roster',[])})
+            if self.path in ('/api/manual','/api/native/battle'):
+                body=native_battle.validate_request(body)
                 with LOCK:
                     for job in JOBS.values():
                         if collect(job)['status']=='running':return self.send_json({'error':'A simulation is already running. Cancel it or wait for completion.'},409)
-                    # Limit memory retained by old reports.
                     while len(JOBS)>=8:JOBS.pop(next(iter(JOBS)))
                     token=secrets.token_hex(12);events=mp.Queue();cancel=mp.Event()
-                    p=mp.Process(target=worker,args=(body,'manual' if self.path.endswith('manual') else 'search',events,cancel),daemon=False)
-                    p.start();JOBS[token]={'process':p,'queue':events,'cancel':cancel,'state':{'status':'running','phase':'Preparing roster','simulations':0}}
+                    p=mp.Process(target=worker,args=(body,'manual',events,cancel,token,accepted_at),daemon=False)
+                    p.start();JOBS[token]={'process':p,'queue':events,'cancel':cancel,'kind':'manual',
+                        'state':{'status':'running','phase':'Preparing your original native battle','nativeJobId':token}}
+                return self.send_json({'id':token},202)
+            if self.path=='/api/search':
+                body=native_search.validate_request(body)
+                if body.get('account_id'):accounts.read(body['account_id'])
+                with LOCK:
+                    for job in JOBS.values():
+                        if collect(job)['status']=='running':return self.send_json({'error':'A simulation is already running. Cancel it or wait for completion.'},409)
+                    while len(JOBS)>=8:JOBS.pop(next(iter(JOBS)))
+                    token=secrets.token_hex(12);events=mp.Queue();cancel=mp.Event()
+                    p=mp.Process(target=worker,args=(body,'search',events,cancel,token,accepted_at),daemon=False)
+                    p.start();JOBS[token]={'process':p,'queue':events,'cancel':cancel,'kind':'search',
+                        'state':{'status':'running','phase':'Choosing teams from your enabled roster','simulations':0}}
                 return self.send_json({'id':token},202)
             if self.path.startswith('/api/cancel/'):
                 with LOCK:
@@ -185,10 +212,10 @@ class Handler(SimpleHTTPRequestHandler):
                     if job:
                         job['cancel'].set()
                         job['state'].update(phase='Cancellation requested; waiting for the current battle to finish.'
-                            if job.get('kind')=='native_practice' else 'Stopping workers and keeping completed recommendations…')
+                            if job.get('kind') in ('native_practice','manual') else 'Stopping after the current native battle; keeping completed recommendations…')
                 return self.send_json({'status':'cancelling'})
             return self.send_json({'error':'Not found.'},404)
-        except native_practice.NativePracticeError as e:return self.send_json({'error':str(e),'code':e.code},e.http_status)
+        except (native_practice.NativePracticeError,native_battle.NativeBattleError) as e:return self.send_json({'error':str(e),'code':e.code},e.http_status)
         except (ValueError,TypeError,KeyError,AttributeError) as e:return self.send_json({'error':str(e)},400)
 
 if __name__=='__main__':

@@ -1,0 +1,55 @@
+/* Stacked workspace: Encounter panel on top, Available units below. */
+.workspace{grid-template-columns:minmax(0,1fr)!important;gap:22px}
+.settings{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:18px 24px;align-items:start}
+.settings>.section-title,.settings>details,.settings>#combatControls,.settings>#campaignSettings,.settings>#bossSummary,
+.settings>#criticalPartsOption,.settings>.requirements,.settings>#progress,.settings>.scope{grid-column:1/-1}
+.settings>#buildBtn{align-self:end;justify-self:start;min-width:220px}
+.settings>#bossSummary:empty{display:none}
+.settings>#bossSummary{padding:12px 16px;margin:0}
+.settings>#bossSummary h3,.settings>#bossSummary p{margin:2px 0}
+.settings>.scope{margin:0;font-size:12.5px;color:var(--muted)}
+.settings>#progress{margin:-6px 0 0;font-size:13px}
+
+/* (i) help tooltips */
+.label-head{display:flex;align-items:center;gap:7px}
+.info{position:relative;display:inline-grid;place-items:center;width:16px;height:16px;border:1px solid var(--muted);border-radius:50%;
+  color:var(--muted);font:600 10px/1 Georgia,serif;font-style:italic;cursor:help;flex-shrink:0;vertical-align:middle;margin-left:6px}
+.label-head .info{margin-left:0}
+.info:hover,.info:focus-visible,.info.open{color:var(--ink);border-color:var(--accent);outline:none}
+.info .tip{display:none;position:absolute;top:calc(100% + 8px);left:-8px;width:min(300px,80vw);z-index:30;padding:10px 12px;
+  background:#1b1f26;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.45);
+  font:400 12.5px/1.5 Inter,'Segoe UI',sans-serif;font-style:normal;color:#d5dbe4;text-align:left;white-space:normal;cursor:default}
+.info.tip-left .tip{left:auto;right:-8px}
+.info:hover .tip,.info:focus .tip,.info.open .tip{display:block}
+.info .tip small{display:block;font-size:12.5px;color:#d5dbe4}
+.info .tip small+small{margin-top:6px}
+
+/* Collapsible panel headers */
+.section-title .collapse-toggle{margin-left:auto;padding:6px 12px;font-size:13px}
+.section-title .source+.collapse-toggle{margin-left:12px}
+.collapse-summary{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.panel:not(.collapsed) .collapse-summary{display:none}
+.panel.collapsed>:not(.section-title){display:none!important}
+.panel.collapsed>.section-title{margin-bottom:0}
+.settings.collapsed{display:block!important}
+.roster-panel.collapsed .source{margin-left:auto}
+
+/* Team requirement chips (UI only for now) */
+.requirements{border:0;padding:0;margin:0;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.requirements legend{float:left;display:flex;align-items:center;padding:0;font-size:14px;color:#d5dbe4;margin-right:4px}
+.requirement-chips{display:flex;flex-wrap:wrap;gap:8px}
+.requirement-chips .chip{flex-direction:row;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--line);border-radius:999px;font-size:13px;cursor:pointer;user-select:none}
+.requirement-chips .chip:has(input:checked){border-color:var(--accent);color:var(--ink);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.requirement-chips .chip input{width:15px;height:15px}
+.requirements small{color:var(--muted);font-size:12px}
+
+/* Must-include picker (UI only for now) */
+.must-include .unit-chip{display:inline-flex;align-items:center;gap:7px;padding:4px 6px 4px 11px;border:1px solid var(--accent);border-radius:999px;font-size:13px;color:var(--ink);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+.must-include .unit-chip .element{width:8px;height:8px;border-radius:50%;display:inline-block}
+.must-include .unit-chip button{border:0;background:none;padding:0 5px;color:var(--muted);font-size:15px;line-height:1;cursor:pointer}
+.must-include .unit-chip button:hover{color:var(--ink)}
+#mustIncludeCount{margin-left:6px;font-size:12px}
+.must-add input{width:200px;padding:6px 12px;border-radius:999px;font-size:13px}
+.must-add[hidden]{display:none}
+
+@media(max-width:720px){.settings{grid-template-columns:minmax(0,1fr)}.settings>#buildBtn{justify-self:stretch}}

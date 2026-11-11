@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import copy
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -833,6 +834,44 @@ def build():
     weapon(3, 0, 'SG', 10, pellets=5, muzzles=2, fire_rate=2.4, max_ammo=999,
            burst_energy=0.2)
     pair(3, 'burst_cast', 'self', [('atk_caster_based_pct', 1), ('atk_dmg_pct', 2)], 10)
+
+    # Installed 153.6.10, resource 472. Normal and replacement InstantBox
+    # contacts remain subject to the simulator's documented geometry limits.
+    kit('홍련 : 신살')
+    e(1, 'battle_start', 'self', 'pierce_enabled', duration=-1,
+      name='임전 : 명경지수', undispellable=True, into_the_fray=True)
+    e(1, 'battle_start', 'self', 'normal_atk_crit_rate', 0, -1,
+      name='명경지수 일반 공격 크리티컬', undispellable=True)
+    damage(1, 'on_attack', 'target', 1, stat='bonus_damage', name='거합',
+           note='One NearAim target per ammo use; separate skill damage, not one hit per pierced contact.')
+    e(1, 'full_burst_start', 'self', 'crit_dmg', 2, 10,
+      name='화무십일일홍 · 개화')
+    e(2, 'crit_hit_count:2', 'self', 'ammo_charge_flat', 1,
+      condition='not_self_state:임전 : 신검합일', name='화무십일일홍 · 난무 탄환 충전')
+    e(2, 'burst_cast', 'self', 'normal_atk_crit_rate', 2, 10,
+      name='임전 : 신검합일', undispellable=True)
+    e(2, 'burst_cast', 'self', 'atk_dmg_pct', 4, 10,
+      name='신검합일 공격 대미지', undispellable=True)
+    e(2, 'burst_cast', 'self', 'dmg_scale_mag_pct', 100.0, 10,
+      name='신검합일 거합 강화', target_effect='거합', undispellable=True)
+    weapon(3, 0, 'AR', 10, name='화무십일일홍 · 만개', charge=False,
+           fire_rate=1.5, max_ammo=999, reload_time=0, pellets=1, muzzles=1,
+           burst_energy=3.4, native_shot_id=1047202, fire_type='InstantBox',
+           box_width=2000, box_height=50, core_dmg_mult=200)
+    e(3, 'burst_cast', 'self', 'effect_range_pct', 100.0, 10,
+      name='만개 일반 공격 폭', target_effect='화무십일일홍 · 만개',
+      undispellable=True,
+      note='Authored BoxWidth 1000 -> 2000; exact 153 contact geometry is not yet modeled.')
+    e(3, 'burst_cast', 'self', 'atk_pct', 3, 10,
+      name='만개 공격력', undispellable=True)
+    damage(3, 'burst_cast', 'target', 6, stat='bonus_damage',
+           name='화무십일일홍 · 신살',
+           note='One nearest-aim target; original zero-base skill delegates this Damage function.')
+
+    # Current153 roster additions keep source mappings in focused kit modules.
+    from runner import kits_marian_queen, kits_belorta_witch, kits_rapunzel_sanctuary
+    for module in (kits_marian_queen, kits_belorta_witch, kits_rapunzel_sanctuary):
+        module.build(sys.modules[__name__])
 
 
 def main():

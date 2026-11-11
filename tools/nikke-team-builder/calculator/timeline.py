@@ -650,7 +650,8 @@ def _enemy_target_snapshot(bm: BuffManager, caster: str,
 
 # ── CharState (캐릭터별 발사 상태) ────────────────────────────────────────
 
-def _bullet_core_fracs(core_fracs: list[float], muzzles: int) -> list[float]:
+def _bullet_core_fracs(core_fracs: list[float], muzzles: int,
+                       collisions: list[float] | None = None) -> list[float]:
     """펠릿 단위 코어 확률을 **탄(총구) 단위**로 접는다 — `hit_count` 1회당 1값.
 
     `not_core` 조건(「명중 시 코어가 아니라면」)이 트리거를 일으킨 그 탄의 코어 여부를
@@ -661,6 +662,11 @@ def _bullet_core_fracs(core_fracs: list[float], muzzles: int) -> list[float]:
     out = []
     for m in range(muzzles):
         chunk = core_fracs[m * per:(m + 1) * per]
+        if collisions is not None:
+            contacts = collisions[m * per:(m + 1) * per]
+            chunk = [core for core, count in zip(chunk, contacts) if count > 0]
+            if not chunk:
+                continue
         out.append(sum(chunk) / len(chunk) if chunk else 0.0)
     return out
 
@@ -1267,6 +1273,9 @@ class CharState:
         runtime = cfg.get("encounter_runtime")
         aiming = runtime is not None and hasattr(runtime, "hold_fire") and runtime.hold_fire(self.name, self.weapon_type, self.char.get("element_code", _NIKKE[self.name].get("element_code")))
         if aiming or bm.state.get("planned_cover", False) or self.name in bm.state.get("encounter_cover", set()):
+            self.next_fire_time = max(self.next_fire_time, t)
+            if not aiming or bm.state.get("planned_cover", False) or self.name in bm.state.get("encounter_cover", set()):
+                self._cancel_end_sensitive_charge(t, bm)
             wc = bm.get_weapon_change(self.name)
             reload_runs = wc is None or (self._reload_in_weapon_change
                 and wc.get("max_ammo", -1) != -1
@@ -1277,6 +1286,8 @@ class CharState:
 
         # 기절 중: 일반공격 불가
         if not roster.alive(bm, self.name) or bm.is_stunned(self.name):
+            self.next_fire_time = max(self.next_fire_time, t)
+            self._cancel_end_sensitive_charge(t, bm)
             return []
 
         # weapon_change 활성 시: 임시 무기 교체 후 해당 무기의 발사 루프로 처리
@@ -1335,7 +1346,7 @@ class CharState:
                 self._charge_phase = "ready"
             self._charge_full_t = -1.0
             self._hold_release_t = -1.0
-            bm.state.setdefault("charging", {})[self.name] = False
+            self._end_charge(t, bm)
             if self._wc_ammo_borrowed:
                 # 시한부 연사 모드가 duration으로 끝났다. 진입 시 덮어쓴 모드 장탄
                 # (무한 장탄이면 센티널 999999)이 그대로 남아 원래 무기의 탄창으로
@@ -1551,6 +1562,7 @@ class CharState:
 
         expected = cfg.get("rng_mode") == "expected"
         core_fracs = []
+        collision_counts = []
         gauge_hits = 0.0
         for i in range(hit_count):
             # 히트마다 독립 샘플링 (SG: 10회, 기타: 1회). 기대값 모드는 판정 대신 확률을 넘긴다
@@ -1591,10 +1603,11 @@ class CharState:
                                    **({"skill_name": self._wc_name}
                                       if self._wc_is_skill_damage() else {})))
             collision_hits = float(res.get("collision_hits", 1.0))
+            collision_counts.append(collision_hits)
             gauge_hits += collision_hits
             _notify_count(bm, "pellet_hit", self.name, collision_hits,
                           lambda: bm.notify("pellet_hit", t, self.name))
-            _notify_frac(bm, "crit_pellet_hit", self.name, res["crit_frac"],
+            _notify_frac(bm, "crit_pellet_hit", self.name, res["crit_frac"] if collision_hits > 0 else 0,
                          lambda: bm.notify("crit_pellet_hit", t, self.name))
             core_frac = P_core if expected else (1.0 if is_core else 0.0)
             core_fracs.append(core_frac)
@@ -1609,14 +1622,14 @@ class CharState:
                 _notify_frac(bm, body_ev, self.name, 1.0 - core_frac,
                              lambda: bm.notify_team_hit(body_ev, t, self.name))
                 event_core = core_frac
-            _notify_frac(bm, "crit_hit", self.name, res["crit_frac"],
+            _notify_frac(bm, "crit_hit", self.name, res["crit_frac"] if collision_hits > 0 else 0,
                          lambda: bm.notify("crit_hit", t, self.name))
             _notify_count(bm, "core_hit", self.name, event_core,
                           lambda: bm.notify("core_hit", t, self.name))
 
         # 일반 공격 명중은 충전 창 밖에서도 시전자 기준 버충값을 `(발당)`→`(대상)`으로
         # 전환한다. 구조물 명중도 같은 방아쇠지만 현재 시뮬에는 구조물 대상이 없다.
-        if not self._wc_is_skill_damage():
+        if gauge_hits > 0 and not self._wc_is_skill_damage():
             bm.mark_normal_attack_landed(self.name)
 
         # 버스트 게이지: 히트 수만큼. 오토 무기라 풀차지 배율이 걸릴 자리가 없다.
@@ -1630,14 +1643,16 @@ class CharState:
         # 이 발의 대미지 자체는 건드리지 않는다.
         #
         # 「공격 시」는 **발사 단위**라 총구·펠릿과 무관하게 발사 1회당 1회다.
-        bm.notify("pellet_hit_single", t, self.name, pellets=hit_count)
+        if gauge_hits > 0:
+            bm.notify("pellet_hit_single", t, self.name, pellets=sum(c > 0 for c in collision_counts))
         bm.notify("on_attack", t, self.name)
         # 「명중 시」는 **탄 단위**라 총구 수만큼 발생한다 — 총구 2개는 탄 1발 소모에
         # 공격 1회·명중 2회다(유저 확인). 펠릿은 한 탄을 나눈 것이라 여기 곱하지
         # 않는다(`pellet_hit`이 루프 안에서 따로 센다).
         # 빗나간 탄은 이 루프에서 빠지고 `on_attack`만 남는 것이 분리의 목적이다 —
         # 지금은 미스 모델이 없어 총구 전부가 명중한다. 여기가 그 게이트 자리다.
-        for bullet_core in _bullet_core_fracs(core_fracs, self.muzzles):
+        landed_bullets = _bullet_core_fracs(core_fracs, self.muzzles, collision_counts)
+        for bullet_core in landed_bullets:
             bm.notify("hit_count", t, self.name, core_frac=bullet_core)
         if not self._wc_is_skill_damage():
             bm.consume_bullet_buffs(self.name, t)
@@ -1648,7 +1663,7 @@ class CharState:
             # 퀸)에 이 트리거가 없다. 카운터가 없는 트리거라 2회면 버프가 두 번 붙는데,
             # 그게 맞는지는 확인된 바 없고 명중 규칙의 일관성만으로 잡았다
             # (유저 판단, 2026-09-04. `docs/DATA_VERIFY.md` §총구 수).
-            for _ in range(self.muzzles):
+            for _ in landed_bullets:
                 bm.notify("last_bullet", t, self.name)
 
         return events
@@ -1786,6 +1801,7 @@ class CharState:
                 )
                 self._ch_charge_start_t = -1.0
                 self._force_full_charge = True  # 판정에는 풀차지가 필요하다
+            bm.state.setdefault("full_charging", {})[self.name] = False
             bm.state.setdefault("charging", {})[self.name] = True
             bm._invalidate_buffs_cache()
             if self.ammo == 1 and not self._has_infinite_ammo(bm, t):
@@ -1807,6 +1823,9 @@ class CharState:
                     if t < self._charge_end_t:
                         return events
                     self._charge_full_t = t
+                    bm.state.setdefault("full_charging", {})[self.name] = True
+                    bm._invalidate_buffs_cache()
+                    bm.notify("full_charge_ready", t, self.name)
                 is_full = True
                 # `풀 차지 상태를 N초 이상 유지 시` — 풀차지 도달 후 유지 시간을 재서 발동한다.
                 # 판정은 임계를 넘는 **그 순간 1회뿐**이다(유저 확인): 계속 들고 있어도 다시
@@ -1855,6 +1874,29 @@ class CharState:
             gain *= self.weapon.get("full_charge_mult", 100.0) / 100.0
         return gain + hit_count * buffs.get("burst_charge_speed_flat", 0.0)
 
+    def _cancel_end_sensitive_charge(self, t: float, bm: BuffManager) -> None:
+        # New held-charge effects opt into cancellation at encounter cover,
+        # death and stun boundaries; established policies retain their baseline.
+        if not bm.state.get("charging", {}).get(self.name, False):
+            return
+        if not any(effect.get("remove_on_event") == "charge_end"
+                   for effect in bm.char_effects(self.name)):
+            return
+        self._charge_phase = "ready"
+        self._charge_full_t = -1.0
+        self._hold_release_t = -1.0
+        self._hold_until_close_entry = None
+        self._end_charge(t, bm)
+
+    def _end_charge(self, t: float, bm: BuffManager) -> None:
+        was_charging = bm.state.setdefault("charging", {}).get(self.name, False)
+        was_full = bm.state.setdefault("full_charging", {}).get(self.name, False)
+        bm.state["charging"][self.name] = False
+        bm.state["full_charging"][self.name] = False
+        if was_charging or was_full:
+            bm._invalidate_buffs_cache()
+            bm.notify("charge_end", t, self.name)
+
     def _notify_charge_hold(self, t: float, bm: BuffManager) -> None:
         """`charge_hold:N` 트리거 발생. 풀차지 유지 시간이 N을 넘긴 첫 프레임에 1회.
 
@@ -1878,6 +1920,10 @@ class CharState:
         events = []
         self._apply_wc_first_coeff()
         if is_full:
+            if not bm.state.setdefault("full_charging", {}).get(self.name, False):
+                bm.state["full_charging"][self.name] = True
+                bm._invalidate_buffs_cache()
+                bm.notify("full_charge_ready", t, self.name)
             self._last_full_charge_t = t
             self._force_full_charge = False
             bm.notify("full_charge", t, self.name)
@@ -1972,7 +2018,7 @@ class CharState:
                 _notify_count(bm, "pellet_hit", self.name, collision_hits,
                               lambda: bm.notify("pellet_hit", t, self.name))
             core_fracs.append(P_core if expected else (1.0 if is_core else 0.0))
-            crit_fracs.append(res["crit_frac"])
+            crit_fracs.append(res["crit_frac"] if collision_hits > 0 else 0)
         infinite_ammo = bool(buffs.get("infinite_ammo"))
         is_last = (self.ammo == 1 and not infinite_ammo)
         if self._in_weapon_change:
@@ -1989,21 +2035,26 @@ class CharState:
         # 대상에게 명중한다. 대상만 이 발의 이벤트 컨텍스트에 보존하고 다른
         # on_attack 효과의 순서는 그대로 둔다.
         shot_targets = _enemy_target_snapshot(bm, self.name, t) if is_full else None
-        bm.notify("pellet_hit_single", t, self.name, pellets=hit_count)
+        if gauge_hits > 0:
+            bm.notify("pellet_hit_single", t, self.name,
+                      pellets=sum(c is None or c.get('collision_hits', 1) > 0 for c in encounter_counts))
         bm.notify("on_attack", t, self.name)
         if is_full:
             bm.notify("full_charge_fire", t, self.name,
                       shot_enemy_targets=shot_targets)
         else:
             bm.notify("non_full_charge_fire", t, self.name)
-        for bullet_core in _bullet_core_fracs(core_fracs, self.muzzles):
+        landed_bullets = _bullet_core_fracs(core_fracs, self.muzzles,
+            [counts.get('collision_hits', 1.0) if counts is not None else 1.0
+             for counts in encounter_counts])
+        for bullet_core in landed_bullets:
             bm.notify("hit_count", t, self.name, core_frac=bullet_core)
         if is_full:
-            for _ in range(self.muzzles):
+            for _ in landed_bullets:
                 bm.notify("full_charge_hit", t, self.name, normal_damage=bm.state.get("last_normal_hit", {}).get(self.name, (t, 0))[1])
         # 일반 공격 명중이면 충전 창·풀차지·피격 대상 종류와 무관하게 시전자 기준값을
         # 갱신한다. weapon_change 스킬 대미지는 일반 공격이 아니므로 제외한다.
-        if not self._wc_is_skill_damage():
+        if gauge_hits > 0 and not self._wc_is_skill_damage():
             bm.mark_normal_attack_landed(self.name)
         # 버스트 게이지. **풀차지 배율은 카메라가 이 니케를 보고 있을 때만 붙는다** —
         # 2024-04-25 "SR, RL 니케를 바라보고 있을 경우 차지 시간에 따라 버스트 게이지를
@@ -2039,7 +2090,7 @@ class CharState:
                           lambda: bm.notify("core_hit", t, self.name))
         if is_last:
             # `_fire()`와 같은 규약 — 명중이라 총구 수만큼.
-            for _ in range(self.muzzles):
+            for _ in landed_bullets:
                 bm.notify("last_bullet", t, self.name)
 
         # 톡톡이는 **사격 후 딜레이를 줄이는 컨트롤이다** — 풀차지로 나갔든 아니든
@@ -2058,7 +2109,7 @@ class CharState:
         self._charge_full_t = -1.0
         self._hold_release_t = -1.0
         self._hold_until_close_entry = None
-        bm.state.setdefault("charging", {})[self.name] = False
+        self._end_charge(t, bm)
         bm._invalidate_buffs_cache()
         return events
 
@@ -2458,7 +2509,7 @@ class CharState:
         self._charge_full_t = -1.0
         self._hold_release_t = -1.0
         self._hold_until_close_entry = None
-        bm.state.setdefault("charging", {})[self.name] = False
+        self._end_charge(t, bm)
         bm.notify("event:cover", t, self.name)
         # 엄폐는 클릭을 대체한다 — 열려 있던 클릭 구간을 닫고 엄폐 구간을 연다.
         # `cover_all`(space)은 **버튼 하나로 전원**이라 카메라를 잡지 않는다 — 그래서 원시
@@ -2800,7 +2851,7 @@ class CharState:
         self._charge_full_t = -1.0
         self._hold_release_t = -1.0
         self._hold_until_close_entry = None
-        bm.state.setdefault("charging", {})[self.name] = False
+        self._end_charge(t, bm)
         bm._invalidate_buffs_cache()
         # 예열은 재장전으로 리셋되지 않는다. 재장전 동안의 미사격은 _cool_warmup이 시간 비례로 냉각.
         if self._sim_log is not None:
@@ -3474,6 +3525,9 @@ class BurstController:
             ht["effect_target"] = eff.get("target")
             ht["effect_name"] = eff.get("name")
             ht["effect_source"] = eff.get("source")
+            ht["native_skill_id"] = eff.get("native_skill_id")
+            ht["native_target_condition"] = eff.get("native_target_condition")
+            ht["required_target_state"] = eff.get("required_target_state")
             for _ in range(hit_count):
                 if in_debug_window:
                     print(f"t={t:.3f}s  [{eff.get('name', '버스트 스킬')}]  base_atk={cs.base_atk:,}  enemy_def={self.enemy_def:,}")
@@ -3550,6 +3604,14 @@ class BurstController:
         self.burst_ready_at[name] = t + cd
 
         bm.notify("burst_cast", t, name)
+        # Opt-in for a cooldown modifier created by this very cast (e.g.
+        # Rapunzel's permanent revival penalty); account for it even if the
+        # squad never reaches Full Burst, and avoid applying it twice there.
+        if any(effect.get("reconcile_on_cast") for effect in bm.char_effects(name)):
+            cd_after = bm.get_buffs(name, "__enemy__", t).get("burst_cooldown", 0.0)
+            extra = cd_after - self._cd_applied_at_cast[name]
+            self.burst_ready_at[name] = max(t, self.burst_ready_at[name] - extra)
+            self._cd_applied_at_cast[name] = cd_after
         bm.notify(f"squad_burst_cast:{stage}", t, name)
 
         is_reenter = self._phase.startswith("reenter:")
@@ -4165,8 +4227,16 @@ def simulate(
 
     # damage 핸들러: bm.tick()/_activate()에서 호출되는 damage 효과를 처리
     _dot_events: list[HitEvent] = []
+    _sequential_pending: list[tuple[float, dict, str]] = []
 
     def _handle_damage_eff(eff: dict, caster: str, t: float):
+        interval = eff.get("sequential_interval")
+        if interval and not eff.get("_sequential_single"):
+            count = int(eff["stat"].rsplit(":", 1)[1])
+            single = {**eff, "stat": "sequential_damage", "_sequential_single": True}
+            for index in range(count):
+                _sequential_pending.append((t + index * float(interval), single, caster))
+            return
         if eff.get("stat") in ("copy_hit_damage", "fixed_split_damage"):
             lv = _get_skill_lv(char_states[caster].char, eff)
             coefficient = float(eff.get("values", {}).get(lv, eff.get("fixed_value", 0)))
@@ -4188,6 +4258,7 @@ def simulate(
             return
         if eff.get("target") == "all_projectiles":
             return
+        runtime = cfg.get("encounter_runtime")
         cs = char_states.get(caster)
         if cs is None:
             return
@@ -4350,6 +4421,9 @@ def simulate(
         ht["is_single_burst"] = base_stat in ("burst_damage", "armor_break_burst_damage") and isinstance(target_field, str) and target_field.startswith("enemies_") and target_field.endswith(":1")
         ht["effect_name"] = eff.get("name")
         ht["effect_source"] = eff.get("source")
+        ht["native_skill_id"] = eff.get("native_skill_id")
+        ht["native_target_condition"] = eff.get("native_target_condition")
+        ht["required_target_state"] = eff.get("required_target_state")
 
         gauge_hits = 0.0
         for _ in range(hit_count):
@@ -4388,7 +4462,11 @@ def simulate(
                     _notify_frac(bm, f"skill_crit:{eff_name}", caster,
                                  res.get("crit_frac", 0.0), lambda: _crit_fired.append(1))
                     hit_crit = bool(_crit_fired)
-                bm.notify(f"hit_count:{eff_name}", t, caster, hit_crit=hit_crit)
+                notify_extra = {}
+                if eff.get("on_hit_enemy_effect") and runtime is not None:
+                    selected = getattr(runtime, "last_skill_targets_by_effect", {}).get((caster, eff_name), [])
+                    notify_extra["shot_enemy_targets"] = {eff_name: list(selected)}
+                bm.notify(f"hit_count:{eff_name}", t, caster, hit_crit=hit_crit, **notify_extra)
 
         # 스킬 대미지도 무기와 **같은 히트당 값**으로 게이지를 준다. 풀차지 배율은 없다.
         # 리버렐리오(무기 1발 14.0 + 추가타 5 × 5.6 = 42.0%)와 스노우 화이트 : 헤비암즈
@@ -4504,6 +4582,12 @@ def simulate(
                         runtime_begin(elapsed, delta)
 
                 def _after_cinematic_tick(elapsed: float, delta: float) -> None:
+                    virtual_time = t + elapsed
+                    if _sequential_pending:
+                        due = [entry for entry in _sequential_pending if entry[0] <= virtual_time + 1e-9]
+                        _sequential_pending[:] = [entry for entry in _sequential_pending if entry[0] > virtual_time + 1e-9]
+                        for _, effect, owner in sorted(due, key=lambda entry: entry[0]):
+                            _handle_damage_eff(effect, owner, virtual_time)
                     advanced, finished = advance_cinematic_reloads(
                         char_states, bm, t + elapsed
                     )
@@ -4528,6 +4612,10 @@ def simulate(
                         _after_cinematic_tick,
                         before_tick=_before_cinematic_tick,
                     )
+                    _sequential_pending[:] = [
+                        (deadline - cinematic.seconds, effect, owner)
+                        for deadline, effect, owner in _sequential_pending
+                    ]
                     rebase_cinematic_reloads(
                         char_states, cinematic.seconds,
                         cinematic_reload_advances, cinematic_reload_finishes,
@@ -4535,6 +4623,11 @@ def simulate(
                 if runtime_finish is not None:
                     runtime_finish(cinematic.seconds)
         bm.tick(t)
+        if _sequential_pending:
+            due = [entry for entry in _sequential_pending if entry[0] <= t + 1e-9]
+            _sequential_pending[:] = [entry for entry in _sequential_pending if entry[0] > t + 1e-9]
+            for _, effect, owner in sorted(due, key=lambda entry: entry[0]):
+                _handle_damage_eff(effect, owner, t)
         while cover_index < len(cover_windows) and t >= cover_windows[cover_index][1]:
             cover_index += 1
         window = cover_windows[cover_index] if cover_index < len(cover_windows) else None

@@ -363,6 +363,7 @@ _SHIELD_STATS = frozenset(["shield_from_max_hp_pct", "shared_shield_from_max_hp_
 # get_buffs 시점에 재평가가 필요한 runtime condition 접두사 집합
 # 이 집합에 포함된 조건이 하나라도 있으면 ActiveBuff.has_runtime_conditions = True
 _RUNTIME_COND_PREFIXES = frozenset([
+    "during_full_charge",
     "during_charge", "during_full_burst", "not_during_full_burst",
     "during_shield",
     "self_hp_above:", "self_hp_below:", "self_hp_max",
@@ -1376,6 +1377,19 @@ class BuffManager:
         걸리는 경로가 있으므로(damage 핸들러 → named damage 명중 → notify) 반드시
         이전 ctx를 되돌린다 — 안 되돌리면 바깥 트리거의 조건이 안쪽 히트의 결과를 본다.
         """
+        # A multi-target resurrection changes HP and adds states while this same
+        # cast is being dispatched. Its mutually exclusive branches must read
+        # the cast-entry roster, and connected buffs keep those original targets.
+        if event == 'burst_cast':
+            ctx['_event_start_down'] = tuple(n for n in self.squad_names
+                                              if not roster.alive(self, n))
+            ctx['_event_start_states'] = frozenset(
+                ab.effect.get('name') for ab in self._active
+                if caster in (ab.target_chars or []) and t < ab.expires_at)
+        if event == 'charge_end':
+            for ab in list(self._active):
+                if ab.caster == caster and ab.effect.get('remove_on_event') == event:
+                    roster.remove(self, ab, t)
         prev_ctx = self._notify_ctx
         self._notify_ctx = ctx
         try:
@@ -1723,6 +1737,24 @@ class BuffManager:
             else caster
         )
         for cond in conditions:
+            if cond == 'during_full_charge':
+                if not self.state.get('full_charging', {}).get(caster, False):
+                    return False
+                continue
+            if cond.startswith('event_start_dead_at_least:'):
+                if len(self._notify_ctx.get('_event_start_down', ())) < int(cond.rsplit(':', 1)[1]):
+                    return False
+                continue
+            if cond.startswith('event_start_dead_below:'):
+                if len(self._notify_ctx.get('_event_start_down', ())) >= int(cond.rsplit(':', 1)[1]):
+                    return False
+                continue
+            if cond.startswith(('event_start_self_state:', 'event_start_not_self_state:')):
+                positive = cond.startswith('event_start_self_state:')
+                state_name = cond.split(':', 1)[1]
+                if (state_name in self._notify_ctx.get('_event_start_states', ())) != positive:
+                    return False
+                continue
             resolved = roster.condition(self, cond, caster, t)
             if resolved is not None:
                 if not resolved: return False
@@ -1889,11 +1921,11 @@ class BuffManager:
                     return False
             elif cond.startswith("target_state:"):
                 state_name = cond[len("target_state:"):]
-                if not self._has_target_state(state_name):
+                if not self._has_target_state(state_name, caster=caster, t=t):
                     return False
             elif cond.startswith("not_target_state:"):
                 state_name = cond[len("not_target_state:"):]
-                if self._has_target_state(state_name):
+                if self._has_target_state(state_name, caster=caster, t=t):
                     return False
             elif cond.startswith("target_code:"):
                 code = cond[len("target_code:"):]
@@ -2044,11 +2076,19 @@ class BuffManager:
         self._charge_hold_cache[caster] = result
         return result
 
-    def _has_target_state(self, state_name: str) -> bool:
-        """target_state:/not_target_state: 판정의 단일 창구.
-
-        단일 적 가정 — `"__enemy__"`가 target_chars에 있는 활성 효과로 확인한다.
-        """
+    def _has_target_state(self, state_name: str, *, caster=None, target=None, t=None) -> bool:
+        """Check the recipient's own state, including its own expiry window."""
+        runtime = self.state.get('encounter_runtime')
+        if callable(getattr(runtime, 'select_enemy_effect_targets', None)):
+            if target in (None, '__enemy__'):
+                target = getattr(runtime, 'last_enemy_target_by_caster', {}).get(caster)
+                if target is None:
+                    aim = getattr(runtime, 'enemy_aim_target', None)
+                    target = aim(caster) if callable(aim) else '__boss__'
+            now = runtime.time if t is None else t
+            return any((window := ab.enemy_target_windows.get(target)) is not None
+                       and window['activated_at'] <= now < window['expires_at']
+                       for ab in self._by_name(state_name))
         return any(
             "__enemy__" in (ab.target_chars or []) for ab in self._by_name(state_name)
         )
@@ -2267,9 +2307,15 @@ class BuffManager:
                 return True
         return False
 
-    def _activate(self, eff: dict, caster: str, t: float, suppress_event: bool = False):
+    def _activate(self, eff: dict, caster: str, t: float, suppress_event: bool = False,
+                  delayed: bool = False):
         """효과를 ActiveBuff로 변환해 활성 목록에 추가하거나 갱신."""
-        if not roster.alive(self, caster):
+        if not roster.alive(self, caster) and not (delayed and eff.get('persists_on_revive')):
+            return
+        if eff.get('activation_delay') and not delayed:
+            pending = self.state.setdefault('_delayed_effects', [])
+            if not any(item[1] is eff and item[2] == caster for item in pending):
+                pending.append((t + float(eff['activation_delay']), eff, caster, suppress_event))
             return
         # max_trigger: 전투 중 최대 발동 횟수 제한
         if eff.get("stat") == "revive_hp_pct" and not self._resolve_target(eff.get("target"), caster):
@@ -2475,7 +2521,10 @@ class BuffManager:
         name = eff.get("name", "")
         existing = None
         for ab in self._active:
-            if ab.effect is eff and ab.caster == caster:
+            same_group = (eff.get('buff_group')
+                          and ab.effect.get('buff_group') == eff['buff_group']
+                          and ab.effect.get('stat') == eff.get('stat'))
+            if (ab.effect is eff or same_group) and ab.caster == caster:
                 if lazy or use_per_target or ab.target_chars == targets:
                     existing = ab
                     break
@@ -2654,6 +2703,12 @@ class BuffManager:
         """
         self._cur_t = t
         roster.tick(self, t)
+        pending = self.state.get('_delayed_effects')
+        if pending:
+            due = [item for item in pending if item[0] <= t + 1e-9]
+            self.state['_delayed_effects'] = [item for item in pending if item[0] > t + 1e-9]
+            for at, eff, caster, suppress in due:
+                self._activate(eff, caster, at, suppress, delayed=True)
 
         # ── `same_target:[이름]` DoT 중첩 램프 ────────────────────────────
         #
@@ -3360,6 +3415,10 @@ class BuffManager:
     ) -> bool:
         """get_buffs 호출 시마다 재평가하는 상태 의존 condition."""
         for cond in conditions:
+            if cond == 'during_full_charge':
+                if not self.state.get('full_charging', {}).get(buff_caster, False):
+                    return False
+                continue
             resolved = roster.condition(self, cond, buff_caster, t)
             if resolved is not None:
                 if not resolved: return False
@@ -3431,11 +3490,11 @@ class BuffManager:
                     return False
             elif cond.startswith("target_state:"):
                 state_name = cond[len("target_state:"):]
-                if not self._has_target_state(state_name):
+                if not self._has_target_state(state_name, caster=query_caster, target=query_target, t=t):
                     return False
             elif cond.startswith("not_target_state:"):
                 state_name = cond[len("not_target_state:"):]
-                if self._has_target_state(state_name):
+                if self._has_target_state(state_name, caster=query_caster, target=query_target, t=t):
                     return False
             elif cond.startswith("enemy_count_below:"):
                 if self._living_enemy_count() > int(cond.split(":")[1]):
@@ -3653,6 +3712,18 @@ class BuffManager:
             for t in target:
                 result.extend(self._resolve_target(t, caster))
             return result
+
+        if target == 'event_start_down_allies':
+            return list(self._notify_ctx.get('_event_start_down', ()))
+        if target == 'allies_right':
+            index = self.squad_names.index(caster) + 1
+            return ([self.squad_names[index]] if index < len(self.squad_names)
+                    and roster.alive(self, self.squad_names[index]) else [])
+        if target == 'self_and_allies_state:into_the_fray':
+            return [n for n in self.squad_names if roster.alive(self, n) and
+                    (n == caster or any(ab.effect.get('into_the_fray')
+                     and n in (ab.target_chars or []) and self._cur_t < ab.expires_at
+                     for ab in self._active))]
 
         resolved = roster.resolve_target(self, target, caster, _NIKKE)
         if resolved is not None:
