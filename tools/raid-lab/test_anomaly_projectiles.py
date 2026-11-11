@@ -55,6 +55,21 @@ class AnomalyProjectileTests(unittest.TestCase):
             self.assertAlmostEqual(actual, expected)
         self.assertEqual(mechanics._target_position("c", "cover")[0], (-1.028, -2.349, 4.7))
 
+    def test_delayed_shot_reads_endpoint_at_launch(self):
+        runtime, mechanics = self.mechanics('anomaly-mirror-container')
+        runtime.projectile_target_positions={'unit': {'character': {
+            'aiming': (0., 0., 4.), 'hiding': (0., -2., 4.)}}}
+        mechanics.perform_skill(self.skill(runtime,520661),{'_locked_targets':['unit']})
+        shot=next(p for p in runtime.projectiles if p['status']=='pending')
+        initial=shot['target_position']
+        runtime.covered={'unit'}
+        runtime.time=shot['launch_at']
+        mechanics._activate(shot)
+        self.assertNotEqual(shot['target_position'],initial)
+        self.assertEqual(shot['target_position'],(0.,-2.,4.))
+        self.assertAlmostEqual(shot['deadline'],shot['launch_at']+math.dist(
+            shot['launch_position'],shot['target_position'])/shot['native_speed'])
+
     def test_phase_cinematic_advances_mirror_but_freezes_indivilia_projectiles(self):
         mirror, mechanics = self.mechanics("anomaly-mirror-container")
         mechanics.perform_skill(self.skill(mirror, 520678),
@@ -220,7 +235,7 @@ class AnomalyProjectileTests(unittest.TestCase):
         runtime, mechanics = self.mechanics("anomaly-mirror-container")
         bind(runtime)
         mechanics.perform_skill(self.skill(runtime, 520661),
-                                {"_locked_targets": ["locked"]})
+                                {"_locked_targets": [next(iter(runtime.squad))]})
         first = runtime.projectiles[0]
         self.assertEqual(first["incoming_snapshot"]["time"], 0)
         first_attack = first["incoming_snapshot"]["attack"]
@@ -242,7 +257,7 @@ class AnomalyProjectileTests(unittest.TestCase):
         runtime, mechanics = self.mechanics("anomaly-mirror-container")
         bind(runtime)
         mechanics.perform_skill(self.skill(runtime, 520661),
-                                {"_locked_targets": ["locked"]})
+                                {"_locked_targets": [next(iter(runtime.squad))]})
         runtime.time = .35
         mechanics.advance(.35)
         crossed = runtime.projectiles[2:8]

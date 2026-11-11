@@ -188,12 +188,33 @@ class RaidBossTests(unittest.TestCase):
         r.time=2;r.advance_dots(2);self.assertEqual(bm.state['hp'][names[0]],before)
 
     def test_highest_current_attack_selects_only_that_unit_for_cover(self):
-        r=RaidBossRuntime([],180,key='anomaly-ultra');bm,names=bind(r)
-        skill=dict(r.skills[5],PreferTarget='HighAttack',SkillValue01=1e10)
+        r=RaidBossRuntime([],180,key='museum-crystal-chamber');bm,names=bind(r)
+        skill=dict(r.skills[5],PreferTarget='HighAttack',SkillValue01=1e10,FireType='Instant',TargetCount=1)
         selected=r.attack_targets(skill,{})
         self.assertEqual(selected,[names[1]])
         r.cover_threats.append(dict(start=0,end=2,skill=skill,targets=selected,parts=[]));r.update_cover(1)
         self.assertEqual(r.covered,{names[1]})
+
+    def test_reload_stance_blocks_hit_without_becoming_a_cover_command(self):
+        from types import SimpleNamespace
+        r=RaidBossRuntime([],180,key='anomaly-ultra',auto_cover=False);bm,names=bind(r)
+        name=names[0]
+        r.char_states={name:SimpleNamespace(reloading_until=1.0)}
+        r.time=.5
+        skill=dict(r.skills[5],ShotCount=1,SkillValue01=100)
+        r.receive_attack(skill,{'_locked_targets':[name]})
+        self.assertEqual(r.incoming[-1]['blocked_by'],'cover')
+        self.assertNotIn(name,r.covered)
+        r.time=1.0
+        r.receive_attack(skill,{'_locked_targets':[name]})
+        self.assertIsNone(r.incoming[-1]['blocked_by'])
+
+    def test_dead_locked_target_cancels_pending_fire(self):
+        r=RaidBossRuntime([],180,key='anomaly-ultra');bm,names=bind(r)
+        node={'_locked_targets':[names[0]]}
+        self.assertTrue(r.pending_fire_valid('Body',node))
+        bm.state['hp'][names[0]]=0
+        self.assertFalse(r.pending_fire_valid('Body',node))
 
     def test_crystal_attack_debuff_is_real_and_cleansable(self):
         r=RaidBossRuntime([],180,key='museum-crystal-chamber');bm,names=bind(r)

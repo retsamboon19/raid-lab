@@ -266,6 +266,8 @@ class KrakenRuntime(EncounterRuntime):
             q['controller']=None;q['graph_target']=target['id']
         options=[]
         for name,cs in self.char_states.items():
+            ready=getattr(self,'qte_actor_ready',None)
+            if ready is not None and not ready(name,cs):continue
             wc=self.bm.get_weapon_change(name)
             weapon=wc.get('weapon_type',cs.weapon_type) if wc else cs.weapon_type
             weapon_resolver=getattr(self,'qte_weapon_type',None)

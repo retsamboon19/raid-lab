@@ -1,0 +1,221 @@
+{
+  "date": "2026-11-12",
+  "status": "source fixes applied; four-team parity NOT achieved",
+  "baselineCommit": "f33c18db34e357f1b45b79e4f7ee7ba2c379d8be",
+  "originalGameAssemblySha256": "d39896d3770888039c728a1908448c3db5efa7cdf874c90d56f46d8d566428d2",
+  "sourceVersion": "153; legitimate installation and offline assembly verified identical",
+  "changes": [
+    "Cancel delayed shots when original weapon part is destroyed or locked target dies; keep already launched projectiles independent.",
+    "Model nested firing coroutine dispatch and V3 30Hz tick scheduling; retain V2 60Hz approximation.",
+    "Use constructed casting time: raw skill time plus original casting timeline duration (0.800000011920929 for the 87 extracted skills). Remove incorrect LoopStart fallback and duplicate casting delay.",
+    "Refresh projectile launch endpoints at actual delayed activation, preserving externally observed impact deadlines.",
+    "Apply automatic reload/post-shot hiding to incoming damage and projectile endpoints.",
+    "Replace fabricated reactive defensive cover for the four bosses with original native controller timeline windows.",
+    "Refresh weapon geometry for all 206 supported characters from current153; classify splash from original explosion range, not elemental AttackType.",
+    "Match native QTE weapon readiness, gray-circle splash exclusion, Mirror-only teammate isolation and three-tick initial aim settling."
+  ],
+  "sourceMethods": {
+    "WaitFire": "0x697c3a0",
+    "TickCoroutine.ProcessIEnumeratorRecursive": "0x7731700",
+    "SpotMonsterSkill.constructor": "0x65b3c20",
+    "SpotWeaponData.constructor": "0x66e6ca0",
+    "SpotWeaponData.IsDownTypeFireTiming": "0x66e88d0",
+    "AutoContext.CheckSkill": "0x6e6a6a0"
+  },
+  "validation": {
+    "focusedTests": 199,
+    "focusedTestsPassed": true,
+    "goldenSnapshots": 33,
+    "goldenSnapshotsPassed": true,
+    "documentedSupportedCharacters": 206,
+    "doclintPassed": true,
+    "gitDiffCheckPassed": true,
+    "fourTeamPythonRerun": true,
+    "newNativeBattles": 0,
+    "nativeReferences": "Retained November 12 original-engine results reused; not newly executed.",
+    "builds": "Same four saved squads, order and builds, level400 cap; original request hashes retained.",
+    "speed": "Wall times are diagnostic only: concurrent verification load, not a controlled speed benchmark.",
+    "memory": "Earlier minimum-table memory reduction retained; not remeasured in this continuation."
+  },
+  "integration": {
+    "appHealth": "http://127.0.0.1:8767/api/health healthy",
+    "freshSearchWorkers": "CandidateExecutor uses spawn and imports core in each fresh worker; new searches load changed modules.",
+    "finalRanking": "Original native engine remains authoritative; Python remains screening only."
+  },
+  "remaining": [
+    "Auto burst dispatch is not yet ported: original CheckSkill has a 0.4s eligibility gate; subsequent input dispatch timing remains unresolved. Python begins first burst immediately after gauge fill and retains an extra full-burst transition delay.",
+    "Native startup aiming occurs later than Python; no arbitrary one-second correction was introduced.",
+    "Animated muzzle/target poses, exact collider ordering and projectile contacts remain approximations.",
+    "Pending gray-circle charge and teammate Idle/reload transitions are not fully equivalent.",
+    "Ultra and Mirror die early in Python while native survives; Harvester clears early in Python but native does not. These results fail survival/termination parity.",
+    "Mirror burst timing changes Nayuta weapon mode during gray circles; removing invented defensive cover exposes the unresolved QTE failure."
+  ],
+  "damageAccounting": "Python aggregate, native aggregate, displayed native UI damage and boss HP damage are separate; early clears are not comparable equal-duration runs.",
+  "rows": [
+    {
+      "boss": "indivilia",
+      "pythonAggregate": 3465882703,
+      "pythonBossHpDamage": 3477832089,
+      "pythonRemainingBossHp": 2322167911,
+      "pythonSimulatedSeconds": 179.983,
+      "pythonSurvivors": 4,
+      "pythonStopReason": null,
+      "pythonWallSeconds": 15.159100200020475,
+      "qte": [
+        {
+          "id": "raid-9",
+          "status": "passed"
+        },
+        {
+          "id": "raid-10",
+          "status": "passed"
+        },
+        {
+          "id": "raid-11",
+          "status": "passed"
+        }
+      ],
+      "nativeUiDamage": 3286675605,
+      "nativeAggregate": 3323593844,
+      "nativeSeconds": 180,
+      "nativeSurvivors": 3,
+      "aggregateDifferencePercent": 4.281174706616775,
+      "requestSha256": "34d181ecbcb9fb0a917390c46ee351fc41d4e87b5a2a7dbec9b5fb7f9b3b34f6",
+      "pythonEvidenceSha256": "ae13a1e41538a9ebca8858b348ea2a89191d69215549db4434adb11d6987c727",
+      "nativeEvidenceSha256": "e8b95c60c37e76adea3bb83f8399508581b9cdd7447056ac379e869d976be409",
+      "sameInputsAndRepeatAggregate": true
+    },
+    {
+      "boss": "ultra",
+      "pythonAggregate": 1398914550,
+      "pythonBossHpDamage": 1416914550,
+      "pythonRemainingBossHp": 4444085450,
+      "pythonSimulatedSeconds": 136.983,
+      "pythonSurvivors": 0,
+      "pythonStopReason": "Squad defeated",
+      "pythonWallSeconds": 7.971595199982403,
+      "qte": [
+        {
+          "id": "raid-9",
+          "status": "passed"
+        },
+        {
+          "id": "raid-10",
+          "status": "passed"
+        },
+        {
+          "id": "raid-11",
+          "status": "passed"
+        },
+        {
+          "id": "raid-12",
+          "status": "passed"
+        },
+        {
+          "id": "raid-13",
+          "status": "passed"
+        },
+        {
+          "id": "raid-14",
+          "status": "passed"
+        },
+        {
+          "id": "raid-15",
+          "status": "passed"
+        },
+        {
+          "id": "raid-16",
+          "status": "passed"
+        }
+      ],
+      "nativeUiDamage": 1857887270,
+      "nativeAggregate": 1857887270,
+      "nativeSeconds": 180,
+      "nativeSurvivors": 5,
+      "aggregateDifferencePercent": -24.704013392588664,
+      "requestSha256": "d9f64e013c11ec47e2bae782573646824fa5cef858c17b2071ca66324e9ab8b9",
+      "pythonEvidenceSha256": "46fe73095cdd53a4173698e93e7d5028269de99e651a16c34f5f83dcb5f28781",
+      "nativeEvidenceSha256": "27faaa835b2849b79bed1ff608e4035d590cdfa4e87bd3351bbd702fd2bcecb8",
+      "sameInputsAndRepeatAggregate": true
+    },
+    {
+      "boss": "harvester",
+      "pythonAggregate": 5741918987,
+      "pythonBossHpDamage": 5735000000,
+      "pythonRemainingBossHp": 0,
+      "pythonSimulatedSeconds": 150.45,
+      "pythonSurvivors": 5,
+      "pythonStopReason": "Boss defeated",
+      "pythonWallSeconds": 8.493765899998834,
+      "qte": [
+        {
+          "id": "raid-9",
+          "status": "passed"
+        },
+        {
+          "id": "raid-10",
+          "status": "passed"
+        },
+        {
+          "id": "raid-11",
+          "status": "passed"
+        }
+      ],
+      "nativeUiDamage": 5342309301,
+      "nativeAggregate": 5820815452,
+      "nativeSeconds": 180,
+      "nativeSurvivors": 5,
+      "aggregateDifferencePercent": -1.3554194536934072,
+      "requestSha256": "279a9630c6437a3d3e32a1e775dc25b753237246b8fa9520fc1062750ab6c4a4",
+      "pythonEvidenceSha256": "47c147b52b9de4efee25a8ac0a604670e245e7054796b34545072ce6e341984f",
+      "nativeEvidenceSha256": "6de4c9a19aab9f4c3101c7920110268ee029dfea6df9da20004927b9c61f0fad",
+      "sameInputsAndRepeatAggregate": true
+    },
+    {
+      "boss": "mirror-container",
+      "pythonAggregate": 1823488781,
+      "pythonBossHpDamage": 1823488781,
+      "pythonRemainingBossHp": 3976511219,
+      "pythonSimulatedSeconds": 112.817,
+      "pythonSurvivors": 0,
+      "pythonStopReason": "Squad defeated",
+      "pythonWallSeconds": 4.208330099994782,
+      "qte": [
+        {
+          "id": "raid-9",
+          "status": "passed"
+        },
+        {
+          "id": "raid-10",
+          "status": "failed"
+        }
+      ],
+      "nativeUiDamage": 3467212775,
+      "nativeAggregate": 3497344287,
+      "nativeSeconds": 180,
+      "nativeSurvivors": 5,
+      "aggregateDifferencePercent": -47.860758582502115,
+      "requestSha256": "751f8f35ebef70f7d66642a01b090fac2fb86c63b1e998aba62277a01d573a48",
+      "pythonEvidenceSha256": "11db3b17018af66b6a0274f4ca453bef076300fa0c377d19ab29fb7089270836",
+      "nativeEvidenceSha256": "9edd18fcf7ae47dff516d70da4eb22f3a58cba415d320ba5eca5010653c7f155",
+      "sameInputsAndRepeatAggregate": true
+    }
+  ],
+  "sourceFiles": {
+    "tools/raid-lab/anomaly-timing-data.json": "224b5660acf5c3941f3a10a597c556da2382ca35705537f50ef9e7d952cf181a",
+    "tools/raid-lab/anomaly-weapon-geometry.json": "e42bac124c2473f126b513e3a55b0d864c444c0a62d294b169a1f286496f84a3",
+    "tools/raid-lab/anomaly_projectiles.py": "56499e7e1a0b8098f36be8c7e4d38f0e06a4ce2c02f69fca1c6d85c39dc75c65",
+    "tools/raid-lab/anomaly_qte_shots.py": "5de8231e8e0cebbabc225e0a22b2c99ea74b097d78126b7d5aa8467e29110891",
+    "tools/raid-lab/anomaly_timing.py": "d2785bd5208eb318101d81ce6830891baf31cf8792b67ee385ad22edbce802d7",
+    "tools/raid-lab/anomaly_ultra_harvester.py": "cd66e7e599fd3c62cb9f8cc2f543ae3f54c4af65a4f9954fd7a0b20d5112e64d",
+    "tools/raid-lab/kraken_combat.py": "3b182e76d42b98623473b3f74d011ef8f1593ca6dda01f94e3a26a0685e40932",
+    "tools/raid-lab/raid_boss_combat.py": "aca24c3ad4f52d11a3399c7c49d6e0e3c9e017d56c33513821f1d84aec55eda0",
+    "tools/raid-lab/test_anomaly_mirror_indivilia.py": "1e5133263a7b8a5eb367f4a4cd8791cf97554c4a0fe1d6d48a668c712270b43e",
+    "tools/raid-lab/test_anomaly_projectiles.py": "befc7c5bbc79a5b0501b3bec551ec6cf5f9ed4acf0a834e9b8338ad07593748e",
+    "tools/raid-lab/test_anomaly_runtime.py": "842ffd36aec0446724adbe36e9c358d7b61fc89eb6373bed3b2340ec0c07d540",
+    "tools/raid-lab/test_anomaly_timing.py": "9269f6b82b21e17b0bb69a476cea20eaa8d446c7752f1d0457bdfac26467aec6",
+    "tools/raid-lab/test_anomaly_ultra_harvester.py": "091809446a75481ee44e2f6473498cd83a6c28cc0b7affdb2196862b076db2f9",
+    "tools/raid-lab/test_raid_boss_combat.py": "73cb4ee8dbea964aa25429446dab119fc16204b97765b808607c0403dab572fe",
+    "tools/raid-lab/unit_combat.py": "70c21dbd2079b5e26a57de52f44db304f6c807e85ee03a6b957f3b5acc321ff2"
+  }
+}

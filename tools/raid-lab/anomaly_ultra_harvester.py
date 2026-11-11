@@ -245,7 +245,8 @@ class _BaseMechanics:
                            muzzle_count=1, prefab_index=0,
                            geometry_index=0, fire_index=0,
                            hp_divisor=None, damage_divisor=None,
-                           volley_defence=None, volley_defence_at=None):
+                           volley_defence=None, volley_defence_at=None,
+                           weapon_part=None, scheduled_launch=None):
         is_timeline = skill['Id'] in TIMELINE_PROJECTILE_SKILLS
         if hp_divisor is None:
             hp_divisor = (max(1, skill['ShotCount']) if is_timeline
@@ -253,6 +254,7 @@ class _BaseMechanics:
         flight = self._flight_seconds(skill, projectile_index=geometry_index)
         launch_at = (self.runtime.time if is_timeline else
                      self.runtime.time + fire_index * skill['DelayTime'] / 100)
+        if scheduled_launch is not None:launch_at=scheduled_launch
         # Timeline divides SkillValue01 by the current prefab's muzzle count;
         # legacy Fire divides by the total selected muzzle count and its
         # FireProjectile path copies that damage without reading ShotCount.
@@ -281,6 +283,7 @@ class _BaseMechanics:
             'skill': projectile_skill, 'node': dict(node),
             'physical_index': projectile_index,
             'fire_index': fire_index,
+            'weapon_part': weapon_part,
             'physical_count': physical_count,
             'projectile_hp_shot_divisor': hp_divisor,
             'projectile_damage_ratio_divisor': damage_divisor,
@@ -310,9 +313,7 @@ class _BaseMechanics:
         if not is_timeline:
             destroyed = {name for name in self.runtime.world.parts.parts
                          if not self.runtime.world.parts.alive(name)}
-            schedule = ordinary_fire_schedule(
-                self.runtime.key, skill['Id'], start=self.runtime.time,
-                destroyed_parts=destroyed)
+            schedule = self.runtime.ordinary_schedule(skill, self.runtime.time, node)
             count = len(schedule['impact_events'])
             if not count:
                 self.runtime.log('projectile weapon prefab unavailable',
@@ -329,49 +330,41 @@ class _BaseMechanics:
         launched = []
         index = 0
         shots = max(1, skill['ShotCount'])
-        if not is_timeline and skill['ShotTiming'] == 'Sequence':
-            # Sequence alternates prefab entries, then advances the selected
-            # prefab's muzzle index from the quotient of fireIndex/prefabCount.
-            prefab_count = len(muzzle_counts)
-            for fire_index in range(count):
-                prefab_index = fire_index % prefab_count
-                muzzle_index = ((fire_index // prefab_count) %
-                                muzzle_counts[prefab_index])
-                geometry_index = sum(muzzle_counts[:prefab_index]) + muzzle_index
-                launched.append(self._launch_projectile(
-                    skill, node, destroyable=destroyable,
-                    projectile_index=index, physical_count=count,
-                    muzzle_count=muzzle_counts[prefab_index],
-                    prefab_index=prefab_index, geometry_index=geometry_index,
-                    fire_index=fire_index,
+        if schedule is not None:
+            for event in schedule['impact_events']:
+                prefab=event['prefab_index'];muzzle=event['muzzle_index']
+                launched.append(self._launch_projectile(skill,node,destroyable=destroyable,
+                    projectile_index=event['hit_index'],physical_count=count,
+                    muzzle_count=muzzle_counts[prefab],prefab_index=prefab,
+                    geometry_index=sum(muzzle_counts[:prefab])+muzzle,
+                    fire_index=event['fire_index'],weapon_part=event['weapon_part'],
+                    scheduled_launch=event['time'],
                     hp_divisor=schedule['projectile_hp_ratio_divisor'],
                     damage_divisor=schedule['damage_ratio_divisor'],
-                    volley_defence=volley_defence,
-                    volley_defence_at=volley_defence_at))
-                index += 1
-        else:
-            for shot_index in range(shots):
-                for prefab_index, muzzle_count in enumerate(muzzle_counts):
-                    for muzzle_index in range(muzzle_count):
-                        geometry_index = sum(muzzle_counts[:prefab_index]) + muzzle_index
-                        launched.append(self._launch_projectile(
-                            skill, node, destroyable=destroyable,
-                            projectile_index=index, physical_count=count,
-                            muzzle_count=muzzle_count, prefab_index=prefab_index,
-                            geometry_index=geometry_index,
-                            fire_index=shot_index,
-                            hp_divisor=(schedule['projectile_hp_ratio_divisor']
-                                        if schedule else None),
-                            damage_divisor=(schedule['damage_ratio_divisor']
-                                            if schedule else None),
-                            volley_defence=volley_defence,
-                            volley_defence_at=volley_defence_at))
-                        index += 1
+                    volley_defence=volley_defence,volley_defence_at=volley_defence_at))
+            return launched
+        for shot_index in range(shots):
+            for prefab_index, muzzle_count in enumerate(muzzle_counts):
+                for muzzle_index in range(muzzle_count):
+                    geometry_index = sum(muzzle_counts[:prefab_index]) + muzzle_index
+                    launched.append(self._launch_projectile(
+                        skill, node, destroyable=destroyable,
+                        projectile_index=index, physical_count=count,
+                        muzzle_count=muzzle_count, prefab_index=prefab_index,
+                        geometry_index=geometry_index, fire_index=shot_index,
+                        volley_defence=volley_defence,
+                        volley_defence_at=volley_defence_at))
+                    index += 1
         return launched
 
     def _advance_projectiles(self, t):
         for projectile in self.runtime.projectiles:
             if projectile.get('kind') != 'hostile':
+                continue
+            if projectile.get('status')=='pending' and not self.runtime.pending_fire_valid(
+                    projectile.get('weapon_part'),projectile['node']):
+                projectile.update(status='cancelled',cancelled_at=t,
+                                  cancel_reason='native WaitFire weapon/target lifetime')
                 continue
             if projectile.get('status') == 'pending' and t >= projectile['launch_at']:
                 self._activate_projectile(projectile)
@@ -637,15 +630,14 @@ class HarvesterMechanics(_BaseMechanics):
         }
 
     def _projectile_target_position(self, target):
+        import unit_combat
         observed = getattr(self.runtime, 'projectile_target_positions', None) or {}
         if target in observed:
             value = observed[target]
             if isinstance(value, dict) and 'character' in value:
                 value = value['character']
             if isinstance(value, dict) and 'aiming' in value:
-                hiding = (target in getattr(self.runtime, 'covered', ()) or
-                          bool(getattr(getattr(self.runtime, 'bm', None),
-                                       'state', {}).get('planned_cover')))
+                hiding = unit_combat.hiding(self.runtime,target)
                 value = value.get('hiding' if hiding else 'aiming')
             if isinstance(value, dict) and all(axis in value for axis in ('x', 'y', 'z')):
                 value = tuple(value[axis] for axis in ('x', 'y', 'z'))

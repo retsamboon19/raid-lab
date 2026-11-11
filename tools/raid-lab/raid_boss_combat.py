@@ -26,7 +26,7 @@ from anomaly_target_context import (damage_args_for_target, select_enemy_effect_
                                     enemy_attack_for_target, direct_skill_enemy_targets,
                                     all_monster_targetable)
 from anomaly_qte_geometry import QTEBox, prefab_box_side
-from anomaly_timing import (DATA as TIMING_DATA, phase_duration, phase_stops_spot_tick, timeline_schedule,
+from anomaly_timing import (DATA as TIMING_DATA, phase_duration, phase_stops_spot_tick, timeline_schedule, native_cover_window,
                             combat_zone_contains, move_distance, move_reached, move_speed_step,
                             ordinary_fire_schedule)
 
@@ -275,6 +275,8 @@ class RaidWorld(PartWorld):
         index=state.get('shot_index',0);shot=int(shots[index].split('_')[-1]);skill=r.skills[shot]
         if 'impacts' not in state:
             cast=skill['CastingTime']/100;timeline=r.data['timelines'].get(str(shot)) if kind=='TimelineSkill' else None
+            constructed=TIMING_DATA['profiles'].get(r.key,{}).get('constructed_casting',{}).get(str(skill['Id']))
+            if constructed:cast=constructed['effective_casting_seconds']
             if kind=='TimelineSkill' and r.key in TIMING_DATA['profiles']:
                 timeline=TIMING_DATA['profiles'][r.key]['timelines'].get(str(shot),timeline)
             if timeline:
@@ -283,11 +285,10 @@ class RaidWorld(PartWorld):
                     impacts=[time+at for at in schedule['impacts']];end=time+schedule['end']
                     state['impact_events']=schedule['impact_events']
                     interrupt=time+(schedule['loop']['start'] if schedule['loop'] else 0)
-                    if r.key=='anomaly-ultra' and skill['Id'] in (510634,510635):
-                        # Native cover starts at the authored LoopEnd, after
-                        # the casting loop has finished (not 0.25s before hit).
-                        loop=schedule['loop']
-                        state['native_cover_start']=time+loop['end']+loop['shift_seconds']
+                    cover_window=native_cover_window(r.key,skill['Id'],schedule)
+                    if cover_window:
+                        state['native_cover_start']=time+cover_window[0]
+                        state['native_cover_end']=time+cover_window[1]
                 else:
                     markers=timeline['markers'];starts=[m['time'] for m in markers if m['type'].endswith('/LoopStart')];ends=[m['time'] for m in markers if m['type'].endswith('/LoopEnd')]
                     shift=cast-(ends[0]-starts[0]) if starts and ends else 0.
@@ -590,7 +591,13 @@ class RaidBossRuntime(EncounterRuntime):
         records=TIMING_DATA['profiles'].get(self.key,{}).get('ordinary_fire',{})
         if str(skill['Id']) not in records:return None
         destroyed=[row['PartsType'] for name,row in self.world.rows.items() if not self.world.parts.alive(name)]
-        return ordinary_fire_schedule(self.key,skill['Id'],start=start,destroyed_parts=destroyed)
+        # AttackV3 sets attack version 2 and selects the original fixed-frame
+        # TickCoroutine runner (SpotManagement.FRAME_30). V2 follows spot ticks.
+        kind=str(node.get('Type','')).rsplit('.',1)[-1]
+        step=1/30 if kind=='AttackV3' else 1/60 if kind=='AttackV2' else None
+        return ordinary_fire_schedule(self.key,skill['Id'],start=start,
+                                      destroyed_parts=destroyed,coroutine_step=step,
+                                      casting_complete=True)
 
     def perform_skill(self,skill,node):
         if self.anomaly_hook('perform_skill',skill,node):pass
@@ -603,14 +610,26 @@ class RaidBossRuntime(EncounterRuntime):
         elif skill['SkillValueType01']=='Percent' and skill['SkillValue01']>0:
             ordinary=self.ordinary_schedule(skill,self.time,node)
             if ordinary and skill['FireType']=='Instant':
-                for at in ordinary['impacts']:
+                for event in ordinary['impact_events']:
+                    at=event['time']
                     dispatched=dict(skill,ShotCount=1,SkillValue01=ordinary['damage_coefficient_raw'],_damage_shots=ordinary['damage_shot_count'])
                     if at<=self.time+1e-9:self.receive_attack(dispatched,node)
-                    else:self.pending_shots.append(dict(at=at,skill=dispatched,node=node))
+                    else:self.pending_shots.append(dict(at=at,skill=dispatched,node=node,weapon_part=event['weapon_part']))
             elif skill['ShotTiming']=='Sequence' and skill['ShotCount']>1:
                 for i in range(skill['ShotCount']):self.pending_shots.append(dict(at=self.time+i*skill['DelayTime']/100,skill=dict(skill,ShotCount=1,_damage_shots=skill['ShotCount']),node=node))
             else:self.receive_attack(skill,node)
         self.log('boss skill activated',shot=skill['SkillAniNumber'])
+
+    def pending_fire_valid(self,weapon_part,node):
+        # Original WaitFire.MoveNext checks WeaponData.IsDestroy and target
+        # IsAlive on every delayed iteration, independently of CancelType.
+        if weapon_part:
+            key=weapon_part.replace('_','').lower()
+            match=next((n for n in self.world.rows if n.replace('_','').lower()==key),None)
+            if match is not None and not self.world.parts.alive(match):return False
+        targets=node.get('_locked_targets',())
+        if targets and self.bm and not any(self.bm.state['hp'].get(n,0)>0 for n in targets):return False
+        return True
 
     def advance(self,t,state=None):
         if self.stopped:return
@@ -653,7 +672,9 @@ class RaidBossRuntime(EncounterRuntime):
                 m=next(m for m in self.data['monsters'] if m['Id']==a['monster_id'])
                 self.receive_attack(a['skill'],{},monster=m,source=a['id']);a['next_attack']=t+max(1,(a['skill']['CastingTime']+a['skill']['DelayTime'])/100)
         for item in list(self.pending_shots):
-            if t>=item['at']:self.pending_shots.remove(item);self.receive_attack(item['skill'],item['node'])
+            if not self.pending_fire_valid(item.get('weapon_part'),item['node']):
+                self.pending_shots.remove(item)
+            elif t>=item['at']:self.pending_shots.remove(item);self.receive_attack(item['skill'],item['node'])
         self.update_barrier()
         for p,a in self.world.parts.parts.items():
             if a['attack_at'] is not None:self.first_part_deadlines.setdefault(p,a['attack_at'])
@@ -695,18 +716,18 @@ class RaidBossRuntime(EncounterRuntime):
         for a in self.world.attacks.values():
             if a['impacts'] and not a.get('cover_registered'):
                 a['cover_registered']=True
-                if self.key=='anomaly-ultra' and 'native_cover_start' not in a:continue
-                self.cover_threats.append(dict(start=a.get('native_cover_start',min(a['impacts'])-.25),end=a['cover_until'],skill=self.skills[a['shot']],targets=a['targets'],parts=a['parts']))
+                if self.key in TIMING_DATA['profiles'] and 'native_cover_start' not in a:continue
+                self.cover_threats.append(dict(start=a.get('native_cover_start',min(a['impacts'])-.25),end=a.get('native_cover_end',a['cover_until']),skill=self.skills[a['shot']],targets=a['targets'],parts=a['parts']))
         reasons={}
         for threat in self.cover_threats:
-            if not threat['start']<=t<threat['end']:continue
+            if not threat['start']<=t<=threat['end']:continue
             skill=threat['skill']
             if threat['parts'] and any(not self.world.parts.alive(p) for p in threat['parts']):continue
-            if self.key=='anomaly-ultra':
+            if self.key in TIMING_DATA['profiles']:
                 living=[n for n,hp in self.bm.state['hp'].items() if hp>0]
-                if living and all(self.bm.has_shield(n) for n in living):continue
+                if self.key=='anomaly-ultra' and living and all(self.bm.has_shield(n) for n in living):continue
                 for n in living:
-                    if self.cover.get(n,0)>0:reasons[n]='Native Ultra attack timeline'
+                    if self.cover.get(n,0)>0:reasons[n]='Native attack timeline'
                 continue
             poison='ultra' in self.key and skill['SkillAniNumber']=='Shot02'
             harmful=poison or any(f['FunctionType']=='Stun' or f['FunctionType'] in ('Damage','CurrentHpRatioDamage') and f['DurationValue']>0 for f in self.hurt_functions(skill))
@@ -809,21 +830,46 @@ class RaidBossRuntime(EncounterRuntime):
         q=self.active
         if not q or not q.get('graph') or not q['event'].get('precision_hazards'):return
         graph=q['graph'];graph.advance(self.time)
-        dangerous=any(t['kind']=='counter' and t['status']=='active' for t in graph.targets.values())
+        dangerous=any(t['kind']=='counter' and (self.key=='anomaly-mirror-container' or t['status']=='active') for t in graph.targets.values())
+        q['event']['native_gray_sensitive']=dangerous
         for target in graph.targets.values():
-            if target['kind']=='break':target['weapons']=['AR','SMG','MG','SR'] if dangerous else None
+            if target['kind']=='break':target['weapons']=['AR','SMG','MG','AS','SR','RL'] if dangerous else None
         q['event']['full_burst_follow']=not dangerous
 
     def choose_qte_controller(self):
         self.update_qte_hazards()
         return KrakenRuntime.choose_qte_controller(self)
 
+    def qte_actor_ready(self,name,state):
+        if self.key not in TIMING_DATA['profiles']:return True
+        # Native readyActors requires positive current weapon ammo. Relinquish
+        # a controller that starts reloading instead of retaining it throughout
+        # a short circle deadline while another eligible actor can shoot.
+        if state.reloading_until>self.time or getattr(state,'ammo',1)<=0:return False
+        from anomaly_qte_shots import temporary_weapon_parameters, base_weapon_parameters
+        changed=self.bm.get_weapon_change(name)
+        native=(temporary_weapon_parameters(name,changed.get('weapon_type',state.weapon_type))
+                if changed else base_weapon_parameters(name))
+        if native is None:return False
+        # get_IsDownTypeFireTiming returns false for InputType.UP (2).
+        # The original QTE owner leaves these release-fired charge weapons to
+        # squad AI; DOWNCharge (3) can keep charging under directed input.
+        return (native['WeaponType'] in ('SMG','AR','MG','AS') or native['InputType']=='DOWNCharge'
+                or native['InputType']!='UP' and native['FireTiming']>0)
+
     def qte_weapon_type(self,caster,fallback):
-        if self.key not in TIMING_DATA['profiles'] or not self.bm:return fallback
-        changed=self.bm.get_weapon_change(caster)
-        if not changed:return fallback
-        from anomaly_qte_shots import temporary_weapon_parameters
-        native=temporary_weapon_parameters(caster,changed.get('weapon_type',fallback))
+        if self.key not in TIMING_DATA['profiles']:return fallback
+        changed=self.bm.get_weapon_change(caster) if self.bm else None
+        from anomaly_qte_shots import temporary_weapon_parameters, base_weapon_parameters
+        native=(temporary_weapon_parameters(caster,changed.get('weapon_type',fallback))
+                if changed else base_weapon_parameters(caster))
+        # Original153 SpotWeaponData constructor sets CharacterAttackType to
+        # Splash iff CharacterShotStaticInfo.SpotExplosionRange > 0, else
+        # Single. This is distinct from the table's Metal/Energy/Bio AttackType.
+        # The native gray-circle controller permits only Single weapons.
+        if (self.active and self.active['event'].get('native_gray_sensitive')
+                and (native is None or native['SpotExplosionRange']>0)):
+            return 'unsupported_gray_attack_type'
         return native['WeaponType'] if native else fallback
 
     def target(self,caster,weapon,element):
@@ -832,13 +878,26 @@ class RaidBossRuntime(EncounterRuntime):
         target=super().target(caster,weapon,element)
         if target is not None:
             key=(self.active['event']['id'],target.get('id',self.active['index']))
-            if key!=self.aim_id:self.aim_id=key;self.aim_ready=self.time+self.aim_seconds
+            if key!=self.aim_id:
+                if self.key in TIMING_DATA['profiles']:
+                    owner=self.active.get('controller')
+                    prior=getattr(self,'qte_aim_owner',None)
+                    # Native policy keeps a held continuous/DOWNCharge trigger
+                    # across visible target changes. Initial aim settles for
+                    # three updates; the Python battle tick is 1/60 second.
+                    keep_held=prior==(key[0],owner) and owner is not None
+                    self.aim_ready=self.time+(0 if keep_held else min(self.aim_seconds,3/60))
+                    self.qte_aim_owner=(key[0],owner)
+                else:self.aim_ready=self.time+self.aim_seconds
+                self.aim_id=key
             if self.time<self.aim_ready:return None
         return target
     def hold_fire(self,caster,weapon,element):
         if self.waiting:return True
         if self.active:
             self.choose_qte_controller();target=self.target(caster,weapon,element)
+            if self.key=='anomaly-mirror-container' and self.active.get('graph') and self.active.get('controller')!=caster:
+                return True  # Native teammate Idle isolation during gray presets.
             return self.active.get('controller')==caster and target is None
         part=self.select_part(caster)
         if self.key=='anomaly-mirror-container' and part:
@@ -1200,9 +1259,9 @@ class RaidBossRuntime(EncounterRuntime):
                 blocked,absorbed=unit_combat.hit_shield(self,n,amount)
             elif recipient=='cover' and self.cover.get(n,0)<=0:
                 blocked='destroyed cover'
-            elif not (node.get('_bypass_cover') or traits.get('bypass_cover')) and self.cover.get(n,0)>0 and (recipient=='cover' or n in self.covered or bm.state.get('planned_cover') or self.auto_cover and (amount>hp[n]*.95 or any(f['FunctionType'] in ('Stun','Damage') and f['DurationValue']>0 for f in hurt()))):
+            elif not (node.get('_bypass_cover') or traits.get('bypass_cover')) and self.cover.get(n,0)>0 and (recipient=='cover' or unit_combat.hiding(self,n) or self.key not in TIMING_DATA['profiles'] and self.auto_cover and (amount>hp[n]*.95 or any(f['FunctionType'] in ('Stun','Damage') and f['DurationValue']>0 for f in hurt()))):
                 absorbed=min(self.cover[n],math.floor(incoming_hit(attack,unit_combat.cover_defence(self,n),skill['SkillValue01'],stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount']))+.5))
-                self.cover[n]-=absorbed;blocked='cover';self.covered.add(n)
+                self.cover[n]-=absorbed;blocked='cover'
                 for f in hurt('cover'):
                     if f['DurationValue']>0:continue
                     extra=self.hurt_function_damage(f,n,attack,stat,cover=True)

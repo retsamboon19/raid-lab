@@ -16,10 +16,38 @@ from anomaly_timing import (
     phase_duration,
     phase_stops_spot_tick,
     profile_timeline_schedule,
+    native_cover_window,
 )
 
 
 class AnomalyTimingTests(unittest.TestCase):
+    def test_native_cover_windows_follow_constructed_loop_not_damage_estimate(self):
+        schedule=profile_timeline_schedule('anomaly-harvester',5)
+        start,end=native_cover_window('anomaly-harvester',510131,schedule)
+        self.assertAlmostEqual(start,149/30+schedule['loop']['shift_seconds'])
+        self.assertAlmostEqual(end,max(schedule['impacts']))
+        plain={'loop':None}
+        self.assertEqual(native_cover_window('anomaly-indivilia',531463,plain),(4.,4.3))
+        self.assertIsNone(native_cover_window('anomaly-mirror-container',520672,plain))
+        self.assertIsNone(native_cover_window('anomaly-harvester',510128,plain))
+
+    def test_fixed_frame_sequence_preserves_nested_yields(self):
+        # Original153 Fire -> SequenceFire -> WaitFire at 30 Hz. A 100 ms
+        # WaitFire plus two child-entry frames separates consecutive shots.
+        schedule=ordinary_fire_schedule('anomaly-ultra',510631,coroutine_step=1/30)
+        self.assertEqual(len(schedule['impacts']),20)
+        self.assertAlmostEqual(schedule['impacts'][0],.1)
+        self.assertAlmostEqual(schedule['impacts'][-1]-schedule['impacts'][0],19*5/30)
+        self.assertEqual([e['muzzle_index'] for e in schedule['impact_events'][:5]],[0,1,2,3,0])
+
+    def test_filtered_prefab_keeps_original_launcher_identity(self):
+        schedule=ordinary_fire_schedule('anomaly-mirror-container',520661,
+                                       destroyed_parts=['Weapon_01'])
+        row=ordinary_fire_record('anomaly-mirror-container',520661)
+        for event in schedule['impact_events']:
+            prefab=row['weapon_prefabs'][event['prefab_index']]
+            self.assertEqual(event['weapon_part'],prefab['parts_type_name'])
+
     def test_ordinary_action_end_includes_native_shot_and_animation_tails(self):
         cases = {
             ("anomaly-mirror-container", 520661): 1.2666667103767396,
@@ -64,22 +92,22 @@ class AnomalyTimingTests(unittest.TestCase):
 
     def test_ultra_shot04_uses_cloned_loop_markers(self):
         schedule = profile_timeline_schedule("anomaly-ultra", 4)
-        self.assertAlmostEqual(schedule["loop"]["shift_seconds"], 3.5)
-        self.assertAlmostEqual(schedule["impacts"][0], 6.966666666666667)
-        self.assertAlmostEqual(schedule["end"], 8.866666666667)
+        self.assertAlmostEqual(schedule["loop"]["shift_seconds"], 4.299999713897705)
+        self.assertAlmostEqual(schedule["impacts"][0], 7.766666380564372)
+        self.assertAlmostEqual(schedule["end"], 9.666666380564705)
 
     def test_mirror_loop_replays_attack_markers(self):
         schedule = profile_timeline_schedule("anomaly-mirror-container", 12)
-        self.assertEqual(len(schedule["impacts"]), 10)
+        self.assertEqual(len(schedule["impacts"]), 12)
         self.assertAlmostEqual(schedule["impacts"][0], 2.716666666666667)
         self.assertAlmostEqual(schedule["impacts"][5], 5.05)
-        self.assertAlmostEqual(schedule["end"], 11.166666666665666)
+        self.assertAlmostEqual(schedule["end"], 11.166666666665666 + 0.7999997138977051)
 
-    def test_zero_casting_time_uses_loop_start_as_native_fallback(self):
+    def test_zero_table_cast_uses_effect_duration_not_loop_start(self):
         schedule = profile_timeline_schedule("anomaly-ultra", 2)
-        self.assertAlmostEqual(schedule["loop"]["casting_seconds"], 1.5)
-        self.assertAlmostEqual(schedule["impacts"][0], 4.116666666666664)
-        self.assertAlmostEqual(schedule["end"], 7.6)
+        self.assertAlmostEqual(schedule["loop"]["casting_seconds"], 0.800000011920929)
+        self.assertAlmostEqual(schedule["impacts"][0], 3.416666678587593)
+        self.assertAlmostEqual(schedule["end"], 6.900000011920929)
 
     def test_harvester_generic_marker_names_preserve_five_targets(self):
         shot4 = profile_timeline_schedule("anomaly-harvester", 4)
@@ -87,7 +115,7 @@ class AnomalyTimingTests(unittest.TestCase):
         self.assertAlmostEqual(shot4["impacts"][0], 1.2666666666666666)
         shot5 = profile_timeline_schedule("anomaly-harvester", 5)
         self.assertEqual([event["target"] for event in shot5["impact_events"]], [1, 2, 3, 4, 5])
-        self.assertAlmostEqual(shot5["impacts"][0], 4.383333333333333)
+        self.assertAlmostEqual(shot5["impacts"][0], 3.6166666785875954)
 
     def test_ordinary_projectile_divisors_preserve_native_two_stage_split(self):
         row = ordinary_fire_record("anomaly-mirror-container", 520661)

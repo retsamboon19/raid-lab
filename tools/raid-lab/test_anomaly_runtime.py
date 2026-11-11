@@ -7,6 +7,31 @@ from test_raid_boss_combat import bind
 
 
 class AnomalyRuntimeTests(unittest.TestCase):
+    def test_qte_owner_hands_off_empty_weapon(self):
+        from mechanics import EncounterRuntime
+        r=RaidBossRuntime([],180,key='anomaly-ultra');_,names=bind(r)
+        r.add_event(dict(kind='qte',start=0,duration=10,controller='auto',on_fail='downtime',
+                        targets=[dict(hp=1000)]))
+        EncounterRuntime.advance(r,0)
+        r.active['controller']=names[0]
+        r.char_states[names[0]].ammo=0
+        r.char_states[names[1]].ammo=10
+        r.choose_qte_controller()
+        self.assertEqual(r.active['controller'],names[1])
+
+    def test_gray_policy_uses_native_splash_classification(self):
+        from mechanics import EncounterRuntime
+        r=RaidBossRuntime([],180,key='anomaly-mirror-container');r.aim_seconds=0
+        r.add_event(dict(kind='qte',start=0,duration=10,controller='auto',on_fail='downtime',
+            precision_hazards=True,full_burst_follow=False,
+            graph=[dict(id=1,kind='break',hp=1000,duration=10,first=True),
+                   dict(id=2,kind='counter',hp=1000,duration=10,first=False)]))
+        EncounterRuntime.advance(r,0);r.update_qte_hazards()
+        # Pending gray is already part of Mirror's forbidden preset; a table
+        # Metal attack can still be a native Splash weapon.
+        self.assertEqual(r.qte_weapon_type(core.NAME_MAP['rapunzel'],'RL'),'unsupported_gray_attack_type')
+        self.assertEqual(r.qte_weapon_type(core.NAME_MAP['liter'],'SMG'),'SMG')
+
     def test_selected_split_divides_before_integer_rounding_and_keeps_minimum_damage(self):
         from calculator.damage import calc_damage, default_hit_type
         r=RaidBossRuntime([],180,key='anomaly-ultra')
@@ -87,7 +112,7 @@ class AnomalyRuntimeTests(unittest.TestCase):
         EncounterRuntime.advance(r,1)
         kind=dict(is_normal_atk=True)
         with patch('anomaly_qte_shots.qte_shot_contacts',return_value=dict(contacts=[],calibration='observed ray')):
-            result=r.resolve('unit','전격','AR',kind,lambda **kw:dict(damage=1000,is_crit=False,crit_frac=0),
+            result=r.resolve(core.NAME_MAP['liter'],'전격','SMG',kind,lambda **kw:dict(damage=1000,is_crit=False,crit_frac=0),
                              dict(enemy_def=0,hit_type=kind))
         self.assertEqual(result['damage'],0)
         self.assertEqual(result['collision_hits'],0)
@@ -355,7 +380,7 @@ class AnomalyRuntimeTests(unittest.TestCase):
         EncounterRuntime.advance(r,1)
         r.update_qte_hazards()
         red=r.active['graph'].aim(1)
-        self.assertNotIn('RL',red['weapons'])
+        self.assertIn('RL',red['weapons'])  # Native Single RL is eligible; Splash is filtered per actor.
         self.assertFalse(r.active['event']['full_burst_follow'])
 
     def test_special_qte_defence_ignores_mirror_body_function_layers(self):
@@ -437,8 +462,8 @@ class AnomalyRuntimeTests(unittest.TestCase):
         node=next(n for n in r.tree.nodes.values() if n['Type'].endswith('.TimelineSkill') and n.get('List`1_aniNumberTypes')==['Shot_12'])
         state={'started':0}
         r.world.action(node,0,state)
-        self.assertEqual(len(state['impacts']),10)
-        self.assertAlmostEqual(state['end'],11.166666666666666)
+        self.assertEqual(len(state['impacts']),12)
+        self.assertAlmostEqual(state['end'],11.166666666666666 + 0.7999997138977051)
 
     def test_mirror_opening_move_uses_source_distance_acceleration_and_zone(self):
         r=RaidBossRuntime([],180,key='anomaly-mirror-container')

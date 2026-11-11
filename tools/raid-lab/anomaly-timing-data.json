@@ -183,7 +183,7 @@
         "8": {
           "skill_id": 510638,
           "asset": "bbg006_skill_05",
-          "casting_seconds": 0.5,
+          "casting_seconds": 1.2999999523162842,
           "delay_seconds": 0.5,
           "duration": 1.7166666666666666,
           "markers": [],
@@ -192,7 +192,7 @@
         "4": {
           "skill_id": 510637,
           "asset": "bbg006_skill_04",
-          "casting_seconds": 5.5,
+          "casting_seconds": 6.299999713897705,
           "delay_seconds": 0.5,
           "duration": 5.366666666667,
           "markers": [
@@ -221,7 +221,7 @@
         "1": {
           "skill_id": 510634,
           "asset": "bbg006_skill_01",
-          "casting_seconds": 3.0,
+          "casting_seconds": 3.799999952316284,
           "delay_seconds": 0.5,
           "duration": 5.866666666667,
           "markers": [
@@ -250,7 +250,7 @@
         "2": {
           "skill_id": 510635,
           "asset": "bbg006_skill_02",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.5,
           "duration": 7.433333333333334,
           "markers": [
@@ -342,7 +342,7 @@
         "9": {
           "skill_id": 510639,
           "asset": "bbg006_skill_06",
-          "casting_seconds": 2.0,
+          "casting_seconds": 2.799999952316284,
           "delay_seconds": 0.5,
           "duration": 5.866666666666666,
           "markers": [
@@ -422,7 +422,7 @@
         "10": {
           "skill_id": 510640,
           "asset": "bbg006_groggy",
-          "casting_seconds": 0.5,
+          "casting_seconds": 1.2999999523162842,
           "delay_seconds": 0.5,
           "duration": 6.366666666666666,
           "markers": [
@@ -444,7 +444,7 @@
         "3": {
           "skill_id": 510636,
           "asset": "bbg006_skill_03",
-          "casting_seconds": 5.5,
+          "casting_seconds": 6.299999713897705,
           "delay_seconds": 0.5,
           "duration": 5.366666666667,
           "markers": [
@@ -728,6 +728,92 @@
       "sources": {
         "tree": "private/offline-assets/trees/bt_bbg006_InterceptAnomalous.json",
         "combat_data": "raid-boss-combat-data.json"
+      },
+      "constructed_casting": {
+        "510631": {
+          "table_casting_seconds": 2.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.299999952316284,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510632": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_RL_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510633": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_RL_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510634": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510635": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510636": {
+          "table_casting_seconds": 5.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 6.299999713897705,
+          "effect_key": "Default_RL_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510637": {
+          "table_casting_seconds": 5.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 6.299999713897705,
+          "effect_key": "Default_RL_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510638": {
+          "table_casting_seconds": 0.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.2999999523162842,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510639": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510640": {
+          "table_casting_seconds": 0.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.2999999523162842,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510641": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510642": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        }
       }
     },
     "anomaly-indivilia": {
@@ -1056,7 +1142,7 @@
         "11": {
           "skill_id": 531466,
           "asset": "ebg003_skill_05",
-          "casting_seconds": 2.0,
+          "casting_seconds": 2.799999952316284,
           "delay_seconds": 0.0,
           "duration": 7.833333333332,
           "markers": [
@@ -1085,7 +1171,7 @@
         "18": {
           "skill_id": 531473,
           "asset": "ebg003_anim_2phase_groggy_01",
-          "casting_seconds": 1.5,
+          "casting_seconds": 2.299999952316284,
           "delay_seconds": 0.0,
           "duration": 4.866666666666,
           "markers": [
@@ -1107,7 +1193,7 @@
         "9": {
           "skill_id": 531464,
           "asset": "ebg003_anim_2phase_skil_02",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.0,
           "duration": 5.066666666666666,
           "markers": [
@@ -1136,7 +1222,7 @@
         "16": {
           "skill_id": 531471,
           "asset": "ebg003_anim_2phase_skil_04",
-          "casting_seconds": 1.0,
+          "casting_seconds": 1.7999999523162842,
           "delay_seconds": 0.0,
           "duration": 5.333333333333,
           "markers": [
@@ -1165,7 +1251,7 @@
         "10": {
           "skill_id": 531465,
           "asset": "ebg003_anim_skill_04",
-          "casting_seconds": 2.0,
+          "casting_seconds": 2.799999952316284,
           "delay_seconds": 0.0,
           "duration": 8.333333333332,
           "markers": [
@@ -1194,7 +1280,7 @@
         "17": {
           "skill_id": 531472,
           "asset": "ebg003_anim_groggy",
-          "casting_seconds": 3.0,
+          "casting_seconds": 3.799999952316284,
           "delay_seconds": 0.0,
           "duration": 6.833333333332,
           "markers": [
@@ -1216,7 +1302,7 @@
         "8": {
           "skill_id": 531463,
           "asset": "ebg003_anim_skill_03",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.0,
           "duration": 6.333333333333,
           "markers": [
@@ -1245,7 +1331,7 @@
         "3": {
           "skill_id": 531458,
           "asset": "ebg003_anim_skill_02",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.0,
           "duration": 6.166666666666667,
           "markers": [
@@ -1274,7 +1360,7 @@
         "4": {
           "skill_id": 531459,
           "asset": "ebg003_anim_2phase_skil_01",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.0,
           "duration": 4.5999999999989996,
           "markers": [
@@ -1303,7 +1389,7 @@
         "15": {
           "skill_id": 531470,
           "asset": "ebg003_anim_2phase_skil_03",
-          "casting_seconds": 2.0,
+          "casting_seconds": 2.799999952316284,
           "delay_seconds": 0.0,
           "duration": 5.0999999999989996,
           "markers": [
@@ -1360,7 +1446,7 @@
         "2": {
           "skill_id": 531457,
           "asset": "ebg003_anim_skill_01",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.0,
           "duration": 6.166666666666667,
           "markers": [
@@ -1389,7 +1475,7 @@
         "12": {
           "skill_id": 531467,
           "asset": "ebg003_anim_skill_06",
-          "casting_seconds": 5.0,
+          "casting_seconds": 5.799999713897705,
           "delay_seconds": 0.0,
           "duration": 8.833333333333,
           "markers": [
@@ -2202,6 +2288,218 @@
       "sources": {
         "tree": "private/offline-assets/trees/bt_ebg003_anmi_intercept_2.json",
         "combat_data": "raid-boss-combat-data.json"
+      },
+      "constructed_casting": {
+        "531456": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531457": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531458": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531459": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531460": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_SR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531461": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_SR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531462": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_SR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531463": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531464": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531465": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_SR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531466": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531467": {
+          "table_casting_seconds": 5.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 5.799999713897705,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531468": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_SR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531469": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_SR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531470": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531471": {
+          "table_casting_seconds": 1.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.7999999523162842,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531472": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531473": {
+          "table_casting_seconds": 1.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.299999952316284,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531474": {
+          "table_casting_seconds": 0.3,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.100000023841858,
+          "effect_key": "Default_RL_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531475": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531476": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531477": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531478": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531479": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531480": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531450": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531451": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531481": {
+          "table_casting_seconds": 0.3,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.100000023841858,
+          "effect_key": "Default_AR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531455": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "531482": {
+          "table_casting_seconds": 2.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 2.799999952316284,
+          "effect_key": "Default_SR_Metal",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        }
       }
     },
     "anomaly-mirror-container": {
@@ -2539,7 +2837,7 @@
         "24": {
           "skill_id": 520684,
           "asset": "xba001_skill_groggy_06",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.0,
           "duration": 8.666666666666,
           "markers": [
@@ -2561,7 +2859,7 @@
         "12": {
           "skill_id": 520672,
           "asset": "xba001_skill_04",
-          "casting_seconds": 5.0,
+          "casting_seconds": 5.799999713897705,
           "delay_seconds": 0.1,
           "duration": 8.499999999999,
           "markers": [
@@ -2618,7 +2916,7 @@
         "13": {
           "skill_id": 520673,
           "asset": "xba001_skill_04",
-          "casting_seconds": 5.0,
+          "casting_seconds": 5.799999713897705,
           "delay_seconds": 0.1,
           "duration": 8.499999999999,
           "markers": [
@@ -2675,7 +2973,7 @@
         "14": {
           "skill_id": 520674,
           "asset": "xba001_skill_04",
-          "casting_seconds": 5.0,
+          "casting_seconds": 5.799999713897705,
           "delay_seconds": 0.1,
           "duration": 8.499999999999,
           "markers": [
@@ -2732,7 +3030,7 @@
         "15": {
           "skill_id": 520675,
           "asset": "xba001_skill_04",
-          "casting_seconds": 5.0,
+          "casting_seconds": 5.799999713897705,
           "delay_seconds": 0.1,
           "duration": 8.499999999999,
           "markers": [
@@ -2789,7 +3087,7 @@
         "9": {
           "skill_id": 520669,
           "asset": "xba001_skill_01",
-          "casting_seconds": 3.0,
+          "casting_seconds": 3.799999952316284,
           "delay_seconds": 0.5,
           "duration": 7.166666666666,
           "markers": [
@@ -2832,7 +3130,7 @@
         "10": {
           "skill_id": 520670,
           "asset": "xba001_skill_02",
-          "casting_seconds": 3.0,
+          "casting_seconds": 3.799999952316284,
           "delay_seconds": 1.0,
           "duration": 7.166666666666667,
           "markers": [
@@ -2861,7 +3159,7 @@
         "16": {
           "skill_id": 520676,
           "asset": "xba001_skill_05",
-          "casting_seconds": 4.0,
+          "casting_seconds": 4.799999713897705,
           "delay_seconds": 1.0,
           "duration": 10.333333333332,
           "markers": [
@@ -3523,6 +3821,218 @@
       "sources": {
         "tree": "private/offline-assets/trees/bt_xba001_psid_intercept.json",
         "combat_data": "raid-boss-combat-data.json"
+      },
+      "constructed_casting": {
+        "520661": {
+          "table_casting_seconds": 1.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.7999999523162842,
+          "effect_key": "Default_RL_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520662": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520663": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520664": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520665": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520666": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520667": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520668": {
+          "table_casting_seconds": 0.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.2999999523162842,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520669": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520670": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520671": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520672": {
+          "table_casting_seconds": 5.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 5.799999713897705,
+          "effect_key": "Default_RL_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520673": {
+          "table_casting_seconds": 5.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 5.799999713897705,
+          "effect_key": "Default_RL_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520674": {
+          "table_casting_seconds": 5.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 5.799999713897705,
+          "effect_key": "Default_RL_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520675": {
+          "table_casting_seconds": 5.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 5.799999713897705,
+          "effect_key": "Default_RL_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520676": {
+          "table_casting_seconds": 4.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 4.799999713897705,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520677": {
+          "table_casting_seconds": 0.1,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.9000000357627869,
+          "effect_key": "Default_SR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520678": {
+          "table_casting_seconds": 0.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.2999999523162842,
+          "effect_key": "Default_RL_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520679": {
+          "table_casting_seconds": 0.5,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 1.2999999523162842,
+          "effect_key": "Default_RL_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520680": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520681": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520682": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520683": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520684": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520685": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520686": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520687": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520688": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520689": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "520690": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Energy",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        }
       }
     },
     "anomaly-harvester": {
@@ -3588,7 +4098,7 @@
         "7": {
           "skill_id": 510133,
           "asset": "bbg001_shot_07_leg",
-          "casting_seconds": 3.0,
+          "casting_seconds": 3.799999952316284,
           "delay_seconds": 0.5,
           "duration": 5.966666666666667,
           "markers": [
@@ -3605,7 +4115,7 @@
         "4": {
           "skill_id": 510134,
           "asset": "bbg001_shot_07_Laser",
-          "casting_seconds": 3.0,
+          "casting_seconds": 3.799999952316284,
           "delay_seconds": 0.5,
           "duration": 2.466666666666667,
           "markers": [
@@ -3650,7 +4160,7 @@
         "6": {
           "skill_id": 510132,
           "asset": "bbg001_shot_06_Flash",
-          "casting_seconds": 3.0,
+          "casting_seconds": 3.799999952316284,
           "delay_seconds": 0.5,
           "duration": 9.033333333333333,
           "markers": [
@@ -3667,7 +4177,7 @@
         "5": {
           "skill_id": 510131,
           "asset": "bbg001_shot_05_laser",
-          "casting_seconds": 0.0,
+          "casting_seconds": 0.800000011920929,
           "delay_seconds": 0.5,
           "duration": 7.516666666666667,
           "markers": [
@@ -3981,7 +4491,128 @@
       "sources": {
         "tree": "private/offline-assets/trees/bt_bbg001_intercept.json",
         "combat_data": "raid-boss-combat-data.json"
+      },
+      "constructed_casting": {
+        "510128": {
+          "table_casting_seconds": 0.1,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.9000000357627869,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510129": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510130": {
+          "table_casting_seconds": 0.1,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.9000000357627869,
+          "effect_key": "Default_RL_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510131": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510132": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510133": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510134": {
+          "table_casting_seconds": 3.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 3.799999952316284,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510135": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510136": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510137": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510138": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510139": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510140": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_SR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510141": {
+          "table_casting_seconds": 6.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 6.799999713897705,
+          "effect_key": "Default_RL_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        },
+        "510142": {
+          "table_casting_seconds": 0.0,
+          "casting_shot_seconds": 0.800000011920929,
+          "effective_casting_seconds": 0.800000011920929,
+          "effect_key": "Default_AR_Bio",
+          "casting_guid": "1a7df181c4a05984cbe80d281bc0cb64"
+        }
       }
     }
+  },
+  "casting_effect_source": {
+    "client_sha256": "d39896d3770888039c728a1908448c3db5efa7cdf874c90d56f46d8d566428d2",
+    "method": "SpotMonsterSkill constructor adds MonsterWeaponEffector.CastingShotTime; SetCastingShotTime reads casting-shot PlayableAsset.duration",
+    "timeline_sources": [
+      {
+        "bundle": "effect-spot-monster_library_assets_fx_m_signal_shot_6d8b8d9c80716553d76e7b3c511c3ce6.bundle",
+        "sha256": "d427b710d350a78dd948a0c74a7902bb16acbf734d1b6014a9374d42bd2464fe"
+      },
+      {
+        "bundle": "shaders_assets_nk_fx_blend_all.bundle",
+        "sha256": "cef2eca6528b0b132eb9612d0778c72715526ba430f23224f01e3b5248017c60"
+      }
+    ]
   }
 }

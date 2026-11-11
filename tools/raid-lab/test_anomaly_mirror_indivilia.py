@@ -568,7 +568,9 @@ class RaidBossRuntimeIntegrationTests(unittest.TestCase):
         runtime.anomaly.on_phase_changed(2, 0)
         for shot in range(20, 24):
             node = {"ID": 9000 + shot, "Type": "Attack", "SkillAniNumberTypemSkillAniNumber": f"Shot_{shot:02d}"}
-            self.assertEqual(runtime.world.action(node, 0, {"started": 0}), SUCCESS)
+            state={"started": 0}
+            runtime.world.action(node, 0, state)
+            self.assertEqual(runtime.world.action(node, state["end"], state), SUCCESS)
         self.assertEqual(runtime.anomaly.defence_layers, set(runtime.anomaly.PHASE_TWO_PARTS))
         self.assertAlmostEqual(runtime.anomaly.defence_multiplier(0), 4.6)
 
@@ -586,21 +588,27 @@ class RaidBossRuntimeIntegrationTests(unittest.TestCase):
         runtime.anomaly.on_phase_changed(2, 0)
         for shot in range(20, 24):
             node = {"ID": 9100 + shot, "Type": "Attack", "SkillAniNumberTypemSkillAniNumber": f"Shot_{shot:02d}"}
-            self.assertEqual(runtime.world.action(node, 0, {"started": 0}), SUCCESS)
+            state={"started": 0}
+            runtime.world.action(node, 0, state)
+            self.assertEqual(runtime.world.action(node, state["end"], state), SUCCESS)
         runtime.anomaly.on_part_broken("Weapon_07", 1, True)
         self.assertAlmostEqual(runtime.anomaly.defence_multiplier(1), 3.7)
 
         # Passed Shot16 takes selector fallback node 268: barrier-off Shot26
         # only, so no Shot20..23 layer is reapplied.
         off = {"ID": 9268, "Type": "Attack", "SkillAniNumberTypemSkillAniNumber": "Shot_26"}
-        self.assertEqual(runtime.world.action(off, 2, {"started": 2}), SUCCESS)
+        state={"started": 2}
+        runtime.world.action(off, 2, state)
+        self.assertEqual(runtime.world.action(off, state["end"], state), SUCCESS)
         self.assertAlmostEqual(runtime.anomaly.defence_multiplier(2), 3.7)
 
         # Failed Shot16 continues nodes 255..259 and explicitly reapplies all
         # four layer skills before resetting the cycle variables.
         for shot in range(20, 24):
             node = {"ID": 9200 + shot, "Type": "Attack", "SkillAniNumberTypemSkillAniNumber": f"Shot_{shot:02d}"}
-            self.assertEqual(runtime.world.action(node, 3, {"started": 3}), SUCCESS)
+            state={"started": 3}
+            runtime.world.action(node, 3, state)
+            self.assertEqual(runtime.world.action(node, state["end"], state), SUCCESS)
         self.assertAlmostEqual(runtime.anomaly.defence_multiplier(3), 4.6)
 
     def test_real_runtime_first_hit_cancels_phase_two_slipper_before_break(self):

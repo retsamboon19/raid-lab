@@ -2,6 +2,26 @@
 from calculator import roster_mechanics as kits
 
 
+def hiding(runtime, name):
+    """Current modeled stance, including automatic reload and shot recovery.
+
+    Original reload starts change CharacterStance to Hiding, not just explicit
+    cover commands. Keep this separate from encounter_cover: reporting a
+    reload as a controller command would hold the weapon after it completes.
+    """
+    bm=getattr(runtime,'bm',None)
+    if name in getattr(runtime,'covered',()) or bm and bm.state.get('planned_cover'):
+        return True
+    state=getattr(runtime,'char_states',{}).get(name)
+    if state is None:return False
+    t=runtime.time
+    return (getattr(state,'reloading_until',-1)>t
+        or getattr(state,'_cover_until',-1)>t
+        or bool(getattr(state,'cover_during_delay',False)
+                and getattr(state,'_charge_phase',None)=='post_delay'
+                and getattr(state,'_post_delay_end_t',-1)>t))
+
+
 def enemy_attack(runtime, attack):
     bm = runtime.bm
     percent = kits.total(bm, '__enemy__', 'atk_pct', runtime.time)

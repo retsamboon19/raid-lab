@@ -37,7 +37,7 @@ def _weapon_data() -> dict[str, Any]:
 
 
 def base_weapon_parameters(unit_name: str) -> dict[str, Any] | None:
-    """Get installed version-152 base-weapon geometry by exact unit name.
+    """Get installed version-153 base-weapon geometry by exact unit name.
 
     Returns a copy with ``explosion_radius`` in world units. A temporary
     weapon mode must supply its own CharacterShot row; this lookup cannot

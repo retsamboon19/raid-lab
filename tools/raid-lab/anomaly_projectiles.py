@@ -193,6 +193,7 @@ class AnomalyProjectileMechanics:
         return DEFAULT_BOSS_POSITIONS[self.runtime.key], "profile initial point"
 
     def _target_position(self, target, recipient="character"):
+        import unit_combat
         observed = getattr(self.runtime, "projectile_target_positions", None) or {}
         if target in observed:
             value = observed[target]
@@ -202,9 +203,7 @@ class AnomalyProjectileMechanics:
             if isinstance(value, dict) and recipient in value:
                 value = value[recipient]
             if isinstance(value, dict) and "aiming" in value:
-                hiding = (target in getattr(self.runtime, "covered", ()) or
-                          bool(getattr(getattr(self.runtime, "bm", None),
-                                       "state", {}).get("planned_cover")))
+                hiding = unit_combat.hiding(self.runtime,target)
                 value = value.get("hiding" if hiding else "aiming")
             if isinstance(value, dict):
                 value = (tuple(value[axis] for axis in ("x", "y", "z"))
@@ -218,8 +217,7 @@ class AnomalyProjectileMechanics:
             slot = names.index(target)
             if recipient == "cover":
                 return FORMATION_COVER[slot], "measured shared cover transform"
-            hiding = (target in getattr(self.runtime, "covered", ()) or
-                      bool(self.runtime.bm.state.get("planned_cover")))
+            hiding = unit_combat.hiding(self.runtime,target)
             if hiding:
                 return tuple(a + b for a, b in zip(FORMATION_AIM[slot], HIDE_TRANSLATION)), \
                        "measured formation with shared hiding stance endpoint"
@@ -250,6 +248,21 @@ class AnomalyProjectileMechanics:
     def _activate(self, projectile):
         """Create native launch-time projectile stats and attacker snapshot."""
         runtime = self.runtime
+        # WaitFire reads the live muzzle/target transforms when it actually
+        # calls FireProjectile. A delayed volley must not retain its first
+        # shot's stance or boss point. Bind-pose launchers remain approximate.
+        if projectile['status'] == 'pending':
+            boss, boss_source = self._boss_position()
+            launch = tuple(a+b for a,b in zip(boss, projectile['launcher_bind_position']))
+            target, target_source = self._target_position(projectile['target'], projectile['target_kind'])
+            distance = math.dist(launch, target)
+            flight = distance / projectile['native_speed']
+            projectile.update(boss_position=boss, boss_position_source=boss_source,
+                              launch_position=launch, target_position=target,
+                              target_position_source=target_source,
+                              endpoint_distance=distance, flight_seconds=flight)
+            if projectile['impact_timing_status'] == 'estimated-native-distance-speed':
+                projectile['deadline'] = projectile['impact_at'] = projectile['launch_at'] + flight
         skill = projectile["source_skill"]
         stat = runtime.stat()
         hp = (_rounded_hp(stat["LevelProjectileHp"] *
@@ -276,7 +289,7 @@ class AnomalyProjectileMechanics:
 
     def _spawn_one(self, skill, node, launcher_index, shot_index,
                    physical_index, fire_index, volley_defence=None,
-                   volley_defence_at=None):
+                   volley_defence_at=None, event=None, schedule=None):
         runtime = self.runtime
         destroyable = bool(skill["IsDestroyableProjectile"])
         physical_count = (len(LAUNCH_SOCKETS[skill["Id"]]) *
@@ -295,6 +308,10 @@ class AnomalyProjectileMechanics:
         damage_divisor = (max(1, skill["ShotCount"])
                           if skill["Id"] in TIMELINE_PROJECTILES
                           else len(LAUNCH_SOCKETS[skill["Id"]]))
+        if schedule is not None:
+            physical_count=len(schedule['impact_events'])
+            hp_divisor=schedule['projectile_hp_ratio_divisor']
+            damage_divisor=schedule['damage_ratio_divisor']
         projectile_damage_ratio = _rounded_hp(
             skill["SkillValue01"] / damage_divisor)
         projectile_skill = dict(skill, ShotCount=1,
@@ -322,6 +339,7 @@ class AnomalyProjectileMechanics:
         legacy = skill["Id"] not in TIMELINE_PROJECTILES
         launch_at = (runtime.time + fire_index * skill["DelayTime"] / 100
                      if legacy else runtime.time)
+        if event is not None:launch_at=event['time']
         diagnostic = bool(getattr(runtime, "projectile_diagnostic_no_deadline",
                                   False))
         impact_at = None if diagnostic else launch_at + flight_seconds
@@ -336,6 +354,7 @@ class AnomalyProjectileMechanics:
             "launcher_index": launcher_index,
             "physical_index": physical_index,
             "fire_index": fire_index,
+            "weapon_part": event.get('weapon_part') if event else None,
             "physical_count": total,
             "shot_count": skill["ShotCount"],
             "shot_timing": skill["ShotTiming"],
@@ -415,26 +434,20 @@ class AnomalyProjectileMechanics:
                            if legacy else None)
         volley_defence_at = self.runtime.time if legacy else None
         physical_index = 0
-        if skill.get("ShotTiming") == "Sequence" and legacy:
-            # Legacy Sequence selects prefab = fireIndex % weapon count.  All
-            # owned prefabs expose one muzzle, so each complete launcher pass
-            # advances the table shot index.
-            for fire_index in range(launchers * shots):
-                launcher_index = fire_index % launchers
-                shot_index = fire_index // launchers
+        if legacy:
+            schedule=self.runtime.ordinary_schedule(skill,self.runtime.time,node)
+            for event in schedule['impact_events']:
+                self._spawn_one(skill,node,event['prefab_index'],
+                    event.get('shot_index',event['hit_index']//launchers),
+                    event['hit_index'],event['fire_index'],volley_defence,
+                    volley_defence_at,event,schedule)
+            return True
+        for shot_index in range(shots):
+            for launcher_index in range(launchers):
                 self._spawn_one(skill, node, launcher_index, shot_index,
-                                physical_index, fire_index, volley_defence,
+                                physical_index, shot_index, volley_defence,
                                 volley_defence_at)
                 physical_index += 1
-        else:
-            # Concurrence and ConcurrenceGroup schedule each ShotCount group;
-            # every selected prefab/muzzle in the group shares its fireIndex.
-            for shot_index in range(shots):
-                for launcher_index in range(launchers):
-                    self._spawn_one(skill, node, launcher_index, shot_index,
-                                    physical_index, shot_index, volley_defence,
-                                    volley_defence_at)
-                    physical_index += 1
         return True
 
     def _find(self, projectile):
@@ -522,6 +535,11 @@ class AnomalyProjectileMechanics:
 
     def advance(self, time):
         for projectile in list(self.runtime.projectiles):
+            if (projectile.get('kind')=='hostile' and projectile.get('status')=='pending'
+                    and not self.runtime.pending_fire_valid(projectile.get('weapon_part'),projectile['node'])):
+                projectile.update(status='cancelled',cancelled_at=time,
+                    cancel_reason='native WaitFire weapon/target lifetime')
+                continue
             if (projectile.get("kind") == "hostile"
                     and projectile.get("status") == "pending"
                     and time >= projectile["launch_at"]):

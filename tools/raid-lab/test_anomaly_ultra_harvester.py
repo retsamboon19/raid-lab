@@ -349,13 +349,16 @@ class AnomalyUltraHarvesterTests(unittest.TestCase):
         self.assertEqual(active['status'], 'hit')
         self.assertEqual(received, [510632])
 
-    def test_ultra_part_break_keeps_non_cancelable_pending_volley(self):
+    def test_ultra_wait_fire_cancels_pending_volley_even_without_cancel_type(self):
         ultra = RaidBossRuntime([], 180, key='anomaly-ultra')
         skill = next(s for s in ultra.data['skills'] if s['Id'] == 510632)
         ultra.anomaly.perform_skill(skill, {})
         pending = [p for p in ultra.projectiles if p['status'] == 'pending']
-        self.assertEqual(ultra.anomaly.on_part_broken('Weapon_02', 0), 0)
-        self.assertTrue(all(p['status'] == 'pending' for p in pending))
+        self.assertEqual(skill['CancelType'],'None')
+        ultra.world.parts.damage('Weapon_02',10**20,0)
+        ultra.anomaly.advance(.01)
+        self.assertTrue(all(p['status']=='cancelled' for p in pending))
+        self.assertEqual(ultra.projectiles[0]['status'],'active')
 
     def test_ultra_phase_cutscene_preserves_unlaunched_projectiles(self):
         ultra = RaidBossRuntime([], 180, key='anomaly-ultra')
@@ -369,6 +372,9 @@ class AnomalyUltraHarvesterTests(unittest.TestCase):
         ultra.anomaly.on_cinematic_start(0)
         ultra.anomaly.on_phase_changed(2, 0)  # idempotent phase-commit fanout
         self.assertTrue(all(p['status'] == 'pending' for p in pending))
+        ultra.anomaly.advance(max(p['deadline'] for p in active + pending))
+        # Endpoints are sampled at physical launch; use the resulting flight
+        # deadline rather than the provisional pre-launch center estimate.
         ultra.anomaly.advance(max(p['deadline'] for p in active + pending))
         self.assertTrue(all(p['status'] == 'hit' for p in active + pending))
         self.assertEqual(received, [510632] * 10)
