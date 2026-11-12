@@ -10,6 +10,8 @@ def hiding(runtime, name):
     reload as a controller command would hold the weapon after it completes.
     """
     bm=getattr(runtime,'bm',None)
+    if bm is not None and not kits.can_cover(bm, name, runtime.time):
+        return False
     if name in getattr(runtime,'covered',()) or bm and bm.state.get('planned_cover'):
         return True
     state=getattr(runtime,'char_states',{}).get(name)

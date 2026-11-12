@@ -3808,8 +3808,8 @@
         "10": 40.01
       },
       "weapon_type": "RL",
-      "tick_start": "immediate",
-      "note": "유형 미확인 — 유저 지시로 type 1(즉시 첫 틱) 가정."
+      "note": "Original153 AutoFireWeapon uses shot1001702: SpotFirstDelay20 (0.2s), RateOfFire60 and four sequential muzzles (0.25s spacing). SpotWeaponData starts CurrentPreDelay at zero; WeaponLogic.CanFire waits for SpotPreDelay. This models firing eligibility, not projectile impact latency.",
+      "tick_start_delay": 0.2
     },
     {
       "source": "스킬3",
@@ -4314,7 +4314,7 @@
         "condition": []
       },
       "target": "self",
-      "weapon_type": "RL",
+      "weapon_type": "SR",
       "damage_coeff": {
         "1": 163.62,
         "2": 176.21,
@@ -10702,7 +10702,8 @@
       "stat": "gauge_consume",
       "gauge_id": "유령",
       "fixed_value": 6.0,
-      "note": "최소 1개 유지 — gauge floor 미구현"
+      "note": "Original153 FunctionOverlapChange preserves at least one existing stack; removing the whole function is a separate operation.",
+      "gauge_min": 1
     },
     {
       "source": "스킬3",
@@ -10746,7 +10747,9 @@
       "target": "self",
       "stat": "gauge_consume",
       "gauge_id": "유령",
-      "fixed_value": 9.0
+      "fixed_value": 9.0,
+      "gauge_min": 1,
+      "note": "Original153 FunctionOverlapChange preserves at least one existing stack; removing the whole function is a separate operation."
     },
     {
       "source": "스킬1",
@@ -19623,7 +19626,8 @@
       },
       "target": "enemies_top_atk:2",
       "stat": "enemy_buff_cleanse",
-      "max_trigger": 1
+      "max_trigger": 1,
+      "fixed_value": 5
     },
     {
       "source": "스킬1",
@@ -19699,7 +19703,8 @@
       },
       "target": "enemies_top_atk:2",
       "stat": "enemy_buff_cleanse",
-      "max_trigger": 1
+      "max_trigger": 1,
+      "fixed_value": 5
     },
     {
       "source": "스킬1",
@@ -21564,8 +21569,8 @@
           "charge_hold:0.5"
         ],
         "condition": [
-          "not_self_state:부끄러움",
-          "not_self_state:구경났냐 짜식들아!!"
+          "event_start_not_self_state:부끄러움",
+          "event_start_not_self_state:구경났냐 짜식들아!!"
         ]
       },
       "target": "self",
@@ -21574,7 +21579,7 @@
       "max_stack": 1,
       "fixed_value": 3.0,
       "duration": -1,
-      "note": "재장전 속도 50% 감소 상태로 고정 = 기본 2.0s → 3.0s 절대 고정(유저 인게임 확인). [재장전 1회 적용]이라 event:full_reload에서 해제"
+      "note": "Original153 Function214311002/214310105/214311007: activation gate must not disable its connected effects after the state is applied. Parent lifetime 40s; reload modifier lasts one full reload while parent exists."
     },
     {
       "source": "스킬1",
@@ -21601,8 +21606,8 @@
           "charge_hold:0.5"
         ],
         "condition": [
-          "not_self_state:부끄러움",
-          "not_self_state:구경났냐 짜식들아!!"
+          "event_start_not_self_state:부끄러움",
+          "event_start_not_self_state:구경났냐 짜식들아!!"
         ]
       },
       "target": "self",
@@ -21621,7 +21626,8 @@
         "9": 113.3,
         "10": 118.7
       },
-      "duration": 40.0
+      "duration": 40.0,
+      "note": "Original153 Function214311002/214310105/214311007: activation gate must not disable its connected effects after the state is applied. Parent lifetime 40s; reload modifier lasts one full reload while parent exists."
     },
     {
       "source": "스킬1",
@@ -21632,15 +21638,15 @@
           "charge_hold:0.5"
         ],
         "condition": [
-          "not_self_state:부끄러움",
-          "not_self_state:구경났냐 짜식들아!!"
+          "event_start_not_self_state:부끄러움",
+          "event_start_not_self_state:구경났냐 짜식들아!!"
         ]
       },
       "target": "self",
       "polarity": "neutral",
       "max_stack": 1,
-      "duration": -1,
-      "note": "상태 마커. self_state:부끄러움 게이팅용. 영구 지속이며 버스트(구경났냐 짜식들아!!)로만 해제된다(유저 확인). 같은 트리거의 다른 항목이 not_self_state:부끄러움을 보므로 반드시 배열 맨 끝"
+      "duration": 40.0,
+      "note": "Original153 Function214311002/214310105/214311007: activation gate must not disable its connected effects after the state is applied. Parent lifetime 40s; reload modifier lasts one full reload while parent exists."
     },
     {
       "source": "스킬1",
@@ -21648,7 +21654,8 @@
       "name": "부끄러움 재장전고정 해제",
       "trigger": {
         "timing": [
-          "event:full_reload"
+          "event:full_reload",
+          "event:state_end:부끄러움"
         ],
         "condition": []
       },

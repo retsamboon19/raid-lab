@@ -736,6 +736,8 @@ class RaidBossRuntime(EncounterRuntime):
                 estimate=incoming_hit(self.stat()['LevelAttack']*self.data['monster']['AttackRatio']/10000,self.bm._effective_def(n),skill['SkillValue01'],self.stat()['LevelStatdamageratio'],skill['ShotCount'])
                 if harmful or estimate>self.bm.state['hp'][n]*.5:
                     reasons[n]='Avoid poison / debuff' if harmful else 'Cover targeted high damage'
+        from calculator.roster_mechanics import can_cover
+        reasons={n:reason for n,reason in reasons.items() if can_cover(self.bm,n,t)}
         self.covered.update(reasons)
         for n,reason in reasons.items():
             if n not in self.cover_open:

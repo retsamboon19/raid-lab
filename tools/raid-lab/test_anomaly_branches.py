@@ -255,19 +255,19 @@ class SourceReferenceCoverageTests(unittest.TestCase):
 
     def test_mirror_j_counter_advances_three_opening_attacks_then_rest_route(self):
         template = RaidBossRuntime([], 180, key="anomaly-mirror-container")
-        runtime = RaidBossRuntime([], 180, key="anomaly-mirror-container")
-        runtime.world.variables["J"] = 1
         expected_openers = {1: 27, 2: 29, 3: 30}
         for value in (1, 2, 3, 4):
             with self.subTest(j=value):
+                runtime = RaidBossRuntime([], 180, key="anomaly-mirror-container")
+                runtime.world.variables["J"] = value
                 runtime.tree = BehaviorTree(copy.deepcopy(template.tree.nodes[144]), runtime.world)
-                expected_status = SUCCESS if value in expected_openers else RUNNING
                 # Each CheckVariableNode now consumes one native Running tick
-                # before its equality result can select the attack branch.
+                # before selecting the branch. An attack remains Running during
+                # its original casting timeline; routing is observable at launch.
                 for _ in range(5):
                     status=advance(runtime, 0)
-                    if status==SUCCESS or 154 in runtime.tree.memory:break
-                self.assertEqual(status, expected_status)
+                    if any(e['event']=='boss attack started' for e in runtime.events) or 154 in runtime.tree.memory:break
+                self.assertEqual(status, RUNNING)
                 starts = [event["shot"] for event in runtime.events
                           if event["event"] == "boss attack started"]
                 if value in expected_openers:

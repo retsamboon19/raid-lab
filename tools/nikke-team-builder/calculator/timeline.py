@@ -1272,9 +1272,13 @@ class CharState:
         # effect damage continue in the main loop; reloads can complete in cover.
         runtime = cfg.get("encounter_runtime")
         aiming = runtime is not None and hasattr(runtime, "hold_fire") and runtime.hold_fire(self.name, self.weapon_type, self.char.get("element_code", _NIKKE[self.name].get("element_code")))
-        if aiming or bm.state.get("planned_cover", False) or self.name in bm.state.get("encounter_cover", set()):
+        from .roster_mechanics import can_cover
+        if not can_cover(bm, self.name, t) and (self._cover_until_reload or self._cover_until > 0):
+            self._exit_cover(t)
+        commanded_cover = can_cover(bm, self.name, t) and (bm.state.get("planned_cover", False) or self.name in bm.state.get("encounter_cover", set()))
+        if aiming or commanded_cover:
             self.next_fire_time = max(self.next_fire_time, t)
-            if not aiming or bm.state.get("planned_cover", False) or self.name in bm.state.get("encounter_cover", set()):
+            if not aiming or commanded_cover:
                 self._cancel_end_sensitive_charge(t, bm)
             wc = bm.get_weapon_change(self.name)
             reload_runs = wc is None or (self._reload_in_weapon_change
@@ -2495,6 +2499,9 @@ class CharState:
         `priority`는 이 구간을 연 정책의 등급이다. 구간이 열려 있는 동안의 "엄폐 유지"
         요청이 이 값을 그대로 쓴다 — docs/CONTROL.md §조작자는 한 명.
         """
+        from .roster_mechanics import can_cover
+        if not can_cover(bm, self.name, t):
+            return
         self._ctrl_open_prio = priority
         if duration is None:
             self._cover_until_reload = True

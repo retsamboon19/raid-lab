@@ -1,0 +1,538 @@
+{
+  "date": "2026-11-12",
+  "status": "Original-source fixes applied; all 30 have numeric and focused interaction checks; full five-team Python ordering FAILED",
+  "originalGameAssemblySha256": "d39896d3770888039c728a1908448c3db5efa7cdf874c90d56f46d8d566428d2",
+  "source": "Current153 original offline tables and native function logic; legitimate installed GameAssembly hash matches. No wiki used for these fixes.",
+  "fixes": [
+    "Moran and Laplace: enforce original uncoverable weapon state in cover, hiding and encounter control.",
+    "Rosanna base and favorite: remove up to five removable beneficial enemy effects per selected target; retain harmful, neutral and irremovable effects.",
+    "Nayuta: transformed shot1022302 is SR, not RL; retain original AllAmmo convention.",
+    "Elegg: Boom and Shock: FunctionOverlapChange clamps an existing ghost stack to at least one; empty gauge remains empty.",
+    "Anis: Star: original auto weapon first-fire eligibility waits 0.2s, then four sequential muzzles per second; no fitted damage multiplier.",
+    "Milk: Blooming Bunny: activation-time gates no longer deactivate their own connected reload/attack effects; original parent state lasts 40s; reload modifier ends after one reload or parent removal."
+  ],
+  "sourceWitnesses": {
+    "enemyDispel": "SpotFunctionLogic.DispelFunction 0x6a952f0; Function228011004 / favorite228016004",
+    "stackFloor": "FunctionContext.AddFunction 0x70e0f5c; ProcessOverlapChange 0x6aa3090",
+    "autoWeapon": "CharacterSkill1017310 / CharacterShot1001702; SpotWeaponData.constructor 0x66e6ca0, CanFire 0x6d35000",
+    "milk": "Function214311002 DurationValue4000, connected214310105/214310106/214310108/214311007; reload DurationTypeReloadAllAmmoCount1"
+  },
+  "verification": {
+    "kits": [
+      {
+        "name": "Phantom",
+        "nameCode": 5122,
+        "tenLevelCurvesChecked": 19,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_phantom_mark_prevents_repeated_dagger_gain_on_same_marked_target",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Moran",
+        "nameCode": 1021,
+        "tenLevelCurvesChecked": 20,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_moran_and_laplace_cannot_cover_during_burst_mode",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Sin: Swift Bunny",
+        "nameCode": 5183,
+        "tenLevelCurvesChecked": 10,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_bunny_mode_settings_and_single_operator",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Rapunzel: Sanctuary",
+        "nameCode": 5187,
+        "tenLevelCurvesChecked": 13,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_rapunzel_sanctuary (13 cases: resurrection, hold, healing, targets, immunity, cooldown)",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Laplace: Ultimate Hero",
+        "nameCode": 5177,
+        "tenLevelCurvesChecked": 11,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_laplace_ultimate_transforms_only_on_fifth_charge_and_consumes_warmup",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Emma: Tactical Upgrade",
+        "nameCode": 5147,
+        "tenLevelCurvesChecked": 8,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_tactical_squad_target_and_conditional_state",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Guilty: Mighty Bunny",
+        "nameCode": 5182,
+        "tenLevelCurvesChecked": 8,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_bunny_mode_settings_and_single_operator",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Eunhwa: Tactical Upgrade",
+        "nameCode": 5149,
+        "tenLevelCurvesChecked": 8,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_tactical_squad_target_and_conditional_state",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Laplace",
+        "nameCode": 1010,
+        "tenLevelCurvesChecked": 10,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_moran_and_laplace_cannot_cover_during_burst_mode",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Cinderella: Crystal Wave",
+        "nameCode": 5175,
+        "tenLevelCurvesChecked": 12,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_crystal_wave_manual_reload_toggle_and_natural_reload_gate",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Viper",
+        "nameCode": 1022,
+        "tenLevelCurvesChecked": 13,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_viper_stealth_breaks_on_received_hit",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Sugar",
+        "nameCode": 5002,
+        "tenLevelCurvesChecked": 18,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_sugar_shotgun_ammo_buff_excludes_other_weapon",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Diesel",
+        "nameCode": 5020,
+        "tenLevelCurvesChecked": 13,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_diesel_hundred_hit_boundary_and_fullburst_heal_gate",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Exia",
+        "nameCode": 5003,
+        "tenLevelCurvesChecked": 14,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_exia_fifth_last_bullet_unlocks_bonus_burst",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Nayuta",
+        "nameCode": 5155,
+        "tenLevelCurvesChecked": 12,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_nayuta_original_transformed_shot_is_sniper; test_nayuta_all_ammo_displays_999_but_keeps_buffed_true_magazine",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Ark Ranger Black",
+        "nameCode": 5174,
+        "tenLevelCurvesChecked": 7,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_ark_first_burst_transforms_then_consumes_without_immediate_drain",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Velvet",
+        "nameCode": 5163,
+        "tenLevelCurvesChecked": 9,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_velvet_spends_only_available_shared_ammunition",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Rosanna",
+        "nameCode": 5045,
+        "tenLevelCurvesChecked": 14,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_rosanna_removes_five_removable_buffs_preserving_other_effects",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Anis: Star",
+        "nameCode": 5169,
+        "tenLevelCurvesChecked": 13,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_anis_auto_weapon_obeys_original_first_delay",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Zwei",
+        "nameCode": 5088,
+        "tenLevelCurvesChecked": 14,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_zwei_fifth_attack_heals_existing_cover_but_does_not_revive",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Milk: Blooming Bunny",
+        "nameCode": 5150,
+        "tenLevelCurvesChecked": 6,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_milk_hold_penalty_once_and_burst_clears_and_blocks_it; test_milk_original_forty_second_state_allows_reentry_after_expiry",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Maxwell: Ordinary Mechanic",
+        "nameCode": 5178,
+        "tenLevelCurvesChecked": 7,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_maxwell_overcurrent_increases_once_per_burst",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Privaty",
+        "nameCode": 5007,
+        "tenLevelCurvesChecked": 14,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_privaty_stun_extra_hit_and_expiry",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Marciana: Marine Study",
+        "nameCode": 5176,
+        "tenLevelCurvesChecked": 11,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_marciana_whistle_enemy_count_boundaries",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Label",
+        "nameCode": 5162,
+        "tenLevelCurvesChecked": 9,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_label_shield_invulnerability_prevents_depletion",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Mint",
+        "nameCode": 5172,
+        "tenLevelCurvesChecked": 8,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_mint_alternates_dance_and_vocal_without_leaving_both_active",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Neon: Vision Eye",
+        "nameCode": 5170,
+        "tenLevelCurvesChecked": 8,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_neon_recharge_and_full_gauge_choose_distinct_branches",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Delta: Ninja Thief",
+        "nameCode": 5154,
+        "tenLevelCurvesChecked": 12,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_delta_ifak_stores_healing_to_atk_cap_and_discharges_on_expiry; test_delta_ifak_every_four_seconds_discharge_precedes_next_window",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Elegg: Boom and Shock",
+        "nameCode": 5146,
+        "tenLevelCurvesChecked": 6,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_elegg_thirteen_ghost_branch_does_not_fall_into_six_after_consumption",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      },
+      {
+        "name": "Arcana: Fortune Mate",
+        "nameCode": 5167,
+        "tenLevelCurvesChecked": 6,
+        "numericChecks": "PASS",
+        "interactionChecks": "test_arcana_six_attack_cycle_grants_pellets_then_attack_and_resets",
+        "interactionChecksStatus": "PASS",
+        "completeNativeKitParityProven": false
+      }
+    ],
+    "curveCount": 333,
+    "levelsPerCurve": 10,
+    "curveComparison": "Each Python numeric curve has a matching curve in the connected original skill/function graph; this alone does not prove exact trigger or recipient mapping.",
+    "snapshotChanges": [
+      {
+        "squad": "S36_이사벨아르카나",
+        "changedKits": [
+          "아니스 : 스타"
+        ],
+        "oldDataRestoresBaseline": true,
+        "oldDamage": 11239985395,
+        "newDamage": 11176232527,
+        "updated": true
+      },
+      {
+        "squad": "S37_일레그루드밀라",
+        "changedKits": [
+          "일레그 : 붐 앤 쇼크"
+        ],
+        "oldDataRestoresBaseline": true,
+        "oldDamage": 7267742525,
+        "newDamage": 7450790840,
+        "updated": true
+      },
+      {
+        "squad": "S39_나가라피",
+        "changedKits": [
+          "아니스 : 스타"
+        ],
+        "oldDataRestoresBaseline": true,
+        "oldDamage": 5985352143,
+        "newDamage": 5993661523,
+        "updated": true
+      },
+      {
+        "squad": "S39_밀크도라",
+        "changedKits": [
+          "밀크 : 블루밍 바니"
+        ],
+        "oldDataRestoresBaseline": true,
+        "oldDamage": 4665202279,
+        "newDamage": 4665202279,
+        "updated": true
+      },
+      {
+        "squad": "S40_브리드라피",
+        "changedKits": [
+          "아니스 : 스타"
+        ],
+        "oldDataRestoresBaseline": true,
+        "oldDamage": 8245774042,
+        "newDamage": 8268798649,
+        "updated": true
+      }
+    ],
+    "regressions": {
+      "tests": 379,
+      "passed": true,
+      "snapshots": 33,
+      "snapshotsPassed": true,
+      "doclintPassed": true,
+      "baselinesUpdated": 5,
+      "baselineUpdateGate": "Every changed snapshot was reproduced exactly by restoring only the previous affected character data in memory; current snapshots then saved through runner.snapshot.save. Unrelated 28 squads unchanged."
+    },
+    "evidenceHashes": {
+      "tests-skill-repair-final.txt": "d81dc741bbabddff4da6459a430a8195e28c707c5b92242e7dd69591cc633bb2",
+      "snapshot-skill-repair-final.txt": "95ff931e8dac2a2523bafcdcce6b9c3eb6e72445c0a6b22eeea0c0f6eca17786",
+      "doclint-skill-repair-final.txt": "85d4c3d33a8ce6d0c95586a4183df3af90b8304bea257d991918c27a63eca69f",
+      "top30-native-curves.json": "43bf46f62c89508b4c401b16061b130a738aa75537527cf1a87b837cfd59b030",
+      "snapshot-change-proof.json": "0863b1673ea2b25ede57ce70c2d449f2f87ca58e46e21e5fd541742c5d0bcd18"
+    }
+  },
+  "ranking": {
+    "boss": "Anomaly Ultra",
+    "durationLimitSeconds": 180,
+    "seed": 1,
+    "levelCap": 400,
+    "controls": "qte-parts-cover",
+    "builds": "Captured saved equipped builds; shared characters identical across five squads; no fitting.",
+    "newNativeBattles": 4,
+    "reusedNativeReferences": 1,
+    "teams": [
+      {
+        "team": 1,
+        "members": [
+          "Liter",
+          "Crown",
+          "Cinderella: Crystal Wave",
+          "Red Hood",
+          "Helm"
+        ],
+        "nativeUiDamage": "1857887270",
+        "nativeAggregate": "1857887270",
+        "nativeDurationMs": 180000,
+        "nativeSurvivors": 5,
+        "nativeReferenceReused": true,
+        "pythonAggregate": 1398914550,
+        "pythonBossHpDamage": 1416914550,
+        "pythonSeconds": 136.983,
+        "pythonStopReason": "Squad defeated",
+        "pythonWallSeconds": 7.62515710000298,
+        "requestSha256": "59b11c1d7528914b6a360c85a6d38042c87bbacf5b1097579daaf1482a3eae93",
+        "nativeEvidenceSha256": "6019b5525448a45ebd04eb433dbc8f5b0217f6552e4c178829eb294dd3b39795",
+        "pythonEvidenceSha256": "84f3c46c6af4855f5a36a4c9c5887fb15d80c53eb8ec6a79f204873ff0ecde11"
+      },
+      {
+        "team": 2,
+        "members": [
+          "Liter",
+          "Crown",
+          "Cinderella",
+          "Red Hood",
+          "Helm"
+        ],
+        "nativeUiDamage": "1225244438",
+        "nativeAggregate": "1225244438",
+        "nativeDurationMs": 156189,
+        "nativeSurvivors": 0,
+        "nativeReferenceReused": false,
+        "pythonAggregate": 972352372,
+        "pythonBossHpDamage": 972352372,
+        "pythonSeconds": 147.267,
+        "pythonStopReason": "Squad defeated",
+        "pythonWallSeconds": 6.770876299997326,
+        "requestSha256": "d11ae3afd4dc12817b7e3d9fbc049aedc59634734d41d5ae73447bfbcf900570",
+        "nativeEvidenceSha256": "54efa13ab27ae58038b80e35b5e0c872c399064c6f4be8938fb0665a1e7ab615",
+        "pythonEvidenceSha256": "15cc21d80f83e9df11e484c39219dad3b0a2c6ff034855709b8b6aa0e379d0c1"
+      },
+      {
+        "team": 3,
+        "members": [
+          "Liter",
+          "Crown",
+          "Snow White: Heavy Arms",
+          "Red Hood",
+          "Helm"
+        ],
+        "nativeUiDamage": "1217434303",
+        "nativeAggregate": "1219737359",
+        "nativeDurationMs": 162288,
+        "nativeSurvivors": 0,
+        "nativeReferenceReused": false,
+        "pythonAggregate": 1245383833,
+        "pythonBossHpDamage": 1263383833,
+        "pythonSeconds": 138.483,
+        "pythonStopReason": "Squad defeated",
+        "pythonWallSeconds": 8.593322299973806,
+        "requestSha256": "c319d88f9dee8518ed15bc7e588af46aeb16757e755e3755c0d35ebea1391ab0",
+        "nativeEvidenceSha256": "d9dd64a0008bdacf25d2e95d037441e8da3329a45ff3a37953a3919b9bd100aa",
+        "pythonEvidenceSha256": "2e03c173f7c58a55e84eee3b3939e3fecc2e2d6ceaca5b3084d83791a0bf3469"
+      },
+      {
+        "team": 4,
+        "members": [
+          "Liter",
+          "Crown",
+          "Marian: Queen",
+          "Red Hood",
+          "Helm"
+        ],
+        "nativeUiDamage": "1410152909",
+        "nativeAggregate": "1410152909",
+        "nativeDurationMs": 163583,
+        "nativeSurvivors": 0,
+        "nativeReferenceReused": false,
+        "pythonAggregate": 1285081614,
+        "pythonBossHpDamage": 1303081614,
+        "pythonSeconds": 122.85,
+        "pythonStopReason": "Squad defeated",
+        "pythonWallSeconds": 8.03681439999491,
+        "requestSha256": "c70fb4b65c064f022ca041ab4f3fdac98652cd21a7a06d16d3cdb0f3328da037",
+        "nativeEvidenceSha256": "f7f4a1f42a6ee53ed47f92cb542a0c2257f1b8abc10ac295420df6bc2cfdc546",
+        "pythonEvidenceSha256": "3a0e0efd37bcac9f7ac61a08b96c8097aa8f9a90cad4ebc2a2f5be274c0219d1"
+      },
+      {
+        "team": 5,
+        "members": [
+          "Liter",
+          "Crown",
+          "Rapi: Red Hood",
+          "Red Hood",
+          "Helm"
+        ],
+        "nativeUiDamage": "1739817201",
+        "nativeAggregate": "1739817201",
+        "nativeDurationMs": 180000,
+        "nativeSurvivors": 5,
+        "nativeReferenceReused": false,
+        "pythonAggregate": 1239039887,
+        "pythonBossHpDamage": 1257039887,
+        "pythonSeconds": 131.433,
+        "pythonStopReason": "Squad defeated",
+        "pythonWallSeconds": 6.6914729999843985,
+        "requestSha256": "7ddab1783bbc98c7567666ccef9e9b20916ff45f7c743ca6544570177fd6671e",
+        "nativeEvidenceSha256": "f0bc63a2500252111fd79c94a1f716f127c1a0cc8a6c0d6bbaf36b00905a7ff0",
+        "pythonEvidenceSha256": "485b4dece333a042a4900e9e7089dad3f8e869b18d4124b63ab85867af064457"
+      }
+    ],
+    "nativeOrder": [
+      1,
+      5,
+      4,
+      2,
+      3
+    ],
+    "pythonOrder": [
+      1,
+      4,
+      3,
+      5,
+      2
+    ],
+    "winnerAgrees": true,
+    "fullOrderAgrees": false,
+    "limits": [
+      "One seed per team; no general consistency or global optimum claim.",
+      "Native teams 2 and 3 differ by approximately 0.64%; the Rapi versus Marian inversion is larger.",
+      "Python squad defeat times differ from native survival; native aggregate, displayed UI damage and boss HP delta remain distinct.",
+      "Python wall times were measured under concurrent checks and are not a controlled speed benchmark."
+    ]
+  },
+  "limitations": [
+    "Focused boundary cases cover all 30 selected kits, not every skill combination or exhaustive native parity.",
+    "Projectile flight, collision ordering and survival differences remain; Anis auto-fire delay models firing eligibility, not impact latency.",
+    "Enemy buff removal depends on represented enemy effects; synthetic target tests do not certify all original mob states.",
+    "The five-team winner matches, but Python cannot be presented as a correct complete ranking. Raid Lab keeps original-engine results authoritative."
+  ],
+  "deployment": {
+    "pythonRole": "shortlist only",
+    "finalRanking": "original native battle results",
+    "freshWorkerLoading": "CandidateExecutor uses spawn for each search; edited calculator code/data load in new workers.",
+    "health": {
+      "app": "Raid Lab",
+      "version": 1,
+      "battleEngine": "original153",
+      "nativeOnly": false,
+      "nativeResultsOnly": true,
+      "pythonScreening": true,
+      "minimumTables": true,
+      "customTeams": true,
+      "nativeSearch": true,
+      "acceleratedPreview": true,
+      "acceleratedPreviewVersion": 2
+    }
+  }
+}

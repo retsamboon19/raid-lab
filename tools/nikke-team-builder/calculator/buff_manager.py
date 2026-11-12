@@ -1301,8 +1301,12 @@ class BuffManager:
                     consumed = current
                     gauges[gauge_id] = 0.0
                 else:
-                    consumed = min(val, current)
-                    gauges[gauge_id] = max(0.0, current - val)
+                    # Original FunctionOverlapChange clamps an existing stack
+                    # to [1, FullCount] (FunctionContext.AddFunction 0x70e0f5c).
+                    # Explicit gauge removal still uses the separate -1 path.
+                    floor = min(current, float(eff.get('gauge_min', 0))) if current > 0 else 0.0
+                    gauges[gauge_id] = max(floor, current - val)
+                    consumed = current - gauges[gauge_id]
                 # gauge_consume_as_ammo: 실제 소모량만큼 squad_ammo_consume 이벤트 발생
                 if stat == "gauge_consume_as_ammo" and consumed > 0:
                     for _ in range(int(consumed)):
@@ -1380,7 +1384,7 @@ class BuffManager:
         # A multi-target resurrection changes HP and adds states while this same
         # cast is being dispatched. Its mutually exclusive branches must read
         # the cast-entry roster, and connected buffs keep those original targets.
-        if event == 'burst_cast':
+        if event == 'burst_cast' or event.startswith('charge_hold:'):
             ctx['_event_start_down'] = tuple(n for n in self.squad_names
                                               if not roster.alive(self, n))
             ctx['_event_start_states'] = frozenset(
@@ -2345,7 +2349,8 @@ class BuffManager:
                 # 회수는 양쪽 같다. 경계 처리는 tick()의 `limit` 참조.
                 duration = eff.get("duration")
                 expires = math.inf if duration is None or duration == -1 else t + duration
-                first_t = t if eff.get("tick_start") == "immediate" else t + tick_interval
+                first_t = (t + float(eff['tick_start_delay']) if 'tick_start_delay' in eff
+                           else t if eff.get("tick_start") == "immediate" else t + tick_interval)
                 self._dot_timers[id(eff)] = (caster, first_t, expires)
                 # DoT는 _active에도 등록해야 target_state/debuff_cleanse/remove_named_buff
                 # 등이 name·polarity 기준으로 조회할 수 있다.

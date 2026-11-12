@@ -13,6 +13,11 @@ def alive(bm, name):
     return bm.state.get('hp', {}).get(name, 1) > 0
 
 
+def can_cover(bm, name, t=None):
+    """Uncoverable is a state flag, not a numeric damage modifier."""
+    return not any(active(bm, name, 'cover_disabled', t))
+
+
 def recipients(bm, ab):
     return ab.target_chars if ab.target_chars is not None else bm._resolve_lazy(ab)
 
@@ -164,6 +169,28 @@ def remove(bm, ab, t):
 
 def instant(bm, eff, caster, t, value):
     stat = eff.get('stat')
+    if stat == 'enemy_buff_cleanse':
+        # Original DispelFunction removes only removable beneficial functions,
+        # consuming the limit only when a function is actually removed.
+        limit = int(value or 0)
+        for target in bm._resolve_target(eff.get('target', 'all_enemies'), caster):
+            removed = 0
+            for ab in list(bm._active):
+                if ab.effect.get('polarity') != 'beneficial' or t >= ab.expires_at:
+                    continue
+                targets = recipients(bm, ab)
+                if target not in targets:
+                    continue
+                if limit and removed >= limit:
+                    break
+                if len(targets) == 1:
+                    remove(bm, ab, t)
+                else:
+                    ab.target_chars = [n for n in targets if n != target]
+                    ab.per_char_stacks.pop(target, None)
+                    bm._invalidate_buffs_cache()
+                removed += 1
+        return True
     if stat == 'heal_overcharge_discharge':
         # IFAK's stored charge survives its buff expiry until the matching
         # state_end event distributes that charge to every living ally.

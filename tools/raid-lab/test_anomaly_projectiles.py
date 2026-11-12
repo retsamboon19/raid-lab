@@ -46,7 +46,7 @@ class AnomalyProjectileTests(unittest.TestCase):
     def test_default_endpoints_use_measured_formation_and_cover(self):
         from types import SimpleNamespace
         runtime, mechanics = self.mechanics("anomaly-mirror-container")
-        runtime.bm = SimpleNamespace(state={"hp": dict.fromkeys("abcde", 100)})
+        runtime.bm = SimpleNamespace(state={"hp": dict.fromkeys("abcde", 100)}, _by_stat=lambda _: [])
         self.assertEqual(mechanics._target_position("a")[0], (-5.0, -.5, 4.5))
         self.assertEqual(mechanics._target_position("b", "cover")[0], (-3.428, -2.349, 2.7))
         self.assertEqual(mechanics._target_position("e")[0], (5.8, -.5, 4.5))

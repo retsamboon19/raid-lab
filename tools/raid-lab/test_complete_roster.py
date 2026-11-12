@@ -20,7 +20,7 @@ def manager(*names, level=10, favorite=0):
              'base_stats': bases, 'rng_expected': True, 'burst_gauge_charging': True}
     bm = BuffManager(chars, state)
     cs = {c['name']: CharState(c, bases[c['name']]['atk'], '철갑') for c in chars}
-    ctrl = SimpleNamespace(cooldowns={}, next_ready={}, _cooldowns={})
+    ctrl = SimpleNamespace(cooldowns={}, next_ready={}, _cooldowns={}, burst_ready_at={})
     _register_instant_handlers(bm, cs, ctrl)
     return bm, ids, cs
 
