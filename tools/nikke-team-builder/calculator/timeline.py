@@ -1435,14 +1435,20 @@ class CharState:
         events = []
         if self.fire_mode == "auto_warmup":
             self._cool_warmup(t, bm)
-        while t >= self.next_fire_time:
+        while t + (1e-9 if getattr(self, 'native_fire_interval_reset', False) else 0) >= self.next_fire_time:
             if self.ammo <= 0 and not self._has_infinite_ammo(bm, t):
                 self._start_reload(t, bm)
                 break
             fire_rate = self._current_fire_rate(bm, t)
             events.extend(self._fire(t, bm, enemy, cfg))
+            native_reset = getattr(self, 'native_fire_interval_reset', False)
+            if native_reset:
+                # Original153 OnAfterFire clears CurrentAccumFireDelay and
+                # increments RateOfFirePerShot. The next interval starts at
+                # this shot, using the newly warmed rate; no fractional debt.
+                fire_rate = self._current_fire_rate(bm, t)
             inter = 1.0 / fire_rate
-            self.next_fire_time += inter
+            self.next_fire_time = (t if native_reset else self.next_fire_time) + inter
             if self.fire_mode == "auto_warmup":
                 self.last_fire_t = t
                 self._last_inter = inter

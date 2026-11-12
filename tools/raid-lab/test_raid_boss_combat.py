@@ -170,6 +170,7 @@ class RaidBossTests(unittest.TestCase):
         r=RaidBossRuntime([],180,key='anomaly-ultra');bm,names=bind(r)
         skill=r.skills[2]
         r.cover_threats.append(dict(start=1.75,end=2.5,skill=skill,targets=names,parts=[]))
+        r._native_cover_observed_at=1.8
         r.time=1.8;r.update_cover(1.8)
         self.assertEqual(r.covered,set(names));self.assertEqual(len(r.cover_windows),2)
         before=dict(r.cover);r.receive_attack(skill,{'_locked_targets':names})

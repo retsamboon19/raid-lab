@@ -534,7 +534,7 @@ class AnomalyRuntimeTests(unittest.TestCase):
         r=RaidBossRuntime([],180,key='anomaly-indivilia')
         bm,names=bind(r);caster=names[0];part='Weapon_01'
         r.select_part=lambda _:part
-        r.active_stat=lambda name,stat:1 if stat=='pierce_enabled' else 0
+        r.protection=lambda name,stat:stat=='pierce_enabled'
         before=r.world.parts.parts[part]['hp']
         args=[]
         def calculate(**kwargs):
@@ -553,7 +553,7 @@ class AnomalyRuntimeTests(unittest.TestCase):
         r=RaidBossRuntime([],180,key='anomaly-ultra')
         bm,names=bind(r);caster=names[0]
         r.select_part=lambda _:'Weapon_01'
-        r.active_stat=lambda name,stat:1 if stat=='pierce_enabled' else 0
+        r.protection=lambda name,stat:stat=='pierce_enabled'
         before={name:part['hp'] for name,part in r.world.parts.parts.items()}
         kinds=[]
         def calculate(**kwargs):
@@ -574,7 +574,7 @@ class AnomalyRuntimeTests(unittest.TestCase):
         r=RaidBossRuntime([],180,key='anomaly-ultra')
         bm,names=bind(r);caster=r.aim_controller
         self.assertNotEqual(r.select_part(caster),'Weapon_01')
-        r.active_stat=lambda name,stat:1 if stat=='pierce_enabled' else 0
+        r.protection=lambda name,stat:stat=='pierce_enabled'
         self.assertEqual(r.select_part(caster),'Weapon_01')
         before=r.world.parts.parts['Weapon_01']['hp']
         kind=dict(is_normal_atk=True)
@@ -604,7 +604,7 @@ class AnomalyRuntimeTests(unittest.TestCase):
         r=RaidBossRuntime([],180,key='anomaly-ultra')
         bm,names=bind(r);r.barrier=True
         r.select_part=lambda caster:'Weapon_01'
-        r.active_stat=lambda name,stat:1 if stat=='pierce_enabled' else 0
+        r.protection=lambda name,stat:stat=='pierce_enabled'
         kind=dict(is_normal_atk=True,core_prob=1)
         before=r.world.parts.parts['Weapon_01']['hp']
         result=r.resolve(names[0],'작열','SR',kind,lambda **kw:dict(damage=100,is_crit=False,crit_frac=0),dict(hit_type=kind))

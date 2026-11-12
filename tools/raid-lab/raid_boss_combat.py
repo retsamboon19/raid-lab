@@ -452,13 +452,18 @@ class RaidBossRuntime(EncounterRuntime):
         return max((s for s in self.stages if self.damage>=s['ConditionValueMin']),key=lambda s:s['ConditionValueMin'])
     def stat(self,monster=None):return self.stat_rows[((monster or self.data['monster'])['StatenhanceId'],self.stage()['MonsterStageLv'])]
     def bind(self,bm,squad,char_states):
-        self.bm=bm;self.squad={c['name']:c for c in squad};self.char_states=char_states
+        from calculator.buff_manager import _NIKKE
+        # Builds omit immutable identity fields. Incoming elemental checks need
+        # the canonical code also used by outgoing damage and skill targeting.
+        self.bm=bm;self.squad={c['name']:dict(c,element_code=c.get('element_code') or
+            _NIKKE.get(c['name'],{}).get('element_code')) for c in squad};self.char_states=char_states
         # Match the native input policy by original kit identity, not a team
         # fixture or damage threshold (mechanics_mirror_policy.js). The
         # calculator's canonical name maps to native NameCode 5169.
         self.mirror_core_pressure='아니스 : 스타' in self.squad
         bm.state['encounter_runtime']=self
         if self.key in TIMING_DATA['profiles']:
+            for cs in char_states.values():cs.native_fire_interval_reset=True
             # Distance selectors need a real slot origin even for bosses
             # without the separate curve-projectile mechanics component.
             observed=getattr(self,'squad_coordinates',{})
@@ -635,6 +640,7 @@ class RaidBossRuntime(EncounterRuntime):
         if self.stopped:return
         self.time=t;self.frame=state or {};self.covered=set()
         if t>=self.duration-1e-9:self.stopped=True;return
+        self.update_part_stage()
         self.update_cover(t)
         self.tree.advance(t)
         if self.tree.status!=RUNNING:
@@ -692,6 +698,30 @@ class RaidBossRuntime(EncounterRuntime):
         if any(p['status']=='active' and p.get('destroyable',True) for p in self.projectiles) and self.bm:
             self.aim_controller=max(self.char_states,key=lambda n:self.char_states[n].fire_rate*(10 if self.char_states[n].weapon_type=='SG' else 1))
         if state is not None:state['encounter_cover']=self.covered
+        # Original controller observes after the native update, at most once
+        # every three ticks. beforeTick acts on that previous observation.
+        # Reading this frame's timeline before impacts releases cover one frame
+        # early at Attack/end markers (notably Ultra's shockwave/poison).
+        if self.key in TIMING_DATA['profiles']:
+            last=getattr(self,'_native_cover_observed_at',-math.inf)
+            if t-last>=3/60-1e-9:self._native_cover_observed_at=t
+
+    def update_part_stage(self):
+        # Original153 BerserkStepUp -> SpotMonsterStatus.UpdateStatus ->
+        # subpart UpdateStatus -> HPInfoUpdate. The latter caps current HP
+        # at the new maximum (0x66ddbbd), without healing or ratio scaling.
+        step=self.stage()['Step']
+        if step==getattr(self,'_part_stage',1):return
+        self._part_stage=step
+        stat=self.stat()
+        for name,row in self.world.rows.items():
+            if row['IsMainPart'] or not row['HpRatio']:continue
+            part=self.world.parts.parts[name]
+            maximum=part_max_hp(stat,self.data['monster'],row,self.world.main_part)
+            part['max_hp']=maximum
+            part['hp']=min(part['hp'],maximum)
+            self.world.part_hp[name]=maximum
+        self.log('part stats updated',stage=step)
 
     def attack_targets(self,skill,node):
         if not self.bm:return []
@@ -713,6 +743,7 @@ class RaidBossRuntime(EncounterRuntime):
 
     def update_cover(self,t):
         if not self.bm or not self.auto_cover:return
+        observed=getattr(self,'_native_cover_observed_at',-math.inf) if self.key in TIMING_DATA['profiles'] else t
         for a in self.world.attacks.values():
             if a['impacts'] and not a.get('cover_registered'):
                 a['cover_registered']=True
@@ -720,7 +751,7 @@ class RaidBossRuntime(EncounterRuntime):
                 self.cover_threats.append(dict(start=a.get('native_cover_start',min(a['impacts'])-.25),end=a.get('native_cover_end',a['cover_until']),skill=self.skills[a['shot']],targets=a['targets'],parts=a['parts']))
         reasons={}
         for threat in self.cover_threats:
-            if not threat['start']<=t<=threat['end']:continue
+            if not threat['start']<=observed<=threat['end']:continue
             skill=threat['skill']
             if threat['parts'] and any(not self.world.parts.alive(p) for p in threat['parts']):continue
             if self.key in TIMING_DATA['profiles']:
@@ -783,7 +814,7 @@ class RaidBossRuntime(EncounterRuntime):
         if self.active or any(p['status']=='active' and p.get('destroyable',True) for p in self.projectiles) or self.part_policy=='body':return None
         controlled=self.follows_aim(caster,getattr(self,'aim_controller',caster))
         if not controlled and not (self.key=='anomaly-ultra' and self.world.phase>=2):return None
-        pierce=bool(self.bm and self.active_stat(caster,'pierce_enabled')>0)
+        pierce=bool(self.bm and self.protection(caster,'pierce_enabled'))
         preferred=self.anomaly_hook('preferred_part',caster,pierce)
         if preferred and self.world.parts.alive(preferred) and self.part_immune.get(preferred,0)<=self.time:return preferred
         if not controlled:return None
@@ -813,11 +844,11 @@ class RaidBossRuntime(EncounterRuntime):
     def core_probability(self,caster,fallback):
         if self.active or not self.world.core_enabled:return 0.
         part=self.select_part(caster)
-        pierce=bool(self.bm and self.active_stat(caster,'pierce_enabled')>0)
+        pierce=bool(self.bm and self.protection(caster,'pierce_enabled'))
         override=self.anomaly_hook('core_probability',caster,part,pierce)
         if override is not None:return override
         if 'ultra' in self.key:
-            cs=getattr(self,'char_states',{}).get(caster);pierce=bool(cs and self.bm and self.active_stat(caster,'pierce_enabled')>0)
+            cs=getattr(self,'char_states',{}).get(caster);pierce=bool(cs and self.bm and self.protection(caster,'pierce_enabled'))
             return float(self.world.parts.alive('Weapon_01') and (self.world.phase==2 or pierce) and part in (None,'Weapon_01'))
         if self.key=='anomaly-harvester':return float(not self.world.parts.alive('Head'))
         if self.key=='sr40' or self.key=='museum-alteisen':return 0.
@@ -840,7 +871,25 @@ class RaidBossRuntime(EncounterRuntime):
 
     def choose_qte_controller(self):
         self.update_qte_hazards()
-        return KrakenRuntime.choose_qte_controller(self)
+        if not self.bm:return
+        if self.key not in TIMING_DATA['profiles'] or not self.active or not self.active.get('graph'):
+            return KrakenRuntime.choose_qte_controller(self)
+        q=self.active;target=q['graph'].aim(self.time)
+        if target is None:return
+        if q.get('graph_target')!=target['id']:
+            q['controller']=None;q['graph_target']=target['id']
+        options=[]
+        for name,cs in self.char_states.items():
+            if self.bm.state['hp'][name]<=0 or not self.qte_actor_ready(name,cs):continue
+            weapon=self.qte_weapon_type(name,cs.weapon_type)
+            if target.get('weapons') and weapon not in target['weapons']:continue
+            if target.get('element') and target['element'] not in self.element_access.get(name,[self.squad[name].get('element_code')]):continue
+            options.append(name)
+        # mechanics_qte_policy.js retains an eligible owner; acquisition and
+        # reload handoff rank safe ready actors by accumulated actual shots.
+        # A nominal fire-rate comparison incorrectly favoured SMGs over MGs.
+        if q['controller'] not in options:
+            q['controller']=max(options,key=lambda n:self.normal_by_unit.get(n,0)) if options else None
 
     def qte_actor_ready(self,name,state):
         if self.key not in TIMING_DATA['profiles']:return True
@@ -877,6 +926,11 @@ class RaidBossRuntime(EncounterRuntime):
     def target(self,caster,weapon,element):
         self.update_qte_hazards()
         weapon=self.qte_weapon_type(caster,weapon)
+        if self.bm and self.key in TIMING_DATA['profiles'] and self.active and self.active.get('graph'):
+            self.choose_qte_controller()
+            # The generic fallback auto-acquires the first caller. It must not
+            # let a release-fired SR/RL bypass the native readiness filter.
+            if self.active.get('controller') is None:return None
         target=super().target(caster,weapon,element)
         if target is not None:
             key=(self.active['event']['id'],target.get('id',self.active['index']))
@@ -900,7 +954,9 @@ class RaidBossRuntime(EncounterRuntime):
             self.choose_qte_controller();target=self.target(caster,weapon,element)
             if self.key=='anomaly-mirror-container' and self.active.get('graph') and self.active.get('controller')!=caster:
                 return True  # Native teammate Idle isolation during gray presets.
-            return self.active.get('controller')==caster and target is None
+            return target is None and (self.active.get('controller')==caster or
+                self.blocks('untargetable') and not self.living_adds())
+        if self.blocks('untargetable') and not self.living_adds():return True
         part=self.select_part(caster)
         if self.key=='anomaly-mirror-container' and part:
             # Avoid consuming a slipper's first hit with a weak follower.
@@ -1119,10 +1175,14 @@ class RaidBossRuntime(EncounterRuntime):
             collision_result(result,count=int(accepted),part=int(accepted and part is not None and selected_qte is None),core=core,
                              body=(1-core) if accepted and not part and not add and selected_qte is None else 0)
         collisions=()
-        if part and not was_active:
+        if normal and not was_active and not add:
             slots=list(getattr(self,'squad',{}));position=slots.index(caster)+1 if caster in slots else 0
-            pierce=bool(self.bm and self.active_stat(caster,'pierce_enabled')>0)
+            pierce=bool(self.bm and self.protection(caster,'pierce_enabled'))
             collisions=self.anomaly_hook('player_collision_targets',part,position,pierce) or ()
+        if not was_active and not add and hit_type.get('is_projectile_explosion'):
+            from part_explosions import explosion_parts
+            collisions=tuple(dict.fromkeys((*collisions,*explosion_parts(self,caster,weapon,hit_type,part))))
+        if collisions:
             if source_profile and accepted:
                 for secondary in dict.fromkeys(collisions):
                     if secondary=='Body':result['collision_hits']+=1;result['body_hits']+=1
@@ -1144,7 +1204,10 @@ class RaidBossRuntime(EncounterRuntime):
                 self.part_break_damage+=bonus;self.damage+=bonus
                 self.part_break_events.append(dict(time=self.time,part=part,damage=bonus))
                 self.anomaly_hook('on_part_broken',part,self.time,True)
-            if 'Body' in collisions:
+        if not add and amount>0 and not was_active:
+            # A body-aimed piercing ray still intersects surviving subparts.
+            # A destroyed primary core must not disable those later contacts.
+            if part and 'Body' in collisions:
                 body=calculate(**dict(args,enemy_def=body_defence,hit_type=dict(hit_type,is_part=False,is_core=False,core_prob=0)))
                 result['damage']+=body['damage'];self.damage+=body['damage'];amount+=body['damage']
                 self.log('piercing body collision',unit=caster,part=part,damage=body['damage'])
@@ -1166,7 +1229,7 @@ class RaidBossRuntime(EncounterRuntime):
                     self.part_break_damage+=bonus;self.damage+=bonus
                     self.part_break_events.append(dict(time=self.time,part=secondary,damage=bonus))
                     self.anomaly_hook('on_part_broken',secondary,self.time,True)
-                self.log('piercing part collision',unit=caster,part=secondary,damage=damage)
+                self.log('explosion part collision' if hit_type.get('is_projectile_explosion') else 'piercing part collision',unit=caster,part=secondary,damage=damage)
         if all_parts and not self.stopped and not self.blocks('untargetable'):
             # InstantAllParts emits body once, then every living damageable
             # subpart whose collider is enabled. Occlusion does not hide Ultra's
@@ -1258,7 +1321,12 @@ class RaidBossRuntime(EncounterRuntime):
             blocked=None;absorbed=0;shields=[a for a in bm._active if a.shield_per_target.get(n,0)>0 and self.time<a.expires_at]
             if self.protection(n,'invincible'):blocked='invincible'
             elif shields and not traits.get('bypass_shield'):
-                blocked,absorbed=unit_combat.hit_shield(self,n,amount)
+                # InstallBarrier builds a separate entity with DEF=0
+                # (original153 0x6813ee2..0x681400d). Its damage calculation
+                # must not inherit the covered character's DEF or reductions.
+                barrier_damage=incoming_hit(attack,0,skill['SkillValue01'],
+                    stat['LevelStatdamageratio'],skill.get('_damage_shots',skill['ShotCount']))
+                blocked,absorbed=unit_combat.hit_shield(self,n,math.floor(barrier_damage+.5))
             elif recipient=='cover' and self.cover.get(n,0)<=0:
                 blocked='destroyed cover'
             elif not (node.get('_bypass_cover') or traits.get('bypass_cover')) and self.cover.get(n,0)>0 and (recipient=='cover' or unit_combat.hiding(self,n) or self.key not in TIMING_DATA['profiles'] and self.auto_cover and (amount>hp[n]*.95 or any(f['FunctionType'] in ('Stun','Damage') and f['DurationValue']>0 for f in hurt()))):
@@ -1348,6 +1416,7 @@ class RaidBossRuntime(EncounterRuntime):
             report['unresolved_range_selections']=getattr(self,'range_targeting_unresolved',{})
             report['assumptions']=[a for a in report['assumptions'] if not a.startswith(('Animation loops use table casting time.','Crystal sphere uses a 300-hit check','Ordinary projectile interception and summon travel are approximate.','QTE aim assumes'))]
             report['assumptions'] += [
+                'Automatic weapon cadence resets its accumulator after each shot, as in original153 OnAfterFire; this simulation still uses fixed 60 Hz updates rather than the native variable update clock.',
                 'Attack markers, loop repetition, marker-specific slots and movement points use the installed assets. Boss movement integrates native speed and acceleration at intervals no larger than 0.02 seconds; combat-zone constructor defaults are used.',
                 ('Phase cinematics pause battle time and firing. This phase asset stops normal combat ticks, so buffs, damage-over-time, cooldowns, reloads and projectiles also freeze until completion.' if phase_stops_spot_tick(self.key) else
                  'The phase timeline consumes ordinary battle time; effects, cooldowns, projectiles and the squad continue on the normal clock while the boss waits for its animation to finish. No extra virtual time or timer rebase is applied. Continued phase firing is directly verified for Ultra and Mirror Container; Harvester\'s authored 1/60-second transition completed within one measured battle tick.'),
@@ -1357,4 +1426,6 @@ class RaidBossRuntime(EncounterRuntime):
             ]
             if report['unresolved_range_selections']:
                 report['assumptions'].append('Some area-skill target selections lack the live aim ray and animated collider geometry required by the native sphere/capsule cast. They currently retain eligible targets; unresolved selections are counted in this report.')
+            if self.key=='anomaly-ultra':
+                report['assumptions'].append('Ultra explosive chamber contacts use authored bind-pose capsules, native weapon radius and representative body/core impact centers. Animated pose and exact projectile impact positions remain approximate; this is not full collision parity.')
         return report

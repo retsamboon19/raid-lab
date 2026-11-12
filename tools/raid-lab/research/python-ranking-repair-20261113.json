@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "date": "2026-11-13",
+  "status": "FIXES_APPLIED_RANKING_ACCEPTANCE_FAILED",
+  "objective_complete": false,
+  "encounter": {
+    "name": "Ultra Anomaly",
+    "wave": 6302008,
+    "level_cap": 400,
+    "seconds": 180,
+    "seed": 1,
+    "controls": "qte-parts-cover"
+  },
+  "teams": [
+    {
+      "team": 1,
+      "members": [
+        "Liter",
+        "Crown",
+        "Cinderella: Crystal Wave",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "59b11c1d7528914b6a360c85a6d38042c87bbacf5b1097579daaf1482a3eae93",
+      "python_squad_damage": 1773026727,
+      "python_boss_hp_damage": 1941251871,
+      "python_seconds": 179.983,
+      "python_survivors": 4,
+      "native_displayed_damage": 1856070836,
+      "native_seconds": 180.0,
+      "native_job": "e895465704407e5e63fa1eca",
+      "native_verification_sha256": "971250da82a57dc59fd83d03d92db6efe50224f3982cc5eced726f21e874b466",
+      "python_artifact_sha256": "a687b53ea3f3c980c05cab9cc8a4cefa1b5a54aa5e45796bea06b51977a8cec3",
+      "native_artifact_sha256": "15e852088d4f02dfbf25a5453d69558dda8cab4990a6a37f098f97e803645577"
+    },
+    {
+      "team": 2,
+      "members": [
+        "Liter",
+        "Crown",
+        "Cinderella",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "d11ae3afd4dc12817b7e3d9fbc049aedc59634734d41d5ae73447bfbcf900570",
+      "python_squad_damage": 1448451816,
+      "python_boss_hp_damage": 1628861238,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1232972434,
+      "native_seconds": 155.646,
+      "native_job": "44cbdc18b114e0309f31f71c",
+      "native_verification_sha256": "f1284636263470304ce613b1a24542c218161ec0e9497c8cbb204e8d00026b8a",
+      "python_artifact_sha256": "d834c3b6211bc57ff0e6ec1a5f36527f8162b9f43b9503bc9eb043900e640f0c",
+      "native_artifact_sha256": "2d8d2ab07a06bb6f0cc439338816fe65409f3466c7066f3b0817788dbf887edb"
+    },
+    {
+      "team": 3,
+      "members": [
+        "Liter",
+        "Crown",
+        "Snow White: Heavy Arms",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "c319d88f9dee8518ed15bc7e588af46aeb16757e755e3755c0d35ebea1391ab0",
+      "python_squad_damage": 1445531173,
+      "python_boss_hp_damage": 1666657367,
+      "python_seconds": 179.983,
+      "python_survivors": 3,
+      "native_displayed_damage": 1265325176,
+      "native_seconds": 161.115,
+      "native_job": "5477073adc607faff8daece3",
+      "native_verification_sha256": "7e2b3f42205f983d45f871742f0193299cbb3eb8666d21b95ebba1af93bfd099",
+      "python_artifact_sha256": "2486d6636f8159326c464e59d91333f85736ecbb4de80045835004d3f5d2f192",
+      "native_artifact_sha256": "6aca44decbcfbd7221eca86f44f6e72b5e607401b14e33aea324868010d1af61"
+    },
+    {
+      "team": 4,
+      "members": [
+        "Liter",
+        "Crown",
+        "Marian: Queen",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "c70fb4b65c064f022ca041ab4f3fdac98652cd21a7a06d16d3cdb0f3328da037",
+      "python_squad_damage": 2031490565,
+      "python_boss_hp_damage": 2230630381,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1471751916,
+      "native_seconds": 162.998,
+      "native_job": "8766c63c74b3482ec4ed88e3",
+      "native_verification_sha256": "b0a52d9ac1b5143bb1c84ec2afc8e8a44f67984db7ae5e2b2bda398749fe6392",
+      "python_artifact_sha256": "9a3d0be3ed246085b5097486de70c53472fcf98b6a5880a95686102449639f0b",
+      "native_artifact_sha256": "cfdc22e40473cd211f80b93a7ce837bc4287f1c84f10517f80425af5fd24b751"
+    },
+    {
+      "team": 5,
+      "members": [
+        "Liter",
+        "Crown",
+        "Rapi: Red Hood",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "7ddab1783bbc98c7567666ccef9e9b20916ff45f7c743ca6544570177fd6671e",
+      "python_squad_damage": 1678064192,
+      "python_boss_hp_damage": 1867289336,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1583884025,
+      "native_seconds": 180.0,
+      "native_job": "03204aa66305dffc72a8dfed",
+      "native_verification_sha256": "d08d2b9240d29b613be1e4893a76e58b393bf4d36a71a6eced76ffe5e7f636a1",
+      "python_artifact_sha256": "79714339d4d60c911eec76432bc36c81bdefaf9e103b08f1a631075b5674977a",
+      "native_artifact_sha256": "b18ad8541035dffbdc2ec1c3d49d6b3918a231a3a9f1f3fa4c5dea8a3e644b61"
+    }
+  ],
+  "ranking": {
+    "python": [
+      4,
+      1,
+      5,
+      2,
+      3
+    ],
+    "native": [
+      1,
+      5,
+      4,
+      3,
+      2
+    ],
+    "exact_match": false,
+    "top_choice_match": false,
+    "python_metric": "squadDamage",
+    "native_metric": "gameTotalDamage: original displayed getter; not native aggregate",
+    "python_boss_hp_rank": [
+      4,
+      1,
+      5,
+      3,
+      2
+    ]
+  },
+  "fixes": [
+    "Boolean pierce flags now enable secondary contacts, including after primary core destruction.",
+    "Original stage stat updates cap current part HP to new maximum without healing or resurrection.",
+    "Incoming elemental checks use canonical unit identity omitted from build dictionaries.",
+    "Shields use separate zero-DEF damage calculation instead of owner DEF and reductions.",
+    "Cover decisions use prior native observation cadence, retaining cover through end-marker impacts.",
+    "QTE ownership ranks ready safe actors by observed shot damage, hands off on reload and prevents release-fired weapons bypassing eligibility.",
+    "Untargetable boss with no alternative targets holds fire and ammunition.",
+    "Original OnAfterFire accumulator reset replaces fractional shot debt for source-backed Anomaly encounters; next interval uses updated machine-gun rate.",
+    "Ultra explosive collateral uses original weapon radius against authored chamber capsules; representative bind-pose impact is explicitly approximate."
+  ],
+  "source": {
+    "client_version": 153,
+    "game_assembly_sha256": "d39896d3770888039c728a1908448c3db5efa7cdf874c90d56f46d8d566428d2",
+    "rvas": {
+      "InstallBarrier": "0x6813ee2..0x681400d",
+      "HPInfoUpdate_cap": "0x66ddbbd",
+      "OnAfterFire_accumulator_reset": "0x713b206..0x713b225",
+      "OnAfterFire_rate_increment": "0x713b22e..0x713b292",
+      "TryCharacterFire_target_gate": "0x6d364cc..0x6d36519",
+      "UpdateAccumFireDelay": "0x6d36680",
+      "QTE_HP_input": "0x70f3ed0",
+      "QTE_HP_ratio": "0x65bdf50"
+    },
+    "source_hashes": {
+      "raid_boss_combat.py": "e6b1b57d653295f39bdef104babc7674433df8939788009ebb406a33c1506cf2",
+      "part_explosions.py": "b02d8f7288b17f316164b49e693e343e9c2c8be0160a88134c42e3345588e27b",
+      "anomaly-ultra-blast-geometry.json": "9cf4ff17d5635781f89b8f6f08b89c0b61c37fd053782e38983a78558bbfbfc2",
+      "test_ranking_parity.py": "eaccfeeaeedcd72527727ec7e86078a74f74b52a3a7090ec9e5907d2062c7b17",
+      "../nikke-team-builder/calculator/timeline.py": "0ced35b56484a4968075d00bac89b479298d29e51578317917065813104066c6"
+    }
+  },
+  "validation": {
+    "combat_tests": 217,
+    "combat_tests_pass": true,
+    "snapshots_pass": 33,
+    "snapshots_total": 33,
+    "doclint": "PASS",
+    "fresh_native_battles": 5,
+    "native_replays_after_python_edits": 0,
+    "native_engine_modified": false,
+    "foreground_input": false,
+    "legitimate_client_used": false
+  },
+  "remaining": [
+    "Exact five-team ranking and top-choice acceptance FAIL. The source-correct cadence repair exposes remaining errors; do not substitute the earlier superficially closer ranking.",
+    "Native teams 2, 3 and 4 fail late red-circle HP/time checks and die. Python does not reproduce those failures; no recorded death times or team-specific multipliers were injected.",
+    "Animated collision geometry, exact impact centers, variable native update scheduling, aiming downtime and resulting burst timing remain approximate.",
+    "Python squad totals, modeled boss HP damage, native aggregate and original displayed damage are distinct metrics; raw error percentages are not asserted as damage parity.",
+    "Each native team ran once. The older reference bottom pair was reversed; neither series proves repeatability or global optimality.",
+    "Raid Lab still ranks final recommendations using original-engine results. Python shortlist omissions remain possible."
+  ],
+  "retained_experiments": [
+    "barrier-defense",
+    "body-pierce",
+    "canonical-element",
+    "cover-pierce",
+    "elemental-survival",
+    "explosion-capsules",
+    "native-fire",
+    "native-fire-final",
+    "native-rerun",
+    "qte-owner",
+    "stage-hp"
+  ],
+  "deployment": {
+    "workspace": "I:/Raid Lab",
+    "health": "http://127.0.0.1:8767/api/health",
+    "native_results_only": true,
+    "python_screening": true,
+    "worker_reload": "CandidateExecutor uses spawned processes that import current source"
+  }
+}
