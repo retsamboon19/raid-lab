@@ -8,6 +8,7 @@ import copy
 import json
 import math
 import random
+from original_random import OriginalRandom
 from pathlib import Path
 from boss_behavior import BehaviorTree, RUNNING, SUCCESS, FAILURE, UnsupportedBossAction
 from boss_world import PartWorld
@@ -354,7 +355,7 @@ class RaidBossRuntime(EncounterRuntime):
         if part_policy not in ('safe','body','all'):raise ValueError('Invalid part targeting policy')
         self.key=key;self.data=dict(PROFILES[key]);self.mode=mode if mode in self.data['modes'] else 'challenge'
         self.data['monster']=self.data['mode_monsters'][self.mode]
-        self.rng=random.Random(seed);self.choice_policy=choice_policy;self.part_policy=part_policy;self.auto_cover=auto_cover;self.aim_seconds=.15
+        self.rng=(OriginalRandom(seed) if key in TIMING_DATA['profiles'] else random.Random(seed));self.choice_policy=choice_policy;self.part_policy=part_policy;self.auto_cover=auto_cover;self.aim_seconds=.15
         group=self.data['modes'][self.mode]['MonsterStageLvChangeGroup']
         self.stages=sorted([s for s in self.data['stages'] if s['Group']==group],key=lambda x:x['ConditionValueMin'])
         self.stat_rows={(s['GroupId'],s['Lv']):s for s in self.data['stats']}
@@ -463,7 +464,14 @@ class RaidBossRuntime(EncounterRuntime):
         self.mirror_core_pressure='아니스 : 스타' in self.squad
         bm.state['encounter_runtime']=self
         if self.key in TIMING_DATA['profiles']:
-            for cs in char_states.values():cs.native_fire_interval_reset=True
+            from anomaly_qte_shots import base_weapon_parameters
+            for name,cs in char_states.items():
+                cs.native_fire_interval_reset=True
+                parameters=base_weapon_parameters(name) or {}
+                if parameters:
+                    cs.native_first_delay=parameters.get('SpotFirstDelay',0)/100
+                    cs.next_fire_time=max(cs.next_fire_time,cs.native_first_delay)
+                    cs._native_pre_aim_until=cs.native_first_delay
             # Distance selectors need a real slot origin even for bosses
             # without the separate curve-projectile mechanics component.
             observed=getattr(self,'squad_coordinates',{})
@@ -791,14 +799,17 @@ class RaidBossRuntime(EncounterRuntime):
         monster=item.get('monster') or self.data['monster'];stat=self.stat(monster)
         boost=sum(v/10000 for ident,(end,v) in self.effects.items() if ident in self.functions and end>t and self.functions[ident]['FunctionType']=='StatAtk')
         attack=unit_combat.enemy_attack(self,stat['LevelAttack']*monster['AttackRatio']/10000*(1+boost))
-        amount=self.hurt_function_damage(item['function'],name,attack,stat)
+        active=next((a for a in self.bm._active if a.effect is item['marker']),None)
+        stacks=active.stack if active else 1
+        function=dict(item['function'],FunctionValue=item['function']['FunctionValue']*stacks)
+        amount=self.hurt_function_damage(function,name,attack,stat)
         unit_combat.hurt(self,name,amount,direct=False)
         self.incoming.append(dict(time=round(t,3),source='Damage over time',shot=item['function']['Id'],target=name,damage=round(amount),blocked_by=None,hp=round(hp[name]),cover=round(self.cover[name])))
         unit_combat.check_defeat(self)
 
     def apply_hurt_dot(self,function,name,monster):
         duration=function['DurationValue']/100
-        marker=self.debuff_effects.setdefault(('dot',function['Id'],name),dict(type='buff',stat='boss_dot',fixed_value=1,name='Boss damage over time '+str(function['Id']),target='self',polarity='harmful',duration=duration,trigger={'condition':[]}))
+        marker=self.debuff_effects.setdefault(('dot',function['Id'],name),dict(type='buff',stat='boss_dot',fixed_value=1,name='Boss damage over time '+str(function['Id']),target='self',polarity='harmful',duration=duration,max_stack=max(1,function.get('FullCount',1)),trigger={'condition':[]}))
         self.bm._activate(marker,name,self.time)
         if not any(a.effect is marker and a.expires_at>self.time for a in self.bm._active):return
         self.dot_ticks=[d for d in self.dot_ticks if d['marker'] is not marker]
@@ -933,7 +944,7 @@ class RaidBossRuntime(EncounterRuntime):
             if self.active.get('controller') is None:return None
         target=super().target(caster,weapon,element)
         if target is not None:
-            key=(self.active['event']['id'],target.get('id',self.active['index']))
+            key=(self.active['event']['id'],target.get('id',self.active['index']),self.active.get('controller'))
             if key!=self.aim_id:
                 if self.key in TIMING_DATA['profiles']:
                     owner=self.active.get('controller')
@@ -942,7 +953,11 @@ class RaidBossRuntime(EncounterRuntime):
                     # across visible target changes. Initial aim settles for
                     # three updates; the Python battle tick is 1/60 second.
                     keep_held=prior==(key[0],owner) and owner is not None
-                    self.aim_ready=self.time+(0 if keep_held else min(self.aim_seconds,3/60))
+                    from anomaly_qte_shots import base_weapon_parameters,temporary_weapon_parameters
+                    changed=self.bm.get_weapon_change(owner) if self.bm and owner else None
+                    parameters=(temporary_weapon_parameters(owner,weapon) if changed else base_weapon_parameters(owner)) or {}
+                    first_delay=parameters.get('SpotFirstDelay',0)/100
+                    self.aim_ready=self.time+(0 if keep_held else min(self.aim_seconds,3/60)+first_delay)
                     self.qte_aim_owner=(key[0],owner)
                 else:self.aim_ready=self.time+self.aim_seconds
                 self.aim_id=key
@@ -952,6 +967,15 @@ class RaidBossRuntime(EncounterRuntime):
         if self.waiting:return True
         if self.active:
             self.choose_qte_controller();target=self.target(caster,weapon,element)
+            if (self.key=='anomaly-ultra' and self.active.get('graph') and
+                    any(row['status']=='active' for row in self.active['graph'].targets.values()) and
+                    self.active.get('controller')!=caster):
+                # The exposed Ultra preset has no auto-target for followers.
+                # Original GetAutoTargetTransform/IsInShootingZone and
+                # TryCharacterFire require a valid target; retained native
+                # ammo snapshots confirm no follower shots while exposed.
+                # In-flight projectiles still resolve independently.
+                return True
             if self.key=='anomaly-mirror-container' and self.active.get('graph') and self.active.get('controller')!=caster:
                 return True  # Native teammate Idle isolation during gray presets.
             return target is None and (self.active.get('controller')==caster or
@@ -1149,10 +1173,14 @@ class RaidBossRuntime(EncounterRuntime):
         if add:
             args=damage_args_for_target(args,caster,'add',self,add) if self.key in TIMING_DATA['profiles'] else args
             args['enemy_def']=add.get('defence',0);args['hit_type']=dict(hit_type,core_prob=0,is_core=False,is_part=False)
-        before=self.damage;was_active=self.active is not None
+        before=self.damage
         part_stat=self.stat() if part else None
         baseline=self.enemy_def;self.enemy_def=args['enemy_def']
         selected_qte=self.target(caster,weapon,element) if normal and self.active else None
+        # A preset exists during its lead-in, before any circle is exposed.
+        # Those shots still hit the boss and its part colliders. Only a shot
+        # actually routed to a QTE collider excludes ordinary part contacts.
+        was_active=(selected_qte is not None if source_profile else self.active is not None)
         if normal:
             self.last_enemy_target_by_caster[caster]=(add['id'] if add else
                 'special_qte' if selected_qte is not None and selected_qte.get('target_kind')=='special_qte' else '__boss__')

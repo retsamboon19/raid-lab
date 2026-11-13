@@ -1,0 +1,197 @@
+{
+  "schema": 1,
+  "date": "2026-11-13",
+  "status": "RANKING_ACCEPTANCE_FAILED",
+  "objective_complete": false,
+  "encounter": {
+    "name": "Ultra Anomaly",
+    "wave": 6302008,
+    "level_cap": 400,
+    "seconds": 180,
+    "seed": 1,
+    "controls": "qte-parts-cover"
+  },
+  "teams": [
+    {
+      "team": 1,
+      "members": [
+        "Liter",
+        "Crown",
+        "Cinderella: Crystal Wave",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "59b11c1d7528914b6a360c85a6d38042c87bbacf5b1097579daaf1482a3eae93",
+      "python_squad_damage": 1933735501,
+      "python_boss_hp_damage": 2132875317,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1856070836,
+      "native_seconds": 180.0,
+      "native_job": "e895465704407e5e63fa1eca",
+      "native_verification_sha256": "971250da82a57dc59fd83d03d92db6efe50224f3982cc5eced726f21e874b466",
+      "python_artifact_sha256": "c5c21f8f5a96c7f2aff452795e2d31727a2261a109b8e1c5e43d29ef9fb1b9ec",
+      "native_artifact_sha256": "15e852088d4f02dfbf25a5453d69558dda8cab4990a6a37f098f97e803645577"
+    },
+    {
+      "team": 2,
+      "members": [
+        "Liter",
+        "Crown",
+        "Cinderella",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "d11ae3afd4dc12817b7e3d9fbc049aedc59634734d41d5ae73447bfbcf900570",
+      "python_squad_damage": 913321254,
+      "python_boss_hp_damage": 954816004,
+      "python_seconds": 105.717,
+      "python_survivors": 0,
+      "native_displayed_damage": 1232972434,
+      "native_seconds": 155.646,
+      "native_job": "44cbdc18b114e0309f31f71c",
+      "native_verification_sha256": "f1284636263470304ce613b1a24542c218161ec0e9497c8cbb204e8d00026b8a",
+      "python_artifact_sha256": "d86b0b32ce980e26bd5c02dc1c33f9acbf0b27ad27f5595f16151f6e985705a9",
+      "native_artifact_sha256": "2d8d2ab07a06bb6f0cc439338816fe65409f3466c7066f3b0817788dbf887edb"
+    },
+    {
+      "team": 3,
+      "members": [
+        "Liter",
+        "Crown",
+        "Snow White: Heavy Arms",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "c319d88f9dee8518ed15bc7e588af46aeb16757e755e3755c0d35ebea1391ab0",
+      "python_squad_damage": 1906941195,
+      "python_boss_hp_damage": 2122982061,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1265325176,
+      "native_seconds": 161.115,
+      "native_job": "5477073adc607faff8daece3",
+      "native_verification_sha256": "7e2b3f42205f983d45f871742f0193299cbb3eb8666d21b95ebba1af93bfd099",
+      "python_artifact_sha256": "e20b83781f2f45cb7a6e70409a9c9baf111b839145f8e69cb0baabdab89b45a1",
+      "native_artifact_sha256": "6aca44decbcfbd7221eca86f44f6e72b5e607401b14e33aea324868010d1af61"
+    },
+    {
+      "team": 4,
+      "members": [
+        "Liter",
+        "Crown",
+        "Marian: Queen",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "c70fb4b65c064f022ca041ab4f3fdac98652cd21a7a06d16d3cdb0f3328da037",
+      "python_squad_damage": 1983407056,
+      "python_boss_hp_damage": 2182546872,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1471751916,
+      "native_seconds": 162.998,
+      "native_job": "8766c63c74b3482ec4ed88e3",
+      "native_verification_sha256": "b0a52d9ac1b5143bb1c84ec2afc8e8a44f67984db7ae5e2b2bda398749fe6392",
+      "python_artifact_sha256": "f90952de54312e1206c6379cb14a964cf3ca715e3b4cb3a6101830369e27e8bd",
+      "native_artifact_sha256": "cfdc22e40473cd211f80b93a7ce837bc4287f1c84f10517f80425af5fd24b751"
+    },
+    {
+      "team": 5,
+      "members": [
+        "Liter",
+        "Crown",
+        "Rapi: Red Hood",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "7ddab1783bbc98c7567666ccef9e9b20916ff45f7c743ca6544570177fd6671e",
+      "python_squad_damage": 1632693937,
+      "python_boss_hp_damage": 1804905459,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1583884025,
+      "native_seconds": 180.0,
+      "native_job": "03204aa66305dffc72a8dfed",
+      "native_verification_sha256": "d08d2b9240d29b613be1e4893a76e58b393bf4d36a71a6eced76ffe5e7f636a1",
+      "python_artifact_sha256": "10c9226d3e0fbf3511df7677a9e51f460e5c6d27848c4f6178dda5c10bbbcf55",
+      "native_artifact_sha256": "b18ad8541035dffbdc2ec1c3d49d6b3918a231a3a9f1f3fa4c5dea8a3e644b61"
+    }
+  ],
+  "native_rank": [
+    1,
+    5,
+    4,
+    3,
+    2
+  ],
+  "python_rank": [
+    4,
+    1,
+    3,
+    5,
+    2
+  ],
+  "ranking_matches": false,
+  "changes": [
+    "Original FullCount poison stacking, capped at five for Ultra; multiply stack before damage rounding.",
+    "Original seeded System.Random generator for source-bound boss profiles; full engine random consumption order is NOT reproduced.",
+    "QTE owner handoff restarts aim settling and original SpotFirstDelay; preserve held trigger between targets for same owner.",
+    "Hold Ultra follower firing while circles are exposed; reloads and in-flight hits continue.",
+    "Retain boss/part contacts during QTE lead-in before a circle is exposed.",
+    "Apply original weapon pre-fire delay on initial aim, cover release and reload; charge accumulation waits for CanFire."
+  ],
+  "native_source": {
+    "GameAssembly_sha256": "d39896d3770888039c728a1908448c3db5efa7cdf874c90d56f46d8d566428d2",
+    "CalculateDamageFunction": "0x6a92710",
+    "UpdatePreDelay": "0x6d37160",
+    "UpdateChargeTime": "0x6d36b30",
+    "CanFire": "0x6d35000",
+    "ChangeStance": "0x7138190",
+    "ResetFire": "0x714bbd0",
+    "SystemRandomInternalSample": "0x40e3810"
+  },
+  "diagnostics": [
+    {
+      "artifact_sha256": "e235118d6826254353ce1df2f6538150007bcf10233fb2ae716d7a152cc99c8b",
+      "displayed_damage": "1224844159",
+      "duration_ms": 155985,
+      "restore": {
+        "source": "fb9a3aa0537594f27d6e1e89410383ffdfdfd1c572a8c1ad1e7429141e2ce128",
+        "registry": "c994a55befa59d5c1955d85f064d232d7dfe80644ffe388520d2c2c0b584eaf1",
+        "restored": true
+      },
+      "purpose": "Passive QTE ammunition / chamber-HP observation; separate from retained five reference runs."
+    },
+    {
+      "artifact_sha256": "e01ba785d2a7f83bc7107b68dfa90e1b51ead661ac0ed0532cce5afb981478c3",
+      "displayed_damage": "1763413565",
+      "duration_ms": 180000,
+      "restore": {
+        "source": "fb9a3aa0537594f27d6e1e89410383ffdfdfd1c572a8c1ad1e7429141e2ce128",
+        "registry": "c994a55befa59d5c1955d85f064d232d7dfe80644ffe388520d2c2c0b584eaf1",
+        "restored": true
+      },
+      "purpose": "Passive QTE ammunition / chamber-HP observation; separate from retained five reference runs."
+    }
+  ],
+  "remaining_differences": [
+    "Team 2 fails an earlier QTE in Python, while the retained native reference fails later.",
+    "Teams 3 and 4 retain five survivors in Python versus native defeats. Chamber destruction and poison exposure still differ.",
+    "Animated collision geometry, exact firing / burst / ammunition timing and random draw ordering remain approximate.",
+    "Phase-aware centerline and fallback-target experiments were retained privately, then removed because source policy alone did not establish collision parity."
+  ],
+  "verification": {
+    "mechanics_suite": "PASS; 139 tests",
+    "doclint": "PASS; 206 characters",
+    "golden_snapshots": "PASS; 33/33",
+    "five_team_acceptance": "FAIL"
+  },
+  "production": "Raid Lab imports these Python changes in new screening workers. Final team scoring remains original native battles; this report does not certify Python shortlist ordering.",
+  "source_sha256": {
+    "tools/raid-lab/raid_boss_combat.py": "117819a07345dabc37dafdbce3a4a4d63523c66cc9640328e9ba05278d57c48d",
+    "tools/raid-lab/original_random.py": "775b9447a761584f17a7be20274a2e30a8a73f2523882635d34d7cabae3d5e06",
+    "tools/raid-lab/anomaly-weapon-geometry.json": "b08c83c8124d2ff5ad2683046d90ead8fa51897e67c5de17014ea163aa64461a",
+    "tools/nikke-team-builder/calculator/timeline.py": "14d7240cd0b7effe082d726087207600fa985d6a414b81844d37a9777ca603d9"
+  }
+}

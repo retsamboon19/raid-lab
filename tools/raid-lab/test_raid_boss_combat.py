@@ -15,7 +15,7 @@ def bind(r):
     chars=[core.spec.build_char(n,core.default_build(),no_layer=True) for n in names]
     bm=BuffManager(chars,{'hp':dict.fromkeys(names,1e9),'hp_pct':dict.fromkeys(names,100.),'base_stats':{n:{'hp':1e9,'atk':100*(i+1),'def':0} for i,n in enumerate(names)}})
     bm.battle_start(0)
-    r.bind(bm,chars,{n:SimpleNamespace(base_atk=100*(i+1),weapon_type='AR',fire_rate=12,charge_time_base=1,reloading_until=0) for i,n in enumerate(names)})
+    r.bind(bm,chars,{n:SimpleNamespace(base_atk=100*(i+1),weapon_type='AR',fire_rate=12,charge_time_base=1,reloading_until=0,next_fire_time=0) for i,n in enumerate(names)})
     return bm,names
 
 class RaidBossTests(unittest.TestCase):

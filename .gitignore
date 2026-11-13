@@ -191,3 +191,6 @@
 **/.browser-runtime/
 **/.gpu-runtime/
 **/.git/
+
+!/tools/raid-lab/original_random.py
+!/tools/raid-lab/research/python-ranking-finish-20261113.json

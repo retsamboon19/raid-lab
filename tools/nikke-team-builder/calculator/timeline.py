@@ -1277,6 +1277,8 @@ class CharState:
             self._exit_cover(t)
         commanded_cover = can_cover(bm, self.name, t) and (bm.state.get("planned_cover", False) or self.name in bm.state.get("encounter_cover", set()))
         if aiming or commanded_cover:
+            if commanded_cover and getattr(self, 'native_first_delay', 0):
+                self._native_hidden = True
             self.next_fire_time = max(self.next_fire_time, t)
             if not aiming or commanded_cover:
                 self._cancel_end_sensitive_charge(t, bm)
@@ -1287,6 +1289,13 @@ class CharState:
             if reload_runs and self.reloading_until > 0 and t >= self.reloading_until:
                 self._finish_reload(t, bm)
             return []
+
+        if getattr(self, '_native_hidden', False):
+            # Original ChangeStance(Hiding)->ResetFire clears CurrentPreDelay;
+            # UpdatePreDelay advances it only in Aim stance (original153).
+            self.next_fire_time = max(self.next_fire_time, t + self.native_first_delay)
+            self._native_pre_aim_until = t + self.native_first_delay
+            self._native_hidden = False
 
         # 기절 중: 일반공격 불가
         if not roster.alive(bm, self.name) or bm.is_stunned(self.name):
@@ -1433,6 +1442,8 @@ class CharState:
 
     def _tick_auto(self, t: float, bm: BuffManager, enemy: dict, cfg: dict) -> list[HitEvent]:
         events = []
+        if t + 1e-9 < getattr(self, '_native_pre_aim_until', 0):
+            return events
         if self.fire_mode == "auto_warmup":
             self._cool_warmup(t, bm)
         while t + (1e-9 if getattr(self, 'native_fire_interval_reset', False) else 0) >= self.next_fire_time:
@@ -1756,6 +1767,8 @@ class CharState:
 
     def _tick_charge(self, t: float, bm: BuffManager, enemy: dict, cfg: dict) -> list[HitEvent]:
         events = []
+        if t + 1e-9 < getattr(self, '_native_pre_aim_until', 0):
+            return events
 
         if self._charge_phase == "ready":
             if self.ammo <= 0 and not self._has_infinite_ammo(bm, t):
@@ -2984,13 +2997,15 @@ class CharState:
         self._reload_in_weapon_change = False
         self._reload_cancel_after_clip = False
         bm.notify("event:full_reload", t, self.name)
+        if getattr(self, 'native_first_delay', 0):
+            self._native_pre_aim_until = t + self.native_first_delay
         if self._sim_log is not None:
             self._sim_log.reload_log.append(ReloadLogEntry(t=t, caster=self.name, event="재장전 완료"))
             self._sim_log.ammo_log.append(AmmoLogEntry(t=t, caster=self.name, ammo=self.ammo))
         if self.post_reload_delay > 0.0:
             self._post_reload_end_t = t + self.post_reload_delay
         else:
-            self.next_fire_time = t
+            self.next_fire_time = t + getattr(self, 'native_first_delay', 0)
 
     def _auto_reload(self, t: float, bm: BuffManager):
         """엄폐 니케의 딜레이 중 자동재장전. 장탄을 최대로 채우고 event:full_reload 발동.
