@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "date": "2026-11-14",
+  "status": "THREE_TEAM_HARVESTER_RANKING_PASS",
+  "encounter": {
+    "boss": "Anomaly Harvester",
+    "wave": 6302010,
+    "level_cap": 400,
+    "seconds": 180,
+    "seed": 1,
+    "controls": "qte-parts-cover"
+  },
+  "teams": [
+    {
+      "team": 1,
+      "members": [
+        "Crown",
+        "Anis: Star",
+        "Mast: Romantic Maid",
+        "Helm",
+        "Snow White: Heavy Arms"
+      ],
+      "python_before": 5593036861,
+      "python_after": 5232445268,
+      "native_displayed_damage": 4754650113,
+      "python_seconds": 179.983,
+      "native_seconds": 180.0,
+      "python_survivors": 5,
+      "native_survivors": 5,
+      "python_boss_remaining_hp": 502554732,
+      "native_boss_remaining_hp": 980349887,
+      "native_job": "3cdc771684552281bbc7d8ab",
+      "native_verification_sha256": "e501d9837b66de95fbe2c711291d432d2d632497764dbf41054e64ae2c07b841",
+      "request_sha256": "c0887f4130c0298f5ff28e544e421f98c19132e50f3b9736d6fd96902124b433",
+      "python_artifact_sha256": "f202aed2b62234747188e994a4bf26d4db36e336d617e7906d92b31ac35c844d"
+    },
+    {
+      "team": 2,
+      "members": [
+        "Crown",
+        "Little Mermaid",
+        "Mast: Romantic Maid",
+        "Helm",
+        "Snow White: Heavy Arms"
+      ],
+      "python_before": 5042692200,
+      "python_after": 4561005356,
+      "native_displayed_damage": 3869591469,
+      "python_seconds": 179.983,
+      "native_seconds": 180.0,
+      "python_survivors": 5,
+      "native_survivors": 5,
+      "python_boss_remaining_hp": 1173994644,
+      "native_boss_remaining_hp": 1865408531,
+      "native_job": "3931fd50e82a36126aab757d",
+      "native_verification_sha256": "9bd3a5de828bfa5a303b9e6017267332ce9135b2c6ee41c3ce8bfddcf5525a0d",
+      "request_sha256": "cc7811154f702c4b19638731b0eaed670f64c921b7ddf9ef286a89de17f2b6d0",
+      "python_artifact_sha256": "ad33794fea20255faa60b4365a6ee5c5046bcff82933aaf8f0abd8d4e77dd9a7"
+    },
+    {
+      "team": 3,
+      "members": [
+        "Crown",
+        "Anis: Star",
+        "Snow White: Heavy Arms",
+        "Privaty",
+        "Elegg: Boom and Shock"
+      ],
+      "python_before": 3920198695,
+      "python_after": 5735003190,
+      "native_displayed_damage": 5489286358,
+      "python_seconds": 157.117,
+      "native_seconds": 168.275,
+      "python_survivors": 5,
+      "native_survivors": 5,
+      "python_boss_remaining_hp": 0,
+      "native_boss_remaining_hp": 0,
+      "native_job": "50b73d2fe066c02da97100dc",
+      "native_verification_sha256": "1ad7a8b672e4ef31f7cfe21895583207cb65418a8b453c64ecee78660c685d50",
+      "request_sha256": "20d1ac71e08e503a9875de2d00766a6c3947d9c1d360e5f9899af86d098bc76f",
+      "python_artifact_sha256": "6da5c03bb9c481007103c7dc5412bfd2a527ecefe867119d296ad1bee38474d4"
+    }
+  ],
+  "python_rank": [
+    3,
+    1,
+    2
+  ],
+  "native_rank": [
+    3,
+    1,
+    2
+  ],
+  "ranking_matches": true,
+  "cause": "Python omitted the existing native controller targeted-cover policy for primary Shot01/Shot02. The winning team lost Crown at 86.067s and Anis: Star at 91.417s in the baseline, stopping its burst rotation. Both survive after the policy port; all three teams now match native survival counts.",
+  "fix": "Track original primary attack nodes 57/64/71 and the locked target. Acquire targeted cover for 57/64 after observation; retain it across parallel summon attacks. Release on next primary attack, phase change, QTE/timeline preemption or loss of target/cover. Never reacquire the same preempted attack.",
+  "source": {
+    "native_policy_path": "I:\\Nikke offline\\transfer\\battle-parity-20261101\\native153\\encounters153\\tactical\\mechanics_harvester_target_cover.js",
+    "native_policy_sha256": "c8bc98267b889cb027df3de47fd7b78c61bb72a497da7fa19255f8b067f0c4ac",
+    "native_attack_skills": {
+      "57": 510128,
+      "64": 510129
+    },
+    "release_primary_node": 71,
+    "native_winner_cover_events": 32,
+    "production_sha256": "651d2f9b0b0b19eec2ae882a855e62ab65d4387168c0d2b0f5e89996a6d02d71"
+  },
+  "verification": {
+    "production_worker": {
+      "rows": [
+        {
+          "team": 1,
+          "python_damage": 5232445268,
+          "native_displayed_damage": 4754650113,
+          "seconds": 11.791,
+          "request_sha256": "c0887f4130c0298f5ff28e544e421f98c19132e50f3b9736d6fd96902124b433"
+        },
+        {
+          "team": 2,
+          "python_damage": 4561005356,
+          "native_displayed_damage": 3869591469,
+          "seconds": 15.972,
+          "request_sha256": "cc7811154f702c4b19638731b0eaed670f64c921b7ddf9ef286a89de17f2b6d0"
+        },
+        {
+          "team": 3,
+          "python_damage": 5735003190,
+          "native_displayed_damage": 5489286358,
+          "seconds": 11.812,
+          "request_sha256": "20d1ac71e08e503a9875de2d00766a6c3947d9c1d360e5f9899af86d098bc76f"
+        }
+      ],
+      "python_rank": [
+        3,
+        1,
+        2
+      ],
+      "native_rank": [
+        3,
+        1,
+        2
+      ],
+      "passed": true,
+      "path": "native_search.screening_inputs -> CandidateExecutor spawned worker -> core.evaluate_candidate; detail=False"
+    },
+    "targeted_tests": "144 PASS",
+    "doclint": "PASS; 206 characters",
+    "golden_snapshots": "33/33 PASS",
+    "native_reference_policy": "Exact three previously completed engine search battles reused with validated request bindings. No new native battles, controller changes or fitted outcomes."
+  },
+  "limitations": [
+    "Verifies the ranking of these three exact saved teams on Harvester; not a global ranking guarantee.",
+    "Exact damage and timing remain approximate: Python winner clears at 157.117s versus native 168.275s.",
+    "Python total damage and native displayed damage remain distinct metrics; no score multiplier or forced survival was used."
+  ],
+  "app_health": {
+    "app": "Raid Lab",
+    "version": 1,
+    "battleEngine": "original153",
+    "nativeOnly": false,
+    "nativeResultsOnly": true,
+    "pythonScreening": true,
+    "minimumTables": true,
+    "customTeams": true,
+    "nativeSearch": true,
+    "acceleratedPreview": true,
+    "acceleratedPreviewVersion": 2
+  },
+  "usage_used_percent_at_verification": 40
+}

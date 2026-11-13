@@ -1,4 +1,4 @@
-"""Original153 regressions behind the five-team Ultra ranking comparison."""
+"""Original153 regressions behind the Ultra and Harvester ranking comparisons."""
 import unittest
 
 from test_complete_roster import manager, buff
@@ -6,15 +6,51 @@ from test_raid_boss_combat import hit
 from raid_boss_combat import RaidBossRuntime
 
 
-def encounter(*names):
+def encounter(*names, key="anomaly-ultra"):
     bm, ids, states = manager(*names)
     bm.battle_start(0)
-    runtime = RaidBossRuntime([], 180, key='anomaly-ultra')
+    runtime = RaidBossRuntime([], 180, key=key)
     runtime.bind(bm, [cs.char for cs in states.values()], states)
     return runtime, bm, ids
 
 
 class RankingParityTests(unittest.TestCase):
+    def test_harvester_targeted_cover_uses_primary_attack_lifecycle(self):
+        r,bm,(n,other)=encounter('Liter','Crown',key='anomaly-harvester')
+        r.harvester_primary_attack=dict(at=1,node=64,targets=[n],phase=1,consumed=False)
+        r.time=1;r._native_cover_observed_at=.95;r.update_cover(1)
+        self.assertNotIn(n,r.covered)
+        r.time=1.05;r._native_cover_observed_at=1.05;r.update_cover(1.05)
+        self.assertEqual(r.covered,{n})
+        # A parallel summon does not end the primary attack's input ownership.
+        r.world.attacks[24]=dict(impacts=[],shot=9)
+        r.covered=set();r.time=3;r.update_cover(3)
+        self.assertEqual(r.covered,{n})
+        # Missile primary node 71 releases targeted cover rather than extending it.
+        r.harvester_primary_attack=dict(at=3,node=71,targets=[other],phase=1,consumed=False)
+        r.harvester_cover_owner=None;r.covered=set();r._native_cover_observed_at=3
+        r.update_cover(3)
+        self.assertEqual(r.covered,set())
+
+    def test_harvester_qte_preempts_without_reacquiring_same_attack(self):
+        r,bm,(n,)=encounter('Liter',key='anomaly-harvester')
+        r.harvester_primary_attack=dict(at=1,node=57,targets=[n],phase=1,consumed=False)
+        r.time=1;r._native_cover_observed_at=1;r.update_cover(1)
+        self.assertEqual(r.covered,{n})
+        r.active={'event':{}};r.covered=set();r.update_cover(2)
+        self.assertIsNone(r.harvester_cover_owner)
+        r.active=None;r.update_cover(3)
+        self.assertEqual(r.covered,set())
+
+    def test_harvester_targeted_cover_requires_living_target_and_cover(self):
+        r,bm,(n,)=encounter('Liter',key='anomaly-harvester')
+        for field in ('cover','hp'):
+            r.cover[n]=100;bm.state['hp'][n]=100
+            (r.cover if field=='cover' else bm.state['hp'])[n]=0
+            r.harvester_primary_attack=dict(at=1,node=64,targets=[n],phase=1,consumed=False)
+            r.time=1;r._native_cover_observed_at=1;r.covered=set();r.update_cover(1)
+            self.assertEqual(r.covered,set())
+
     def test_original_seeded_random_matches_managed_next(self):
         from original_random import OriginalRandom
         r=OriginalRandom(1)

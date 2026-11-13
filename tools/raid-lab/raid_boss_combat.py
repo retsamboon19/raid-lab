@@ -306,6 +306,11 @@ class RaidWorld(PartWorld):
                 state['end']=ordinary.get('action_end',max(state['end'],ordinary['end']))
             state['node']=dict(node,_locked_targets=state['targets'])
             self.attacks[node['ID']]=state
+            if r.key=='anomaly-harvester' and node['ID'] in (57,64,71):
+                # Same primary-branch lifecycle as mechanics_harvester_target_cover.js.
+                # Parallel summon attacks must not release this input owner.
+                r.harvester_primary_attack=dict(at=time,node=node['ID'],targets=state['targets'],phase=self.phase,consumed=False)
+                r.harvester_cover_owner=None
             r.update_cover(time)
             r.apply_skill_functions(skill,'UseFunctionIdSkill')
             for p in state['parts']:
@@ -775,6 +780,22 @@ class RaidBossRuntime(EncounterRuntime):
                 estimate=incoming_hit(self.stat()['LevelAttack']*self.data['monster']['AttackRatio']/10000,self.bm._effective_def(n),skill['SkillValue01'],self.stat()['LevelStatdamageratio'],skill['ShotCount'])
                 if harmful or estimate>self.bm.state['hp'][n]*.5:
                     reasons[n]='Avoid poison / debuff' if harmful else 'Cover targeted high damage'
+        if self.key=='anomaly-harvester':
+            attack=getattr(self,'harvester_primary_attack',None)
+            preempted=bool(self.active or reasons)
+            if preempted or attack and attack['phase']!=self.world.phase:
+                self.harvester_cover_owner=None
+                if attack:attack['consumed']=True
+            elif attack and observed>=attack['at']:
+                if not attack['consumed']:
+                    attack['consumed']=True
+                    target=next(iter(attack['targets']),None)
+                    if attack['node'] in (57,64) and self.bm.state['hp'].get(target,0)>0 and self.cover.get(target,0)>0:
+                        self.harvester_cover_owner=target
+                owner=getattr(self,'harvester_cover_owner',None)
+                if owner and self.bm.state['hp'].get(owner,0)>0 and self.cover.get(owner,0)>0:
+                    reasons[owner]='Native primary targeted attack'
+                else:self.harvester_cover_owner=None
         from calculator.roster_mechanics import can_cover
         reasons={n:reason for n,reason in reasons.items() if can_cover(self.bm,n,t)}
         self.covered.update(reasons)
