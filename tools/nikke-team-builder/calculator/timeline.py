@@ -1276,6 +1276,17 @@ class CharState:
         if not can_cover(bm, self.name, t) and (self._cover_until_reload or self._cover_until > 0):
             self._exit_cover(t)
         commanded_cover = can_cover(bm, self.name, t) and (bm.state.get("planned_cover", False) or self.name in bm.state.get("encounter_cover", set()))
+        if getattr(self, 'native_fire_interval_reset', False):
+            # Original WeaponLogic.UpdateRateOfFire (0x6d372a0) skips
+            # Idle/Aim stances. Scheduled inter-shot waits do not cool an MG.
+            previous = getattr(self, '_native_warmup_tick', t)
+            self._native_warmup_tick = t
+            if commanded_cover or self.reloading_until > t or bm.is_stunned(self.name):
+                maximum = self.fire_rate_max or self.fire_rate
+                span = maximum - self.fire_rate
+                if span > 0:
+                    cooling = self.warmup_bullets * maximum / span / self.mech.get('cooldown_time', 1.0)
+                    self.warmup_shots = max(0.0, self.warmup_shots - cooling * max(0.0, t - previous))
         if aiming or commanded_cover:
             if commanded_cover and getattr(self, 'native_first_delay', 0):
                 self._native_hidden = True
@@ -1474,6 +1485,8 @@ class CharState:
         return events
 
     def _cool_warmup(self, t: float, bm: BuffManager):
+        if getattr(self, 'native_fire_interval_reset', False):
+            return  # Native cooling is stance-driven in tick, not shot-gap driven.
         # MG 예열은 식는 속도가 있다. 재장전·기절 등으로 사격이 멈춘 구간만큼
         # 시간에 비례해 점진 냉각하고, 정상 연사의 inter-shot 간격은 냉각하지 않는다.
         if self.warmup_shots <= 0.0:

@@ -86,6 +86,30 @@ class RankingParityTests(unittest.TestCase):
         cs._tick_auto(0,bm,{}, {})
         self.assertAlmostEqual(cs.next_fire_time,1/cs._current_fire_rate(bm,0))
 
+    def test_native_mg_does_not_cool_between_scheduled_aim_shots(self):
+        r,bm,(n,)=encounter('Crown');cs=r.char_states[n];shots=[]
+        def fire(t,*args):
+            cs.warmup_shots=min(cs.warmup_bullets,cs.warmup_shots+1)
+            shots.append(t)
+            return []
+        cs._fire=fire
+        for frame in range(301):cs._tick_auto(frame/60,bm,{}, {})
+        # Native trace: sustained Crown ammo falls ~60/s after warmup.
+        # The old gap-based cooler stalled this at 30/s at 60 Hz.
+        self.assertEqual(sum(4 < t <= 5 for t in shots),60)
+        self.assertEqual(cs.warmup_shots,cs.warmup_bullets)
+
+    def test_native_mg_idle_preserves_warmup_cover_cools(self):
+        r,bm,(n,)=encounter('Crown');cs=r.char_states[n]
+        cs.warmup_shots=cs.warmup_bullets
+        r.hold_fire=lambda *args:True
+        cs.tick(1,bm,{},dict(encounter_runtime=r))
+        cs.tick(1.1,bm,{},dict(encounter_runtime=r))
+        self.assertEqual(cs.warmup_shots,cs.warmup_bullets)
+        bm.state['encounter_cover']={n}
+        cs.tick(1.2,bm,{},dict(encounter_runtime=r))
+        self.assertLess(cs.warmup_shots,cs.warmup_bullets)
+
     def test_native_pre_aim_delay_gates_auto_charge_and_reload(self):
         r,bm,(liter,hood)=encounter('Liter','Red Hood')
         cs=r.char_states[liter];shots=[]

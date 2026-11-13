@@ -1,0 +1,202 @@
+{
+  "schema": 1,
+  "date": "2026-11-13",
+  "status": "FIVE_TEAM_RANKING_PASS",
+  "acceptance": "Same five saved squads and builds against the retained original-engine Ultra Anomaly reference series; identical complete damage ordering.",
+  "encounter": {
+    "name": "Ultra Anomaly",
+    "wave": 6302008,
+    "level_cap": 400,
+    "seconds": 180,
+    "seed": 1,
+    "controls": "qte-parts-cover"
+  },
+  "teams": [
+    {
+      "team": 1,
+      "members": [
+        "Liter",
+        "Crown",
+        "Cinderella: Crystal Wave",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "59b11c1d7528914b6a360c85a6d38042c87bbacf5b1097579daaf1482a3eae93",
+      "python_squad_damage": 2187694154,
+      "python_boss_hp_damage": 2384291306,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1856070836,
+      "native_seconds": 180.0,
+      "native_job": "e895465704407e5e63fa1eca",
+      "native_verification_sha256": "971250da82a57dc59fd83d03d92db6efe50224f3982cc5eced726f21e874b466",
+      "python_artifact_sha256": "0b6617c4f752c32ada3148be0cb1ea876308a6113ab76d7b9b166e1e9d78bf2b",
+      "native_artifact_sha256": "15e852088d4f02dfbf25a5453d69558dda8cab4990a6a37f098f97e803645577",
+      "production_worker_damage": 2187694154,
+      "production_worker_seconds": 8.472
+    },
+    {
+      "team": 2,
+      "members": [
+        "Liter",
+        "Crown",
+        "Cinderella",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "d11ae3afd4dc12817b7e3d9fbc049aedc59634734d41d5ae73447bfbcf900570",
+      "python_squad_damage": 905494545,
+      "python_boss_hp_damage": 946989295,
+      "python_seconds": 114.267,
+      "python_survivors": 0,
+      "native_displayed_damage": 1232972434,
+      "native_seconds": 155.646,
+      "native_job": "44cbdc18b114e0309f31f71c",
+      "native_verification_sha256": "f1284636263470304ce613b1a24542c218161ec0e9497c8cbb204e8d00026b8a",
+      "python_artifact_sha256": "92750388c90460a654e6f11f24f5ac736bf76827281bab732c1d92b2d1f78ebd",
+      "native_artifact_sha256": "2d8d2ab07a06bb6f0cc439338816fe65409f3466c7066f3b0817788dbf887edb",
+      "production_worker_damage": 905494545,
+      "production_worker_seconds": 6.797
+    },
+    {
+      "team": 3,
+      "members": [
+        "Liter",
+        "Crown",
+        "Snow White: Heavy Arms",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "c319d88f9dee8518ed15bc7e588af46aeb16757e755e3755c0d35ebea1391ab0",
+      "python_squad_damage": 1163183636,
+      "python_boss_hp_damage": 1286480486,
+      "python_seconds": 160.95,
+      "python_survivors": 0,
+      "native_displayed_damage": 1265325176,
+      "native_seconds": 161.115,
+      "native_job": "5477073adc607faff8daece3",
+      "native_verification_sha256": "7e2b3f42205f983d45f871742f0193299cbb3eb8666d21b95ebba1af93bfd099",
+      "python_artifact_sha256": "2ddfe344f060fbb0f20ff416d4eceaf85faafb2b265d078c626ecad3a5790c58",
+      "native_artifact_sha256": "6aca44decbcfbd7221eca86f44f6e72b5e607401b14e33aea324868010d1af61",
+      "production_worker_damage": 1163183636,
+      "production_worker_seconds": 11.638
+    },
+    {
+      "team": 4,
+      "members": [
+        "Liter",
+        "Crown",
+        "Marian: Queen",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "c70fb4b65c064f022ca041ab4f3fdac98652cd21a7a06d16d3cdb0f3328da037",
+      "python_squad_damage": 2023202379,
+      "python_boss_hp_damage": 2222342195,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1471751916,
+      "native_seconds": 162.998,
+      "native_job": "8766c63c74b3482ec4ed88e3",
+      "native_verification_sha256": "b0a52d9ac1b5143bb1c84ec2afc8e8a44f67984db7ae5e2b2bda398749fe6392",
+      "python_artifact_sha256": "1501a241079cdc72c2349602bbc18d50851266f4f9fdfa33b02f738e648b2ada",
+      "native_artifact_sha256": "cfdc22e40473cd211f80b93a7ce837bc4287f1c84f10517f80425af5fd24b751",
+      "production_worker_damage": 2023202379,
+      "production_worker_seconds": 14.346
+    },
+    {
+      "team": 5,
+      "members": [
+        "Liter",
+        "Crown",
+        "Rapi: Red Hood",
+        "Red Hood",
+        "Helm"
+      ],
+      "request_sha256": "7ddab1783bbc98c7567666ccef9e9b20916ff45f7c743ca6544570177fd6671e",
+      "python_squad_damage": 2128695623,
+      "python_boss_hp_damage": 2334236489,
+      "python_seconds": 179.983,
+      "python_survivors": 5,
+      "native_displayed_damage": 1583884025,
+      "native_seconds": 180.0,
+      "native_job": "03204aa66305dffc72a8dfed",
+      "native_verification_sha256": "d08d2b9240d29b613be1e4893a76e58b393bf4d36a71a6eced76ffe5e7f636a1",
+      "python_artifact_sha256": "33548b1cc16e5995c14c51124d5036de2b363c6625ac7e17dc055bbc31fdb5be",
+      "native_artifact_sha256": "b18ad8541035dffbdc2ec1c3d49d6b3918a231a3a9f1f3fa4c5dea8a3e644b61",
+      "production_worker_damage": 2128695623,
+      "production_worker_seconds": 12.197
+    }
+  ],
+  "python_rank": [
+    1,
+    5,
+    4,
+    3,
+    2
+  ],
+  "native_rank": [
+    1,
+    5,
+    4,
+    3,
+    2
+  ],
+  "ranking_matches": true,
+  "all_pairwise_orderings_correct": 10,
+  "production_worker_path": "native_search.screening_inputs -> CandidateExecutor spawned worker -> core.evaluate_candidate; detail=False",
+  "cause": "The Python shot-gap cooling heuristic ran between ordinary MG Aim shots. With native reset-on-shot timing it stalled Crown at 30 rounds/s rather than reaching the original ~60 rounds/s. Incorrect ammunition, shot-triggered skill and burst timing propagated into QTE ownership and survival differences.",
+  "original_logic": {
+    "method": "NK.Spot.Logic.Character.WeaponLogic.UpdateRateOfFire",
+    "rva": "0x6d372a0",
+    "stance_guard": "0x6d37308..0x6d3730d skips stances 1 and 2 (Idle/Aim)",
+    "cooling": "Other stances decay the accumulated firing-rate bonus by RateOfFireMax / RateOfFireResetTime * deltaTime. The implementation converts this to its warmup-shot representation.",
+    "source_assembly_sha256": "d39896d3770888039c728a1908448c3db5efa7cdf874c90d56f46d8d566428d2",
+    "disassembly_sha256": "5fabc3075f99221dee33a7d0b9c2da51610c9ca85070fe767e08d6d63e6cc129"
+  },
+  "early_trace_check": {
+    "team": 4,
+    "unit": "Crown",
+    "interval_seconds": [
+      5,
+      8
+    ],
+    "native_ammo": [
+      245,
+      71
+    ],
+    "python_before_ammo": [
+      300,
+      210
+    ],
+    "python_after_ammo": [
+      228,
+      48
+    ],
+    "note": "Native elapsed sampling/cadence differs; comparison establishes sustained firing rate, not exact frame/ammo parity."
+  },
+  "verification": {
+    "targeted_tests": "141 PASS",
+    "doclint": "PASS; 206 characters",
+    "golden_snapshots": "33/33 PASS",
+    "full_horizon_python_comparisons": 5,
+    "independent_production_worker_comparisons": 5,
+    "native_references": "Five previously completed original-engine runs reused without replacement or pooling. No new native battles were needed because only Python firing changed.",
+    "production_proof_sha256": "1543cc9c6c35c0bc3dc05890092efb377ac285775e9fa32594b3c403456fcf13"
+  },
+  "scope_limits": [
+    "Ranking acceptance passes for these five exact teams/builds on this boss; it is not a general ranking guarantee.",
+    "Absolute damage and survival do not match the native engine. In particular Marian still survives longer in Python and Cinderella fails earlier.",
+    "The remaining animated collision, RNG consumption and QTE timing approximations are not claimed resolved.",
+    "No team-specific multipliers, forced deaths, copied native outcomes or hardcoded ranking were introduced."
+  ],
+  "source_sha256": {
+    "tools/nikke-team-builder/calculator/timeline.py": "d345b996259c2ee7dfb3fe1abef21f83664235128d4a5c5f0f8ac72fedaf2f27",
+    "tools/raid-lab/raid_boss_combat.py": "117819a07345dabc37dafdbce3a4a4d63523c66cc9640328e9ba05278d57c48d",
+    "tools/raid-lab/original_random.py": "775b9447a761584f17a7be20274a2e30a8a73f2523882635d34d7cabae3d5e06",
+    "tools/raid-lab/anomaly-weapon-geometry.json": "b08c83c8124d2ff5ad2683046d90ead8fa51897e67c5de17014ea163aa64461a"
+  },
+  "supersedes_ranking_status": "python-ranking-finish-20261113.json; retained unchanged as failed historical evidence",
+  "raid_lab_http_status": 200,
+  "usage_used_percent_at_verification": 38
+}
